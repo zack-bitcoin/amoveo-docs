@@ -1,0 +1,15 @@
+Sortition Chain Rollup
+==========
+
+An operator team could gather all the changes for one update into a single sortition-block, and include all the merkel proofs needed to verify that sortition-block.
+So anyone can cheaply follow along with this team of operators, by running a sortition full node to verify if this team of operators has every done an availability attack on any part of the data.
+
+The operators aren't ever running computation, they just commit data from the users. So a sortition full node is just downloading blocks and verifying that merkel-tree relationships in the block are valid. It is using the optimistic roll-up strategy. This makes running a sortition full node very cheap.
+
+Sortition chains are embedded inside each other in a tree structure, so a typical account might involve proving parts of the history of 3 or more sortition chains, but each of those 3 sortition chains will be very small.
+If each sortition chain has 1000 things in it, then 3 layers deep can have 1 trillion accouns.
+
+Computation only needs to be done by people who want to personally own a part of the probabilistic value state. They want to verify that all the previous owners who gave up ownership, that the turing complete contracts connected to giving up ownership have valid evidence to make them return "true".
+Because he could potentially need to provide that evidence, if one of the previous owners pretended that they still owned ths part of the probabilistic value space.
+
+

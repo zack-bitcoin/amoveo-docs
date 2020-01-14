@@ -1,0 +1,25 @@
+Optimistic Rollups sidechain attack
+==========
+
+[optimistic rollup review home](https://github.com/zack-bitcoin/amoveo/blob/master/docs/other_blockchains/optimistic_rollups.md)
+
+optimistic rollup has shards
+===========
+
+If we increase the amount of available data we can store in the consensus space, but still try to maintain only one single merkel tree of everyone's balances, we would run into scaling limitations.
+It just isn't possible to insert elements into a single merkel tree and re-calculate the merkel roots above a certain rate. This computation has some aspects that are not parallelizeable.
+So no matter how many computers we add to the network, there will still be an upper limit on how quickly we can update account balances in any single merkel tree.
+
+So to overcome this limit, we would need to maintain multiple databases of account balances, called shards. And we need some slower mechanism to move value from one shard into another.
+
+Optimistic rollup shards need leadership
+==============
+
+Lets suppose that anyone is allowed to publish a sidechain block. If that is the case, then it would be possible to do level 3 griefing attacks against any of the sidechains.
+
+A sidechain block needs to hold many txs, but an attacker can build a contradictory sidechain block that only contains 1 tx, and he can get his small contradictory block inserted in front of the large block.
+
+So the cost to the attacker is the cost of publishing a single tx into the available consensus state. And the destruction caused by the attack is proportional to the size of an average sidechain block, which we know from [fraud proof analysis](https://github.com/zack-bitcoin/amoveo/blob/master/docs/other_blockchains/optimistic_rollups_fraud_proof_cost.md) must be at least O(sqrt(sqrt(total # of txs in the available consensus space))).
+Since the destruction is bigger than the cost of the attack, this would be a level 3 attack. So that means it would not be secure to have a sidechain that anyone is allowed to publish blocks to.
+
+So that means there needs to be someone, or some group of people with permission to make sidechain blocks. They are the leadership for that sidechain.

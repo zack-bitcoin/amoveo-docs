@@ -1,0 +1,10 @@
+Randao
+========
+
+Randao is a project on Ethereum to create random numbers and make them available to other contracts. This is the paper where they describe how Randao works: https://www.randao.org/whitepaper/Randao_v0.85_en.pdf
+
+
+One example they give is "Super lotto with High Prizes"
+
+
+On page 13 you can see a timeline of how Randao works.

@@ -1,0 +1,18 @@
+Avalanche review
+========
+
+Avalanche is a idea on how to build proof of stake consensus for blockchains.
+
+Here is the avalanche white paper: https://avalanchelabs.org/QmT1ry38PAmnhparPUmsUNHDEGHQusBLD6T5XJh4mUUn3v.pdf
+
+How does Avalanche work?
+========
+
+
+
+
+Avalanche voting governance
+========
+
+Avalance uses voting weighted by how many coins you have to make decisions.
+Voting can never work in blockchains: https://github.com/zack-bitcoin/amoveo/blob/master/docs/design/voting_in_blockchains.md

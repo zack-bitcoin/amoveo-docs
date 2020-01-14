@@ -1,0 +1,6 @@
+Uncertain Expiration Random Number Generator
+=============
+
+The [harmonic rng](https://github.com/zack-bitcoin/amoveo/blob/master/docs/design/harmonic_rng.md) was able to increase RNG security by smearing out control of the entropy equally among many miners by giving each miner control of a fraction of a bit of entropy.
+
+This uncertainty rng is able to increase RNG security by smearing out control of the entropy equally among many miners by removing our certainty over when the RNG process will terminate.

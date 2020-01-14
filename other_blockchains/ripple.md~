@@ -1,0 +1,20 @@
+Ripple
+=========
+
+Ripple is centralized and trustful currency-like software.
+
+This is the white paper for ripple https://arxiv.org/pdf/1802.07242.pdf
+
+Coming online is insecure and trustful
+==========
+
+Bitcoin is trust-free technology. You never have to trust someone to run a node.
+You can have cryptoeconomic guarantees even if you do not run a full node, because a SPV light node can verify the POW in the block headers.
+With PoW there is always exactly one fork that has the most work done, and I can verify which fork has the most work, even if that work was done while I was offline.
+
+With Ripple, in order to know which fork is legitimate, you need to maintain a record of which nodes are on the trusted list. In order to maintain this record, you need to know if any ripple nodes fail to sign the correct updates within the correct time period, that way you can know they should be removed from the trusted list.
+
+The only way to know if a node should be removed from the trusted list is by being online 24/7 to watch if any node makes a mistake. If you were online for any amount of time and then you come online, there is no way for you to know which fork is legitimate.
+
+
+

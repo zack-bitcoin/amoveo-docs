@@ -1,0 +1,16 @@
+Harmonic Random Number Generator
+============
+
+
+
+profitability(n) = (1/n)*all_zeros(n+1).
+
+all_zeros(n) = ((n-1)/n)*all_zeros(n+1).
+
+all_zeros(n) = 1/n.
+
+profitability(n) = (1/n)*(1/n+1) = 1/(n(n+1)).
+
+sum(n=0, 100, profitability(n)) = approx integral from 0 to 1000 of n^-2 dn
+=1-(100^-1) = 0.99
+
