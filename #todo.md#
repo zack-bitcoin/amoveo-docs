@@ -1,3 +1,17 @@
+syncing blocks in reverse order.
+- checkpointing system for the merkel trees.
+- api to serve the checkpoint data in some efficient format.
+- a new version of cron/0 in sync.erl to sync the blocks in reverse order.
+
+
+
+practice making smart contracts with people.
+
+
+
+write "legacy version" on the docs in amoveo/docs
+
+
 consider getting rid of modes in otc_derivatives, move it to home page.
 
 in otc_derivatives.html, some tool to automatically make a bet on an oracle hash, maybe some other preset bets, like a binary bet on whether bitcoin will go up or down in a time period. We can do the front-running protection where both dates are in the future.
