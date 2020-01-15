@@ -1,3 +1,26 @@
+wait for potato and sy to say that they dont use config option db_verion 1, then drop support for that.
+don't need to make db/blocks
+
+
+
+syncing blocks in reverse order.
+- checkpointing system for the merkel trees.
+* every tree with a record in db/data/. needs to have a couple recent backups, the less recent is older than the largest expected configuration value of fork_tolerance.
+* maybe we should upgrade the merkel tree to have a backup feature?
+* recent blocks needs to be synced in order by block_absorber to maintain the tree structure. So that is how we can be sure to backup the trees at the right time. by putting it in block_absorber:absorb_internal/1
+- api to serve the checkpoint data in some efficient format.
+- a new version of cron/0 in sync.erl to sync the blocks in reverse order.
+* block_absorber:absorb_internal/1
+  - refuses blocks older than 300 blocks ago. this is non-compatible with our plan.
+  - it is only used by block:absorb_with_block, which is only used with eithr known good blocks, or by block_absorber
+  - refuses a block if the previous is unknown, or invalid. For old blocks we should just care if the hash is valid for the headers instead.
+
+
+
+practice making smart contracts with people.
+
+
+
 write "legacy version" on the docs in amoveo/docs
 
 
