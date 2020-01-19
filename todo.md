@@ -1,21 +1,46 @@
+looking up O(log2(n)) many blocks from the hard drive is probably a lot slower than looking up O(n) headers in a row for n<300.
+we should re-write get_by_height_in_chain to not use prev_hashes.
+
+remove support for db_version 1.
+
+Then we should be able to get rid of prev_hashes entirely, which should make checkpointing more straightforward.
+
+
+
+syncing headers is very slow.
+
+
 wait for potato and sy to say that they dont use config option db_verion 1, then drop support for that.
 don't need to make db/blocks
+they both confirmed that they don't use version 1.
 
+
+in block_db, for every block we are storing an entry in the X#d.dict dictionary. The key is the block hash, and the value is the location to read that page from the hard drive.
+Maybe it would be better to look up the header, get the height from the header, and then use the height to know which page to read.
 
 
 syncing blocks in reverse order.
-- checkpointing system for the merkel trees.
-* every tree with a record in db/data/. needs to have a couple recent backups, the less recent is older than the largest expected configuration value of fork_tolerance.
-* maybe we should upgrade the merkel tree to have a backup feature?
-* recent blocks needs to be synced in order by block_absorber to maintain the tree structure. So that is how we can be sure to backup the trees at the right time. by putting it in block_absorber:absorb_internal/1
-- api to serve the checkpoint data in some efficient format.
-- a new version of cron/0 in sync.erl to sync the blocks in reverse order.
-* block_absorber:absorb_internal/1
+
+-we ran into an issue. we need to calculate the final merkel root after processing the txs in each block. Currently we can only do this if we maintain a long-term merkel tree.
+We want to wrap up all the merkel proofs into a small updatable merkel data structure that we can update, and then calculate the new merkel root from it.
+It is a temporary structure that we delete as soon as we finish verifying that the block is valid.
+OldTrees in block.erl check2
+
+
+-make sure block:check0 and block:check2 work on every block back to the genesis. store the compressed pages on the hard drive, add pointers in block_db so we can look up blocks from the compressed pages.
+ * block_db needs a cast for writing a full page and recording appropriate pointers.
+  -update X#d.pages based on X#d.page_number.
+  -update X#d.page_number.
+  -update X#d.dict so each hash points to the appropriate page.
+  -update X#d.hd_bytes with how big is the new page.
+
+- sync blocks back to genesis. maybe a new version of cron/0 in sync.erl to sync the blocks in reverse order.
+ * block_absorber:absorb_internal/1
   - refuses blocks older than 300 blocks ago. this is non-compatible with our plan.
   - it is only used by block:absorb_with_block, which is only used with eithr known good blocks, or by block_absorber
   - refuses a block if the previous is unknown, or invalid. For old blocks we should just care if the hash is valid for the headers instead.
 
-
+- verify that both forwards and reverse kinds of nodes can sync with a node that synced in reverse.
 
 practice making smart contracts with people.
 

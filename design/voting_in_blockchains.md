@@ -41,3 +41,7 @@ Arrow's Impossibility Theorem
 It is mathematically impossible to come up with a type of voting that has all the properties we need.
 https://en.wikipedia.org/wiki/Arrow%27s_impossibility_theorem
 
+Links to other writing on this topic
+========
+
+http://hackingdistributed.com/2018/07/02/on-chain-vote-buying/
