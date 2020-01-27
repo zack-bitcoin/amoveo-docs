@@ -21,6 +21,7 @@ From strongest security to weakest, the spectrum of trust:
 3) same as (2) but 0 =< A =< B.
 * if a blockchain mechanism has this kind of level of trust, it is usually considered a bug that needs to be patched. These are griefing attacks https://consensys.github.io/smart-contract-best-practices/known_attacks/#insufficient-gas-griefing
 4) same as (3), but A < 0.
+* so the attack is profiting from the attack.
 
 for the trust level of a protocol, we record 2 numbers. The first number is how bad attacks can be where we can know the attack occured, and the second is how bad the attacks can be where the attack is indistinguishible from unlucky randomness.
 

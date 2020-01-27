@@ -3,6 +3,24 @@ Sortition Chains Implementation
 
 [sortition chains home](./sortition_chains.md)
 
+records
+======
+
+{sortition_new_tx, creator, amount, sortition_id, expiration}
+
+{sortition_claim_tx, winner, sortition_id, proof}
+
+{sortition_evidence_tx, pubkey, sortition_id, loser, signed_waiver}
+
+{sortition_timeout_tx, pubkey, winner, amount_won, sortition_id}
+
+{waiver, pubkey, signature, sortition_chain_id}
+
+{sortition_chain, id, start, end, entropy_source, creator}
+
+{candidate, sortition_id, layer_number, winner_pubkey, height}
+
+
 tx types
 ====
 
@@ -12,22 +30,13 @@ tx types
 * amount of money for the lottery prize.
 * expiration date for when it it becomes possible to make sortition-contract-txs for this sortition chain.
 
-2) sortition split
-
-This splits a sortition chain into two smaller sortition chains.
-
-C = a binary chalang contract to determine how the old sortition chain is split. 
-
-for sortition chain 1, it selects a random value such that C is true.
-for sortition chain 2, it selects a random value such that C is false.
-
-3) sortition claim
+2) sortition claim
 
 * show what height at which you had a claim to the winning part of the probabilistic value.
 * You pay a safety deposit.
-* this potential winner gets added to a list of potential winners.
+* this potential winner gets added to a list of potential winners, or this increases the priority of your existing ownership claim.
 
-4) sortition evidence
+3) sortition evidence
 
 * which potential winner did not win.
 * evidence to prove that they had signed away ownership of the winning part of the probability space.
@@ -49,28 +58,22 @@ for sortition chain 2, it selects a random value such that C is false.
 New Merkel Tree Data Structures in the Consensus State
 ============
 
-1) probabilistic value space
+1) sortition chain
 
-id is a subset range of values in [0,1]
+* range of probability space that could result in a winner
+* where the source of randomness is measured.
+* pubkey of who created this sortition chain
 
-* pubkey of who owns this lottery ticket, or a pair of pubkeys if it is a channel, or a list of operators if it is a baby sortition chain.
 
-2) waivers
-
-id is generated from the sortition ID and pubkey of who is giving up control.
-
-* signature
-* sortition chain ID
-* pubkey of who is giving up control
-
-3) proof of existence
+2) proof of existence
 
 id is the 32 bytes being stored.
 
 * arbitrary 32-bytes.
 * the height where this was recorded.
 
-4) potential_winners
+3) potential_winners
+
 
 for every potential winner there can be multiple layers of sortition chains in their proof that they won.
 for every layer of sortition chain, we need to remember a priority height as well as a list of pubkeys of accounts assigned to collect evidence for when users give up ownership of parts of that layer.
@@ -84,22 +87,31 @@ each pw_root contains a pubkey of who could win.
 so, every pw_root will point to the next pw_root in the linked list. it is ordered based on priority.
 and the pw_root also points to a pw_layer.
 
-5)  potential_winner_layer
+The rule for comparing the priority of 2 branches.
+If the top layer is not a tie, then the winner has higher priority. If it is a tie, go to the next layer.
+
+You can only add a potential_winner if it is higher-priority than the current highest.
+
+  potential_winner_layer
+
+id is hash(sortition id, potential_winner pubkey, layer depth #)
 
 each pw_layer contains a priority height for that layer.
+It has the root-hash
 
-each pw_layer has a pointer to the pw_root it is associated with.
+If someone can demonstrate an alternative way to close this layer that results in a higher priority height, then we can know that this potential_winner did not win.
 
-the pw_layers are a linked list, each pointing to the next. they are ordered based on the order of the sortitoin chains inside of each other.
+4) sortition waivers
+
+id is generated from the sortition ID and pubkey of who is giving up control.
+
+* signature
+* sortition chain ID
+* pubkey of who is giving up control
+
+this is stored to prevent an attacker from re-spamming the same sortition evidence tx after we repeatedly show that this potential winner had given up control.
 
 
-6) potential_winner_spent_proofs
-
-each pw_spent_proof contains the pubkey of the account assigned to collect spent proofs into a merkel tree.
-
-each pw_spent_proof_operator has a pointer to the pw_root it is associated with, and to the pw_layer it is associated with.
-
-the pw_spent_proofs are a linked list, each pointing to the next. 
 
 
 Timeline for horizontal payment

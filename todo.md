@@ -1,18 +1,38 @@
+do we need the ability to split a sortition chain into 2 smaller on-chain sortition chains based on an arbirary rule?
+
+
+Sortition Chains
+* the new records, and basic operations on them.
+* the new merkle trees.
+* the new tx types.
+* api
+* javascript light node interface
+- create a new sortition chain
+- claim winnings from a sortition chain
+- advertise existing sortition chains
+- communicating with the operators of the sortition chain
+- horizontal payments
+- vertical payments
+
+
+it looks like when we are syncing blocks, a lot more of block:check can be moved to block:check0, which will make block processing more parallelized.
+We are loading the blocks an entire list at a time, so it shouldn't be that hard to include the previous block with each block for reference.
+
+
 looking up O(log2(n)) many blocks from the hard drive is probably a lot slower than looking up O(n) headers in a row for n<300.
 we should re-write get_by_height_in_chain to not use prev_hashes.
 
 remove support for db_version 1.
+remove support for hd mode for tries.
 
 Then we should be able to get rid of prev_hashes entirely, which should make checkpointing more straightforward.
 
 
-
 syncing headers is very slow.
+maybe we should store headers in compressed pages, like how we do blocks.
 
+delete unused code in merkleTrie repository.
 
-wait for potato and sy to say that they dont use config option db_verion 1, then drop support for that.
-don't need to make db/blocks
-they both confirmed that they don't use version 1.
 
 
 in block_db, for every block we are storing an entry in the X#d.dict dictionary. The key is the block hash, and the value is the location to read that page from the hard drive.
@@ -21,30 +41,13 @@ Maybe it would be better to look up the header, get the height from the header, 
 
 syncing blocks in reverse order.
 
--we ran into an issue. we need to calculate the final merkel root after processing the txs in each block. Currently we can only do this if we maintain a long-term merkel tree.
-We want to wrap up all the merkel proofs into a small updatable merkel data structure that we can update, and then calculate the new merkel root from it.
-It is a temporary structure that we delete as soon as we finish verifying that the block is valid.
-OldTrees in block.erl check2
-
-
--make sure block:check0 and block:check2 work on every block back to the genesis. store the compressed pages on the hard drive, add pointers in block_db so we can look up blocks from the compressed pages.
- * block_db needs a cast for writing a full page and recording appropriate pointers.
-  -update X#d.pages based on X#d.page_number.
-  -update X#d.page_number.
-  -update X#d.dict so each hash points to the appropriate page.
-  -update X#d.hd_bytes with how big is the new page.
-
+-wait for hard update 27 to activate around Feb 27.
+-switch from calc_roots2 back to calc_roots.
 - sync blocks back to genesis. maybe a new version of cron/0 in sync.erl to sync the blocks in reverse order.
- * block_absorber:absorb_internal/1
-  - refuses blocks older than 300 blocks ago. this is non-compatible with our plan.
-  - it is only used by block:absorb_with_block, which is only used with eithr known good blocks, or by block_absorber
-  - refuses a block if the previous is unknown, or invalid. For old blocks we should just care if the hash is valid for the headers instead.
-
+  -For old blocks we should just care if the hash is valid for the headers instead.
 - verify that both forwards and reverse kinds of nodes can sync with a node that synced in reverse.
 
-practice making smart contracts with people.
-
-
+practice making smart contracts with people. make one smart contract every day.
 
 write "legacy version" on the docs in amoveo/docs
 
