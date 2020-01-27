@@ -25,6 +25,5 @@ They are scalable because their enforcement doesn't require any shared mutable s
 
 
 
-
 Computer programmers don't know enough about finance to know what a derivative is.
 Finance people don't know enough about programming to realize why the lack of shared state is so important in the success of derivatives.

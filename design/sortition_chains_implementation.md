@@ -42,13 +42,13 @@ tx types
 * evidence to prove that they had signed away ownership of the winning part of the probability space.
 * they get removed from the list of potential winners.
 
-5) sortition timeout
+4) sortition timeout
 
 * whichever potential winner has the highest priority claim to win, they win the lottery.
 * a claim linked to an earlier block height has higher priority.
 * this tx can only be made if you wait a sufficient amount of time after the RNG to choose the winner was generated.
 
-6) proof of existence
+5) proof of existence
 
 * This allows the creator to publish 32 bytes of data into the proof of existence tree. It keeps a record of the block height at which this hash was recorded.
 * This is used for hashlocking, because we need to prove at what height a pre-image was available.
