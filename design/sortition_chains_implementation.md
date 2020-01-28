@@ -61,11 +61,11 @@ tx types
 * This is used for hashlocking, because we need to prove at what height a pre-image was available.
 * This is used for sortition operators to record the fact that they have signed a merkel root of a sortition database.
 
-6) vdf response tx
+6) rng value tx
 
 * contains 129 hashes, evenly spaid along the progress of computing the vdf.
 
-7) vdf challange tx
+7) rng challange tx
 
 * which of the 128 gaps are we claiming is invalid?
 * if this gap has less than 1000 hashes, the result is computed on-chain, if there is a disconnect in the 1000, then that means the first response-tx of this tree was invalid.
@@ -73,12 +73,46 @@ tx types
 8) vdf win tx
 
 * if a challenge goes long enough without a response, or a response goes long enough without a challenge, then that outcome wins.
+* if no one can prove that the result is false within a certain time period, we default to considering it as true.
 * it is not possible to do a sortition_claim_tx until after the win_vdf_tx has finalized the RNG that will be used for that sortition chain.
 
 9) vdf refund tx
 
 - if you did a challenge or response, and the evidence you had provided is consistent with the eventual outcome of that RNG, then you can have your fee refunded, plus a small reward.
 - this cleans up unneeded data from the consensus space.
+
+Potential Timeline of txs for a sortition chain
+=============
+
+sortition new tx,
+
+now there is a delay where people can make smart contracts in the sortition chain. 
+
+existence, existence, existence,
+
+existence txs are used to update the state of each sortition chain
+
+eventually the trading period, and all sortition chains are frozen. Now there is a delay for about 24 hour so everyone can have one last chance to spend their veo from the sortition chain.
+
+rng response,
+
+It becomes possible to calculate the RNG, and someone reports it to the chain. Now starts a period of time when it is possible to make challenges txs and response txs on top of this in a tree.
+
+rng challenge, rng challenge, rng response,
+
+Now it becomes impossible to make rng challenges, but it is still possible to make rng responses for this next period.
+
+rng response.
+
+finally it becomes possiblie to do rng_result txs
+
+rng_result
+
+this finalizes the rng value calculated for the sortition chain. Now we can start the dispute process for who won the sortition chain.
+
+sortition claim,
+
+sortition timeout
 
 
 New Merkel Tree Data Structures in the Consensus State
