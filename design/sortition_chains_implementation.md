@@ -105,6 +105,13 @@ It has the root-hash
 If someone can demonstrate an alternative way to close this layer that results in a higher priority height, then we can know that this potential_winner did not win.
 
 
+Claim Proof
+============
+
+A baby sortition chain won the sortition chain if all N of the operators have a signed a merkel root giving the baby sortition chain control of that part of the sortition chain.
+
+An account won if all N of the operators for the winning sortition chain have signed a merkel root that gave that account control of that part of the probability space.
+
 
 
 Timeline for horizontal payment
