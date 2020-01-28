@@ -14,11 +14,11 @@ records
 
 {sortition_timeout_tx, pubkey, winner, amount_won, sortition_id}
 
-{waiver, pubkey, signature, sortition_chain_id}
+{waiver, pubkey, signature, sortition_chain_id, contract_hash}
 
-{sortition_chain, id, start, end, entropy_source, creator}
+{sortition_chain, id, entropy_source, creator, top_candidate}%merkle tree
 
-{candidate, sortition_id, layer_number, winner_pubkey, height}
+{candidate, sortition_id, layer_number, winner_pubkey, height, next_candidate}%merkle tree
 
 
 tx types
@@ -35,12 +35,15 @@ tx types
 * show what height at which you had a claim to the winning part of the probabilistic value.
 * You pay a safety deposit.
 * this potential winner gets added to a list of potential winners, or this increases the priority of your existing ownership claim.
+* you can only do this if your sortition clain will have the highest priority.
 
 3) sortition evidence
 
 * which potential winner did not win.
-* evidence to prove that they had signed away ownership of the winning part of the probability space.
-* they get removed from the list of potential winners.
+* a signed waiver showing that they gave up control, with a contract hash.
+* evidence P2SH to make the contract return `true`. the winning part of the probability state is in the top of the stack before contract execution.
+* they get removed from the list of potential winners, but their `candidate` element is still in the merkle tree, this prevents them from giving the same evidence again to spam the blockchain.
+* you can only do this for the clain that is currently at the top of the priority list.
 
 4) sortition timeout
 
@@ -72,7 +75,7 @@ id is the 32 bytes being stored.
 * arbitrary 32-bytes.
 * the height where this was recorded.
 
-3) potential_winners
+3) candidates
 
 
 for every potential winner there can be multiple layers of sortition chains in their proof that they won.
@@ -100,16 +103,6 @@ each pw_layer contains a priority height for that layer.
 It has the root-hash
 
 If someone can demonstrate an alternative way to close this layer that results in a higher priority height, then we can know that this potential_winner did not win.
-
-4) sortition waivers
-
-id is generated from the sortition ID and pubkey of who is giving up control.
-
-* signature
-* sortition chain ID
-* pubkey of who is giving up control
-
-this is stored to prevent an attacker from re-spamming the same sortition evidence tx after we repeatedly show that this potential winner had given up control.
 
 
 
