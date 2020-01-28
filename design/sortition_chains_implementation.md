@@ -61,9 +61,9 @@ tx types
 * This is used for hashlocking, because we need to prove at what height a pre-image was available.
 * This is used for sortition operators to record the fact that they have signed a merkel root of a sortition database.
 
-6) rng value tx
+6) rng response tx
 
-* contains 129 hashes, evenly spaid along the progress of computing the vdf.
+* contains 129 hashes, evenly spaced along the progress of computing the vdf.
 
 7) rng challange tx
 
@@ -72,8 +72,8 @@ tx types
 
 8) vdf win tx
 
-* if a challenge goes long enough without a response, or a response goes long enough without a challenge, then that outcome wins.
 * if no one can prove that the result is false within a certain time period, we default to considering it as true.
+* if a challenge doesn't get a response for too long a period of time, we consider this rng result as false.
 * it is not possible to do a sortition_claim_tx until after the win_vdf_tx has finalized the RNG that will be used for that sortition chain.
 
 9) vdf refund tx
@@ -98,13 +98,13 @@ rng response,
 
 It becomes possible to calculate the RNG, and someone reports it to the chain. Now starts a period of time when it is possible to make challenges txs and response txs on top of this in a tree.
 
-rng challenge, rng challenge, rng response,
+during this period, if any challenge goes unresponded for too much time, it becomes possible to do rng_result and finalize the rng value.
 
-Now it becomes impossible to make rng challenges, but it is still possible to make rng responses for this next period.
+rng_challenge, rng_challenge, rng_response,
 
-rng response.
+rng_response.
 
-finally it becomes possiblie to do rng_result txs
+finally it becomes possible to do rng_result txs
 
 rng_result
 
@@ -161,7 +161,7 @@ It has the root-hash
 
 If someone can demonstrate an alternative way to close this layer that results in a higher priority height, then we can know that this potential_winner did not win.
 
-4) challenge
+4) rng_challenge
 - id of this challenge
 - pubkey of who made this challenge
 - which of the 128 hashes is incorrect
@@ -172,7 +172,7 @@ If someone can demonstrate an alternative way to close this layer that results i
 Starting at the sortition object as the root, there is a tree that alternates response, challenge, response, challenge.
 The sortition object can have multiple responses. the responses can have multiple challenges, and the challenges can have multiple responses.
 
-5) response
+5) rng_response
 - id of this response
 - pubkey of who made this response
 - has a merkle root for 128 hashes of the vdf
