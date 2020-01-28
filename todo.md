@@ -1,4 +1,49 @@
-do we need the ability to split a sortition chain into 2 smaller on-chain sortition chains based on an arbirary rule?
+plan out records and tx types for RNG fraud proofs.
+
+trees:
+*challenge
+- id of the response being challenged
+- pubkey of who made this challenge
+- which of the 128 hashes is incorrect
+- timestamp
+- refund paid
+*response
+- has a merkle root for 128 hashes of the vdf
+- pubkey of who made this response
+- id of the challenge or sortition object being responded to.
+- timestamp
+- refund paid
+
+Starting at the sortition object as the root, there is a tree that alternates response, challenge, response, challenge.
+The sortition object can have multiple responses. the responses can have multiple challenges, and the challenges can have multiple responses.
+
+txs:
+* challenge_tx
+- if the remaining range is less than ~1000 hashes, we can compute that part on-chain. If there is a disconnect in these 1000, then that means the first response-tx trying to close this sortition chain was invalid.
+* response_tx
+- contains 128 hashes from vdf
+* win_vdf_tx
+- if a challenge goes long enough without a response, or a response goes long enough without a challenge, then that outcome wins.
+- it is not possible to do a sortition_claim_tx until after the win_vdf_tx has finalized the RNG that will be used for that sortition chain.
+* refund_vdf_tx
+- if you did a challenge or response, and the evidence you had provided is consistent with the eventual outcome of that RNG, then you can have your fee refunded, plus a small reward.
+
+
+so, every layer you prove takes about 32 bytes.
+I figure a person should prove 128 evenly spaced hashes. so it is 4 kilobytes per layer of the fraud proof.
+
+1 second is about 10 million hashes.
+1 block is about 10 minutes.
+We want the proof to take 20 blocks, so 200 minutes, which is 2 billion hashes.
+log128(2 billion) is about 4.5
+
+
+We also need to handle the case where people spam incorrect info into the fraud proof.
+The existence of a incorrect fraud proof does not mean that it is impossible to make a correct fraud proof.
+
+
+add delay parameter for one final chance to spend the tx to the sortition chain objects.
+
 
 
 Sortition Chains

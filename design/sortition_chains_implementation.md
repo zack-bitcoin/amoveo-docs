@@ -16,9 +16,13 @@ records
 
 {waiver, pubkey, signature, sortition_chain_id, contract_hash}
 
-{sortition_chain, id, amount, entropy_source, creator, delay, nonce, last_modified, top_candidate, closed}%merkle tree
+{sortition, id, amount, entropy_source, creator, delay, nonce, last_modified, top_candidate, closed}%merkle tree
 
 {candidate, sortition_id, layer_number, winner_pubkey, height, next_candidate}%merkle tree
+
+{challenge, id, sortition_id, response_id, pubkey, timestamp, refunded, n}
+
+{response, id, sortition_id, challenge_id, pubkey, timestamp, refunded, hashes}
 
 
 tx types
@@ -56,6 +60,25 @@ tx types
 * This allows the creator to publish 32 bytes of data into the proof of existence tree. It keeps a record of the block height at which this hash was recorded.
 * This is used for hashlocking, because we need to prove at what height a pre-image was available.
 * This is used for sortition operators to record the fact that they have signed a merkel root of a sortition database.
+
+6) vdf response tx
+
+* contains 129 hashes, evenly spaid along the progress of computing the vdf.
+
+7) vdf challange tx
+
+* which of the 128 gaps are we claiming is invalid?
+* if this gap has less than 1000 hashes, the result is computed on-chain, if there is a disconnect in the 1000, then that means the first response-tx of this tree was invalid.
+
+8) vdf win tx
+
+* if a challenge goes long enough without a response, or a response goes long enough without a challenge, then that outcome wins.
+* it is not possible to do a sortition_claim_tx until after the win_vdf_tx has finalized the RNG that will be used for that sortition chain.
+
+9) vdf refund tx
+
+- if you did a challenge or response, and the evidence you had provided is consistent with the eventual outcome of that RNG, then you can have your fee refunded, plus a small reward.
+- this cleans up unneeded data from the consensus space.
 
 
 New Merkel Tree Data Structures in the Consensus State
@@ -103,6 +126,25 @@ each pw_layer contains a priority height for that layer.
 It has the root-hash
 
 If someone can demonstrate an alternative way to close this layer that results in a higher priority height, then we can know that this potential_winner did not win.
+
+4) challenge
+- id of this challenge
+- pubkey of who made this challenge
+- which of the 128 hashes is incorrect
+- id of the response being challenged
+- timestamp
+- refund paid
+
+Starting at the sortition object as the root, there is a tree that alternates response, challenge, response, challenge.
+The sortition object can have multiple responses. the responses can have multiple challenges, and the challenges can have multiple responses.
+
+5) response
+- id of this response
+- pubkey of who made this response
+- has a merkle root for 128 hashes of the vdf
+- id of the challenge or sortition object being responded to.
+- timestamp
+- refund paid
 
 
 Claim Proof
