@@ -6,17 +6,17 @@ Sortition Chains Implementation
 records
 ======
 
-{sortition_new_tx, creator, amount, sortition_id, expiration}
+{sortition_new_tx, creator, nonce, fee, amount, sortition_id, expiration}
 
-{sortition_claim_tx, winner, sortition_id, proof}
+{sortition_claim_tx, winner, nonce, fee, sortition_id, proof}
 
-{sortition_evidence_tx, pubkey, sortition_id, loser, signed_waiver}
+{sortition_evidence_tx, pubkey, nonce, fee, sortition_id, loser, signed_waiver}
 
-{sortition_timeout_tx, pubkey, winner, amount_won, sortition_id}
+{sortition_timeout_tx, pubkey, nonce, fee, winner, amount_won, sortition_id}
 
 {waiver, pubkey, signature, sortition_chain_id, contract_hash}
 
-{sortition_chain, id, entropy_source, creator, top_candidate}%merkle tree
+{sortition_chain, id, amount, entropy_source, creator, delay, nonce, last_modified, top_candidate, closed}%merkle tree
 
 {candidate, sortition_id, layer_number, winner_pubkey, height, next_candidate}%merkle tree
 
