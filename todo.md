@@ -1,6 +1,21 @@
-plan out records and tx types for RNG fraud proofs.
+rethink the records and merkle trees now that we know we need an additional tx type and tree type.
+sortition_result.
+
+
+the new tx types need new governance values for the cost of their fees.
+
+
+
+in each tx file, remove the no longer used `make` function
+
+
+
+a lot of the tree modules have practically identical functions. It would be better to abstract the repeated code into trees.erl.
+
+
 
 trees:
+* candidate
 *challenge
 - id of the response being challenged
 - pubkey of who made this challenge
@@ -14,10 +29,12 @@ trees:
 - timestamp
 - refund paid
 
-Starting at the sortition object as the root, there is a tree that alternates response, challenge, response, challenge.
-The sortition object can have multiple responses. the responses can have multiple challenges, and the challenges can have multiple responses.
 
 txs:
+* sortition new
+* sortition claim
+* sortition evidence
+* sortition timeout
 * challenge_tx
 - if the remaining range is less than ~1000 hashes, we can compute that part on-chain. If there is a disconnect in these 1000, then that means the first response-tx trying to close this sortition chain was invalid.
 * response_tx
@@ -27,6 +44,10 @@ txs:
 - it is not possible to do a sortition_claim_tx until after the win_vdf_tx has finalized the RNG that will be used for that sortition chain.
 * refund_vdf_tx
 - if you did a challenge or response, and the evidence you had provided is consistent with the eventual outcome of that RNG, then you can have your fee refunded, plus a small reward.
+
+
+verify smart contract in case of receiving funds in the sortition chain.
+verify smart contract in case of spending funds in the sortition chain.
 
 
 so, every layer you prove takes about 32 bytes.

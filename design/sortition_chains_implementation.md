@@ -16,13 +16,14 @@ records
 
 {waiver, pubkey, signature, sortition_chain_id, contract_hash}
 
-{sortition, id, amount, entropy_source, creator, delay, nonce, last_modified, top_candidate, closed}%merkle tree
+{sortition, id, amount, entropy_source, creator, trading_ends, rng_response_delay, rng_end, rng_value, delay, last_modified, top_candidate, closed}%merkle tree
+%delay is how long between sortition_clain_tx you have to create a sortition_evidence
 
 {candidate, sortition_id, layer_number, winner_pubkey, height, next_candidate}%merkle tree
 
-{challenge, id, sortition_id, response_id, pubkey, timestamp, refunded, n}
+{rng_challenge, id, sortition_id, response_id, pubkey, timestamp, refunded, n}
 
-{response, id, sortition_id, challenge_id, pubkey, timestamp, refunded, hashes}
+{rng_response, id, sortition_id, challenge_id, pubkey, timestamp, refunded, hashes}
 
 
 tx types
@@ -39,7 +40,7 @@ tx types
 * show what height at which you had a claim to the winning part of the probabilistic value.
 * You pay a safety deposit.
 * this potential winner gets added to a list of potential winners, or this increases the priority of your existing ownership claim.
-* you can only do this if your sortition clain will have the highest priority.
+* you can only do this if your sortition claim will have the highest priority.
 
 3) sortition evidence
 
@@ -60,26 +61,33 @@ tx types
 * This allows the creator to publish 32 bytes of data into the proof of existence tree. It keeps a record of the block height at which this hash was recorded.
 * This is used for hashlocking, because we need to prove at what height a pre-image was available.
 * This is used for sortition operators to record the fact that they have signed a merkel root of a sortition database.
-
-6) rng response tx
+6) rng result tx
 
 * contains 129 hashes, evenly spaced along the progress of computing the vdf.
+* then you pay a safety deposit assigned to your pubkey.
+* points at a sortition contract
 
 7) rng challange tx
 
 * which of the 128 gaps are we claiming is invalid?
-* if this gap has less than 1000 hashes, the result is computed on-chain, if there is a disconnect in the 1000, then that means the first response-tx of this tree was invalid.
+* points at a result or response.
 
-8) vdf win tx
+8) rng response tx
 
-* if no one can prove that the result is false within a certain time period, we default to considering it as true.
-* if a challenge doesn't get a response for too long a period of time, we consider this rng result as false.
-* it is not possible to do a sortition_claim_tx until after the win_vdf_tx has finalized the RNG that will be used for that sortition chain.
+* contains 129 hashes, evenly spaced along the progress of computing the vdf.
+* points at a challenge.
 
-9) vdf refund tx
+9) rng win tx
 
-- if you did a challenge or response, and the evidence you had provided is consistent with the eventual outcome of that RNG, then you can have your fee refunded, plus a small reward.
-- this cleans up unneeded data from the consensus space.
+* if no one can prove that the result is false within a certain time period, we default to considering it as the correct rng output.
+* it is not possible to do a sortition_claim_tx until after the rng_win_tx has finalized the RNG that will be used for that sortition chain.
+
+10) rng refund tx
+
+* if this gap has less than 1000 hashes, the result is computed on-chain, if there is a disconnect in the 1000, then we consider this rng result as invalid.
+* OR if a challenge doesn't get a response for too long a period of time, we consider this rng result as an incorrect rng output.
+* if you did a challenge or response, and the evidence you had provided is consistent with the eventual outcome of that RNG, then you can have your fee refunded, plus a small reward.
+* this cleans up unneeded data from the consensus space.
 
 Potential Timeline of txs for a sortition chain
 =============
@@ -98,13 +106,11 @@ rng response,
 
 It becomes possible to calculate the RNG, and someone reports it to the chain. Now starts a period of time when it is possible to make challenges txs and response txs on top of this in a tree.
 
-during this period, if any challenge goes unresponded for too much time, it becomes possible to do rng_result and finalize the rng value.
+during this period, if any challenge goes unresponded for too much time, then the parent rng_response of this tree of possibilities is marked as invalid. Whoever had posted it has failed to defend its integrity. 
 
-rng_challenge, rng_challenge, rng_response,
+rng_challenge, rng_challenge, rng_response, rng_response.
 
-rng_response.
-
-finally it becomes possible to do rng_result txs
+finally enough time has passed that it becomes possible to do rng_result txs
 
 rng_result
 
@@ -163,22 +169,25 @@ If someone can demonstrate an alternative way to close this layer that results i
 
 4) rng_challenge
 - id of this challenge
+- id of result being challenged
 - pubkey of who made this challenge
-- which of the 128 hashes is incorrect
-- id of the response being challenged
+- id of a parent challenge, if it exists
 - timestamp
-- refund paid
+- if refund was paid
+- which of the 128 gaps is being challenged.
 
-Starting at the sortition object as the root, there is a tree that alternates response, challenge, response, challenge.
-The sortition object can have multiple responses. the responses can have multiple challenges, and the challenges can have multiple responses.
 
-5) rng_response
+Starting at the sortition object as the root, there is a tree that starts with rng_result, and then has one or more branching trees of rng_challenges coming from it.
+The sortition object can have multiple responses. the responses can have multiple challenges, and the challenges can have multiple challenge descendents.
+
+5) rng_result
 - id of this response
+- id of the sortition chain
 - pubkey of who made this response
 - has a merkle root for 128 hashes of the vdf
-- id of the challenge or sortition object being responded to.
-- timestamp
-- refund paid
+- a pointer to the next possible result in the queue
+- is this result proved impossible?
+- is this result confirmed as true?
 
 
 Claim Proof
@@ -193,18 +202,24 @@ An account won if all N of the operators for the winning sortition chain have si
 Timeline for horizontal payment
 =============
 
-Bob has veo in a sortition chain, he wants to spend to Alice, and he wants the option to hashlock this payment against something else.
+lets say that I are the one who will reveal the secret.
+I ask the operators of my sortition chain (called A) to make a tx that puts you next in line to own my value, but the tx is only valid if a secret is revealed on the main-chain before an expiration date, otherwise the value goes back to me. I am third in line as well as first.
 
+You ask the operators of your sortition chain (called B) to make a tx to put me next in line to own your value, if the secret is revealed on the main chain before the expiration, otherwise it goes back to you, you are third in line as well as first.
 
-1) Alice downloads all the history of all the merkel proofs of Bob's part of the probability space. She downloads this history from any of the operators, or from Bob.
+I give up my spot as first in line.
+You give up your spot as first in line.
 
-2) Bob gives the operators a signed message explaining how he wants to pay part of his money to Alice. He makes a signed message saying that if a particular pre-image is revealed, he will give up ownership of his part of the probability space. 
+I reveal the secret.
 
-3) Alice verifies that the signed message about Bob giving up ownership is committed. She verifies that there was a commitment giving her 2nd highest priority ownership of Bob's part of the probabilistic value space. Now Alice can know if the pre-image is revealed, that she will own the value.
+Now I am first in line on sortition chain B, as long as I have the secret to prove ownership, and you are first in line on my sortition chain A, as long as you have the secret.
 
-4) Alice sets up the other half of the hashlock using the same commitment. To pay Bob.
+So I ask the sortition chain B operators to make me third in line, and you ask the sortition chain A operators to make you third in line.
 
-5) Bob reveals secret S to Alice. So now Alice controls the value Bob had wanted to spend to her.
+Then we both give up our 2nd in line spots.
+
+Now we both have ownership on the correct side, and we don't need to publish any secret to the main chain.
+So it seems like we for sure need contracts on the txs that assign ownership to someone.
 
 Timeline for vertical payment
 ===========
