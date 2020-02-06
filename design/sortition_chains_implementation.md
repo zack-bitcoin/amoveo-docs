@@ -67,7 +67,7 @@ tx types
 * then you pay a safety deposit assigned to your pubkey.
 * points at a sortition contract
 
-7) rng challange tx
+7) rng challenge tx
 
 * which of the 128 gaps are we claiming is invalid?
 * points at a result or response.
@@ -77,17 +77,28 @@ tx types
 * contains 129 hashes, evenly spaced along the progress of computing the vdf.
 * points at a challenge.
 
-9) rng win tx
+9) rng confirm tx
 
-* if no one can prove that the result is false within a certain time period, we default to considering it as the correct rng output.
-* it is not possible to do a sortition_claim_tx until after the rng_win_tx has finalized the RNG that will be used for that sortition chain.
+* if no one can prove that the result is false within a certain time period, we default to considering it as the correct rng output. (check that radix > 0).
+* it is not possible to do a sortition_claim_tx until after the rng_confirm_tx has finalized the RNG that will be used for that sortition chain.
 
-10) rng refund tx
+10) rng refute tx
 
 * if this gap has less than 1000 hashes, the result is computed on-chain, if there is a disconnect in the 1000, then we consider this rng result as invalid.
 * OR if a challenge doesn't get a response for too long a period of time, we consider this rng result as an incorrect rng output.
 * if you did a challenge or response, and the evidence you had provided is consistent with the eventual outcome of that RNG, then you can have your fee refunded, plus a small reward.
-* this cleans up unneeded data from the consensus space.
+
+11) rng_cleanup_challenge
+
+* show that some rng_challenge exists that points at a rng_result.
+* show that a rng_result is settled, or that it does not exist.
+* we can get rid of the rng_challenge.
+* refund fees for users who participated honestly.
+
+12) rng_cleanup_result
+
+* show that some rng_result exists.
+* show that the sortition chain it is pointed at has been settled, or does not exist.
 
 Potential Timeline of txs for a sortition chain
 =============

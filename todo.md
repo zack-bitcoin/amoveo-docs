@@ -1,57 +1,34 @@
-rethink the records and merkle trees now that we know we need an additional tx type and tree type.
-sortition_result.
+trees/ownership.erl
+* we need to find a way to build a tree with contracts in the rules. The first implementation doesn't need to be very efficient.
+
+* more tests of the new sortition chains.
+  - smart contract involving an oracle's value.
+  - betting using an oracle that doesn't exist yet.
+  - atomic swap value between 2 sortition chains.
+  - receiving value in a sortition chain that you didn't previously know about, including merkle proofs of the history for the part of the value you will own.
+  - making that one final spend tx after a sortition chain has ended trading. 
+
+needed txs:
+* clean up old rng stuff. rng_challenge, rng_response, rng_result. Maybe we need to pay out rewards too.
+* clean up old sortition stuff. sortition_blocks.
+* clean up empty accounts.
 
 
-the new tx types need new governance values for the cost of their fees.
+for all the new tree types, find deterministic ways to calculate their location in the tree. This prevents users from making the tree unbalanced, and can prevent some pay-to-replace problems in the tx pool, and prevents ID reuse between different trees.
 
+
+we need to charge a big governance fee for rng_result tx somehow. maybe we need new governance values.
+* rng_challenge_tx needs a governance fee.
 
 
 in each tx file, remove the no longer used `make` function
-
 
 
 a lot of the tree modules have practically identical functions. It would be better to abstract the repeated code into trees.erl.
 
 
 
-trees:
-* candidate
-*challenge
-- id of the response being challenged
-- pubkey of who made this challenge
-- which of the 128 hashes is incorrect
-- timestamp
-- refund paid
-*response
-- has a merkle root for 128 hashes of the vdf
-- pubkey of who made this response
-- id of the challenge or sortition object being responded to.
-- timestamp
-- refund paid
 
-
-txs:
-* sortition new
-* sortition claim
-* sortition evidence
-* sortition timeout
-* challenge_tx
-- if the remaining range is less than ~1000 hashes, we can compute that part on-chain. If there is a disconnect in these 1000, then that means the first response-tx trying to close this sortition chain was invalid.
-* response_tx
-- contains 128 hashes from vdf
-* win_vdf_tx
-- if a challenge goes long enough without a response, or a response goes long enough without a challenge, then that outcome wins.
-- it is not possible to do a sortition_claim_tx until after the win_vdf_tx has finalized the RNG that will be used for that sortition chain.
-* refund_vdf_tx
-- if you did a challenge or response, and the evidence you had provided is consistent with the eventual outcome of that RNG, then you can have your fee refunded, plus a small reward.
-
-
-verify smart contract in case of receiving funds in the sortition chain.
-verify smart contract in case of spending funds in the sortition chain.
-
-
-so, every layer you prove takes about 32 bytes.
-I figure a person should prove 128 evenly spaced hashes. so it is 4 kilobytes per layer of the fraud proof.
 
 1 second is about 10 million hashes.
 1 block is about 10 minutes.
@@ -59,17 +36,11 @@ We want the proof to take 20 blocks, so 200 minutes, which is 2 billion hashes.
 log128(2 billion) is about 4.5
 
 
-We also need to handle the case where people spam incorrect info into the fraud proof.
-The existence of a incorrect fraud proof does not mean that it is impossible to make a correct fraud proof.
-
-
 add delay parameter for one final chance to spend the tx to the sortition chain objects.
 
 
 
 Sortition Chains
-* the new records, and basic operations on them.
-* the new merkle trees.
 * the new tx types.
 * api
 * javascript light node interface
