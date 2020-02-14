@@ -7,6 +7,8 @@ Avalanche is a idea on how to build proof of stake consensus for blockchains.
 
 Here is the avalanche white paper: https://avalanchelabs.org/QmT1ry38PAmnhparPUmsUNHDEGHQusBLD6T5XJh4mUUn3v.pdf
 
+Febuary 2020 link to updated white paper: https://github.com/ava-labs/public-facing-docs/raw/master/ava-platform.pdf you can see in the "mechanism and properties" section that they have not fixed the flaws.
+
 How does Avalanche work?
 ========
 

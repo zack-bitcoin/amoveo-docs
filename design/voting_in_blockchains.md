@@ -1,12 +1,28 @@
 Voting does not work
 ==========
 
-1) there is no stable equilibrium in voting mechanisms
-2) the nash equilibrium of voting is rational ignorance
-3) it impossible to prevent selling votes
-4) P+epsilon attack means an attacker can cause us to vote for something we hate, and the attacker doesn't even have to pay us to do it.
-5) Arrow's impossibility theorem
+* what do we mean by "voting"?
+* there is no stable equilibrium in voting mechanisms
+* the nash equilibrium of voting is rational ignorance
+* it impossible to prevent selling votes
+* P+epsilon attack means an attacker can cause us to vote for something we hate, and the attacker doesn't even have to pay us to do it.
+* Arrow's impossibility theorem
 
+
+Voting
+=========
+
+voting is a protocol for making decisions. It has a pool of more than 1 people who each have some influence over a decision that is being made.
+
+In a betting protocol, one of the choices is "true", and you get rewarded for betting on the true outcome and punished for betting on the false outcome.
+
+If there is no true-option, or if (there is no reward for selecting the true-outcome and punishment for selecting the false outcome), then it is a voting protocol, and it is not a betting protocol.
+
+The coin increasing in value because of good decisions and decreasing in value because of bad decisions is not enough of a reward.
+Because of tragedy of the commons, these effects cancel out. 
+If the attack will succeed and destroy the value of your coins either way, you might as well join and get paid a bribe.
+
+So the reward has to be increasing the portion of coins you own inside the system, and the punishment has to be decreasing the portion of coins you own in the system.
 
 no stable equilibrium
 ==========

@@ -1,9 +1,27 @@
-layer sortition chains inside each other.
-- sortition claim needs to handle relative priorities for layered chains.
-- sortition evidence needs to work for sortition chains inside sortition chains.
+give a history of sortition chains, how the ideas developed and came together. Where the ideas came from.
 
-sortition_timeout_tx
-- add a second claim to test_txs(31).
+
+
+security issue. People can squat on channel ids to make contracts invalid.
+* we are now using new_channel_tx.id as salt to generate the actual id with new_channel_tx:salted_id.  We need to find out if this is compatible with javascript stuff. go through the otc betting process.
+* this fix doesn't work for sortition chains. with sortition chains it is important that both pubkeys are used to salt the ID, otherwise one of them could make a channel to block the other.
+
+why do we support 2 ways of making channels? can we stop supporting one of them?
+
+
+
+sortition_timeout should also be able to pay out to channels.
+* candidate merkle tree should be able to store 2 accounts, in case it is a channel.
+* ownership.erl's owner object should be able to store 2 pubkeys, in case it is a channel.
+* sortition_claim_tx should be able to add 2 pubkeys to the new candidate, if it is a channel.
+* sortition_evidence_tx. in case of a channel, it should require that the waiver was signed by both participants.
+* sortition_timeout_tx. if the candidate points to 2 winners, then make a channel. in that case, the tx needs a channel id that hasn't 
+
+
+
+
+add a check to the new txs, so they aren't valid until after the hard update height 28.
+
 
 * more tests of the new sortition chains.
   - smart contract involving an oracle's value.

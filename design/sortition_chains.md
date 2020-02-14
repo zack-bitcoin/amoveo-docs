@@ -15,6 +15,8 @@ Related documents:
 
 [sortition rollup](./sortition_chain_rollup.md)
 
+[sortition history and acknowledgements](./sortition_chain_history.md)
+
 
 What is a Sortition Chain?
 =========
@@ -57,3 +59,4 @@ Embedding smart contracts
 When people sign a message that they are giving up control of part of the sortition value space, they can include a commitment to a smart contract. That way they are only giving up control if someone can provide evidence to make the smart contract return "true". Similar to unlocking a bitcoin UTXO.
 
 This allows us to use turing complete contracts to determine who owns which parts of the probabilistic value space.
+
