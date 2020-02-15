@@ -6,7 +6,7 @@ The goal of chainlink is to make oracles. The oracles will provide data to the b
 
 Chainlink's strategy for security is not so good. They seem to think that if they describe a large enough volume of different mechanisms, that no one will be able to find a bug in the tangled mess.
 
-Luckily I have developed a simple to calculate model for trust https://github.com/zack-bitcoin/amoveo/blob/master/docs/basics/trust_theory.md
+Luckily I have developed a simple to calculate model for trust basics/trust_theory.md
 We can use this model of trust to quickly find out if Chainlink can be a secure oracle or not.
 
 A key concept we will use to simplify this analysis is that a mechanism can only be as secure as it's weakest part.

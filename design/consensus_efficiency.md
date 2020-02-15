@@ -4,11 +4,11 @@ draft 3
 
 Models have been proposed to explain relationships of different aspects of the blockchain.
 
-We have a model that show the relationship between security, trust, and the cost of fees. [Trust Theory](https://github.com/zack-bitcoin/amoveo/blob/master/docs/basics/trust_theory.md)
+We have a model that show the relationship between security, trust, and the cost of fees. [Trust Theory](basics/trust_theory.md)
 
-We have models to show a relationship between scalability and the costs of fees [Sharding strategies compared](https://github.com/zack-bitcoin/amoveo/blob/master/docs/other_blockchains/sharding.md)
+We have models to show a relationship between scalability and the costs of fees [Sharding strategies compared](other_blockchains/sharding.md)
 
-We have a model showing a relationship between the privacy of transactions and scalability [modeling privacy](https://github.com/zack-bitcoin/amoveo/blob/master/docs/design/privacy.md)
+We have a model showing a relationship between the privacy of transactions and scalability [modeling privacy](design/privacy.md)
 
 We have a model showing a relationship between decentralization and scalability http://www.truthcoin.info/blog/measuring-decentralization/
 

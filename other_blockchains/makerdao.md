@@ -42,7 +42,7 @@ The makerDAO documentation is complicated past this point, it is not clear to me
 
 All that is left is to prove that we can get the oracle to lie at a cheap price.
 voting does not work because it is an inherently unstable game https://vitalik.ca/general/2019/04/03/collusion.html
-It is vulnerable to bribery because of tragedy of the commons https://github.com/zack-bitcoin/amoveo/blob/master/docs/use-cases-and-ideas/tragedy_of_commons_in_voting.md
+It is vulnerable to bribery because of tragedy of the commons use-cases-and-ideas/tragedy_of_commons_in_voting.md
 It is mathematically impossible to give it the properties we want https://en.wikipedia.org/wiki/Arrow%27s_impossibility_theorem
 An attacker can even bribe a vote to force the outcome, and they don't have to pay the bribe https://blog.ethereum.org/2015/01/28/p-epsilon-attack/
 

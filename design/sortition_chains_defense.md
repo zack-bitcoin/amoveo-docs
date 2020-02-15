@@ -76,7 +76,7 @@ N of N availability attacks
 
 What if all N of N sortition operators cooperate to withold some data?
 
-Operators would compete to look more honest. [here is a description of a protocol so that it is cheap to verify that all the data is available](https://github.com/zack-bitcoin/amoveo/blob/master/docs/design/sortition_chain_rollups.md)
+Operators would compete to look more honest. [here is a description of a protocol so that it is cheap to verify that all the data is available](design/sortition_chain_rollups.md)
 
 Optimistic rollup is a great solution so that everyone who wants to use a sortition chain can cheaply verify that all the data needed is available.
 

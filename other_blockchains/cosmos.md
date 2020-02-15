@@ -1,7 +1,7 @@
 Cosmos
 =======
 
-Recently it was discovered that proof-of-stake cannot be a secure consensus mechanism. https://github.com/zack-bitcoin/amoveo/blob/master/docs/other_blockchains/proof_of_stake.md
+Recently it was discovered that proof-of-stake cannot be a secure consensus mechanism. other_blockchains/proof_of_stake.md
 
 Cosmos is one of the most popular PoS blockchains.
 
@@ -31,4 +31,4 @@ In order to make sure our soft-fork attack is stable, the new soft fork will enf
 
 A soft fork attack can change any aspect of consensus, including redistributing the coins however the attacker wants.
 
-It costs < 5.33% of the value of all the stake in order to steal 100% of the value on Cosmos. This puts Cosmos deep into 4.2 level trust, it is worse than centralized alternatives. https://github.com/zack-bitcoin/amoveo/blob/master/docs/basics/trust_theory.md
+It costs < 5.33% of the value of all the stake in order to steal 100% of the value on Cosmos. This puts Cosmos deep into 4.2 level trust, it is worse than centralized alternatives. basics/trust_theory.md

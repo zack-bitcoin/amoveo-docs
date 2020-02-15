@@ -1,7 +1,7 @@
 Futarchy for Blockchain Updates
 =========
 
-This paper is more theoretical. [read about how to use smart contracts to do this today](https://github.com/zack-bitcoin/amoveo/blob/master/docs/basics/using_governance.md)
+This paper is more theoretical. [read about how to use smart contracts to do this today](basics/using_governance.md)
 
 
 I have noticed some inefficiencies in how the network agrees upon updates.
@@ -23,5 +23,5 @@ And the best updates have a way to stand out and get accepted.
 
 The idea of using futarchy for blockchain updates comes from Paul Sztorc http://www.truthcoin.info/blog/win-win-blocksize/
 
-More details about Amoveo's oracle:  https://github.com/zack-bitcoin/amoveo/blob/master/docs/design/oracle.md
-Even more details: https://github.com/zack-bitcoin/amoveo/tree/master/docs/blog_posts
+More details about Amoveo's oracle:  design/oracle.md
+Even more details: https://github.com/zack-bitcoin/amoveo/tree/masterblog_posts

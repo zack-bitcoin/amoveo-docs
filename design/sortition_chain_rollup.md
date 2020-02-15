@@ -1,7 +1,7 @@
 Sortition Chain Rollup
 ==========
 
-[sortition chains home](https://github.com/zack-bitcoin/amoveo/blob/master/docs/design/sortition_chains.md)
+[sortition chains home](design/sortition_chains.md)
 
 Optimistic rollups are a tool for efficiently making large quantities of data available to a blockchain consensus mechanism. Here is the paper introducing them: https://arxiv.org/pdf/1904.06441.pdf
 
@@ -34,7 +34,7 @@ If you combine them both, then you have a system with bounds on the maximum comp
 But I thought rollup didn't work?
 ==========
 
-[I previously wrote about how rollup can't work as a scaling mechanism](https://github.com/zack-bitcoin/amoveo/blob/master/docs/other_blockchains/optimistic_rollups_sidechain_attack.md)
+[I previously wrote about how rollup can't work as a scaling mechanism](other_blockchains/optimistic_rollups_sidechain_attack.md)
 
 But in this case, we aren't using it for scalability, we are using it for availability. Optimistic rollup is a great solution for availability.
 

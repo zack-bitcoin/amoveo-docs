@@ -92,7 +92,7 @@ Freeze Attacks
 
 If you want to cause a delay in a drivechain sidechain, you just need to be willing to receive a slightly smaller reward than whoever had created the blocks in that history the previous time.
 
-Since it is cheap to cause the sidechain to stop processing txs, and an attacker could profit from freezing a sidechain by making bets in other markets, this means drivechain sidechains are trust level 4. https://github.com/zack-bitcoin/amoveo/blob/master/docs/basics/trust_theory.md
+Since it is cheap to cause the sidechain to stop processing txs, and an attacker could profit from freezing a sidechain by making bets in other markets, this means drivechain sidechains are trust level 4. basics/trust_theory.md
 
 If you want to cause a delay in bitcoin, you need to pay more than the cost of (all the fees) + (all the block rewards) for the period in question, and the price of fees will keep getting higher, because the scarcity will drive demand. So you are paying ((block reward) + ((extra high fee price) * (as many tx as can fit in a block))) * (number of blocks during the attack period).
 
@@ -100,7 +100,7 @@ Sidechain block creation griefing
 ===========
 
 If someone spends $99 to earn $100 and create a block, and I spend $101 to earn $100 and create the same block to cause their block to get orphaned, then that means I lost only $1, but I caused someone else to lose $100.
-Since it is possible to destroy more of someone else's value in comparison to the cost of the attack, that means that Drivechain sidechains are trust level 3 or worse. https://github.com/zack-bitcoin/amoveo/blob/master/docs/basics/trust_theory.md
+Since it is possible to destroy more of someone else's value in comparison to the cost of the attack, that means that Drivechain sidechains are trust level 3 or worse. basics/trust_theory.md
 
 
 Bitcoin without block rewards

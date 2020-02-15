@@ -49,6 +49,6 @@ When a centralized and trustful tool shoe-horns a smart contract into their inte
 They are creating the impression that their product is more secure than centralized alternatives.
 Their slogan is "Decentralised synthetic assets", but the security guarantees of their product is currently completely centralized and trustful.
 
-The paper mentions possibly using [chainlink as a decentralized oracle in the future. Chainlink is not secure.](https://github.com/zack-bitcoin/amoveo/blob/master/docs/other_blockchains/chainlink.md)
+The paper mentions possibly using [chainlink as a decentralized oracle in the future. Chainlink is not secure.](other_blockchains/chainlink.md)
 
 The centralized nature of Synthetix oracle design [has already cause a failure](https://blog.synthetix.io/response-to-oracle-incident/)

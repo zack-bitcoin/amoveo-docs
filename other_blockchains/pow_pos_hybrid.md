@@ -15,7 +15,7 @@ Voting
 ========
 
 Measuring the opinions/desires of the average coin holder
-Voting in blockchains is not something that can possibly be made in a secure way. https://github.com/zack-bitcoin/amoveo/blob/master/docs/design/voting_in_blockchains.md
+Voting in blockchains is not something that can possibly be made in a secure way. design/voting_in_blockchains.md
 It is always vulnerable to manipulation in many different ways.
 
 Oracle Mechanisms

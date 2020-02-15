@@ -40,7 +40,7 @@ Sharding Plans
 
 * optimistic roll-up. https://arxiv.org/pdf/1904.06441.pdf  With optimistic roll-up we keep the history on-chain, but we move all processing of editable state onto side-chains. Miners pay a safety deposit when they publish a block. If anyone can show that a block improperly processed a transaction, they can destroy half the safety deposit and win the rest as a reward.
 
-[My review of optimistic rollup](https://github.com/zack-bitcoin/amoveo/blob/master/docs/other_blockchains/optimistic_rollups.md)
+[My review of optimistic rollup](other_blockchains/optimistic_rollups.md)
 
 [Vitalik talking about optimistic rollup](https://twitter.com/Shaughnessy119/status/1187390153662316544?s=20) it looks like this is the plan for Eth2.0
 
@@ -63,7 +63,7 @@ If the sidechain suddenly had to close on-chain, the cost would be linear with t
 So it is the same efficiency as the other versions of plasma.
 
 
-* sortition chains https://github.com/zack-bitcoin/amoveo/blob/master/docs/design/sortition_chains.md With sortition chains we use probabilistic value instead of full value currency. If a sortition chain has $10k in it, and you own $100 of that sortition chain, this means you have a 1% chance to win $10k. probabilistic value currency is like owning a lottery ticket.
+* sortition chains design/sortition_chains.md With sortition chains we use probabilistic value instead of full value currency. If a sortition chain has $10k in it, and you own $100 of that sortition chain, this means you have a 1% chance to win $10k. probabilistic value currency is like owning a lottery ticket.
 You only need to keep track of the part of the history related to the part of the probability space that you own. You can ignore other parts of the probability space.
 On-chain we use a challenge-response protocol, so you only need to provide parts of the history where you are challenged.
 

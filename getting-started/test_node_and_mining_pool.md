@@ -10,7 +10,7 @@ https://github.com/zack-bitcoin/amoveo-mining-pool
 
 Remember to install dependencies:
 
-https://github.com/zack-bitcoin/amoveo/blob/master/docs/getting-started/dependencies.md
+getting-started/dependencies.md
 
 ##### 2/ Compiling
 ###### a. Compiling node

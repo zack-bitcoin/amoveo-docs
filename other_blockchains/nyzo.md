@@ -99,7 +99,7 @@ Attacks
 Soft fork bribery attacks
 ==========
 
-This section applying the attack described in this paper https://github.com/zack-bitcoin/amoveo/blob/master/docs/other_blockchains/proof_of_stake.md to Nyzo.
+This section applying the attack described in this paper other_blockchains/proof_of_stake.md to Nyzo.
 
 An attacker can bribe the voters to use the validator-vote-slashing mechanism to kick out any arbitrary validator that they dislike.
 If the attacker keeps doing this, eventually they can control the majority of the validator pool.
@@ -116,7 +116,7 @@ The ability to censor blocks is a soft fork. Anyone who can cause a soft fork to
 
 In particular, you could use a soft fork to exclude certain validators from participating in validation, which causes them to be kicked out of the validator set. By repeatedly doing this, eventually you can have control of 100% of the accounts in the validator set, and at that point your control of Nyzo would be absolute.
 
-This is a level 4 failure mode. https://github.com/zack-bitcoin/amoveo/blob/master/docs/basics/trust_theory.md
+This is a level 4 failure mode. basics/trust_theory.md
 
 Normally the cycle would go Verifier_1 Verifier_2 Verifier_3...
 But I bribe the verifiers to build an alternative version of history Verifier_1 verifier_3 verifier_4 ...

@@ -1,7 +1,7 @@
 The Defense of PoS
 ========
 
-I wrote [the PoS paper](https://github.com/zack-bitcoin/amoveo/blob/master/docs/other_blockchains/proof_of_stake.md) as a general argument to show that PoS is not possible.
+I wrote [the PoS paper](other_blockchains/proof_of_stake.md) as a general argument to show that PoS is not possible.
 
 I shared the PoS paper with many people who have a vested interest in PoS technology, and I have received different responses from them. The goal of this paper is to collect the various arguments in favor of PoS together in one place, so we can see why different people believe PoS can still work.
 
@@ -10,7 +10,7 @@ If you feel that your opinion is misrepresented here, or if your opinion has cha
 Vitalik Buterin
 =========
 
-Vitalik Buterin's explanation is in-depth, I wrote an entire blog post responding to it here: https://github.com/zack-bitcoin/amoveo/blob/master/docs/other_blockchains/ethereum_casper_ffg.md
+Vitalik Buterin's explanation is in-depth, I wrote an entire blog post responding to it here: other_blockchains/ethereum_casper_ffg.md
 
 Jae Kwon
 ========
@@ -60,7 +60,7 @@ Maigo is a community member from Cosmos, like Jae. [His explanation](https://www
 
 Maigo thinks that the value of a business's reputation is at risk, so they wont take bribes that could possibly destroy something so valuable.
 
-But, it does not matter whether value takes the form of stake locked into the blockchain, or business reputation, or anything else. The [same game theory holds. the bribe is much smaller than how much value it can destroy](https://github.com/zack-bitcoin/amoveo/blob/master/docs/basics/market_failure.md).
+But, it does not matter whether value takes the form of stake locked into the blockchain, or business reputation, or anything else. The [same game theory holds. the bribe is much smaller than how much value it can destroy](basics/market_failure.md).
 
 Anonymous Eth researcher who is designing Eth 2.0
 =========
@@ -94,7 +94,7 @@ Lion's argument is that PoS is game-theoretically the same as PoW in bitcoin for
 
 This is basically the same as Vitalik's arguments in favor of PoS from January 2015 in his [P+epsilon paper](https://blog.ethereum.org/2015/01/28/p-epsilon-attack/) in the "Further Consequences" section.
 
-I explain why this bribery attack can not be done against proof of work in [this paper](https://github.com/zack-bitcoin/amoveo/blob/master/docs/other_blockchains/proof_of_stake.md) in the section "Censorship can be good".
+I explain why this bribery attack can not be done against proof of work in [this paper](other_blockchains/proof_of_stake.md) in the section "Censorship can be good".
 
 sebastiengllmt
 ========
@@ -114,7 +114,7 @@ Josh is a 3rd Cardano community member, and he gives an entirely different expla
 
 According to Josh, "You’d have to bribe 51% of the value of the network to destroy 100% of the network"
 
-And that does seem reasonable at first. [but game theorists have known since at least 1833 that this is not always true](https://github.com/zack-bitcoin/amoveo/blob/master/docs/basics/market_failure.md)
+And that does seem reasonable at first. [but game theorists have known since at least 1833 that this is not always true](basics/market_failure.md)
 
 Lets suppose Josh is right, and we will use a proof by contradiction to show that this can't be right.
 

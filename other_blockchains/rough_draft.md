@@ -52,7 +52,7 @@ consensus-creating state-machine.
 
 Since they don't describe a PoS mechanism, there is nothing for me to review.
 
-Instead I will link to a paper I have written that shows proof-of-stake is not a solvable problem https://github.com/zack-bitcoin/amoveo/blob/master/docs/other_blockchains/proof_of_stake.md
+Instead I will link to a paper I have written that shows proof-of-stake is not a solvable problem other_blockchains/proof_of_stake.md
 
 
 Governance
@@ -82,9 +82,9 @@ Futarchy is one solution to the governance problem.
 No one has found any exploits in futarchy governance, yet.
 
 But, Polkadot's description of a referendum of coin holders, that would be a voting-type mechanism.
-There are known exploits against voting type governance mechanisms. [market failure](https://github.com/zack-bitcoin/amoveo/blob/master/docs/basics/market_failure.md) for example.
+There are known exploits against voting type governance mechanisms. [market failure](basics/market_failure.md) for example.
 
-[it is never a good idea to use voting in blockchains.](https://github.com/zack-bitcoin/amoveo/blob/master/docs/design/voting_in_blockchains.md)
+[it is never a good idea to use voting in blockchains.](design/voting_in_blockchains.md)
 
 Side Chains
 ========
@@ -106,11 +106,11 @@ This design is already vulnerable to soft-fork attacks against a parachain.
 
 A soft-fork attack is where an attacker is able to trick the network into adding some new censorship rules for how to determine which txs are valid. Soft-fork attacks do not break any existing rule, they are merely making some existing valid txs into invalid ones. A soft-fork attacks are a serious threat because they can change the consensus rules of a blockchain in any way. They can redistribute the money in any way.
 
-Because of [market failure](https://github.com/zack-bitcoin/amoveo/blob/master/docs/basics/market_failure.md) it is cheap to bribe validators to only validate parachain blocks which obey some additional censorship rules. Since it is a soft-fork, all these parachain blocks are valid. So the fisherman cannot produce any fraud proof to punish the validator for participating in a soft-fork attack.
+Because of [market failure](basics/market_failure.md) it is cheap to bribe validators to only validate parachain blocks which obey some additional censorship rules. Since it is a soft-fork, all these parachain blocks are valid. So the fisherman cannot produce any fraud proof to punish the validator for participating in a soft-fork attack.
 
 Since it is cheap to steal the money in any parachain, this means polkadot does not work.
 
 
-Here is my plan on how to build side-chains that could actually work: https://github.com/zack-bitcoin/amoveo/blob/master/docs/design/sortition_chains.md
+Here is my plan on how to build side-chains that could actually work: design/sortition_chains.md
 In this paper I use logic to put bounds on how a side-chain can possibly work, for example, a side-chain that scales better than linearly in bandwidth would require probabilistic-value txs.
 

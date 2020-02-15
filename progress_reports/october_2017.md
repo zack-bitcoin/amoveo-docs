@@ -10,7 +10,7 @@ This purpose of this monthly progress report is to review the teams that are dev
 
 ## What does a blockchain need to win?
 * state channels, necessary for scalability
-* off chain markets [explanation for why it is needed](https://github.com/zack-bitcoin/amoveo/blob/master/docs/design/state_channel_without_off_chain_market.md) 
+* off chain markets [explanation for why it is needed](design/state_channel_without_off_chain_market.md) 
 * oracle, to teach the blockchain the results of each bet.
 * a blockchain to host all the technology
 * a community of users
@@ -54,7 +54,7 @@ Aeternity has no software for channels on their github, and they have not announ
 
 Most teams got a score of 0 for market because they are putting their markets on-chain. On-chain markets cannot scale with channels.
 
-Aeternity gets a 0 because they think that state channels are useful without markets. [This is false](/docs/design/state_channel_without_off_chain_market.md)
+Aeternity gets a 0 because they think that state channels are useful without markets. [This is false](design/state_channel_without_off_chain_market.md)
 
 Amoveo off-chain markets are tested [here](/tests/test_market.py), edge cases for these markets are tested [here](/apps/ae_core/src/channels/market.erl).
 
@@ -62,7 +62,7 @@ Amoveo off-chain markets are tested [here](/tests/test_market.py), edge cases fo
 
 Most teams got a score of 0 for their oracle because their oracle mechanism cannot escalate.
 Oracles that cannot escalate are prohibitivly expensive, or they don't work.
-For an oracle to be useful, it needs to give accurate information about the outside world, even when the amount of money being gambled on the oracle's result is much bigger than the amount of money in the oracle mechanism. For an oracle to function in those conditions, it needs to be possible for users to commit more money to the oracle to make it more secure. This way the situation can escalate to having more money at stake.[read more here](https://github.com/zack-bitcoin/amoveo/blob/master/docs/design/oracle_motivations.md)
+For an oracle to be useful, it needs to give accurate information about the outside world, even when the amount of money being gambled on the oracle's result is much bigger than the amount of money in the oracle mechanism. For an oracle to function in those conditions, it needs to be possible for users to commit more money to the oracle to make it more secure. This way the situation can escalate to having more money at stake.[read more here](design/oracle_motivations.md)
 
 Gnosis gives an explanation of their oracle with escalation [here](https://blog.gnosis.pm/a-visit-to-the-oracle-fefc9dec5462). the "Ultimate Oracle" is the part with escalation. It is implemented in solidity [here](https://github.com/gnosis/gnosis-contracts/tree/master/contracts/Oracles)
 

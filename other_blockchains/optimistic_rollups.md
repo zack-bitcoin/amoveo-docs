@@ -14,10 +14,10 @@ The goal of these efforts is to try and enable scalable stablecoin payments.
 Scalability analysis
 ========
 
-[estimating the cost of fraud proofs in optimistic rollup](https://github.com/zack-bitcoin/amoveo/blob/master/docs/other_blockchains/optimistic_rollups_fraud_proof_cost.md) Fraud proof security costs the same amount per tx, no matter how many txs are being processed per second.
+[estimating the cost of fraud proofs in optimistic rollup](other_blockchains/optimistic_rollups_fraud_proof_cost.md) Fraud proof security costs the same amount per tx, no matter how many txs are being processed per second.
 This means that there is some lower limit cost per tx, and the fee will never be below that limit.
 
-[estimating the cost of attacking a sidechain inside optimistic rollup](https://github.com/zack-bitcoin/amoveo/blob/master/docs/other_blockchains/optimistic_rollups_sidechain_attack.md)
+[estimating the cost of attacking a sidechain inside optimistic rollup](other_blockchains/optimistic_rollups_sidechain_attack.md)
 The amount of stake that needs to be locked up by sidechain validators is proportional to (rate of tx production)^(3/2).
 This means that the lower limit fee cost keeps getting more expensive as more people join the network.
 

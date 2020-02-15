@@ -9,16 +9,16 @@ Documentation includes expired data and is not searchable.
 Devs would respond "dyor" to even the most basic questions about how Decred works.
 
 
-Here is a document that explores the capabilities of pow/pos hybrid designs in general: https://github.com/zack-bitcoin/amoveo/blob/master/docs/other_blockchains/pow_pos_hybrid.md
+Here is a document that explores the capabilities of pow/pos hybrid designs in general: other_blockchains/pow_pos_hybrid.md
 
 https://docs.decred.org/proof-of-stake/overview/ Looking at this page.
 At the top of that page, they listed 5 reasons that they incorporate PoS elements into their blockchain. Some of these reasons show flaws in the design.
 
 1) Allowing stakeholders to vote for or against proposed changes to the Decred blockchain. This means that Decred is not secure, because it is cheap to bribe the voters to make an upgrade that would destroy Decred
-https://github.com/zack-bitcoin/amoveo/blob/master/docs/basics/market_failure.md
+basics/market_failure.md
 
 In general, voting protocols just can't work on the blockchain:
-https://github.com/zack-bitcoin/amoveo/blob/master/docs/design/voting_in_blockchains.md
+design/voting_in_blockchains.md
 
 2) Providing a mechanism for stakeholders to influence Proof-of-Work (PoW) miners. Stakeholders can vote to withhold a miner’s reward even if the block conforms to the consensus rules of the network.
 This means that once a coalition takes control of the PoS side, their control is very stable. They can block anyone else from being paid mining rewards, so only their coalition can profitably mine.

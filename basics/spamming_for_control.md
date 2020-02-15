@@ -29,7 +29,7 @@ The attacker pays D+epsilon to win.
 
 So the cost to the attacker is D+epsilon-P, and the cost to the defender is D+P.
 
-So, the cost to the defender is always higher than the cost to the attacker, meaning this mechanism only has level 3 trust https://github.com/zack-bitcoin/amoveo/blob/master/docs/basics/trust_theory.md
+So, the cost to the defender is always higher than the cost to the attacker, meaning this mechanism only has level 3 trust basics/trust_theory.md
 
 Any mechanism worse than level 2 trust will be more expensive than the competitors, it will be out-competed by price.
 

@@ -5,4 +5,4 @@ By financial derivative, I mean a bet that is priced in the native tokens. The m
 
 These markets need to be scalable so that many people can participate. That is why they will exist off-chain on the channels.
 
-[These markets need to do trading in batches, to avoid front running. and they need to be secure against censorship](/docs/design/limit_order_in_channel.md)
+[These markets need to do trading in batches, to avoid front running. and they need to be secure against censorship](design/limit_order_in_channel.md)

@@ -3,11 +3,11 @@ Ouroboros Review
 
 Ouroboros is a proof of stake type blockchain consensus mechanism. Here is the paper describing it https://eprint.iacr.org/2016/889.pdf
 
-I have written a general paper about why [PoS is not possible](https://github.com/zack-bitcoin/amoveo/blob/master/docs/other_blockchains/proof_of_stake.md)
+I have written a general paper about why [PoS is not possible](other_blockchains/proof_of_stake.md)
 
 The goal of this paper is to analyze ouroboros to see if they have managed to prove me wrong. I will try to show that Ouroboros can not be secure.
 
-[Here people attempt to show that the attack in this paper wont work](https://github.com/zack-bitcoin/amoveo/blob/master/docs/other_blockchains/the_defence_of_pos.md)
+[Here people attempt to show that the attack in this paper wont work](other_blockchains/the_defence_of_pos.md)
 
 Others have written about the myth that PoS is cheaper than PoW, so I will just [link to their work on the subject](http://www.truthcoin.info/blog/pow-cheapest/)
 
@@ -19,7 +19,7 @@ A mathematical strategy
 
 Ouroboros is designed with the goal of being able to prove that it is secure, instead of the ad-hoc trial and error methods that most people are using to design blockchains. This is a refreshing perspective that I agree with.
 
-That is why I came up with this system for quantifying what exactly we mean by "secure". https://github.com/zack-bitcoin/amoveo/blob/master/docs/basics/trust_theory.md
+That is why I came up with this system for quantifying what exactly we mean by "secure". basics/trust_theory.md
 This way it is possible to compute if one blockchain mechanism is more or less secure than another.
 
 The proofs from the Ouroboros paper are probably all correct, I will not be attempting to disprove any of them.
@@ -31,7 +31,7 @@ The process of proving the security of a blockchain has these steps:
 Step (2) is the part we can prove in an undeniable mathematical way.
 
 Step (1) is a controversial topic in blockchain today.
-For example, we cannot even agree on which security model is securing bitcoin https://github.com/zack-bitcoin/amoveo/blob/master/docs/other_blockchains/bitcoin.md
+For example, we cannot even agree on which security model is securing bitcoin other_blockchains/bitcoin.md
 
 In this paper, I will be trying to explain what security model Ouroboros is based upon, and I will try to show that their security model is not good enough to secure a cryptocurrency.
 

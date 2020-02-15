@@ -32,4 +32,4 @@ If 99% of bitcoin miners include headers for both sides of a veriblock fork, and
 Conclusion
 =======
 
-Veriblock sidechains are a similar design as drivechain. They have the same vulnerabilities to soft fork bribery attacks. https://github.com/zack-bitcoin/amoveo/blob/master/docs/other_blockchains/drivechain.md
+Veriblock sidechains are a similar design as drivechain. They have the same vulnerabilities to soft fork bribery attacks. other_blockchains/drivechain.md

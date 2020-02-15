@@ -13,7 +13,7 @@ This purpose of this monthly progress report is to review the teams that are dev
 * state channels, necessary for scalability
 * sharding, necessary for scalability
 * light nodes, necessary for usability and security
-* markets in the lightning network [explanation for why it is needed](https://github.com/zack-bitcoin/amoveo/blob/master/docs/design/state_channel_without_off_chain_market.md) 
+* markets in the lightning network [explanation for why it is needed](design/state_channel_without_off_chain_market.md) 
 * oracle, to teach the blockchain the results of each bet.
 * a blockchain to host it all
 * a community of users
@@ -62,7 +62,7 @@ I can find no mention of channels in the stox white paper.
 
 ### Shards
 
-[Here is a document explaining sharding in Amoveo](/docs/design/sharding.md). Since Amoveo doesn't store any contract state on-chain, sharding is simple.
+[Here is a document explaining sharding in Amoveo](design/sharding.md). Since Amoveo doesn't store any contract state on-chain, sharding is simple.
 
 Gnosis, Stox, and Augur use Ethereum, which lacks sharding.
 
@@ -99,7 +99,7 @@ Amoveo has off-chain markets with order books and single-price batches in the te
 Most teams got a score of 0 for their oracle because their oracle mechanism cannot escalate, or because they used an insecure mechanism like voting or a trusted feed.
 
 Oracles that cannot escalate are prohibitivly expensive, or they don't work.
-For an oracle to be useful, it needs to give accurate information about the outside world, even when the amount of money being gambled on the oracle's result is much bigger than the amount of money in the oracle mechanism. For an oracle to function in those conditions, it needs to be possible for users realize that an attack is occuring, and to be incentivized to commit more money to the oracle to make it more secure. This way the situation can escalate to having more money at stake.[read more here](https://github.com/zack-bitcoin/amoveo/blob/master/docs/design/oracle_motivations.md)
+For an oracle to be useful, it needs to give accurate information about the outside world, even when the amount of money being gambled on the oracle's result is much bigger than the amount of money in the oracle mechanism. For an oracle to function in those conditions, it needs to be possible for users realize that an attack is occuring, and to be incentivized to commit more money to the oracle to make it more secure. This way the situation can escalate to having more money at stake.[read more here](design/oracle_motivations.md)
 
 Stox has a collateral which is given by the person who creates the oracle. The amount of collateral does not change, the volume of bets is limited by how much collateral is given by the oracle creator. Stox cannot escalate.
 

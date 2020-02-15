@@ -9,7 +9,7 @@ Do not run Amoveo as root user.
 It is helpful to have port 8080 exposed to the internet, this will let you find out about blocks more quickly, so you would mine faster.
 [Most other ports need to be blocked. Enable the fire wall for security](firewall.md)
 
-[Install dependencies](/docs/getting-started/dependencies.md)
+[Install dependencies](getting-started/dependencies.md)
 
 compile it, start the node, and attach:
 ```
@@ -23,9 +23,9 @@ You can communicate with the running node from a terminal like this:
   make prod-attach
 ```
 
-now that you are attached to a node, you can tell it [commands](/docs/api/commands.md)
+now that you are attached to a node, you can tell it [commands](api/commands.md)
 
-[You can read about how to download the blocks and sync with the network here](/docs/getting-started/sync.md)
+[You can read about how to download the blocks and sync with the network here](getting-started/sync.md)
 
 To run this software in the background, hold the control key, and click the D key.
 

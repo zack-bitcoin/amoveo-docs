@@ -1,7 +1,7 @@
 Lottery Random Number Generator
 ============
 
-[sortition chains home](https://github.com/zack-bitcoin/amoveo/blob/master/docs/design/sortition_chains.md)
+[sortition chains home](design/sortition_chains.md)
 
 The requirements for a RNG for a lottery with a large prize are much stricter than most other blockcain RNG applications.
 If an attacker has even 1% ability to predict or influence the bits produced by the RNG, this can seriously impact the cost of using the lottery or sortition chain.
@@ -25,7 +25,7 @@ In the context of blockchains, when we are modeling some random entropy, there a
 Getting a little financial randomness from PoW
 ===========
 
-We start by using the hash of a block to give us a little randomness. The cost to manipulate these bits is at least as expensive as re-mining the block that they came from. Two strategies have been invented so that we can gather entropy from a sequence of blocks, and the cost to manipulate the entropy is as expensive as re-mining all those blocks. https://github.com/zack-bitcoin/amoveo/blob/master/docs/design/harmonic_rng.md and https://github.com/zack-bitcoin/amoveo/blob/master/docs/design/uncertainty_rng.md
+We start by using the hash of a block to give us a little randomness. The cost to manipulate these bits is at least as expensive as re-mining the block that they came from. Two strategies have been invented so that we can gather entropy from a sequence of blocks, and the cost to manipulate the entropy is as expensive as re-mining all those blocks. design/harmonic_rng.md and design/uncertainty_rng.md
 
 In general, a blockchain lottery's reward needs to be smaller than the cumulative value of all the block rewards during the time period when the randomness was generated.
 

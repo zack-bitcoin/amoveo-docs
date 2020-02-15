@@ -1,7 +1,7 @@
 Blockchain Security Models
 ==========
 
-The security model of a blockchain is a description of how the blockchain works. It is made at a particular level of abstraction so that the level of trust/security of the mechanism is easy to calculate. https://github.com/zack-bitcoin/amoveo/blob/master/docs/basics/trust_theory.md
+The security model of a blockchain is a description of how the blockchain works. It is made at a particular level of abstraction so that the level of trust/security of the mechanism is easy to calculate. basics/trust_theory.md
 
 
 Many blockchain projects like to provide a different security model to explain why their blockchain is secure against each type of attack that can be done.

@@ -5,7 +5,7 @@ version # 3
 
 The goal of this paper is to show that Proof of Stake blockchain consensus does not work. We take the very general definition of Proof of stake consensus: any blockchain consensus mechanism where your influence over which block is added to the chain is proportional to some value that you own inside the blockchain's consensus state.
 
-[Here you can see counter-arguments to this paper](https://github.com/zack-bitcoin/amoveo/blob/master/docs/other_blockchains/the_defence_of_pos.md)
+[Here you can see counter-arguments to this paper](other_blockchains/the_defence_of_pos.md)
 
 History
 ======
@@ -57,7 +57,7 @@ cost of the bribe to initiate the attack
 If you are a validator who thinks the attack will fail, then you are comfortable taking the bribe. Because you know the attack will fail either way, so you might as well take the free money.
 If you think the attack will succeed, then you will sell your coins to someone who thinks the attack will fail.
 
-According to [tragedy of the commons](https://github.com/zack-bitcoin/amoveo/blob/master/docs/basics/market_failure.md), the cost to bribe the validators to form a majority coalition and destroy the blockchain is:
+According to [tragedy of the commons](basics/market_failure.md), the cost to bribe the validators to form a majority coalition and destroy the blockchain is:
 ```
 LU = (how much the validators have to lock up)
 #V = (how many validators are there)
@@ -68,7 +68,7 @@ Realistically, PoS blockchains are designed to have >100 validators, and to lock
 
 If it costs less than 1% the value of a blockchain to destroy that blockchain, this is even less secure than the cost of the legal efforts to shut down a centralized alternative.
 
-In order for PoS to achieve level 3 trust, the cost of bribing the validators would need to be bigger than the potential profit from controlling consensus. [you can read about trust levels here](https://github.com/zack-bitcoin/amoveo/blob/master/docs/basics/trust_theory.md)
+In order for PoS to achieve level 3 trust, the cost of bribing the validators would need to be bigger than the potential profit from controlling consensus. [you can read about trust levels here](basics/trust_theory.md)
 ```
 PP = (potential profit form controlling the consensus)
 LU / (2 * #V) > PP

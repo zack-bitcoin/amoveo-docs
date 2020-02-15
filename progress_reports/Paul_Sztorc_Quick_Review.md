@@ -8,14 +8,14 @@ zack-bitcoin/amoveo
 A blockchain for trust-free markets in financial derivatives - zack-bitcoin/amoveo
 Welcome Paul, thank you for joining us
 Paul Sztorc
-This is like in alphabetical order https://github.com/zack-bitcoin/amoveo/tree/master/docs/design
+This is like in alphabetical order https://github.com/zack-bitcoin/amoveo/tree/masterdesign
 GitHub
 zack-bitcoin/amoveo
 A blockchain for trust-free markets in financial derivatives - zack-bitcoin/amoveo
 Zack
 admin
 Paul invented the idea of blockchain prediction markets, Amoveo is trying to achieve the goals he spelled out for us.
-https://github.com/zack-bitcoin/amoveo/blob/master/docs/design/oracle.md
+design/oracle.md
 I think you would be interested in the oracle
 GitHub
 zack-bitcoin/amoveo
@@ -52,7 +52,7 @@ Ok so can you explain the outcome-resolution process
 give me everything that happens in order
 Zack
 admin
-https://github.com/zack-bitcoin/amoveo/blob/master/docs/design/transaction_types.md
+design/transaction_types.md
 there are 3 tx types for oracles
 GitHub
 zack-bitcoin/amoveo
@@ -139,7 +139,7 @@ If Alice refused to cooperate in closing the channel, then the result in the ora
 So he would pay the $2 minimum bet to make the oracle close correctly, and then the smart contract could execute and give the money to Bob.
 it is profitable to make an accurate bet, so Bob could just post on our forum that it is ready to be closed, and probably someone else will do it.
 Especially once I add that to the browser light node.
-https://github.com/zack-bitcoin/amoveo/blob/master/docs/white_paper.md
+white_paper.md
 The white paper gives a good overview, and has more coherent links to other places in the docs
 GitHub
 zack-bitcoin/amoveo

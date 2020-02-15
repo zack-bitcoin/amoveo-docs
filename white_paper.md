@@ -130,7 +130,7 @@ Here is an [explanation of how the market smart contract works.](design/limit_or
 
 ## Sharding/side-chains
 
-* You can learn about the Amoveo sharding plan here: https://github.com/zack-bitcoin/amoveo/blob/master/docs/design/sortition_chains.md
+* You can learn about the Amoveo sharding plan here: design/sortition_chains.md
 * it is similar to the "channel factory" idea talked about in some bitcoin communities.
 * basically, we are combining probabilistic payments with state channels.
 

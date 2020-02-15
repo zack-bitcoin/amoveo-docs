@@ -42,7 +42,7 @@ Emin claims that the bitcoin ng strategy accomplishes these goals:
 So, if bitcoin ng accomplished all the goals it set out to accomplish, it would allow bitcoin to process around 100x more txs per second, and it would take 100x longer to sync bitcoin blocks.
 Since it only scales tx throughput, it doesn't scale our ability to sync with the network. So even if it works how it is supposed to, it is basically worthless for scalability.
 
-Here I have a chart of scaling strategies that actually accomplish scale the blockchain by reducing the bandwidth requirement for syncing: https://github.com/zack-bitcoin/amoveo/blob/master/docs/other_blockchains/sharding.md
+Here I have a chart of scaling strategies that actually accomplish scale the blockchain by reducing the bandwidth requirement for syncing: other_blockchains/sharding.md
 
 
 Why it does not have faster finality.
@@ -93,7 +93,7 @@ Emin in July 2018
 
 Avalanche consensus is for the altcoin Emin is planning to sell.
 
-my review of avalanche: https://github.com/zack-bitcoin/amoveo/tree/master/docs/other_blockchains/avalanche.md
+my review of avalanche: https://github.com/zack-bitcoin/amoveo/tree/masterother_blockchains/avalanche.md
 
 bloxroute
 ========

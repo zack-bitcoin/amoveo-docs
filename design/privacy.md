@@ -1,7 +1,7 @@
 Blockchain Privacy
 ==========
 
-[In this paper we made a big connection to show that higher security = lower trust = lower fees](https://github.com/zack-bitcoin/amoveo/blob/master/docs/basics/trust_theory.md)
+[In this paper we made a big connection to show that higher security = lower trust = lower fees](basics/trust_theory.md)
 
 It is known that if we increase scalability, fees will go down proportionally.
 
@@ -85,4 +85,4 @@ So a blockchain that can handle twice as many txs per second at a given level of
 
 This shows that whatever blockchain solution is the most scalable, it is also the most private.
 
-[I compare many scaling strategies here](https://github.com/zack-bitcoin/amoveo/blob/master/docs/other_blockchains/sharding.md)
+[I compare many scaling strategies here](other_blockchains/sharding.md)

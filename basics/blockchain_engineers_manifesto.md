@@ -7,7 +7,7 @@ Testing out a single idea involves launching a new cryptocurrency, and can cost 
 We should develop mathematical tools which will allow us to calculate whether one kind of blockchain design is more secure than another.
 
 Examples:
-* https://github.com/zack-bitcoin/amoveo/blob/master/docs/basics/trust_theory.md
+* basics/trust_theory.md
 * https://vitalik.ca/files/intro_cryptoeconomics.pdf
 
 Once we have math tools like this, it will make it a lot easier to do blockchain engineering, because we can check if a strategy can possibly work without having to actually launch a blockchain.
@@ -22,11 +22,11 @@ My strategy to develop these math tools is like this:
 
 
 Here are some example reports that I have done as a part of step (2):
-* https://github.com/zack-bitcoin/amoveo/blob/master/docs/other_blockchains/proof_of_stake.md
-* https://github.com/zack-bitcoin/amoveo/blob/master/docs/other_blockchains/cosmos.md
-* https://github.com/zack-bitcoin/amoveo/blob/master/docs/other_blockchains/pow_pos_hybrid.md
-* https://github.com/zack-bitcoin/amoveo/blob/master/docs/other_blockchains/zano.md
-* https://github.com/zack-bitcoin/amoveo/blob/master/docs/other_blockchains/drivechain.md
-* https://github.com/zack-bitcoin/amoveo/blob/master/docs/other_blockchains/decred.md
-* https://github.com/zack-bitcoin/amoveo/blob/master/docs/other_blockchains/UMA.md
-* https://github.com/zack-bitcoin/amoveo/blob/master/docs/other_blockchains/iota.md
+* other_blockchains/proof_of_stake.md
+* other_blockchains/cosmos.md
+* other_blockchains/pow_pos_hybrid.md
+* other_blockchains/zano.md
+* other_blockchains/drivechain.md
+* other_blockchains/decred.md
+* other_blockchains/UMA.md
+* other_blockchains/iota.md
