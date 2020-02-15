@@ -1,10 +1,4 @@
-give a history of sortition chains, how the ideas developed and came together. Where the ideas came from.
 
-
-
-security issue. People can squat on channel ids to make contracts invalid.
-* we are now using new_channel_tx.id as salt to generate the actual id with new_channel_tx:salted_id.  We need to find out if this is compatible with javascript stuff. go through the otc betting process.
-* this fix doesn't work for sortition chains. with sortition chains it is important that both pubkeys are used to salt the ID, otherwise one of them could make a channel to block the other.
 
 why do we support 2 ways of making channels? can we stop supporting one of them?
 
@@ -41,18 +35,10 @@ needed txs:
 * clean up empty accounts.
 
 
-for all the new tree types, find deterministic ways to calculate their location in the tree. This prevents users from making the tree unbalanced, and can prevent some pay-to-replace problems in the tx pool, and prevents ID reuse between different trees.
-
-
-we need to charge a big governance fee for rng_result tx somehow. maybe we need new governance values.
-* rng_challenge_tx needs a governance fee.
-
-
 in each tx file, remove the no longer used `make` function
 
 
 a lot of the tree modules have practically identical functions. It would be better to abstract the repeated code into trees.erl.
-
 
 
 
@@ -112,9 +98,6 @@ syncing blocks in reverse order.
 - verify that both forwards and reverse kinds of nodes can sync with a node that synced in reverse.
 
 practice making smart contracts with people. make one smart contract every day.
-
-write "legacy version" on the docs in amoveo/docs
-
 
 consider getting rid of modes in otc_derivatives, move it to home page.
 
