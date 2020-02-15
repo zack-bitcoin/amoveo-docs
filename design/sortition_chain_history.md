@@ -1,6 +1,8 @@
 Sortition Chain History
 =========
 
+[sortition chains home](./sortition_chains.md)
+
 Thank you to [Satoshi Nakamoto for showing that blockchains are possible](https://bitcoin.org/bitcoin.pdf).
 
 Thank you to [Vitalik Buterin](https://twitter.com/VitalikButerin) and other early Ethereum founders for showing how bitcoin scripts are not powerful enough to do all the things we want, that we need smart contracts on blockchains.
