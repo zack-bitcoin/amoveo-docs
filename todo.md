@@ -1,20 +1,27 @@
+article looking at recent hacks of defi.
+https://decrypt.co/19612/how-a-genius-hacker-made-350000-exploiting-defi
+Talk about how Amoveo goes above and beyond to be extremely secure.
+VEO goes above and beyond to make sure the platform is the most secure platform for DEFI on earth and mentioning a few abstract ways in which defi platforms were exploited as to why VEO has such a huge emphasis on abstract attack vectors is a good idea
+
+
+
+light node tool to simplify the futarchy process.
+
+auto-sync the wallet when you open the light node. auto-check your balance.
+
+in the light node, would be cool if we could remember a cookie or something of the top block's hash. so we don't have to resync headers on refreshing the page.
 
 
 why do we support 2 ways of making channels? can we stop supporting one of them?
 
 
 
-sortition_timeout should also be able to pay out to channels.
-* candidate merkle tree should be able to store 2 accounts, in case it is a channel.
-* ownership.erl's owner object should be able to store 2 pubkeys, in case it is a channel.
-* sortition_claim_tx should be able to add 2 pubkeys to the new candidate, if it is a channel.
-* sortition_evidence_tx. in case of a channel, it should require that the waiver was signed by both participants.
-* sortition_timeout_tx. if the candidate points to 2 winners, then make a channel. in that case, the tx needs a channel id that hasn't 
 
+--------> making that one final spend tx after a sortition chain has ended trading.
+* every candidate that points at a winner can potentially have exactly one of these.
+* if they have one, 90% of winnings goes to who they are spending it to, and 10% goes to the spender, to incentivize them not to double-spend it.
+* if they have more than one spend, then the sortition winnings are completely destroyed.
 
-
-
-add a check to the new txs, so they aren't valid until after the hard update height 28.
 
 
 * more tests of the new sortition chains.
@@ -23,7 +30,6 @@ add a check to the new txs, so they aren't valid until after the hard update hei
     * including creating and enforcing with the oracle if necessary.
   - atomic swap value between 2 sortition chains.
   - receiving value in a sortition chain that you didn't previously know about, including merkle proofs of the history for the part of the value you will own.
-  - making that one final spend tx after a sortition chain has ended trading.
   - micro payments in a channel inside the sortition chain.
   - atomic swap between channels in sortition chains.
   - make a channel in the sortition chain, buy stablecoins, then settle the channel so that you are left holding stablecoins inside the sortition chain.
@@ -33,6 +39,10 @@ needed txs:
 * clean up old sortition stuff. sortition_blocks.
   - don't remove candidates until the sortition chain is settled. We need old candidates so evidence cannot be re-used.
 * clean up empty accounts.
+
+add a check to the new txs, so they aren't valid until after the hard update height 28.
+
+
 
 
 in each tx file, remove the no longer used `make` function
