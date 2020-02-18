@@ -6,6 +6,8 @@ We care so much about security, it is bordering on paranoia. There has been doub
 
 Recently several defi systems on Ethereum have been hacked https://decrypt.co/19612/how-a-genius-hacker-made-350000-exploiting-defi
 
+technical details of the attack https://www.palkeo.com/en/projets/ethereum/bzx.html
+
 Alarmingly, this recent hack was of an exploit that had been existing for a long time. This shows that insecure systems can stay unexploited for a long time, like a ticking time bomb. Maybe other popular systems that don't meet the mathematical definition of secure will also fail. [For example PoS](/other_blockchains/proof_of_stake.md)
 
 Attempting to recover from these attacks demonstrates another major weakness of modern defi. Most projects have centralized governance systems, which are a centralized vulnerability in their project.
