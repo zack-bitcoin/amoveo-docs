@@ -1,7 +1,7 @@
 Amoveo Defi Security
 ===========
 
-We at Amoveo have always taken security very seriously. [We created a superior definition security that almost no projects manage to meet](/basics/trust_theory.md)
+We at Amoveo have always taken security very seriously. [We created a superior definition of security that almost no projects manage to meet](/basics/trust_theory.md)
 We care so much about security, it is bordering on paranoia. There has been doubts as to whether such a high level of security is needed.
 
 Recently several defi systems on Ethereum have been hacked https://decrypt.co/19612/how-a-genius-hacker-made-350000-exploiting-defi
