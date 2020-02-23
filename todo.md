@@ -1,9 +1,3 @@
-article looking at recent hacks of defi.
-https://decrypt.co/19612/how-a-genius-hacker-made-350000-exploiting-defi
-Talk about how Amoveo goes above and beyond to be extremely secure.
-VEO goes above and beyond to make sure the platform is the most secure platform for DEFI on earth and mentioning a few abstract ways in which defi platforms were exploited as to why VEO has such a huge emphasis on abstract attack vectors is a good idea
-
-
 
 light node tool to simplify the futarchy process.
 
@@ -16,12 +10,7 @@ why do we support 2 ways of making channels? can we stop supporting one of them?
 
 
 
-
---------> making that one final spend tx after a sortition chain has ended trading.
-* every candidate that points at a winner can potentially have exactly one of these.
-* if they have one, 90% of winnings goes to who they are spending it to, and 10% goes to the spender, to incentivize them not to double-spend it.
-* if they have more than one spend, then the sortition winnings are completely destroyed.
-
+update sortition_timeout_tx to use a governance value to decide how to divide up the winnings in the case of a recovery spend.
 
 
 * more tests of the new sortition chains.
