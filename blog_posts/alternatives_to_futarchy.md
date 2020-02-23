@@ -8,7 +8,7 @@ The goal of this document is to compare futarchy with other methods that people 
 Battle of Champions
 ==============
 
-One way decision have been made historically, each side of the debate would nominate their own champion.
+One way decisions have been made historically, each side of the debate would nominate their own champion.
 The champions were people who would compete against each other in a game.
 The entire community agrees to go with the decision that the winning champion wanted.
 
@@ -94,7 +94,7 @@ Science has disadvantages.
 
 Not all decisions can be formatted as scientific experiments. It is costly to come up with experiments in the first place. There might not be sufficient scientists inventing experiments to be able to use the scientific method in all cases. A rich person can influence science by providing funding only for those experiments which help support the outcome that they prefer.
 
-It can be expensive to repeat the experiment for yourself to verify that it works. Having everyone in the community repeat tons of random experiments all the time is not scalable. The cost is (number of people in the community) * (number of decisions that need to be made).
+It can be expensive to repeat the experiment for yourself. Having everyone in the community repeat tons of random experiments all the time is not scalable. The cost is (number of people in the community) * (number of decisions that need to be made) * (number of experiments per decision).
 
 
 
