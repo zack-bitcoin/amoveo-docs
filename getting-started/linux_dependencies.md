@@ -3,7 +3,7 @@ First you have to install the dependencies. This depends on your Linux distribut
 Then install dependencies using the instructions for your distribution:
 - [Ubuntu](#for-ubuntu)
 - [ArchLinux](#for-archlinux)
-- [OpenSuSE](#for-opensuse)
+- [openSUSE](#for-opensuse)
 
 Finally proceed to [instructions after dependencies](#after-dependencies)
 
@@ -45,10 +45,10 @@ Finally proceed to [instructions after dependencies](#after-dependencies)
     ```
     you also need `awk` and `make`
 
-## For OpenSuSE
+## For openSUSE
 
-Tested on OpenSuSE Leap 42.3.
-OpenSuSE requires manual compilation and instalation of Erlang.
+Tested on openSUSE Leap 42.3.
+openSUSE requires manual compilation and instalation of Erlang.
 
 1. Install the dependencies:
 
