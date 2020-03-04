@@ -1,3 +1,17 @@
+verify that rng_challenge.hashes is being used correctly.
+It should contain the root hash of the checkpoints.
+so we would need to verify a merkle proof of the checkpoints somewhere.
+
+
+in sortition claim, we need to show that there is a commitment on top of this one, and it has at least (number of validators)-1 signatures. to prevent signature availability attacks.
+
+
+
+do we support making that one final spend inside the sortition chain???
+
+
+in final spend tx, we probably dont' need to keep a portion for the spender as a safety deposit, because we can use the smart contract to create a punishment for double-spending.
+
 
 light node tool to simplify the futarchy process.
 
@@ -7,11 +21,6 @@ in the light node, would be cool if we could remember a cookie or something of t
 
 
 why do we support 2 ways of making channels? can we stop supporting one of them?
-
-
-
-update sortition_timeout_tx to use a governance value to decide how to divide up the winnings in the case of a recovery spend.
-
 
 * more tests of the new sortition chains.
   - smart contract involving an oracle's value.
@@ -24,10 +33,9 @@ update sortition_timeout_tx to use a governance value to decide how to divide up
   - make a channel in the sortition chain, buy stablecoins, then settle the channel so that you are left holding stablecoins inside the sortition chain.
 
 needed txs:
-* clean up old rng stuff. rng_challenge, rng_response, rng_result. Maybe we need to pay out rewards too.
+* clean up old rng stuff. rng_challenge, rng_result. Maybe we need to pay out rewards too.
 * clean up old sortition stuff. sortition_blocks.
   - don't remove candidates until the sortition chain is settled. We need old candidates so evidence cannot be re-used.
-* clean up empty accounts.
 
 add a check to the new txs, so they aren't valid until after the hard update height 28.
 

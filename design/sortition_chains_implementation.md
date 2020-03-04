@@ -6,24 +6,49 @@ Sortition Chains Implementation
 records
 ======
 
-{sortition_new_tx, creator, nonce, fee, amount, sortition_id, expiration}
+-record(sortition_new_tx, {creator, nonce, fee, amount, id, entropy, trading_ends, response_delay, rng_ends, delay, validators}).
 
-{sortition_claim_tx, winner, nonce, fee, sortition_id, proof}
+-record(sortition_block_tx, {from, nonce, fee, id, prev_id, validators, signatures, side_height, state_root}).
 
-{sortition_evidence_tx, pubkey, nonce, fee, sortition_id, loser, signed_waiver}
+-record(sortition_claim_tx, {from, nonce, fee, claim_id, top_candidate, proof_layers, sortition_id}).
 
-{sortition_timeout_tx, pubkey, nonce, fee, winner, amount_won, sortition_id}
+-record(sortition_evidence_tx, {pubkey, nonce, fee, sortition_id, layer, signed_waiver, script_sig}).
 
-{waiver, pubkey, signature, sortition_chain_id, contract_hash}
+-record(sortition_timeout_tx, {pubkey, nonce, fee, winner, winner2, amount, layer, sortition_id}).
 
-{sortition, id, amount, entropy_source, creator, trading_ends, rng_response_delay, rng_end, rng_value, delay, last_modified, top_candidate, closed}%merkle tree
-%delay is how long between sortition_clain_tx you have to create a sortition_evidence
+-record(rng_result_tx, {pubkey, nonce, fee, id, sortition_id, hashes}).
 
-{candidate, sortition_id, layer_number, winner_pubkey, height, next_candidate}%merkle tree
+-record(rng_challenge_tx, {pubkey, nonce, fee, id, sortition_id, parent_id, parent_type, start_hash, end_hash, proof, n}).
 
-{rng_challenge, id, sortition_id, response_id, pubkey, timestamp, refunded, n}
+-record(rng_response_tx, {pubkey, nonce, fee, id, sortition_id, result_id, hashes}).
 
-{rng_response, id, sortition_id, challenge_id, pubkey, timestamp, refunded, hashes}
+-record(rng_refute_tx, {pubkey, nonce, fee, sortition_id, challenge_id, result_id, n, proof, start_hash, end_hash}).
+
+-record(rng_confirm_tx, {pubkey, nonce, fee, sortition_id, result_id}).
+
+
+-record(waiver, {pubkey, pubkey2, sortition_id, contract}).
+
+-record(sortition, {id, amount, entropy_source, creator, validators, trading_ends, rng_response_delay, rng_end, rng_value, delay, last_modified, top_candidate, top_rng, bottom_rng, closed}).%merkle tree
+%rng_results make a queue, new elements inserted at the bottom_rng pointer, and the head of the queue is the top_rng.
+-record(sortition_block, {id, validators, state_root, height, side_height}).
+
+-record(candidate, {id, sortition_id, layer_number, winner, winner2, recovery_spend, height, priority, next_candidate}).%merkle tree
+
+-record(sortition_final_spend_tx, {from, nonce, fee, claim_id, signed_spend, evidence}).
+-record(final_spend, {from, from2, to, sortition_id, contract, prove}).
+
+-record(rng_result, {id, sortition_id, pubkey, hashes, value, next_result, impossible, confirmed}).
+
+-record(rng_challenge,
+        {id, result_id, parent_id,
+        sortition_id,
+        pubkey, hashes,
+        start_hash, end_hash,
+        many, %how many hashes in this challenge
+        timestamp, refunded, n}).
+-record(rng_challenge_cleanup_tx, {from, nonce, fee, challenge_id, sortition_id}).
+
 
 
 tx types
@@ -56,33 +81,36 @@ tx types
 * a claim linked to an earlier block height has higher priority.
 * this tx can only be made if you wait a sufficient amount of time after the RNG to choose the winner was generated.
 
-5) proof of existence
+5) sortition block
 
-* This allows the creator to publish 32 bytes of data into the proof of existence tree. It keeps a record of the block height at which this hash was recorded.
-* This is used for hashlocking, because we need to prove at what height a pre-image was available.
-* This is used for sortition operators to record the fact that they have signed a merkel root of a sortition database.
-6) rng result tx
+* all validators for a sortition chain sign a root hash of some state about who can potentially own parts of the probabilistic value space.
+
+6) sortition final spend
+
+* if your money in the sortition chain is frozen, you have a chance right before the sortition chain finalizes to sell your money out, that way you don't need to hold any lottery risk.
+
+7) rng result tx
 
 * contains 129 hashes, evenly spaced along the progress of computing the vdf.
 * then you pay a safety deposit assigned to your pubkey.
 * points at a sortition contract
 
-7) rng challenge tx
+8) rng challenge tx
 
 * which of the 128 gaps are we claiming is invalid?
 * points at a result or response.
 
-8) rng response tx
+9) rng response tx
 
 * contains 129 hashes, evenly spaced along the progress of computing the vdf.
 * points at a challenge.
 
-9) rng confirm tx
+10) rng confirm tx
 
 * if no one can prove that the result is false within a certain time period, we default to considering it as the correct rng output. (check that radix > 0).
 * it is not possible to do a sortition_claim_tx until after the rng_confirm_tx has finalized the RNG that will be used for that sortition chain.
 
-10) rng refute tx
+11) rng refute tx
 
 * if this gap has less than 1000 hashes, the result is computed on-chain, if there is a disconnect in the 1000, then we consider this rng result as invalid.
 * OR if a challenge doesn't get a response for too long a period of time, we consider this rng result as an incorrect rng output.
@@ -95,10 +123,6 @@ tx types
 * we can get rid of the rng_challenge.
 * refund fees for users who participated honestly.
 
-12) rng_cleanup_result
-
-* show that some rng_result exists.
-* show that the sortition chain it is pointed at has been settled, or does not exist.
 
 Potential Timeline of txs for a sortition chain
 =============
@@ -107,9 +131,9 @@ sortition new tx,
 
 now there is a delay where people can make smart contracts in the sortition chain. 
 
-existence, existence, existence,
+sortition block, sortition block, sortition block,
 
-existence txs are used to update the state of each sortition chain
+sortition block txs are used to update the state of each sortition chain
 
 eventually the trading period, and all sortition chains are frozen. Now there is a delay for about 24 hour so everyone can have one last chance to spend their veo from the sortition chain.
 
@@ -135,14 +159,14 @@ sortition timeout
 New Merkel Tree Data Structures in the Consensus State
 ============
 
-1) sortition chain
+1) sortition
 
 * range of probability space that could result in a winner
 * where the source of randomness is measured.
 * pubkey of who created this sortition chain
 
 
-2) proof of existence
+2) sortition blocks
 
 id is the 32 bytes being stored.
 
@@ -181,8 +205,13 @@ If someone can demonstrate an alternative way to close this layer that results i
 4) rng_challenge
 - id of this challenge
 - id of result being challenged
-- pubkey of who made this challenge
 - id of a parent challenge, if it exists
+- id of the sortition chain this is related to.
+- pubkey of who made this challenge
+- hashes. this is the root hash of the checkpoints, once a rng_response_tx is done to provide the checkpoints.
+- start hash. this is the beginning checkpoint of the part we want them to prove.
+- end hash. this is the final checkpoint of the part we want them to prove.
+- many. how many hashes are in this challenge.
 - timestamp
 - if refund was paid
 - which of the 128 gaps is being challenged.
@@ -209,28 +238,55 @@ A baby sortition chain won the sortition chain if all N of the operators have a 
 An account won if all N of the operators for the winning sortition chain have signed a merkel root that gave that account control of that part of the probability space.
 
 
-
 Timeline for horizontal payment
+============
+
+I want to send veo I own inside a sortition chain to you.
+
+SortitionLine = [{me, true}].
+
+I ask the validators to make you send in line.
+
+SortitionLine = [{me, true}, {you, true}].
+
+I send you my signature over a waiver saying that I am giving up control of this part of the sortition space.
+
+SortitionLine = [{you, true}].
+
+
+Timeline for horizontal payment + atomic swap
 =============
 
-lets say that I are the one who will reveal the secret.
-I ask the operators of my sortition chain (called A) to make a tx that puts you next in line to own my value, but the tx is only valid if a secret is revealed on the main-chain before an expiration date, otherwise the value goes back to me. I am third in line as well as first.
+I want to send veo I own inside a sortition chain to you, and receive alt-coins from you in return, trustlessly.
 
-You ask the operators of your sortition chain (called B) to make a tx to put me next in line to own your value, if the secret is revealed on the main chain before the expiration, otherwise it goes back to you, you are third in line as well as first.
+SortitionLine = [{me, true}].
 
-I give up my spot as first in line.
-You give up your spot as first in line.
+I generate the secret that will be used to unlock the payment.
 
-I reveal the secret.
+I ask you to sign something saying you give up ownership of my value, and it is only valid if the secret is not revealed on the main-chain in a proof of existence tx before a certain height. This means that if you commit the secret on-chain, that will give you ownership.
 
-Now I am first in line on sortition chain B, as long as I have the secret to prove ownership, and you are first in line on my sortition chain A, as long as you have the secret.
+I ask the validators for my sortition chain to make you second in line to own my money, and I ask them to make me third in line, using a different pubkey.
 
-So I ask the sortition chain B operators to make me third in line, and you ask the sortition chain A operators to make you third in line.
+SortitionLine = [{me, true},{you, "secret not revealed on main chain"},{me, true}].
 
-Then we both give up our 2nd in line spots.
+I send you my signature over a contract with my new pubkey. it gives up my spot as 3rd in line, if you know the secret. (the secret does not need to be on the main-chain)
 
-Now we both have ownership on the correct side, and we don't need to publish any secret to the main chain.
-So it seems like we for sure need contracts on the txs that assign ownership to someone.
+SortitionLine = [{me, true},{you, "secret not revealed on main chain"},{me, "secret not known to you"}].
+
+I send you my signature to give up my spot as first in line.
+
+SortitionLine = [{you, "secret not revealed on main chain"},{me, "secret not known to you"}].
+
+We can make a contract on some other blockchain so that you will give me value if the secret is revealed.
+
+I reveal the secret to you.
+
+SortitionLine = [{you, "secret not revealed on main chain"}].
+
+You generate a new address, and show the secret to the validators. They make your new address next in line to own the sortition chain value. (if they refuse, then you need to publish the secret on-chain).
+
+SortitionLine = [{you, "secret not revealed on main chain"},{you, true}].
+
 
 Timeline for vertical payment
 ===========
