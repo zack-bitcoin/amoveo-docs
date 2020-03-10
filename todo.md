@@ -1,26 +1,3 @@
-verify that rng_challenge.hashes is being used correctly.
-It should contain the root hash of the checkpoints.
-so we would need to verify a merkle proof of the checkpoints somewhere.
-
-
-in sortition claim, we need to show that there is a commitment on top of this one, and it has at least (number of validators)-1 signatures. to prevent signature availability attacks.
-
-
-
-do we support making that one final spend inside the sortition chain???
-
-
-in final spend tx, we probably dont' need to keep a portion for the spender as a safety deposit, because we can use the smart contract to create a punishment for double-spending.
-
-
-light node tool to simplify the futarchy process.
-
-auto-sync the wallet when you open the light node. auto-check your balance.
-
-in the light node, would be cool if we could remember a cookie or something of the top block's hash. so we don't have to resync headers on refreshing the page.
-
-
-why do we support 2 ways of making channels? can we stop supporting one of them?
 
 * more tests of the new sortition chains.
   - smart contract involving an oracle's value.
@@ -40,28 +17,7 @@ needed txs:
 add a check to the new txs, so they aren't valid until after the hard update height 28.
 
 
-
-
-in each tx file, remove the no longer used `make` function
-
-
-a lot of the tree modules have practically identical functions. It would be better to abstract the repeated code into trees.erl.
-
-
-
-
-1 second is about 10 million hashes.
-1 block is about 10 minutes.
-We want the proof to take 20 blocks, so 200 minutes, which is 2 billion hashes.
-log128(2 billion) is about 4.5
-
-
-add delay parameter for one final chance to spend the tx to the sortition chain objects.
-
-
-
 Sortition Chains
-* the new tx types.
 * api
 * javascript light node interface
 - create a new sortition chain
@@ -70,6 +26,32 @@ Sortition Chains
 - communicating with the operators of the sortition chain
 - horizontal payments
 - vertical payments
+
+
+
+
+
+
+syncing blocks in reverse.
+
+in each tx file, remove the no longer used `make` function
+
+
+a lot of the tree modules have practically identical functions. It would be better to abstract the repeated code into trees.erl.
+
+light node tool to simplify the futarchy process.
+
+auto-sync the wallet when you open the light node. auto-check your balance.
+
+
+in the light node, would be cool if we could remember a cookie or something of the top block's hash. so we don't have to resync headers on refreshing the page.
+
+why do we support 2 ways of making channels? can we stop supporting one of them?
+
+
+
+
+
 
 
 it looks like when we are syncing blocks, a lot more of block:check can be moved to block:check0, which will make block processing more parallelized.
