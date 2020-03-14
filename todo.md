@@ -1,6 +1,7 @@
+we do turing completeness in the step of giving up control of part of the probabilistic value space.
 
 * more tests of the new sortition chains.
-  - smart contract involving an oracle's value.
+- smart contract involving an oracle's value.
   - betting using an oracle that doesn't exist yet.
     * including creating and enforcing with the oracle if necessary.
   - atomic swap value between 2 sortition chains.
@@ -28,7 +29,7 @@ Sortition Chains
 - vertical payments
 
 
-
+create a process for keeping track of the VDF and making txs as necessary to cause the correct RNG value to be computed.
 
 
 
