@@ -1,5 +1,6 @@
 Derivative liquidation
 ============
+draft #2
 
 A popular feature of financial derivatives is the "margin call", also called "liquidation".
 A margin call is something that can happen to a financial derivative contract.
@@ -19,7 +20,12 @@ The contract says that if I can show any one of the oracles has a price outside 
 
 So if ever the price goes outside our agreed upon range, and you refuse to participate in the liquidation, then I only need to put that one oracle on-chain, and it enforces the correct outcome of our contract.
 
-State channels can be programmed to exit more quickly if an oracle exists which shows that a margin call has occured.
-
 Sortition chain contracts are fully transferable, even if the person on the other side of your contract doesn't want to participate. The margin call oracle only needs to be created if you actually win the sortition chain lottery.
+
+If a margin is breached, the liquidity provider is immediately able to sell their value in the contract to someone else.
+They don't even need to wait for a block confirmation, they are instantly able to sell from the moment that the price exeeds the agreed upon range.
+
+The existence of margins in derivatives contracts should give liquidity providers more confidence to participate, which should make stablecoins more available and useful.
+
+
 
