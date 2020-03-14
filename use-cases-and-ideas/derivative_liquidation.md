@@ -19,9 +19,7 @@ The contract says that if I can show any one of the oracles has a price outside 
 
 So if ever the price goes outside our agreed upon range, and you refuse to participate in the liquidation, then I only need to put that one oracle on-chain, and it enforces the correct outcome of our contract.
 
-In Amoveo smart contracts, you only need to define the parts of the contract that actually get executed. So even if there are many possible ways that the contract could possibly get executed, the on-chain cost of running it can still be very small.
-If there are N possible oracles measuring different times, we only need something log2(N) many steps on-chain to run the contract.
-
 State channels can be programmed to exit more quickly if an oracle exists which shows that a margin call has occured.
 
 Sortition chain contracts are fully transferable, even if the person on the other side of your contract doesn't want to participate. The margin call oracle only needs to be created if you actually win the sortition chain lottery.
+
