@@ -20,7 +20,7 @@ The contract says that if I can show any one of the oracles has a price outside 
 
 So if ever the price goes outside our agreed upon range, and you refuse to participate in the liquidation, then I only need to put that one oracle on-chain, and it enforces the correct outcome of our contract.
 
-Sortition chain contracts are fully transferable, even if the person on the other side of your contract doesn't want to participate. The margin call oracle only needs to be created if you actually win the sortition chain lottery.
+[Sortition chain](/design/sortition_chains.md) contracts are fully transferable, even if the person on the other side of your contract doesn't want to participate. The margin call oracle only needs to be created if you actually win the sortition chain lottery.
 
 If a margin is breached, the liquidity provider is immediately able to sell their value in the contract to someone else.
 They don't even need to wait for a block confirmation, they are instantly able to sell from the moment that the price exeeds the agreed upon range.
