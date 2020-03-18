@@ -3,6 +3,19 @@ Sortition Chains Theory
 
 [sortition chains home](./sortition_chains.md)
 
+Kinds of computation
+==============
+
+we can either do computation when making a claim that you won the lottery, or we can do computation when proving that someone's claim is false.
+
+the advantage of doing computation when you prove that you have won, is that
+* this reduces how much data you need to keep track of to be able to prove that you own what you own. The on-chain computation divides up the probabilistic value space, and you only need to remember the history for the slice of this space that you own.
+
+The advantage of doing computation when you prove that someone did not win, is that:
+* this reduces how much data needs to go on-chain. We can have very large complicated contracts with hundreds of rules, and you only need to put the one rule that they broke on-chain.
+* validators do not need to keep track of as many proofs.
+* this kind of contract can be updated instantly by creating a signature or revealing a secret.
+
 lottery randomness is necessary for sharding
 ==============
 

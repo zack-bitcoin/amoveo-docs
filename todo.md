@@ -1,21 +1,14 @@
 we do turing completeness in the step of giving up control of part of the probabilistic value space.
 
 * more tests of the new sortition chains.
-- smart contract involving an oracle's value.
-  - betting using an oracle that doesn't exist yet.
-    * including creating and enforcing with the oracle if necessary.
   - atomic swap value between 2 sortition chains.
   - receiving value in a sortition chain that you didn't previously know about, including merkle proofs of the history for the part of the value you will own.
-  - micro payments in a channel inside the sortition chain.
   - atomic swap between channels in sortition chains.
   - make a channel in the sortition chain, buy stablecoins, then settle the channel so that you are left holding stablecoins inside the sortition chain.
 
 needed txs:
-* clean up old rng stuff. rng_challenge, rng_result. Maybe we need to pay out rewards too.
-* clean up old sortition stuff. sortition_blocks.
+* clean up old stuff. candidates, sortition_blocks.
   - don't remove candidates until the sortition chain is settled. We need old candidates so evidence cannot be re-used.
-
-add a check to the new txs, so they aren't valid until after the hard update height 28.
 
 
 Sortition Chains
