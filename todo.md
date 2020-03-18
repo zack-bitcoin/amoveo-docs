@@ -1,3 +1,18 @@
+the ownership proof needs the ability to have the hash of a smart contract embedded in it.
+Instead of providing a waiver it needs to be possible to provide the smart contract, and show that it doesn't result in the outcome they had claimed.
+
+this means an attacker could publish many many claims saying that they had won.
+We need a plan for this.
+* maybe the cost to add a claim should increase exponentially as the list of potential claims gets longer. So if an attacker publishes many claims, and the defenders keep proving them as false, this will be much more expensive for the attacker, in comparison to the defender just publishing a single claim to win. If each additional claim costs 1.5x as much as the one before, then after 10 claims, the attacks is paying 3x as much as the defender.
+* Maybe each new claim should cost 1/3rd as much as all the rest of the claims so far added together.
+
+* in sortition_claim_tx, calculate a merkle root of all the smart contract root hashes. This single root can be used to show if any smart contract was not a valid outcome. store pairs like {hash, outcome}
+* in sortition_evidence_tx, besides waivers we should be able to show that one of the smart contracts doesn't result how they had claimed.
+
+
+
+
+
 we do turing completeness in the step of giving up control of part of the probabilistic value space.
 
 * more tests of the new sortition chains.
