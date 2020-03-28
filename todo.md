@@ -1,21 +1,37 @@
-the ownership proof needs the ability to have the hash of a smart contract embedded in it.
-Instead of providing a waiver it needs to be possible to provide the smart contract, and show that it doesn't result in the outcome they had claimed.
+
+in the trees files, the get_dict functions, we need to distinguish between when we know a spot in the tree is empty vs when we don't know what is in that spot.
+
+
+adding smart contracts to layer 2 subgoals
+X 1) update ownership 
+2) using smart contracts instead of waivers
+3) cost of adding a claim should increase as the number of open claims increases.
+
+* Instead of providing a waiver it needs to be possible to provide the smart contract, and show that it doesn't result in the outcome they had claimed.
+  - in sortition_claim_tx, calculate a merkle root of all the smart contract root hashes. This single root can be used to show if any smart contract was not a valid outcome. store pairs like {hash, outcome}
+  - in sortition_evidence_tx, besides waivers we should be able to show that one of the smart contracts doesn't result how they had claimed.
 
 this means an attacker could publish many many claims saying that they had won.
 We need a plan for this.
 * maybe the cost to add a claim should increase exponentially as the list of potential claims gets longer. So if an attacker publishes many claims, and the defenders keep proving them as false, this will be much more expensive for the attacker, in comparison to the defender just publishing a single claim to win. If each additional claim costs 1.5x as much as the one before, then after 10 claims, the attacks is paying 3x as much as the defender.
 * Maybe each new claim should cost 1/3rd as much as all the rest of the claims so far added together.
+ - 1, 1/3, 4/9, 4/9 + 4/27
 
-* in sortition_claim_tx, calculate a merkle root of all the smart contract root hashes. This single root can be used to show if any smart contract was not a valid outcome. store pairs like {hash, outcome}
-* in sortition_evidence_tx, besides waivers we should be able to show that one of the smart contracts doesn't result how they had claimed.
+F(0) = 1;
+F(1) = 1/3;
+F(N) = F(N-1)*4/3;
+
+->
+F(0) = 1;
+F(N) = (1/3) * ((4/3)^(N-1))
 
 
 
 
 
-we do turing completeness in the step of giving up control of part of the probabilistic value space.
 
 * more tests of the new sortition chains.
+  - smart contract at layer 2, including posting the contract on-chain in a sortition-evidence tx. 
   - atomic swap value between 2 sortition chains.
   - receiving value in a sortition chain that you didn't previously know about, including merkle proofs of the history for the part of the value you will own.
   - atomic swap between channels in sortition chains.

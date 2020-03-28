@@ -16,6 +16,34 @@ The advantage of doing computation when you prove that someone did not win, is t
 * validators do not need to keep track of as many proofs.
 * this kind of contract can be updated instantly by creating a signature or revealing a secret.
 
+
+Ownership Claims
+==============
+
+Ownership claims are how we do layer 2 computation.
+
+Ownership claims are defined by:
+* the pubkey of who owns this claim.
+* A priority nonce.
+* the ID of the sortition chain it is related to.
+* the portion of the probability space that it is claiming.
+* any smart contracts that need to resolve as `true` in order for this claim to be valid.
+
+The priority nonce and the sortition ID are independent from everything else, and easy to handle.
+The smart contracts and the probability space, these aspects interact in complicated ways.
+
+The probabilistic value space is like the space of rational numbers between 0 and 1. A person can own any contiguous region of the interval from 0 to 1, defined by the 2 rational numbers that are the bounds of that region.
+
+the contract space is like the space created by a 2^256 binary number, where you can set some of the bits to 1 or 0, and let the rest of the bits be free.
+
+If we have smart contracts in layer 2, then we need to divide up the 2D space made by combining the probabilistic value space with the contract space, and we need to be sure that none of the 2D claims are overlapping with any other 2D claim.
+
+Dividing the 2D space up by contract first is dangerous, because it can cause a data availability vulnerability.
+If Alice owns veo in a sortition chain, and Bob creates a contract with Charlie, we want it to never be the case that Alice needs to know the content of Bob and Charlie's contract in order to claim her winnings. So this means that new contracts need to be as near to the leaves of the tree as possible, and far from the root.
+
+So this means that during merkle proof verification, we need to keep track of the bounds of the 2D space being defined at every step of the proof.
+
+
 lottery randomness is necessary for sharding
 ==============
 
