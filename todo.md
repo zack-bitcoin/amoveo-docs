@@ -8,7 +8,7 @@ X 1) update ownership
 3) cost of adding a claim should increase as the number of open claims increases.
 
 * Instead of providing a waiver it needs to be possible to provide the smart contract, and show that it doesn't result in the outcome they had claimed.
-  - in sortition_claim_tx, calculate a merkle root of all the smart contract root hashes. This single root can be used to show if any smart contract was not a valid outcome. store pairs like {hash, outcome}
+X  - in sortition_claim_tx, calculate a merkle root of all the smart contract root hashes. This single root can be used to show if any smart contract was not a valid outcome. 
   - in sortition_evidence_tx, besides waivers we should be able to show that one of the smart contracts doesn't result how they had claimed.
 
 this means an attacker could publish many many claims saying that they had won.
