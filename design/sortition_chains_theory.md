@@ -6,15 +6,31 @@ Sortition Chains Theory
 Kinds of computation
 ==============
 
-we can either do computation when making a claim that you won the lottery, or we can do computation when proving that someone's claim is false.
+We are going to have 4 different kinds of environments where turing complete contracts can be run.
+The combination of which should allow us to build convenient interfaces for derivatives.
 
-the advantage of doing computation when you prove that you have won, is that
-* this reduces how much data you need to keep track of to be able to prove that you own what you own. The on-chain computation divides up the probabilistic value space, and you only need to remember the history for the slice of this space that you own.
+1) state channels. 
+state channel computation is instantaneous, but you are restricted to only interacting with the one person that you have a channel with. 
 
-The advantage of doing computation when you prove that someone did not win, is that:
-* this reduces how much data needs to go on-chain. We can have very large complicated contracts with hundreds of rules, and you only need to put the one rule that they broke on-chain.
-* validators do not need to keep track of as many proofs.
-* this kind of contract can be updated instantly by creating a signature or revealing a secret.
+This tool tends to have liquidity issues.
+on-chain state channels also have problems of block congestion. If there is not space on-chain to publish evidence that you won your channel, then your claim isn't enforceable. 
+
+2) state channels in sortition chains.  If your channel in the sortition chain wins the lottery, then that channel gets created on-chain with all the money from the lottery inside of it. It works like a normal on-chain channel.
+
+This kind of channel also has liquidity issues.
+It has lottery risk.
+Since you will win so much money, you can afford high fees, so on-chain congestion is not a problem.
+
+3) sortition contracts. Besides dividing up the value in the sortition chain probabilistically, we can also divide it up based on the outcome of a smart contract. Only the merkle root of this contract is contained in the merkle proof showing that you own part of the value in the sortition chain. If you lie about the outcome of a smart contract, someone else can post that smart contract to show that you lied, and you lose money for this.
+
+This kind of computation has the draw-back that it is slow to update your contract. You need to wait for a merkle root to get recorded on-chain, and for enough confirmations on top of it so you can be sure that the tx wont get orphaned.
+
+Unlike state channels, you cannot provide script-sig style evidence when the contract is run. So it isn't possible to atomically connect this kind of contract to others.
+
+4) waivers. Ownership in a sortition chain is like standing in a line for each part of the value. A person can give up their spot in line without having to post anything on-chain. They simply send a message to whoever is second in line, so it can be instantaneous.
+You can embed a smart contract in the waiver, so that you can give up your spot in line conditional on the outcome of a football game for example. 
+The drawback of waivers is that in some cases, the amount of data you may need to keep track of to own value in the sortition chain can become very large. For example. if you use a waiver to sell a stablecoin contract and are left holding long-veo, and then other people keep trading those stablecoins between each other. In that situation, if you want to be able to spend your long-veo, then you would need to remember the entire history of their transfers.
+I expect that waivers will mostly be used to atomically connect different contract changes together.
 
 
 Ownership Claims

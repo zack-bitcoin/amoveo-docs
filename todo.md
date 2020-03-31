@@ -1,3 +1,18 @@
+ideas for the p2p betting experience:
+* consider a single page app.
+* minimize the number of clicks
+* make it so you don't need to reload keys so often
+* save channel offer in the browser automatically.
+
+
+
+
+
+either do a hard update to allow creating oracles that start in the past, or else add a better error message to the light node to explain why this kind of oracle isn't allowed.
+
+
+
+
 
 in the trees files, the get_dict functions, we need to distinguish between when we know a spot in the tree is empty vs when we don't know what is in that spot.
 
