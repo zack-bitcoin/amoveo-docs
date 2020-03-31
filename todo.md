@@ -6,24 +6,19 @@ ideas for the p2p betting experience:
 
 
 
-
-
-either do a hard update to allow creating oracles that start in the past, or else add a better error message to the light node to explain why this kind of oracle isn't allowed.
-
-
-
-
-
 in the trees files, the get_dict functions, we need to distinguish between when we know a spot in the tree is empty vs when we don't know what is in that spot.
 
 
 adding smart contracts to layer 2 subgoals
 X 1) update ownership 
 2) using smart contracts instead of waivers
-3) cost of adding a claim should increase as the number of open claims increases.
+3) preventing ddos of contracts
+4) cost of adding a claim should increase as the number of open claims increases.
+5) switch the order of priority and sid in the ownership make_tree functions.
 
 * Instead of providing a waiver it needs to be possible to provide the smart contract, and show that it doesn't result in the outcome they had claimed.
-X  - in sortition_claim_tx, calculate a merkle root of all the smart contract root hashes. This single root can be used to show if any smart contract was not a valid outcome. 
+X  - in sortition_claim_tx, calculate a merkle root of all the smart contract root hashes. This single root can be used to show if any smart contract was not a valid outcome.
+  - in sortition_contract_tx, there is a DDOS cvulnerability. sometimes we need to include the tx, even if the contract is invalid.
   - in sortition_evidence_tx, besides waivers we should be able to show that one of the smart contracts doesn't result how they had claimed.
 
 this means an attacker could publish many many claims saying that they had won.
