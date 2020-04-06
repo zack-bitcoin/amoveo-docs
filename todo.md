@@ -1,25 +1,51 @@
-ideas for the p2p betting experience:
-* consider a single page app.
-* minimize the number of clicks
-* make it so you don't need to reload keys so often
-* save channel offer in the browser automatically.
+in ownership.erl, bounds_update needs to know about all the different kinds of rules.
+
+
+in ownership.erl
+Every merkle proof should contain all the priorities for a given {sid, prob_space, contracts, merkle_root} combination.
+verify should check that they are all there.
+This is because we are using these proofs to verify the history of ownership of part of the sortition chain.
+
+we also need a version of verify and make_proof that only generate the proof for a single ownership contract, as this is what will be used on-chain to claim your winnings.
+The version for a single proof is simple, just prove the most narrowly defined winning contract possible, and a single leaf will entirely contain it.
+contracts stored in the tree should only have a single pririty integer. but when we generate proofs and verify proofs, we need to be able to look at the entire range of priority integers.   
+
+ownership is subset should require the contract we are proving to be entirely contained in the leaves that are proved.
+ownership is no_overlap should require that none of the leaves overlap with the contract we care about.
+anything else is a bad proof.
 
 
 
-in the trees files, the get_dict functions, we need to distinguish between when we know a spot in the tree is empty vs when we don't know what is in that spot.
+
+
+** in the trees files, the get_dict functions, we need to distinguish between when we know a spot in the tree is empty vs when we don't know what is in that spot.
 
 
 adding smart contracts to layer 2 subgoals
 X 1) update ownership 
-2) using smart contracts instead of waivers
-3) preventing ddos of contracts
+X 2) using smart contracts instead of waivers
+X 3) preventing ddos of contracts
 4) cost of adding a claim should increase as the number of open claims increases.
-5) switch the order of priority and sid in the ownership make_tree functions.
+X 5) switch the order of priority and sid in the ownership make_tree functions. Maybe the priority step should be as deep as possible.
+6) we need a way to prove the non-existence of a claim in a given version of the sortition merkle tree.
+  options:
+  - store empties in the sortition tree, use paintbucket to look up enough to cover the region.
+  - look up proofs for partially filled regions, make sure that what we are trying to prove does not overlap with the filled portion, use paintbucket to look up enough to cover the region.
 
-* Instead of providing a waiver it needs to be possible to provide the smart contract, and show that it doesn't result in the outcome they had claimed.
+
+why does ownership:make_tree accumulate the bounds and check them at the end? is that just a sanity check to make sure the bounds function works correctly for the proof being generated?
+similarly, in ownership:verify, we are accumulating the bounds. but it seems like the contract_direction function already verifies the same information.
+it seems like the bounds object is never useful.
+
+
+
+
+
+
+X * Instead of providing a waiver it needs to be possible to provide the smart contract, and show that it doesn't result in the outcome they had claimed.
 X  - in sortition_claim_tx, calculate a merkle root of all the smart contract root hashes. This single root can be used to show if any smart contract was not a valid outcome.
-  - in sortition_contract_tx, there is a DDOS cvulnerability. sometimes we need to include the tx, even if the contract is invalid.
-  - in sortition_evidence_tx, besides waivers we should be able to show that one of the smart contracts doesn't result how they had claimed.
+X   - in sortition_contract_tx, there is a DDOS cvulnerability. sometimes we need to include the tx, even if the contract is invalid.
+X   - in sortition_evidence_tx, besides waivers we should be able to show that one of the smart contracts doesn't result how they had claimed.
 
 this means an attacker could publish many many claims saying that they had won.
 We need a plan for this.
@@ -66,8 +92,19 @@ Sortition Chains
 create a process for keeping track of the VDF and making txs as necessary to cause the correct RNG value to be computed.
 
 
-
 syncing blocks in reverse.
+
+
+
+
+
+ideas for the p2p betting experience:
+* consider a single page app.
+* minimize the number of clicks
+* make it so you don't need to reload keys so often
+* save channel offer in the browser automatically.
+
+
 
 in each tx file, remove the no longer used `make` function
 
