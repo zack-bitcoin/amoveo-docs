@@ -1,21 +1,8 @@
-in ownership.erl, bounds_update needs to know about all the different kinds of rules.
+persistent ownership merkle tree enabled from the configuration file, for the validators.
+we need a sortition wallet to keep track of the proof of ownership for users.
 
 
-in ownership.erl
-Every merkle proof should contain all the priorities for a given {sid, prob_space, contracts, merkle_root} combination.
-verify should check that they are all there.
-This is because we are using these proofs to verify the history of ownership of part of the sortition chain.
-
-we also need a version of verify and make_proof that only generate the proof for a single ownership contract, as this is what will be used on-chain to claim your winnings.
-The version for a single proof is simple, just prove the most narrowly defined winning contract possible, and a single leaf will entirely contain it.
-contracts stored in the tree should only have a single pririty integer. but when we generate proofs and verify proofs, we need to be able to look at the entire range of priority integers.   
-
-ownership is subset should require the contract we are proving to be entirely contained in the leaves that are proved.
-ownership is no_overlap should require that none of the leaves overlap with the contract we care about.
-anything else is a bad proof.
-
-
-
+make it more clear what "oracle starts" means in the light node.
 
 
 ** in the trees files, the get_dict functions, we need to distinguish between when we know a spot in the tree is empty vs when we don't know what is in that spot.
@@ -27,16 +14,8 @@ X 2) using smart contracts instead of waivers
 X 3) preventing ddos of contracts
 4) cost of adding a claim should increase as the number of open claims increases.
 X 5) switch the order of priority and sid in the ownership make_tree functions. Maybe the priority step should be as deep as possible.
-6) we need a way to prove the non-existence of a claim in a given version of the sortition merkle tree.
-  options:
-  - store empties in the sortition tree, use paintbucket to look up enough to cover the region.
-  - look up proofs for partially filled regions, make sure that what we are trying to prove does not overlap with the filled portion, use paintbucket to look up enough to cover the region.
-
-
-why does ownership:make_tree accumulate the bounds and check them at the end? is that just a sanity check to make sure the bounds function works correctly for the proof being generated?
-similarly, in ownership:verify, we are accumulating the bounds. but it seems like the contract_direction function already verifies the same information.
-it seems like the bounds object is never useful.
-
+X 6) we need a way to prove the non-existence of a claim in a given version of the sortition merkle tree.
+  - look up proofs for partially filled regions, make sure that what we are trying to prove does not overlap with the filled portion
 
 
 
