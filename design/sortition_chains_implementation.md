@@ -3,77 +3,35 @@ Sortition Chains Implementation
 
 [sortition chains home](./sortition_chains.md)
 
-records
-======
-
--record(sortition_new_tx, {creator, nonce, fee, amount, id, entropy, trading_ends, response_delay, rng_ends, delay, validators}).
-
--record(sortition_block_tx, {from, nonce, fee, id, prev_id, validators, signatures, side_height, state_root}).
-
--record(sortition_claim_tx, {from, nonce, fee, claim_id, top_candidate, proof_layers, sortition_id}).
-
--record(sortition_evidence_tx, {pubkey, nonce, fee, sortition_id, layer, signed_waiver, script_sig}).
-
--record(sortition_timeout_tx, {pubkey, nonce, fee, winner, winner2, amount, layer, sortition_id}).
-
--record(rng_result_tx, {pubkey, nonce, fee, id, sortition_id, hashes}).
-
--record(rng_challenge_tx, {pubkey, nonce, fee, id, sortition_id, parent_id, parent_type, start_hash, end_hash, proof, n}).
-
--record(rng_response_tx, {pubkey, nonce, fee, id, sortition_id, result_id, hashes}).
-
--record(rng_refute_tx, {pubkey, nonce, fee, sortition_id, challenge_id, result_id, n, proof, start_hash, end_hash}).
-
--record(rng_confirm_tx, {pubkey, nonce, fee, sortition_id, result_id}).
-
-
--record(waiver, {pubkey, pubkey2, sortition_id, contract}).
-
--record(sortition, {id, amount, entropy_source, creator, validators, trading_ends, rng_response_delay, rng_end, rng_value, delay, last_modified, top_candidate, top_rng, bottom_rng, closed}).%merkle tree
-%rng_results make a queue, new elements inserted at the bottom_rng pointer, and the head of the queue is the top_rng.
--record(sortition_block, {id, validators, state_root, height, side_height}).
-
--record(candidate, {id, sortition_id, layer_number, winner, winner2, recovery_spend, height, priority, next_candidate}).%merkle tree
-
--record(sortition_final_spend_tx, {from, nonce, fee, claim_id, signed_spend, evidence}).
--record(final_spend, {from, from2, to, sortition_id, contract, prove}).
-
--record(rng_result, {id, sortition_id, pubkey, hashes, value, next_result, impossible, confirmed}).
-
--record(rng_challenge,
-        {id, result_id, parent_id,
-        sortition_id,
-        pubkey, hashes,
-        start_hash, end_hash,
-        many, %how many hashes in this challenge
-        timestamp, refunded, n}).
--record(rng_challenge_cleanup_tx, {from, nonce, fee, challenge_id, sortition_id}).
-
-
-
 tx types
 ====
 
 1) sortition new
 
+* creates a new sortition chain.
 * pubkey who initially owns all the value.
 * amount of money for the lottery prize.
-* expiration date for when it it becomes possible to make sortition-contract-txs for this sortition chain.
+* expiration date for when it it becomes possible to make sortition-claim-txs for this sortition chain.
 
 2) sortition claim
 
 * show what height at which you had a claim to the winning part of the probabilistic value.
-* You pay a safety deposit.
-* this potential winner gets added to a list of potential winners, or this increases the priority of your existing ownership claim.
+* You pay a fee based on how many claims are already listed for this sortition chain.
+* this potential winner gets added to a list of potential winners
 * you can only do this if your sortition claim will have the highest priority.
 
-3) sortition evidence
+3) sortition waiver
 
 * which potential winner did not win.
 * a signed waiver showing that they gave up control, with a contract hash.
-* evidence P2SH to make the contract return `true`. the winning part of the probability state is in the top of the stack before contract execution.
 * they get removed from the list of potential winners, but their `candidate` element is still in the merkle tree, this prevents them from giving the same evidence again to spam the blockchain.
 * you can only do this for the clain that is currently at the top of the priority list.
+
+4) sortition contract
+
+* which potential winner did not win.
+* a merkle proof showing that their winning is dependent on the result of a particular contract hash.
+* a contract which matches the hash that they had commited to. The result of processing this contract needs to show that they did not win.
 
 4) sortition timeout
 
@@ -127,7 +85,14 @@ tx types
 Potential Timeline of txs for a sortition chain
 =============
 
-sortition new tx,
+There are 6 phases in the sortition process.
+
+trading -> final spend -> rng calculation -> sortition claims -> sortition evidence -> sortition result
+
+Trading
+===========
+
+someone creates a new sortition chain with sortition_new_tx,
 
 now there is a delay where people can make smart contracts in the sortition chain. 
 
@@ -135,7 +100,15 @@ sortition block, sortition block, sortition block,
 
 sortition block txs are used to update the state of each sortition chain
 
-eventually the trading period, and all sortition chains are frozen. Now there is a delay for about 24 hour so everyone can have one last chance to spend their veo from the sortition chain.
+Final Spend
+==========
+
+the sortition object has a number written in it, sortition.trading_ends.
+At this block height, all sortition chains descended from this one are frozen. Now there is a delay so everyone can have one last chance to spend their veo from the sortition chain.
+The delay continues until block height sortition.entropy_source
+
+RNG Calculation
+=========
 
 rng response,
 
@@ -145,15 +118,35 @@ during this period, if any challenge goes unresponded for too much time, then th
 
 rng_challenge, rng_challenge, rng_response, rng_response.
 
-finally enough time has passed that it becomes possible to do rng_result txs
+eventually enough time has passed that it becomes possible to do rng_result txs and finalize the RNG being generated.
 
-rng_result
+rng_result_tx
 
 this finalizes the rng value calculated for the sortition chain. Now we can start the dispute process for who won the sortition chain.
 
+Sortition Claims
+===========
+
 sortition claim,
 
-sortition timeout
+Anyone can try to provide evidence that they are the winners of the sortition chain. This creates an on-chain object called a sortition_claim.
+
+Anyone can provide evidence to show that a sortition claim is invalid.
+
+There is a delay programmed into the sortition chain object to determine how long this period lasts.
+
+sortition evidence
+===========
+
+Now it is not possible to make new sortition claims. But it is still possible to provide evidence to show that existing claims are invalid.
+
+There is a delay programmed into the sortition chain object to determine how long this period lasts.
+
+Sortition Result
+==========
+
+Whoever has the highest-priority claim that wasn't invalidated, they can now move the money from the sortition chain into their account.
+This ends the sortition chain.
 
 
 New Merkel Tree Data Structures in the Consensus State
@@ -233,7 +226,7 @@ The sortition object can have multiple responses. the responses can have multipl
 Claim Proof
 ============
 
-A baby sortition chain won the sortition chain if all N of the operators have a signed a merkel root giving the baby sortition chain control of that part of the sortition chain.
+A baby sortition chain won the sortition chain if all N of the operators have a signed a merkel root giving the baby sortition chain control of the winning part of the sortition chain.
 
 An account won if all N of the operators for the winning sortition chain have signed a merkel root that gave that account control of that part of the probability space.
 

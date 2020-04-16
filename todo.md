@@ -1,3 +1,82 @@
+document how cycle hubs work
+* putting them in line many times in a cycle.
+* giving up multiple spots in line by having the waiver smart contract reference the height and priority nonce of the claim.
+
+remembering the massive ownership merkle tree of everyone who is in the cycle over and over
+I wonder if we can fold the cycle on itself somehow
+Like what if there is a sortition ownership contract that is valid for priority P where (P mod 23) == 6
+Then someone else could have  (P mod 23)==7
+And we could have a pool of 23 hubs this way
+dividing priorities into modulus this way is not supported by the current ownership tree. I wonder how we could add it
+
+
+
+
+
+What we need is for the sortition claim data to be available when we process the waiver smart contracts.
+
+That way, your waiver smart contract can know the block height and priority nonce of the claim it being applied to.
+This allows you to use a single pubkey for multliple spots in line. you can use a single signature over a single waiver to give up multiple different positions you have in line.
+
+This way the history cost is only linear with the number of participants in the hub, no matter how long the hub lasts.
+
+
+
+
+256 priorities per sortition ownership object is not enough. We might want to put 10k+ in line all at once. Since that kind of design can be useful for payment hubs in the lightning network.
+
+document the payment hub strategy, where every hub is in line to receive money from everyone else.
+
+
+
+
+
+using fraud proofs to confirm sortition updates sooner.
+* maybe we only need one merkle root per sortition chain.
+  - one fraud proof period to make sure the root was calculated correct.
+  - a different fraud proof period for people to use that root to claim that they have won.
+* all N validators would have to cheat simultaniously.
+
+
+
+
+
+in the sortition chain docs, make it more clear that the channel is inside the sortition chain.
+
+
+
+sortition chains point of sale tests.
+
+
+
+
+
+currently, if an attacker keeps publishing invalid sortition_claim_txs, they can indefinitely delay settlement of a sortition chain.
+
+We could limit sortition_claims to only being one claim per pubkey or pair of pubkeys per sortition block.
+
+settlement should have 2 phases.
+during the first phase, you can make sortition claims, and sortition waiver txs, and sortition contract txs.
+during the second phase, you can only make waivers and contracts. no claims.
+
+* in sortition object
+  - we no longer need last_modified
+  - we currently 
+
+sortition new
+  activity in the sortition chain
+sortition.trading_ends
+  you can do a final_spend
+sortition.entropy_source
+  now we find the RNG to resolve the sortition contract.
+rng_end
+  the rng process can go through several fraud-proof cycles, each resetting the rng_response_delay timer
+rng_confirm_tx %we need to store this height in sortition.
+  now you can make sortition_claim_txs, sortition_contract_txs, and sortition_waivers_txs
+rng_confirm height + delay
+  it is still possible to make sortition_waiver_txs and sortition_contract txs, but not sortition_claim_txs
+rng_confirm height + delay + 2nd_delay
+
 persistent ownership merkle tree enabled from the configuration file, for the validators.
 we need a sortition wallet to keep track of the proof of ownership for users.
 
@@ -12,10 +91,10 @@ adding smart contracts to layer 2 subgoals
 X 1) update ownership 
 X 2) using smart contracts instead of waivers
 X 3) preventing ddos of contracts
-4) cost of adding a claim should increase as the number of open claims increases.
+X 4) cost of adding a claim should increase as the number of open claims increases.
 X 5) switch the order of priority and sid in the ownership make_tree functions. Maybe the priority step should be as deep as possible.
 X 6) we need a way to prove the non-existence of a claim in a given version of the sortition merkle tree.
-  - look up proofs for partially filled regions, make sure that what we are trying to prove does not overlap with the filled portion
+X  - look up proofs for partially filled regions, make sure that what we are trying to prove does not overlap with the filled portion
 
 
 
@@ -28,8 +107,8 @@ X   - in sortition_evidence_tx, besides waivers we should be able to show that o
 
 this means an attacker could publish many many claims saying that they had won.
 We need a plan for this.
-* maybe the cost to add a claim should increase exponentially as the list of potential claims gets longer. So if an attacker publishes many claims, and the defenders keep proving them as false, this will be much more expensive for the attacker, in comparison to the defender just publishing a single claim to win. If each additional claim costs 1.5x as much as the one before, then after 10 claims, the attacks is paying 3x as much as the defender.
-* Maybe each new claim should cost 1/3rd as much as all the rest of the claims so far added together.
+X * maybe the cost to add a claim should increase exponentially as the list of potential claims gets longer. So if an attacker publishes many claims, and the defenders keep proving them as false, this will be much more expensive for the attacker, in comparison to the defender just publishing a single claim to win. If each additional claim costs 1.5x as much as the one before, then after 10 claims, the attacks is paying 3x as much as the defender.
+X * Maybe each new claim should cost 1/3rd as much as all the rest of the claims so far added together.
  - 1, 1/3, 4/9, 4/9 + 4/27
 
 F(0) = 1;
@@ -38,7 +117,7 @@ F(N) = F(N-1)*4/3;
 
 ->
 F(0) = 1;
-F(N) = (1/3) * ((4/3)^(N-1))
+F(N) = (1/4) * ((4/3)^N)
 
 
 

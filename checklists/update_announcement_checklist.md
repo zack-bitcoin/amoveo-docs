@@ -8,3 +8,8 @@ hitbtc email
 qtrade.io on discord
 A1 exchange on discord
 
+wallets:
+Dennis Voskvitsov on telegram
+
+announcement channnels:
+discord

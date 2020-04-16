@@ -42,9 +42,12 @@ This is re-using a trick from probabilistic payment research.
 Data availability attack
 ==========
 
-If some of the operators sign sortition-blocks even though some of the data is not available, this is a kind of attack.
+If all of the operators sign sortition-blocks even though some of the data is not available, this is a kind of attack.
 
-This can make it impossible to spend your funds, because you can't prove to anyone if you have money or not. So you can be left holding lottery risk.
+This can make it impossible to spend your funds. So you can be left holding lottery risk.
+
+You can still prove that you are first in line to own your value, but you can't prove whether or not there is already someone who is 2nd in line.
+So if you add someone new in line to own your value, they don't know if they are 2nd in line, or 5th, or what. So no one will accept a payment from you.
 
 As long as at least 1 of the validators is honest, then this attack can't happen.
 

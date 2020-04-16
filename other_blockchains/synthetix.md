@@ -42,13 +42,5 @@ Synthetix has on-chain exchanges for each asset they support. Miners can re-orde
 The oracle
 ===========
 
-The current version of Synthetix has a centralized price feed controlled by the Synthetix team. This means that the Synthetix team can manipulate the price to extract a hidden tax, and we have no way to know how much value they are syphoning from users.
-They Synthetix team could publish a wildly incorrect price in the trusted price feed, and in this way steal a large portion of the subcurrency or SNX in one of the Synthetix markets.
+They use [chainlink. Chainlink is not secure.](other_blockchains/chainlink.md)
 
-When a centralized and trustful tool shoe-horns a smart contract into their interfaces, this seems like a kind of fraud to me.
-They are creating the impression that their product is more secure than centralized alternatives.
-Their slogan is "Decentralised synthetic assets", but the security guarantees of their product is currently completely centralized and trustful.
-
-The paper mentions possibly using [chainlink as a decentralized oracle in the future. Chainlink is not secure.](other_blockchains/chainlink.md)
-
-The centralized nature of Synthetix oracle design [has already cause a failure](https://blog.synthetix.io/response-to-oracle-incident/)
