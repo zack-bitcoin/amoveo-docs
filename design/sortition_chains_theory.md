@@ -3,6 +3,69 @@ Sortition Chains Theory
 
 [sortition chains home](./sortition_chains.md)
 
+Why Smart Contracts Should Be Immutible
+==============
+
+In order to be scalable, we need to get rid of all shared mutible state. Shared mutible state needs to be synchronized, and the synchronization cost increases as the number of participants increases. It doesn't scale.
+
+A smart contract needs to be shared between its participants. So, Amoveo smart contracts need to be immutible.
+Which means we are restricting ourselves to financial derivative type smart contracts.
+
+Why we need sharding
+==============
+
+In order to be scalable, the maximum resource cost per computer in the network needs to have some upper bound, even as the number of users increases without bound.
+
+So, there needs to be a way for the computational and storage capacity of the network to increase as the number of computers in the network increases.
+
+Splitting up a single large resource between multiple computers, this is called "sharding".
+
+Why sortition chains need validators
+==============
+
+Validators are used to ensure the availability of the state for a sortition chain. All of them need to sign over every update.
+So as long as 1 of the validators only signs over data that is available, then the data will be available.
+
+It is 1 of N proof of stake system.
+If all N of the validators work together to try and cheat, they can force you to hold lottery risk, but they cannot steal anyone's funds.
+
+If at least 1 validator is honest, then they cannot force you to hold lottery risk.
+
+Short Fraud Proofs
+==============
+
+Fraud proofs are used to enforce security on the shards. It is how someone would provide evidence to the main chain to show that cheating had occured.
+
+In order to be scalable, we need the maximum size of the fraud proofs to be bounded and the size of the bound needs to be known to the participants in the contract.
+
+If you need to publish the entire history of the winning part of the value in the lottery, this is not scalable, because that value could have been spent many times, so the history could be very long.
+
+Validators provide what?
+=============
+
+We want the fraud proof to be short. So the fraud proof can't involve proving a complete chain of ownership history.
+So when the validators assign value to someone, they don't say anything about where the value has come from.
+Which means that when the validators are assigning value to someone. There is no record of who owned it previously, so there is no signature from a previous owner giving permission for the spend.
+
+We also don't want validators to be able to do any [level 4 attacks](https://github.com/zack-bitcoin/amoveo-docs/blob/master//basics/trust_theory.md)
+
+So it needs to be impossible for the validators to assign your value to someone else without your permission.
+
+So it is necessary that any sortition ownership claim has a priority based on the block height in which the validators had added it to the sortition chain.
+Earlier block heights have higher priority.
+
+This way, if you are assigned the value first, the validators can't give it away to anyone else without your permission.
+
+Waiver Design
+========
+
+In order to minimize the size of the fraud proofs, we should have an individual small proof for every case where someone had given up control of part of the sortition value. We call this a "waiver", because someone is giving up their ownership claim to part of the value.
+
+So, in order to own some value, you need to maintain waivers from every previous owner of that value.
+
+The minimum amount of on-chain data in an ownership claim to enable validation of this kind of fraud proof is: some merkle proof showing that the validators had assigned this value to you at some point in time.
+
+
 Kinds of computation
 ==============
 
@@ -24,6 +87,10 @@ Since you will win so much money, you can afford high fees, so on-chain congesti
 3) sortition contracts. Besides dividing up the value in the sortition chain probabilistically, we can also divide it up based on the outcome of a smart contract. Only the merkle root of this contract is contained in the merkle proof showing that you own part of the value in the sortition chain. If you lie about the outcome of a smart contract, someone else can post that smart contract to show that you lied, and you lose money for this.
 
 This kind of computation has the draw-back that it is slow to update your contract. You need to wait for a merkle root to get recorded on-chain, and for enough confirmations on top of it so you can be sure that the tx wont get orphaned.
+
+sortition contracts have the advantage that the only people who need to record the contract is someone who owns value in it.
+If we only had waivers to do smart contracts, and we tried to use waivers to split a single ownership contract between 2 people. They would both need to keep track of each other's payments in order to own their own side.
+sortition contracts have the advantage that you only need to keep track of your own payments. 
 
 Unlike state channels, you cannot provide script-sig style evidence when the contract is run. So it isn't possible to atomically connect this kind of contract to others.
 
@@ -109,45 +176,6 @@ The on-chain cost of vertical transfers is (the probability that you win)*(lengt
 When you make a baby sortition chain, you get to choose a new list of operators for that new sortition chain.
 
 
-
-We don't need turing complete contracts to divide the probability space
-============
-
-The other day we were talking about how we can have turing complete contracts to divide up the probabilistic value space, and we can have turing complete smart contracts for when people give up control of part of the probability space.
-And we realized that it is better to do it at the step where users are giving up control, because less data gets posted on chain.
-
-Now I have realized that any contract done at the probabilistic division step, it can also be done at the step where users are giving up control.
-
-Lets say I have a arbitrary contract at the probabilistic division step. it divides up some of the value space into 2 mutually exclusive outcomes.
-
-I can make the same division by owning all that probabistic value space, and signing a tx that says I am giving up control of this part of the probabilistic value space, but only in the condition that the contract returns true.
-And we can set it up so that if I do give up control, next in line is the person on the other side of the contract.
-
-So this greatly simplifies the sortition chain design.
-
-
-No Pubkey reuse for the same probability space.
-===========
-
-You only need to keep track of the part of the probability space that you own.
-You need to keep a copy of the txs where anyone else who had previously owned part of your probability space.
-If someone else has a proof that they own the same part of the probability space as you, it must have been created after your proof. So the proof of existence will be connected to a later height on the main chain. So your proof will take precidence, and they can't prevent you from winning the lottery.
-
-This means it is not possible to own the same part of the probability space in the same sortition chain more than once with the same account.
-
-
-state channels inside sortition chains
-===========
-
-Sortition chains need to run smart contracts in 2 different kinds of security assumptions.
-1) We need a way to divide up the probability space. The outcomes of these contracts needs to be computable to everyone, so they can't depend on off-chain data. You need to wait for on-chain confirmations to change any part of these contracts.
-2) We need a way to have smart contracts who's outcome might depend on data only known to the participants of that contract. So the outcome is only computable by the participants, up until the point where they post the evidence on-chain to enforce the correct outcome. For example, this is needed for single-price-batches. These kinds of contracts can be updated instantly, without waiting for any on-chain confirmations.
-
-If a sortition chain is using smart contracts of type 2, then it can't have baby sortition chains. Lets call this a state-channel.
-So this means that sortition chain data structures need to be able to store 2 types of elements. sortition chains, and state channels.
-
-If both participants in a state channel give up control of that part of the probability space, then it can be converted back into a normal account, or into a baby sortition chain.
-
 multiple random samples
 ============
 
@@ -186,7 +214,43 @@ If you want to run a market like amoveobook to match trades, you need to have tw
 
 These lockup costs mean that only very rich people can run a hub (since 1/2 the money in a market at any time is money owned by the hub).
 
-If we go with sortition chains instead, then the market operator only needs to control something like 2% - 10% of the money in his markets (which means it costs a lot less to launch new markets for people to trade).
+If we go with sortition chains instead, then the market operator only needs to control something like 2% - 10% of the money in his markets. So, it costs a lot less to launch new markets for people to trade.
+
+Liquidity in Sortition Chain Channels
+============
+
+Lets say I want to make a market to bet on a sporting event.
+To start, I could make a sortition contract to split up some of my money into 2 types. the A type can only win if Alice wins the game. The B type can only win if Alice does not win the game against her competitor Bob.
+
+Next I want to sell these 2 piles of value in single price batches.
+If Charlie wants to bet on Alice, I can make a channel with Charlie. Charlie puts veo from inside the sortition chain into the channel, and I put in some A type value, that can only have value if Alice wins.
+
+So now, we have a channel that contains both veo and A type value, so we can make contracts to exchange these 2 kinds of value.
+We could use atomic swaps, or single price batches.
+
+The trick is to use the same Channel ID in both ownership objects. That way a single channel smart contract is valid for either of them.
+
+Instant Payment Scalability
+============
+
+Lightning network is the idea to use lots of channels and use hashtimelocking to connect payments in different channels together. That way you can make an instant payment to anyone, as long as there is some path of channels between you two.
+
+The lightning network of channels does not work as a scalable system of instant payments.
+As the number of participants who want to be able to instantly pay each other increases, if we keep the payments volume per customer constant, then the liquidity cost to maintain the channel network increases.
+
+Amoveo uses sortition ownership cycles to solve this problem. An ownership cycle is when the validators assign some value to a sequence of different pubkeys.
+For example, it could be pubkeys P1, P2, P3.
+They are assigned priorities in an infinite cycle: P1, P2, P3, P1, P2, P3, P1, P2 ...
+
+This way they can send the money back and forth between each other infinite times, just by signing waivers.
+If P1 owns the value, and he wants to send it to P3, then P1 and P2 need to sign waivers so that P3 ends up at the top of the priority queue.
+
+Since waivers can have smart contracts in them, these payments can be atomically linked to other smart contracts, so we can send a lightning payment through one of these cycle-hubs.
+
+A cycle hub is like a channel, but it allows for more than 2 participants.
+
+Similar to a channel, if one of the other participants goes off-line or stops participating, then the money gets frozen.
+Similar to the security model with the sortition validators, you can't spend it until the final-spend-tx period, when this sortition chain is ending.
 
 
 The Leverage of Sortition Chains
@@ -199,11 +263,6 @@ The total value of all the sortition chains he is operating becomes much larger 
 So a person with only 1 veo can generate and profit from 20+ veo worth of sortition chains all containing smart contracts.
 
 The capital cost of being a sortition chain operator is very low. So it is cheap to launch a new sortition chain and offer custom markets in whatever you care about.
-
-"contracts == chains" UX Advantages
-==========
-
-If you are making a new sortition on top of an existing one, it isn't going to be recorded on-chain. Your address isn't even recorded on-chain anywhere. And you can run a market that matches derivatives in single price batches.
 
 "contracts == chains" Resource Consumption Advantages
 ===================
