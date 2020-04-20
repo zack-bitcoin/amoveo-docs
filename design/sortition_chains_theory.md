@@ -6,10 +6,41 @@ Sortition Chains Theory
 Why Smart Contracts Should Be Immutible
 ==============
 
+* Scalability
+
 In order to be scalable, we need to get rid of all shared mutible state. Shared mutible state needs to be synchronized, and the synchronization cost increases as the number of participants increases. It doesn't scale.
 
-A smart contract needs to be shared between its participants. So, Amoveo smart contracts need to be immutible.
-Which means we are restricting ourselves to financial derivative type smart contracts.
+* Instant Finality
+
+If the entire network needs to synchronize some data, that means we need to wait for a on-chain merkle root commitment. For example, if we want to add someone new to our smart contract, that would requiring waiting for an on-chain commitment, and possibly confirmations as well.
+
+So, we can either share state, or allow mutability.
+A smart contract needs to be shared between its participants, and a copy could eventually end up shared on-chain. So, Amoveo smart contracts need to be immutible.
+
+We want Amoveo smart contracts only outside the consensus state
+==============
+
+in the context of blockchains, "stateless" means that a full node should not need to store any state about this thing in order to verify blocks involving it.
+So if we want "stateless" smart contracts, that means we do not store any information about the smart contract inside the consensus state space. The contract could be written in a block once, and that block can be stored in a slow hard drive. Because a full node does not need to look up that old contract in order to process any new contracts.
+
+Derivatives are Immutable-stateless smart contracts
+==============
+
+A _derivative_ is a contract where N people lock money into it. And eventually the contracts redistributes the money to the N participants based on the rules programmed into it. It has no internal state that changes over time. A derivative is a stateless smart contract, because it doesn't get stored in the on-chain consensus state for any amount of time.
+
+Immutable Stateless Smart contracts are Derivatives
+==============
+
+If a smart contract is immutible, then we know there must be a number N for how many people are involved with the smart contract, and that it is impossible for new people to join.
+If it was possible for new people to join, then the list of people who are involved would be state that has mutated, so it would not be a immutable contract.
+
+If a smart contract is stateless, then we know it only gets published on-chain once, and distributes all the money that it contains. Otherwise it would depend on some on-chain state related to it that needs to be maintained over time.
+
+The combination of those 2 properties:
+1) a fixed number of participants N
+2) only getting published on-chain once to get settled
+
+This is a full definition of a "derivative".
 
 Why we need sharding
 ==============
@@ -24,9 +55,9 @@ Why sortition chains need validators
 ==============
 
 Validators are used to ensure the availability of the state for a sortition chain. All of them need to sign over every update.
-So as long as 1 of the validators only signs over data that is available, then the data will be available.
+So as long as 1 of the validators refuses to sign over data that is unavailable, then the data will be available.
 
-It is 1 of N proof of stake system.
+In Amoveo we are planning to use a 1 of N proof of stake system.
 If all N of the validators work together to try and cheat, they can force you to hold lottery risk, but they cannot steal anyone's funds.
 
 If at least 1 validator is honest, then they cannot force you to hold lottery risk.
@@ -47,9 +78,7 @@ We want the fraud proof to be short. So the fraud proof can't involve proving a 
 So when the validators assign value to someone, they don't say anything about where the value has come from.
 Which means that when the validators are assigning value to someone. There is no record of who owned it previously, so there is no signature from a previous owner giving permission for the spend.
 
-We also don't want validators to be able to do any [level 4 attacks](https://github.com/zack-bitcoin/amoveo-docs/blob/master//basics/trust_theory.md)
-
-So it needs to be impossible for the validators to assign your value to someone else without your permission.
+It needs to be impossible for the validators to assign your value to someone else without your permission.
 
 So it is necessary that any sortition ownership claim has a priority based on the block height in which the validators had added it to the sortition chain.
 Earlier block heights have higher priority.
@@ -59,32 +88,17 @@ This way, if you are assigned the value first, the validators can't give it away
 Waiver Design
 ========
 
-In order to minimize the size of the fraud proofs, we should have an individual small proof for every case where someone had given up control of part of the sortition value. We call this a "waiver", because someone is giving up their ownership claim to part of the value.
+In order to minimize the size of the fraud proofs, we should have an individual small proof for every case where someone had given up control of part of the sortition value. We call this a "waiver".
 
 So, in order to own some value, you need to maintain waivers from every previous owner of that value.
-
-The minimum amount of on-chain data in an ownership claim to enable validation of this kind of fraud proof is: some merkle proof showing that the validators had assigned this value to you at some point in time.
-
 
 Kinds of computation
 ==============
 
-We are going to have 4 different kinds of environments where turing complete contracts can be run.
+We are going to have 2 different kinds of environments where turing complete contracts can be run.
 The combination of which should allow us to build convenient interfaces for derivatives.
 
-1) state channels. 
-state channel computation is instantaneous, but you are restricted to only interacting with the one person that you have a channel with. 
-
-This tool tends to have liquidity issues.
-on-chain state channels also have problems of block congestion. If there is not space on-chain to publish evidence that you won your channel, then your claim isn't enforceable. 
-
-2) state channels in sortition chains.  If your channel in the sortition chain wins the lottery, then that channel gets created on-chain with all the money from the lottery inside of it. It works like a normal on-chain channel.
-
-This kind of channel also has liquidity issues.
-It has lottery risk.
-Since you will win so much money, you can afford high fees, so on-chain congestion is not a problem.
-
-3) sortition contracts. Besides dividing up the value in the sortition chain probabilistically, we can also divide it up based on the outcome of a smart contract. Only the merkle root of this contract is contained in the merkle proof showing that you own part of the value in the sortition chain. If you lie about the outcome of a smart contract, someone else can post that smart contract to show that you lied, and you lose money for this.
+1) sortition contracts. Besides dividing up the value in the sortition chain probabilistically, we can also divide it up based on the outcome of a smart contract. Only the merkle root of this contract is contained in the merkle proof showing that you own part of the value in the sortition chain. If you lie about the outcome of a smart contract, someone else can post that smart contract to show that you lied, and you lose money for this.
 
 This kind of computation has the draw-back that it is slow to update your contract. You need to wait for a merkle root to get recorded on-chain, and for enough confirmations on top of it so you can be sure that the tx wont get orphaned.
 
@@ -94,7 +108,7 @@ sortition contracts have the advantage that you only need to keep track of your 
 
 Unlike state channels, you cannot provide script-sig style evidence when the contract is run. So it isn't possible to atomically connect this kind of contract to others.
 
-4) waivers. Ownership in a sortition chain is like standing in a line for each part of the value. A person can give up their spot in line without having to post anything on-chain. They simply send a message to whoever is second in line, so it can be instantaneous.
+2) waivers. Ownership in a sortition chain is like standing in a line for each part of the value. A person can give up their spot in line without having to post anything on-chain. They simply send a message to whoever is second in line, so it can be instantaneous.
 You can embed a smart contract in the waiver, so that you can give up your spot in line conditional on the outcome of a football game for example. 
 The drawback of waivers is that in some cases, the amount of data you may need to keep track of to own value in the sortition chain can become very large. For example. if you use a waiver to sell a stablecoin contract and are left holding long-veo, and then other people keep trading those stablecoins between each other. In that situation, if you want to be able to spend your long-veo, then you would need to remember the entire history of their transfers.
 I expect that waivers will mostly be used to atomically connect different contract changes together.
@@ -119,7 +133,7 @@ The probabilistic value space is like the space of rational numbers between 0 an
 
 the contract space is like the space created by a 2^256 binary number, where you can set some of the bits to 1 or 0, and let the rest of the bits be free.
 
-If we have smart contracts in layer 2, then we need to divide up the 2D space made by combining the probabilistic value space with the contract space, and we need to be sure that none of the 2D claims are overlapping with any other 2D claim.
+If we have smart contracts in layer 2, then we need to divide up the 2D space made by combining the probabilistic value space with the contract space, and we need to be sure that none of the 2D claims are overlapping with any other 2D claim. So a merkle proof of an ownership claim needs to also prove that no one else is simultaniously claiming the same value.
 
 Dividing the 2D space up by contract first is dangerous, because it can cause a data availability vulnerability.
 If Alice owns veo in a sortition chain, and Bob creates a contract with Charlie, we want it to never be the case that Alice needs to know the content of Bob and Charlie's contract in order to claim her winnings. So this means that new contracts need to be as near to the leaves of the tree as possible, and far from the root.
