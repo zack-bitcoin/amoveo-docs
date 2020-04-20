@@ -16,16 +16,18 @@ If the entire network needs to synchronize some data, that means we need to wait
 So, we can either share state, or allow mutability.
 A smart contract needs to be shared between its participants, and a copy could eventually end up shared on-chain. So, Amoveo smart contracts need to be immutible.
 
-We want Amoveo smart contracts only outside the consensus state
+We want smart contracts only outside the consensus state
 ==============
 
 in the context of blockchains, "stateless" means that a full node should not need to store any state about this thing in order to verify blocks involving it.
 So if we want "stateless" smart contracts, that means we do not store any information about the smart contract inside the consensus state space. The contract could be written in a block once, and that block can be stored in a slow hard drive. Because a full node does not need to look up that old contract in order to process any new contracts.
 
+If we want to scale better than O(# of contracts), then it is necessary that all contracts are stateless.
+
 Derivatives are Immutable-stateless smart contracts
 ==============
 
-A _derivative_ is a contract where N people lock money into it. And eventually the contracts redistributes the money to the N participants based on the rules programmed into it. It has no internal state that changes over time. A derivative is a stateless smart contract, because it doesn't get stored in the on-chain consensus state for any amount of time.
+A _derivative_ is a contract where N people lock money into it. And eventually the contracts redistributes the money to the N participants based on the rules programmed into it. It has no internal state that changes over time. A derivative is a stateless smart contract, because it doesn't get stored in the on-chain consensus state for any amount of time. It is only published on-chain once to determine how the money it contains should be redistributed to the N participants.
 
 Immutable Stateless Smart contracts are Derivatives
 ==============
