@@ -1,3 +1,9 @@
+seems like we only need one validator per sortition chain.
+We should update sortition defense doc, and sortition design doc, and some tx types.
+sortition object format, and sortition block tx format.
+
+
+
 document how cycle hubs work
 * putting them in line many times in a cycle.
 * giving up multiple spots in line by having the waiver smart contract reference the height and priority nonce of the claim.

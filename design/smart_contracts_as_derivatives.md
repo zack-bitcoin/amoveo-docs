@@ -2,7 +2,7 @@ Smart Contracts as Derivatives
 ==============
 
 
-Why Smart Contracts Should Be Immutible
+Why Smart Contracts Should Be Immutable
 ==============
 
 * Scalability

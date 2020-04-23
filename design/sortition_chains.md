@@ -5,15 +5,13 @@ This is a scaling plan, similar to sharding or side-chains.
 
 Related documents:
 
+[sortition chain theory.](./sortition_chains_theory.md)
+
 [sortition chain attacks analyzed](./sortition_chains_defense.md)
 
 [sortition chain implementation details.](./sortition_chains_implementation.md)
 
-[sortition chain theory.](./sortition_chains_theory.md)
-
 [sortition chain random number generator.](./sortition_chains_random.md)
-
-[sortition rollup](./sortition_chain_rollup.md)
 
 [sortition history and acknowledgements](./sortition_chain_history.md)
 
