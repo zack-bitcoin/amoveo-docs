@@ -39,22 +39,15 @@ You can create sortition chains inside of existing sortition chains, allowing fo
 Sortition Chain Operators
 ======
 
-Each sortition chain has a team of operators. Updating the state of the sortition chain requires all N of N of the operators to sign the new state root.
-Requiring all N of N to sign means we can be sure at least one of them will keep the data available.
+Each sortition chain has a operator. Updating the state of the sortition chain requires the operator to sign the new state root.
 
-They use Tendermint consensus to agree on what commitment should be signed on next.
-That way we can know that any double-signing is not accidental, it was malicious.
-Not that we can punish operators. We just want to identify which ones are malicious so we wont hire them as operators again in the future.
-
-The commiters commit the merkel roots of 2 trees. The first tree divides up the probabilistic value space between the different people who own it. The location in the tree is determined by which RNG values would result in your winning. That way, a merkel proof of your part of the tree is also a proof that no one else is owning that part of the probabilistic value space.
-
-The second tree contains a bunch of signed statements where people give up ownership of parts of the probabilistic value space, and where people declare that they want the part of the value space that they own converted into a new sub-sortition chain that is inside of the existing parent sortition chain.
-
+The commiter signs over the merkle root of the sortition ownership tree. They record this signed root on-chain in a sortition-block-tx.
 
 Embedding smart contracts
 ========
 
-When people sign a message that they are giving up control of part of the sortition value space, they can include a commitment to a smart contract. That way they are only giving up control if someone can provide evidence to make the smart contract return "true". Similar to unlocking a bitcoin UTXO.
+The sortition merkle tree can divide up ownership according to probabilistic value space, as well as according to the outcome of turing complete contracts.
 
-This allows us to use turing complete contracts to determine who owns which parts of the probabilistic value space.
+Additionally, when you sign a waiver to give up control of some of your value, this waiver can have an embedded smart contract. So the waiver is only valid if the smart contract returns "true". Similar to unlocking a bitcoin UTXO.
+
 
