@@ -16,17 +16,6 @@ So, there needs to be a way for the computational and storage capacity of the ne
 
 Splitting up a single large resource between multiple computers, this is called "sharding".
 
-Why sortition chains need validators
-==============
-
-Validators are used to ensure the availability of the state for a sortition chain. All of them need to sign over every update.
-So as long as 1 of the validators refuses to sign over data that is unavailable, then the data will be available.
-
-In Amoveo we are planning to use a 1 of N proof of stake system.
-If all N of the validators work together to try and cheat, they can force you to hold lottery risk, but they cannot steal anyone's funds.
-
-If at least 1 validator is honest, then they cannot force you to hold lottery risk.
-
 Short Fraud Proofs
 ==============
 
@@ -41,7 +30,7 @@ Validators provide what?
 
 We want the fraud proof to be short. So the fraud proof can't involve proving a complete chain of ownership history.
 So when the validators assign value to someone, they don't say anything about where the value has come from.
-Which means that when the validators are assigning value to someone. There is no record of who owned it previously, so there is no signature from a previous owner giving permission for the spend.
+Which means that when the validators are assigning value to someone, there is no record of who owned it previously, so there is no signature from a previous owner giving permission.
 
 It needs to be impossible for the validators to assign your value to someone else without your permission.
 
@@ -71,12 +60,14 @@ sortition contracts have the advantage that the only people who need to record t
 If we only had waivers to do smart contracts, and we tried to use waivers to split a single ownership contract between 2 people. They would both need to keep track of each other's payments in order to own their own side.
 sortition contracts have the advantage that you only need to keep track of your own payments. 
 
-Unlike state channels, you cannot provide script-sig style evidence when the contract is run. So it isn't possible to atomically connect this kind of contract to others.
+Unlike state channels, you cannot provide script-sig style evidence when the sortition contract is run. So it isn't possible to atomically connect this kind of contract to others.
 
 2) waivers. Ownership in a sortition chain is like standing in a line for each part of the value. A person can give up their spot in line without having to post anything on-chain. They simply send a message to whoever is second in line, so it can be instantaneous.
 You can embed a smart contract in the waiver, so that you can give up your spot in line conditional on the outcome of a football game for example. 
 The drawback of waivers is that in some cases, the amount of data you may need to keep track of to own value in the sortition chain can become very large. For example. if you use a waiver to sell a stablecoin contract and are left holding long-veo, and then other people keep trading those stablecoins between each other. In that situation, if you want to be able to spend your long-veo, then you would need to remember the entire history of their transfers.
 I expect that waivers will mostly be used to atomically connect different contract changes together.
+
+When a waiver contract is run, you can provide evidence. So it can be used for atomic swapping.
 
 
 Ownership Claims

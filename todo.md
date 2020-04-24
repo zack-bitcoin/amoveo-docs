@@ -1,3 +1,11 @@
+double check generating keys from passcode is secure.
+
+in the light node "generate new keys" should be something like "generate keys from passphrase"
+
+
+
+
+
 seems like we only need one validator per sortition chain.
 We should update sortition defense doc, and sortition design doc, and some tx types.
 sortition object format, and sortition block tx format.

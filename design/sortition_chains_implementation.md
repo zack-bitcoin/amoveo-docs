@@ -25,7 +25,7 @@ tx types
 * which potential winner did not win.
 * a signed waiver showing that they gave up control, with a contract hash.
 * they get removed from the list of potential winners, but their `candidate` element is still in the merkle tree, this prevents them from giving the same evidence again to spam the blockchain.
-* you can only do this for the clain that is currently at the top of the priority list.
+* you can only do this for the claim that is currently at the top of the priority list.
 
 4) sortition contract
 
