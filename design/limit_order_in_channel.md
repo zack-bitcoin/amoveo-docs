@@ -80,7 +80,6 @@ Here is what it would look like if the market maker choose the incorrect price. 
 therefore, `if A, then B` is proved.
 
 
-
 To prove it is secure, we also need to check the case of [censorship](censored_orders_in_channel.md)
 
 Some people think that it is a drawback that this market design uses batches instead of accepting trades instantly.
@@ -91,3 +90,11 @@ https://www.youtube.com/watch?v=mAtD0ba-hXU
 Gnosis also attempts at explaining:
 https://blog.gnosis.pm/introducing-the-gnosis-dutch-exchange-53bd3d51f9b2
 [Here is a copy of the text of the gnosis dutch exchange post](../other_blockchains/gnosis_dutch_exchange.md)
+
+
+There is an idea from Gnosis called "ring batches".
+If there are 3 markets: BTC/ETH, ETH/VEO, and BTC/VEO, then a trade in one market could create arbitrage opportunities.
+Ideally we want some system so that a large trade in one of these markets would move the prices in all 3.
+
+This can be done off-chain in state channels.
+The market maker who keeps publishing batch prices for the markets, it should be set up so that if they reveal 2 batch prices, those 2 prices can be combined, and this is the batch price of the 3rd market.
