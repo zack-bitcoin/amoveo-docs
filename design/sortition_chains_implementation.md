@@ -12,6 +12,7 @@ tx types
 * pubkey who initially owns all the value.
 * amount of money for the lottery prize.
 * expiration date for when it it becomes possible to make sortition-claim-txs for this sortition chain.
+* pubkey of who will be the validator for the new sortition chain.
 
 2) sortition claim
 
@@ -41,7 +42,7 @@ tx types
 
 5) sortition block
 
-* all validators for a sortition chain sign a root hash of some state about who can potentially own parts of the probabilistic value space.
+* validator for a sortition chain signs a root hash of some state about who can potentially own parts of the probabilistic value space.
 
 6) sortition final spend
 
@@ -238,7 +239,7 @@ I want to send veo I own inside a sortition chain to you.
 
 SortitionLine = [{me, true}].
 
-I ask the validators to make you send in line.
+I ask the validator to make you send in line.
 
 SortitionLine = [{me, true}, {you, true}].
 
@@ -258,7 +259,7 @@ I generate the secret that will be used to unlock the payment.
 
 I ask you to sign something saying you give up ownership of my value, and it is only valid if the secret is not revealed on the main-chain in a proof of existence tx before a certain height. This means that if you commit the secret on-chain, that will give you ownership.
 
-I ask the validators for my sortition chain to make you second in line to own my money, and I ask them to make me third in line, using a different pubkey.
+I ask the validator for my sortition chain to make you second in line to own my money, and I ask them to make me third in line, using a different pubkey.
 
 SortitionLine = [{me, true},{you, "secret not revealed on main chain"},{me, true}].
 
@@ -276,7 +277,7 @@ I reveal the secret to you.
 
 SortitionLine = [{you, "secret not revealed on main chain"}].
 
-You generate a new address, and show the secret to the validators. They make your new address next in line to own the sortition chain value. (if they refuse, then you need to publish the secret on-chain).
+You generate a new address, and show the secret to the validator. They make your new address next in line to own the sortition chain value. (if they refuse, then you need to publish the secret on-chain).
 
 SortitionLine = [{you, "secret not revealed on main chain"},{you, true}].
 

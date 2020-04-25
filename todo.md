@@ -1,3 +1,13 @@
+update code and tests to have one validator per sortition chain.
+
+update code and tests to have ownership cycles.
+Use 2-cycles instead of channels.
+
+remove the state channel code from sortition chains, we will use ownership cycles instead.
+
+
+
+
 I think for the sortition ownership object, we should have 3 kinds of priority.
 1) the height at which you can prove your ownership from. earlier heights are higher priority.
 2) if the heights are the same, then whichever ownership object has the higher priority nonce wins.
@@ -12,8 +22,12 @@ If you are in a cycle, don't give up ownership to the priority nonce, instead gi
 
 
 seems like we only need one validator per sortition chain.
-We should update sortition defense doc, and sortition design doc, and some tx types.
-sortition object format, and sortition block tx format.
+We should update:
+X sortition defense doc,
+X and sortition design doc,
+and some tx types.
+sortition object format,
+and sortition block tx format.
 
 
 
@@ -21,46 +35,10 @@ document how cycle hubs work
 * putting them in line many times in a cycle.
 * giving up multiple spots in line by having the waiver smart contract reference the height and priority nonce of the claim.
 
-remembering the massive ownership merkle tree of everyone who is in the cycle over and over
-I wonder if we can fold the cycle on itself somehow
-Like what if there is a sortition ownership contract that is valid for priority P where (P mod 23) == 6
-Then someone else could have  (P mod 23)==7
-And we could have a pool of 23 hubs this way
-dividing priorities into modulus this way is not supported by the current ownership tree. I wonder how we could add it
 
-
-
-
-
-What we need is for the sortition claim data to be available when we process the waiver smart contracts.
-
-That way, your waiver smart contract can know the block height and priority nonce of the claim it being applied to.
-This allows you to use a single pubkey for multliple spots in line. you can use a single signature over a single waiver to give up multiple different positions you have in line.
-
-This way the history cost is only linear with the number of participants in the hub, no matter how long the hub lasts.
-
-
-
-
-256 priorities per sortition ownership object is not enough. We might want to put 10k+ in line all at once. Since that kind of design can be useful for payment hubs in the lightning network.
-
-document the payment hub strategy, where every hub is in line to receive money from everyone else.
-
-
-
-
-
-using fraud proofs to confirm sortition updates sooner.
-* maybe we only need one merkle root per sortition chain.
-  - one fraud proof period to make sure the root was calculated correct.
-  - a different fraud proof period for people to use that root to claim that they have won.
-* all N validators would have to cheat simultaniously.
-
-
-
-
-
-in the sortition chain docs, make it more clear that the channel is inside the sortition chain.
+document about the sortition contract - sortition waiver relationship.
+* 3 kinds of priority.
+* who is in line to own value.
 
 
 
@@ -72,29 +50,20 @@ sortition chains point of sale tests.
 
 currently, if an attacker keeps publishing invalid sortition_claim_txs, they can indefinitely delay settlement of a sortition chain.
 
-We could limit sortition_claims to only being one claim per pubkey or pair of pubkeys per sortition block.
+Maybe we should limit sortition_claims to only being one claim per pubkey or pair of pubkeys per sortition block?
 
-settlement should have 2 phases.
-during the first phase, you can make sortition claims, and sortition waiver txs, and sortition contract txs.
-during the second phase, you can only make waivers and contracts. no claims.
+Since the cost of adding more claims increases exponentially with the number already in line, maybe this is not an issue?
 
-* in sortition object
-  - we no longer need last_modified
-  - we currently 
 
-sortition new
-  activity in the sortition chain
-sortition.trading_ends
-  you can do a final_spend
-sortition.entropy_source
-  now we find the RNG to resolve the sortition contract.
-rng_end
-  the rng process can go through several fraud-proof cycles, each resetting the rng_response_delay timer
-rng_confirm_tx %we need to store this height in sortition.
-  now you can make sortition_claim_txs, sortition_contract_txs, and sortition_waivers_txs
-rng_confirm height + delay
-  it is still possible to make sortition_waiver_txs and sortition_contract txs, but not sortition_claim_txs
-rng_confirm height + delay + 2nd_delay
+
+
+in sortition_chains_implementation.md, review the horizontal and vertical payments documentation.
+
+
+
+sortition_chains_implementation has a timeline of the steps of each sortition chain. Verify that all the steps are restricted to happening at the proper times.
+
+
 
 persistent ownership merkle tree enabled from the configuration file, for the validators.
 we need a sortition wallet to keep track of the proof of ownership for users.
@@ -105,38 +74,6 @@ make it more clear what "oracle starts" means in the light node.
 
 ** in the trees files, the get_dict functions, we need to distinguish between when we know a spot in the tree is empty vs when we don't know what is in that spot.
 
-
-adding smart contracts to layer 2 subgoals
-X 1) update ownership 
-X 2) using smart contracts instead of waivers
-X 3) preventing ddos of contracts
-X 4) cost of adding a claim should increase as the number of open claims increases.
-X 5) switch the order of priority and sid in the ownership make_tree functions. Maybe the priority step should be as deep as possible.
-X 6) we need a way to prove the non-existence of a claim in a given version of the sortition merkle tree.
-X  - look up proofs for partially filled regions, make sure that what we are trying to prove does not overlap with the filled portion
-
-
-
-
-
-X * Instead of providing a waiver it needs to be possible to provide the smart contract, and show that it doesn't result in the outcome they had claimed.
-X  - in sortition_claim_tx, calculate a merkle root of all the smart contract root hashes. This single root can be used to show if any smart contract was not a valid outcome.
-X   - in sortition_contract_tx, there is a DDOS cvulnerability. sometimes we need to include the tx, even if the contract is invalid.
-X   - in sortition_evidence_tx, besides waivers we should be able to show that one of the smart contracts doesn't result how they had claimed.
-
-this means an attacker could publish many many claims saying that they had won.
-We need a plan for this.
-X * maybe the cost to add a claim should increase exponentially as the list of potential claims gets longer. So if an attacker publishes many claims, and the defenders keep proving them as false, this will be much more expensive for the attacker, in comparison to the defender just publishing a single claim to win. If each additional claim costs 1.5x as much as the one before, then after 10 claims, the attacks is paying 3x as much as the defender.
-X * Maybe each new claim should cost 1/3rd as much as all the rest of the claims so far added together.
- - 1, 1/3, 4/9, 4/9 + 4/27
-
-F(0) = 1;
-F(1) = 1/3;
-F(N) = F(N-1)*4/3;
-
-->
-F(0) = 1;
-F(N) = (1/4) * ((4/3)^N)
 
 
 
@@ -150,9 +87,6 @@ F(N) = (1/4) * ((4/3)^N)
   - atomic swap between channels in sortition chains.
   - make a channel in the sortition chain, buy stablecoins, then settle the channel so that you are left holding stablecoins inside the sortition chain.
 
-needed txs:
-* clean up old stuff. candidates, sortition_blocks.
-  - don't remove candidates until the sortition chain is settled. We need old candidates so evidence cannot be re-used.
 
 
 Sortition Chains

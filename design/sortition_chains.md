@@ -52,4 +52,4 @@ The sortition merkle tree can divide up ownership according to probabilistic val
 
 Additionally, when you sign a waiver to give up control of some of your value, this waiver can have an embedded smart contract called a "waiver contract". So the waiver is only valid if the smart contract returns `true`. Similar to unlocking a bitcoin UTXO.
 
-
+Putting another channel or smart contract or account into the sortition chain is practically free.
