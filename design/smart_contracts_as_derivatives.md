@@ -7,14 +7,14 @@ Why Smart Contracts Should Be Immutable
 
 * Scalability
 
-In order to be scalable, we need to get rid of all shared mutible state. Shared mutible state needs to be synchronized, and the synchronization cost increases as the number of participants increases. It doesn't scale.
+In order to be scalable, we need to get rid of all shared mutable state. Shared mutable state needs to be synchronized, and the synchronization cost increases as the number of participants increases. It doesn't scale.
 
 * Instant Finality
 
 If the entire network needs to synchronize some data, that means we need to wait for a on-chain merkle root commitment. For example, if we want to add someone new to our smart contract, that would requiring waiting for an on-chain commitment, and possibly confirmations as well.
 
 So, we can either share state, or allow mutability.
-A smart contract needs to be shared between its participants, and a copy could eventually end up shared on-chain. So, Amoveo smart contracts need to be immutible.
+A smart contract needs to be shared between its participants, and a copy could eventually end up shared on-chain. So, Amoveo smart contracts need to be immutable.
 
 We want smart contracts only outside the consensus state
 ==============
@@ -32,7 +32,7 @@ A _derivative_ is a contract where N people lock money into it. And eventually t
 Immutable Stateless Smart contracts are Derivatives
 ==============
 
-If a smart contract is immutible, then we know there must be a number N for how many people are involved with the smart contract, and that it is impossible for new people to join.
+If a smart contract is immutable, then we know there must be a number N for how many people are involved with the smart contract, and that it is impossible for new people to join.
 If it was possible for new people to join, then the list of people who are involved would be state that has mutated, so it would not be a immutable contract.
 
 If a smart contract is stateless, then we know it only gets published on-chain once, and distributes all the money that it contains. Otherwise it would depend on some on-chain state related to it that needs to be maintained over time.
