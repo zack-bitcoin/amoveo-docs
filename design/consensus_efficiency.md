@@ -2,6 +2,10 @@ Consensus Efficiency
 ========
 draft 3
 
+I used to think there would be different blockchains that would specialize for different goals. but this paper shows that this isn't the case.
+There is going to be one single best blockchain design, at least for all the characteristics considered in this paper.
+
+
 Models have been proposed to explain relationships of different aspects of the blockchain.
 
 We have a model that show the relationship between security, trust, and the cost of fees. [Trust Theory](basics/trust_theory.md)

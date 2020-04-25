@@ -1,6 +1,11 @@
-double check generating keys from passcode is secure.
+I think for the sortition ownership object, we should have 3 kinds of priority.
+1) the height at which you can prove your ownership from. earlier heights are higher priority.
+2) if the heights are the same, then whichever ownership object has the higher priority nonce wins.
+3) if the heights are the same, and the priority nonces are the same, then whoever can make a claim using a lower cycle-nonce wins.
 
-in the light node "generate new keys" should be something like "generate keys from passphrase"
+So if you don't want to use the cycle features, and you just want to own probabilistic value in the sortition chain, you can have a cycle of just one account, you own account. and if you sign a waiver, make it give up ownership for the entire priority nonce.
+
+If you are in a cycle, don't give up ownership to the priority nonce, instead give up ownership of some of the cycle nonces.
 
 
 

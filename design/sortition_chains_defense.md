@@ -6,28 +6,28 @@ Sortition Chain Defense
 
 The purpose of this document is to look at several criticisms of sortition chains, and see if they will break under various situations.
 
-operators steal the money attack
+operator steal the money attack
 ===========
 
-What if the operators assign your money to them in the probabilistic value tree?
+What if the sortition operator assigns your money to someone else in the probabilistic value tree?
 
-As long as they had assigned it to you first, then your claim has higher priority. So if you win the lottery, they cannot prevent you from taking the prize.
+As long as they had assigned it to you first, then your claim has higher priority. So if you win the lottery, the sortition operator cannot prevent you from taking the prize.
 
-What if the operators make a waiver saying that you gave up ownership of your part of the probabilistic value space?
+What if the operator make a waiver saying that you gave up ownership of your part of the probabilistic value space?
 
 The waiver is only valid if you signed it.
 
 Tx censorship attack
 ===========
 
-What if the sortition operators refuse to allow you to move your money? Will you get stuck holding lottery risk?
+What if the sortition operator refuses to allow you to move your money? Will you get stuck holding lottery risk?
 
-When the sortitoin chain is finally being settled, before the RNG is generated to choose a winner, there is a period of time when you will have one final chance to sell your part of the soritition chain.
+When the sortitoin chain is finally being settled, before the RNG is generated to choose a winner, there is a period of time when you will have one final chance to sell your part of the soritition chain. During the final-spend period, validators can't stop you from spending.
 
 Frozen sidechain attack
 ===========
 
-What if one of the sortition operators stops signing any updates, so no one can transfer their funds inside the sortition chain.
+What if the sortition operator stops signing any updates, so no one can transfer their funds inside the sortition chain.
 
 If the sortition chain is frozen, it is still possible to prove what your current balance is in the sortition chain. So we can have a period of time between when the sortition operators are able to make updates, and when we generate the RNG to determine the winner.
 During this period of time, we can give everyone one final chance to sell their value from the sortition chain.
@@ -42,21 +42,11 @@ This is re-using a trick from probabilistic payment research.
 Data availability attack
 ==========
 
-If all of the operators sign sortition-blocks even though some of the data is not available, this is a kind of attack.
+If the operator signs a merkle root for a sortition block tx, and then refuses to reveal the data that can be proved from this root, that is a "data availability attack".
 
-This can make it impossible to spend your funds. So you can be left holding lottery risk.
+You still get one final chance to spend your value in the final-spend-tx period, but until then your money is frozen.
 
-You can still prove that you are first in line to own your value, but you can't prove whether or not there is already someone who is 2nd in line.
-So if you add someone new in line to own your value, they don't know if they are 2nd in line, or 5th, or what. So no one will accept a payment from you.
-
-As long as at least 1 of the validators is honest, then this attack can't happen.
-
-If this attack does occur, it is not profitable for the attacker, and we know who did it, it was the validators.
-But, the cost of the attack is less than how much value can potentially be destroyed.
-In terms of [trust theory](basics/trust_theory.md), this is a 3.2 level trust theory situation.
-
-But, given that even 1 honest validator can prevent this attack from occuring, this level of crypto-economic trust is acceptable.
-
+If the operator doesn't reveal the data from the merkle root in the sortition block, then no one can know if new people were added to the line to own different value or not.
 
 Sortition chain Timeline
 ===========
