@@ -59,9 +59,9 @@ If the fastest RNG computation takes 30 blocks, then the total bribes to attack 
 Estimating time for on-chain proofs
 =================
 
-if we do 10 million hashes per second for the time delay function, and we set it up to take 30 blocks, and each block is 10 minutes = 600 seconds, then the on-chain proof to show that you won is log128(10 million * 30 * 600) = 4.87.
+if we do 10 million hashes per second for the time delay function, and we set it up to take 30 blocks, and each block is 10 minutes = 600 seconds, then the on-chain proof to show that you won is log128(10 million * 30 * 600) = 5.34.
 
-the most round that the fraud proof could possibly need is 5.
+the most rounds that the fraud proof could need is 6.
 If you have 20 blocks of time to provide evidence for each round, and the person trying to show that you cheated also has 20 blocks, (20+20)*5 = 200.
 
 So at most, it could take up to 200 blocks to prove that you won and get your winnings out of the sortition chain.

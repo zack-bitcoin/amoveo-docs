@@ -4,8 +4,6 @@ The following describes accounts, which are one of merkel trees, responsible for
 
 In order to create an account one has to pay fee, which prevents spam.
 
-Account deletion is rewarded, which incentivizes the reclaiming of space.
-
 ## Overview
 
 Account consists of:

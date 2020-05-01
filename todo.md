@@ -1,3 +1,24 @@
+Document this:
+```
+if all the validators work together, they can force you to take on lottery risk.
+a person will only accept a final_spend_tx payment if they can be sure that the	sortition claim	it is connect to actually has a chance to win the lottery.
+unavailable data might show that someone new is	in line. So the	money could provably be	spent to them, and	then the final_spend_tx	would be worthless.
+
+But, we	can overcome this.
+in the payment atomically connected to the final_spent_tx. there can be	a clause saying	that if	a particular kind of waiver is created, then this payment is canceled.
+
+oh, that doesn't work. because most times they don't win the lottery, so the evidence wouldn't get exposed
+
+We probably do need lots of validators.
+```
+
+
+
+
+double check that the winner of a sortition chain can be someone who doesn't have an account yet.
+
+
+
 update code and tests to have one validator per sortition chain.
 
 update code and tests to have ownership cycles.
