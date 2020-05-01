@@ -11,7 +11,7 @@ They want to stop people from building blocks in secret to overtake the chain.
 
 So to stop this, they need to reject blocks that don't get referenced by other recent blocks.
 
-The other problem is if an attacker builds blocks and refuses to reference other blocks, in an effort to censor them, this needs to be punished to. 
+The other problem is if an attacker builds blocks and refuses to reference other blocks, in an effort to censor them, this needs to be punished also. 
 
 But any effort to prevent the first failure mode would make the second failure mode easier to pull off. And any effort to prevent the second makes the first easier to pull off.
 So when you are imagining features that could help prevent one failure mode, you need to also consider if you are creating a vulnerability in the other failure mode.
@@ -41,7 +41,7 @@ eventually, enough honest miner blocks are being orphaned, so they switch to the
 
 In bitcoin you could only achieve this by paying at least 50% of the block rewards for an extended period of time.
 
-with DAG miners still get paid even if they censor the honest miner's blocks. So the cost of the bribes is very low.
+with DAG, miners still get paid even if they censor the honest miner's blocks. So the cost of the bribes is very low.
 
 Spectre's fork choice rule
 ============
@@ -50,6 +50,8 @@ If spectre was a serious attempt at a blockchain consensus, the first thing they
 Blockchain designers are always scared to admit the fork choice rule, because then it is obvious how it is broken.
 
 If they can obscure the fork choice rule, then they can secretly use a different fork choice rule for every example, and trick people into thinking it is something that can exist.
+
+This is an example of [over generalization in blockchain design](over_generalization_in_blockchain_design.md)
 
 Spectre light nodes are computationally infeasible.
 ============

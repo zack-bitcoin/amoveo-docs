@@ -22,7 +22,7 @@ For every possible attack, they show that there is some design inside the massiv
 
 and then they conclude: "we proved it is secure against all possible attacks!"
 
-How to be secure against this kind of scam
+How to immunize yourself against this kind of scam
 ============
 
 Demand that they give a single design which is simultaneously secure against all the attacks.
