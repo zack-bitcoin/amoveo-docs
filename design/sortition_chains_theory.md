@@ -7,6 +7,29 @@ Sortition Chains Theory
 [why smart contracts need to be formatted as derivatives](smart_contracts_as_derivatives.md)
 
 
+Smart Contract Liquidity
+==============
+
+Let me make a more concrete example.
+If we use VEO denominated channels to bet that the price of BTC will be above $8k.
+I want to bet 2 veo vs 2 veo.
+
+First lets imagine trying to do this with normal state channels.
+
+If I want to be able to win 2 veo, then I need to have 2 veo locked into the other side of the channel with the hub, and 2 veo locked on my side.
+Also, the hub will have another channel with someone on the other side of the trade, it locks up 2 veo on each side.
+So in total, 8 veo of liquidity are locked for the duration of the trade.
+
+Now imagine I am doing the same thing in a sortition chain.
+I could make a channel with the hub, and the channel is denominated in derivative contracts. So if BTC is worth > $8k, the channel has veo, and if BTC is worth < $8k, the channel is empty.
+The hub also makes a channel with the person I am trading with. That channel is set up so if BTC is worth >$8k, the channel is empty, but if BTC is worth <$8k, the channel has veo in it.
+
+Each channel can have up to 4 veo at the end, but the total number of veo at the end is only 4.
+So the total liquidity locked up in this case is only 4 veo.
+
+Without sortition chains, we would need 8 veo to enforce this contract. With sortition chains we only need 4.
+
+
 Why we need sharding
 ==============
 
