@@ -1,3 +1,8 @@
+test of hashlocked payments, for the case where a secret gets published on chain.
+
+
+
+
 Document this:
 ```
 if all the validators work together, they can force you to take on lottery risk.

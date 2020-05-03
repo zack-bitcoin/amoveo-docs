@@ -39,6 +39,26 @@ we can use hashlocking to connect the creation of this agreement to a payment in
 We can set it up so that if you make multiple of these agreements that contradict with each other, that you will not receive the payment, and you lose your safety deposit.
 This is re-using a trick from probabilistic payment research.
 
+Data Unavailability + double-spend final_spend_tx
+==========
+
+If the validator is refusing to reveal merkle proofs, then you can't know if the validator has put more people in line to own some value.
+
+Bob wants to accept a final_spend_tx from Alice, and he is atomically linking it to another payment in another sortition chain.
+
+So if Alice tries to spend her value to whoever is next in line after her, then Bob needs some way to undo his payment to Alice, so she can't rob him. Now I will show that the probabilistic nature of sortition chains makes it impossible to enforce this kind of contract.
+
+
+The smart contract in Bob's payment to Alice, it should require that Alice does not create a waiver which would invalidate the final_spend_tx.
+
+Alice puts Charlie second in line, and gives him a waiver so he owns the value.
+If Charlie doesn't win, he has no reason to reveal the waiver, and Alice can pay him to not reveal the waiver in that case. So Bob's payment to Alice is not canceled.
+
+If Charlie does win, he can publish the waiver and claim the winnings. So Bob does not win. and Bob's payment to Alice is canceled.
+
+So Bob can't possibly win, and if he doesn't win, his payment to Alice is not canceled.  Bob can lose money, but cannot gain, so the final_spend_tx has failed.
+
+
 Data availability attack
 ==========
 
