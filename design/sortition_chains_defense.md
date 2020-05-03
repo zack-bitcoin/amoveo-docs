@@ -59,15 +59,6 @@ If Charlie does win, he can publish the waiver and claim the winnings. So Bob do
 So Bob can't possibly win, and if he doesn't win, his payment to Alice is not canceled.  Bob can lose money, but cannot gain, so the final_spend_tx has failed.
 
 
-Data availability attack
-==========
-
-If the operator signs a merkle root for a sortition block tx, and then refuses to reveal the data that can be proved from this root, that is a "data availability attack".
-
-You still get one final chance to spend your value in the final-spend-tx period, but until then your money is frozen.
-
-If the operator doesn't reveal the data from the merkle root in the sortition block, then no one can know if new people were added to the line to own different value or not.
-
 Sortition chain Timeline
 ===========
 
