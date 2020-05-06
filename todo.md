@@ -1,3 +1,26 @@
+what if sortition chains didn't choose a winning pubkey, they chose a winning integer.
+And there was a different decentralized database connecting integers to pubkeys.
+So even if the sortition chain is frozen, you can still sell your value.
+
+
+
+
+what if all the transfers happen on-chain, but are all unverified until the fraud proof.
+Like, optimistic rollup style scalability.
+Waivers could still be off-chain.
+
+
+
+
+what if instead of validators signing a merkle root, everyone who made a payment in this update multi-signs it with a threshold signature scheme.
+
+
+
+
+review if mimble wimble tech can improve sortition chains.
+
+
+
 test of hashlocked payments, for the case where a secret gets published on chain.
 
 

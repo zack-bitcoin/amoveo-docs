@@ -17,7 +17,7 @@ True, False, Bad Question
 
 the result of the oracle is determined by which side of the order book has open orders. If one side has open orders for a long enough period of time, then that side wins.
 
-The initial liquidity can be collected using a [dominant assurance contract](use-cases-and-ideas/dominant_assurance_contract.md) in a [market](use-cases-and-ideas/trustless_markets.md).
+The initial liquidity can be collected using a [dominant assurance contract](../use-cases-and-ideas/dominant_assurance_contract.md) in a [market](use-cases-and-ideas/trustless_markets.md).
 
 [to see the short and clear cryptoeconomic explanation for why this oracle will work, look at the bottom of the white paper](white_paper.md)
 
