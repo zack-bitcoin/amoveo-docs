@@ -1,6 +1,5 @@
-Explica Corto
+Explicacion Corto
 ===========
-
 
 Los derivados son herramientas financieras poderosas.
 
@@ -13,7 +12,7 @@ Esto le permite comprar a un mejor precio y ayuda al agricultor a planificar.
 
 Hoy, la mayoría de las personas están excluidas de estas poderosas herramientas.
 
-Blockchain es la tecnología que impulsa bitcoin. Con blockchain, no necesita el permiso de nadie, y nadie puede ser excluido.
+Blockchain es la tecnología que impulsa bitcoin. Con blockchain, no necesita el permiso de nadie, y nadie puede ser excluido. Estamos poniendo derivados dentro de una cadena de bloques, de esa manera todos tendrán acceso.
 
-Estamos poniendo derivados dentro de una cadena de bloques, de esa manera todos tendrán acceso.
+Además, las cadenas de bloques eliminan a muchos intermediarios en finanzas. Lo que debería permitir tarifas más bajas y un servicio más rápido.
 
