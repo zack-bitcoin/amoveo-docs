@@ -1,3 +1,85 @@
+if a sortition chain doesn't have any merkle commits for too long a period of time, let it end early. but wait a delay based on how frequently people need to come online and check if we are ending early.
+
+
+
+
+
+write about oracles to check availability in the sortition defense doc.
+
+
+
+
+Do sortition chains really need to freeze in the case of a data availability attack?
+What if we just invalidated the merkle roots that we catch with unavailable data quickly enough? would that get rid of the need for validators?
+
+
+it would be nice if we had a way to prevent the sortition chains from freezing at all.
+publishing a sortition root is a very small tx.
+Making the oracle to show unavailable data is bigger.
+maybe if the sortition root tx had a big enough fee, then making the oracle that shows it is false could be free. or, it could at least have it's fee refunded, in the case that the result of the oracle shows that the root was wrong.
+Sometimes having a clause in the contract that causes everyone to lose can be a good thing.
+Like the japanese rules for the game of go, it is possible for both players to lose.
+
+If we only undo sortition roots where there is unavailable data and someone complains, then there can't be a big punishment for whoever is making the unavailable data. Each merkle root commitment is it's own deal.
+
+If there is one validator who is making claims for an entire chain of updates, then we can tie all these claims together, and allow for a bigger punishment when they try to cheat.
+
+It would be nice if we could use math and calculate the relative costs of these strategies.
+
+
+
+
+
+
+
+
+
+
+
+double check that the winner of a sortition chain doesn't need to already have an account.
+
+
+
+
+
+using the oracle to decide a height, after which no more sortition blocks are valid.
+some customer would not be able to get the data he needs, and that customer's wallet would release a warning, and then other people would check if that data is available, and if not, then the sortition chain should freeze.
+
+it could be used to undo a lot of sortition chain history.
+so you would need a lot of time before you could accept that you were actually put in line to own some value in the sortition chain.
+there would be some timelimit, like 1 hour. we refuse to undo more than 1 hour of history, even if an attack did occur.
+you would need to come online at least once per hour and check the proofs, but this doesn't require your private key, you could hire a 3rd party to provide this service.
+And you would need to wait 1 hour before you could trust that you were actually put in line to own some value.
+So, close/opening channels or hubs would take a full hour.
+
+
+As for programming, this would actually be pretty easy to do.
+we would need add a special version of the oracle that can only ask about data availability in sortition chains, and when it is settled, it updates the sortition object to have a height limit, after that height, no more on-chain merkle commitments are valid.
+so then, the final_spend_txs would be enforceable.
+an interesting side effect.
+Since everyone needs at least 1 hour of confirmations anyway, the sortition operators don't have any reason to post the merkle root on chain more than once per hour.
+I think if we did it this way, we could switch back to having one validator per sortitionchain.
+because we only had multiple validators to reduce the frequency of data availability attacks.
+If we only need one validator, that will save me from having to write a lot of code.
+The protocol to have them agree on what to sign next would have been a lot of work.
+
+It would feel nice to say "the same Nakamoto consensus is used for double spending, the oracles, and all the side chains.".
+
+is block height H the earliest height that meets this condition:
+if someone is locked out, and they complain, and it becomes common knowledge that someone's account is unavailable.  H1 is 1 hour before it became common knowledge. H2 is the time when the merkle commitment had missing data. H = whichever is later(H1, H2).
+
+when someone isn't able to access a proof for the data they need, the wallet automatically sends this complaint to explorers that watch for unavailable data.
+anyone can audit the explorers for their current data, and the explorers publish merkle roots so they can't edit their historical data.
+oracles look at the explorers to decide when data was available.
+
+if you want to do a final_spend_tx because of a data unavailability attack, then someone needs to create the oracle for this sortition chain, to invalidate the unavailable date.
+
+
+
+
+
+
+
 what if sortition chains didn't choose a winning pubkey, they chose a winning integer.
 And there was a different decentralized database connecting integers to pubkeys.
 So even if the sortition chain is frozen, you can still sell your value.

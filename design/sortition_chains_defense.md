@@ -69,3 +69,44 @@ Sortition chain Timeline
 
 
 
+
+
+
+
+
+
+
+
+Using oracles to check for availability
+===============
+
+
+The attack we are worried about is that the validator will create some on-chain merkle commitments for the sortition chain, and they will refuse to reveal any merkle proofs to the users.
+This is a problem, because the users can't know who is next in line to own their value.
+It prevents the final_spend_tx from happening, because whoever is receiving the final_spend_tx can't be sure if there is someone else in line after you, and you will sign a waiver to give the value to them, which would invalidate the final_spend_tx.
+
+To prevent this kind of attack, we will have a specialized version of the oracle that is used to find out the earliest height when data became unavailable.
+Oracles can know about any publicly available information, so as long as <the fact that data became unavailable at a particular point in time> is common knowledge, then the oracle can import this fact into the blockchain.
+So as long as we can make this fact common knowledge, we can prevent this kind of attack.
+
+
+The plan is that availability-explorers should keep a historical record about which data became unavailable at which times in which sortition chains.
+In order to afford this, users will buy insurance contracts from the explorers.
+So if an availability attack occurs, and the explorer fails to record it, then the explorer loses money to the users.
+
+The explorer is specialized in giving a useful interface to provide this service to users. So you can easily buy insurance from the explorer, and you can easily check the historical records of availability. The explorer publishes merkle roots on-chain, that way it is unable to re-write the history of which data was available when.
+
+
+
+what if the validator and explorer team up to attack
+
+So, lets say that a data availability attack does occur, and the explorer does not record it for the first few hours.
+In this case, the users of the explorer will notice that their data is not available, and they will send warnings to the explorer, and they will realize that the explorer is failing to record unavailable data.
+So the users can send out a warning to each other that this explorer has gone corrupt.
+Anyone who is online at this time will have evidence that the explorer is corrupt.
+
+Hopefully enough people realize that an attack is occuring so that when the oracle can correctly report the height at which the attack started.
+
+As long as the delay for how long an attack needs to occur to matter is long enough.
+
+This will also let us realize that this explorer should no longer be used, and we will use other explorers instead.
