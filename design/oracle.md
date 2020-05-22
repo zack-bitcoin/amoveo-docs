@@ -19,7 +19,7 @@ the result of the oracle is determined by which side of the order book has open 
 
 The initial liquidity can be collected using a [dominant assurance contract](../use-cases-and-ideas/dominant_assurance_contract.md) in a [market](use-cases-and-ideas/trustless_markets.md).
 
-[to see the short and clear cryptoeconomic explanation for why this oracle will work, look at the bottom of the white paper](white_paper.md)
+[to see the short and clear cryptoeconomic explanation for why this oracle will work, look at the bottom of the white paper](../white_ paper.md)
 
 Oracles are stored in one of the consensus state merkle trees. [read more about these trees here](trees.md)
 

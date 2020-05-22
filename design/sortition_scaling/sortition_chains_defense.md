@@ -110,3 +110,8 @@ Hopefully enough people realize that an attack is occuring so that when the orac
 As long as the delay for how long an attack needs to occur to matter is long enough.
 
 This will also let us realize that this explorer should no longer be used, and we will use other explorers instead.
+
+
+
+
+we could have one oracle that triggers the insurance payment and another oracle that freezes the block

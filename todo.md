@@ -1,3 +1,86 @@
+move the sortition chains docs to a "bad ideas" folder.
+
+document the subcurrency plan.
+o, how about we have a subcurrencies tree. each subcurrency in the tree contains a pointer to it's own merkle tree of accounts. It specifies an input subcurrency type.
+
+So once a subcurrency exists, you can make a tx that splits some of your input currency into 2 or more new currencies. And it allows for the reverse. if you have both kinds of subcurrency, you can merge them back into the input currency.
+The subcurrency has the hash of a smart contract written on it, and an expiration.
+After the expiration it becomes possible to run the smart contract, which calculates the final relative price of the 2 subcurrencies. So you can cash-out either one back to whatever the input currency was.
+
+I guess for the single price batch market to work, we would need lots of channels that are priced in the different currencies.
+So each subcurrency would need a channels tree as well.
+maybe we store the sub-currency accounts and channels in the same accounts and channels tree as everything else, and we just include an extra field to specify which currency it is denominated in.
+we get basically the same security guarantees with pruning by trusting the headers, and only syncing the most recent 2 months or so of blocks.
+So pruning really isn't an advantage.
+and since you need to write on-chain twice to get in and out of the sortition tree, the RNG process isn't helpful for scalability.
+I think we should probably add N-party channels to Amoveo.
+Based on our discussions about scaling up the lightning network.
+This seems to be a feasible way to solve a lot of the liquidity issues.
+This isn't as exciting as we had hoped that sortition chains could have been.
+But it is compatible with the stateless full node model.
+It is entirely secured by nakamoto consensus.
+It only uses technology that we already understand.
+And it is probably the best way to do blockchain-secured financial derivatives given the technology that is available today.
+I think this will keep us in a good position to continue adopting scaling technology as it is invented in the coming years.
+
+the limitation of channels is that you either need your partner to cooperate, or you need to wait a delay and post the contract on-chain.
+the limitation of a sub-currency is that you can't update the contract once it has been made.
+
+So I am thinking, instead of using channels priced in the subcurrency for each trade in the market, we can make sub-sub-currencies. and the smart contract to enforce single price batches could be the contract that defines the new subcurrencies.
+
+That way, you can sell your unmatched order without needing the permission of the market maker.
+or you can sell your unmatched order back to the market maker, to cancel your trade.
+
+
+
+
+
+
+
+
+
+
+
+
+consider the idea of using 2 oracles to enforce data availability. punish them if the data is unavailable for 1 hour, and freeze the sortition chain if it is unavailable for 2 hours.
+
+
+
+
+
+
+
+
+
+maybe the waiver strategy was a mistake, and we should have signed txs to do updates in the sortition chain, and use truebit style fraud proofs to verify the correct winner.
+then maybe anyone could act as a validator for the sortitoin chain.
+
+the validator doesn't need to verify any of the txs in this case.
+They just include everything, and then provide merkle proofs after.
+
+Checking which txs are valid could all happen during the fraud proof
+so, to make a sortition tx, you would send the tx to a validator, and then afterwards you would request a proof to make sure it was included.
+
+Because of the structure of the merkle tree, we could at least be sure that there txs from the same merkle root are not re-spending the same value more than once.
+
+
+
+
+
+
+how about we let anyone act as validator, and they make a security deposit for each sortition chain that they validate for.
+
+
+
+
+
+
+
+
+The watchers should work. Being a watcher is incredibly cheap, all you need is a stable internet connection. This means it will be very difficult to lock out competition. Many users will be able to achieve pretty high uptime even by themselves, even with a mobile phone, so the watcher is only a backup and the watcher doesn't know when it's really needed. That makes it really hard to cheat.
+
+
+
 if a sortition chain doesn't have any merkle commits for too long a period of time, let it end early. but wait a delay based on how frequently people need to come online and check if we are ending early.
 
 
