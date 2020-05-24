@@ -4,6 +4,10 @@ Shareable Contracts Implementation
 Trees
 =========
 
+-record(account, {balance, nonce, pubkey, contract, type}).
+-record(channel, {id, accounts_root, amounts_root, nonce, last_modified, delay, closed}).
+-record(contract, {code, many_types, nonce, last_modified, delay, closed, result, veo}).
+
 the shareable contracts use 3 trees: colored-accounts, colored-channels, contracts.
 
 The colored-accounts and channels work almost the same as the existing accounts and channels trees. the only difference is that each element records which flavor of subcurrency is being stored.
@@ -16,6 +20,13 @@ It remembers the kind of input currency that it can accept.
 
 Tx Types
 ===========
+
+-record(new_contract_tx, {contract_hash, many_types}).
+-record(use_contract, {amount, veo_accounts, type_keys}).%veo accounts [{pubkey1, amount1}|...] amount can be positive or negative.
+%type_keys = [pubkeyA|...].
+-record(resolve_contract, {contract, evidence}).
+-record(contract_timeout, {contract_id}).
+-channel_solo_close, channel_team_close, channel_timeout, channel_new, channel_slash
 
 * create a new shareable contract
 * send some source currency to a shareable contract to have it divided into the new types.
