@@ -1,21 +1,22 @@
-move the sortition chains docs to a "bad ideas" folder.
+set up the hard update to activate the new merkle trees
 
-document the subcurrency plan.
-o, how about we have a subcurrencies tree. each subcurrency in the tree contains a pointer to it's own merkle tree of accounts. It specifies an input subcurrency type.
+implement the new tx types as defined in the design/shareable... document
 
-So once a subcurrency exists, you can make a tx that splits some of your input currency into 2 or more new currencies. And it allows for the reverse. if you have both kinds of subcurrency, you can merge them back into the input currency.
-The subcurrency has the hash of a smart contract written on it, and an expiration.
-After the expiration it becomes possible to run the smart contract, which calculates the final relative price of the 2 subcurrencies. So you can cash-out either one back to whatever the input currency was.
+update the channel tx types to accept the new format of channels as well, or rewrite them if necessary.
 
-I guess for the single price batch market to work, we would need lots of channels that are priced in the different currencies.
-So each subcurrency would need a channels tree as well.
-maybe we store the sub-currency accounts and channels in the same accounts and channels tree as everything else, and we just include an extra field to specify which currency it is denominated in.
-we get basically the same security guarantees with pruning by trusting the headers, and only syncing the most recent 2 months or so of blocks.
-So pruning really isn't an advantage.
-and since you need to write on-chain twice to get in and out of the sortition tree, the RNG process isn't helpful for scalability.
-I think we should probably add N-party channels to Amoveo.
-Based on our discussions about scaling up the lightning network.
-This seems to be a feasible way to solve a lot of the liquidity issues.
+
+
+
+
+
+
+
+
+
+
+### a document about layered sharable contracts.
+
+
 This isn't as exciting as we had hoped that sortition chains could have been.
 But it is compatible with the stateless full node model.
 It is entirely secured by nakamoto consensus.
@@ -26,261 +27,9 @@ I think this will keep us in a good position to continue adopting scaling techno
 the limitation of channels is that you either need your partner to cooperate, or you need to wait a delay and post the contract on-chain.
 the limitation of a sub-currency is that you can't update the contract once it has been made.
 
-So I am thinking, instead of using channels priced in the subcurrency for each trade in the market, we can make sub-sub-currencies. and the smart contract to enforce single price batches could be the contract that defines the new subcurrencies.
-
 That way, you can sell your unmatched order without needing the permission of the market maker.
 or you can sell your unmatched order back to the market maker, to cancel your trade.
 
-
-
-
-
-
-
-
-
-
-
-
-consider the idea of using 2 oracles to enforce data availability. punish them if the data is unavailable for 1 hour, and freeze the sortition chain if it is unavailable for 2 hours.
-
-
-
-
-
-
-
-
-
-maybe the waiver strategy was a mistake, and we should have signed txs to do updates in the sortition chain, and use truebit style fraud proofs to verify the correct winner.
-then maybe anyone could act as a validator for the sortitoin chain.
-
-the validator doesn't need to verify any of the txs in this case.
-They just include everything, and then provide merkle proofs after.
-
-Checking which txs are valid could all happen during the fraud proof
-so, to make a sortition tx, you would send the tx to a validator, and then afterwards you would request a proof to make sure it was included.
-
-Because of the structure of the merkle tree, we could at least be sure that there txs from the same merkle root are not re-spending the same value more than once.
-
-
-
-
-
-
-how about we let anyone act as validator, and they make a security deposit for each sortition chain that they validate for.
-
-
-
-
-
-
-
-
-The watchers should work. Being a watcher is incredibly cheap, all you need is a stable internet connection. This means it will be very difficult to lock out competition. Many users will be able to achieve pretty high uptime even by themselves, even with a mobile phone, so the watcher is only a backup and the watcher doesn't know when it's really needed. That makes it really hard to cheat.
-
-
-
-if a sortition chain doesn't have any merkle commits for too long a period of time, let it end early. but wait a delay based on how frequently people need to come online and check if we are ending early.
-
-
-
-
-
-write about oracles to check availability in the sortition defense doc.
-
-
-
-
-Do sortition chains really need to freeze in the case of a data availability attack?
-What if we just invalidated the merkle roots that we catch with unavailable data quickly enough? would that get rid of the need for validators?
-
-
-it would be nice if we had a way to prevent the sortition chains from freezing at all.
-publishing a sortition root is a very small tx.
-Making the oracle to show unavailable data is bigger.
-maybe if the sortition root tx had a big enough fee, then making the oracle that shows it is false could be free. or, it could at least have it's fee refunded, in the case that the result of the oracle shows that the root was wrong.
-Sometimes having a clause in the contract that causes everyone to lose can be a good thing.
-Like the japanese rules for the game of go, it is possible for both players to lose.
-
-If we only undo sortition roots where there is unavailable data and someone complains, then there can't be a big punishment for whoever is making the unavailable data. Each merkle root commitment is it's own deal.
-
-If there is one validator who is making claims for an entire chain of updates, then we can tie all these claims together, and allow for a bigger punishment when they try to cheat.
-
-It would be nice if we could use math and calculate the relative costs of these strategies.
-
-
-
-
-
-
-
-
-
-
-
-double check that the winner of a sortition chain doesn't need to already have an account.
-
-
-
-
-
-using the oracle to decide a height, after which no more sortition blocks are valid.
-some customer would not be able to get the data he needs, and that customer's wallet would release a warning, and then other people would check if that data is available, and if not, then the sortition chain should freeze.
-
-it could be used to undo a lot of sortition chain history.
-so you would need a lot of time before you could accept that you were actually put in line to own some value in the sortition chain.
-there would be some timelimit, like 1 hour. we refuse to undo more than 1 hour of history, even if an attack did occur.
-you would need to come online at least once per hour and check the proofs, but this doesn't require your private key, you could hire a 3rd party to provide this service.
-And you would need to wait 1 hour before you could trust that you were actually put in line to own some value.
-So, close/opening channels or hubs would take a full hour.
-
-
-As for programming, this would actually be pretty easy to do.
-we would need add a special version of the oracle that can only ask about data availability in sortition chains, and when it is settled, it updates the sortition object to have a height limit, after that height, no more on-chain merkle commitments are valid.
-so then, the final_spend_txs would be enforceable.
-an interesting side effect.
-Since everyone needs at least 1 hour of confirmations anyway, the sortition operators don't have any reason to post the merkle root on chain more than once per hour.
-I think if we did it this way, we could switch back to having one validator per sortitionchain.
-because we only had multiple validators to reduce the frequency of data availability attacks.
-If we only need one validator, that will save me from having to write a lot of code.
-The protocol to have them agree on what to sign next would have been a lot of work.
-
-It would feel nice to say "the same Nakamoto consensus is used for double spending, the oracles, and all the side chains.".
-
-is block height H the earliest height that meets this condition:
-if someone is locked out, and they complain, and it becomes common knowledge that someone's account is unavailable.  H1 is 1 hour before it became common knowledge. H2 is the time when the merkle commitment had missing data. H = whichever is later(H1, H2).
-
-when someone isn't able to access a proof for the data they need, the wallet automatically sends this complaint to explorers that watch for unavailable data.
-anyone can audit the explorers for their current data, and the explorers publish merkle roots so they can't edit their historical data.
-oracles look at the explorers to decide when data was available.
-
-if you want to do a final_spend_tx because of a data unavailability attack, then someone needs to create the oracle for this sortition chain, to invalidate the unavailable date.
-
-
-
-
-
-
-
-what if sortition chains didn't choose a winning pubkey, they chose a winning integer.
-And there was a different decentralized database connecting integers to pubkeys.
-So even if the sortition chain is frozen, you can still sell your value.
-
-
-
-
-what if all the transfers happen on-chain, but are all unverified until the fraud proof.
-Like, optimistic rollup style scalability.
-Waivers could still be off-chain.
-
-
-
-
-what if instead of validators signing a merkle root, everyone who made a payment in this update multi-signs it with a threshold signature scheme.
-
-
-
-
-review if mimble wimble tech can improve sortition chains.
-
-
-
-test of hashlocked payments, for the case where a secret gets published on chain.
-
-
-
-
-Document this:
-```
-if all the validators work together, they can force you to take on lottery risk.
-a person will only accept a final_spend_tx payment if they can be sure that the	sortition claim	it is connect to actually has a chance to win the lottery.
-unavailable data might show that someone new is	in line. So the	money could provably be	spent to them, and	then the final_spend_tx	would be worthless.
-
-But, we	can overcome this.
-in the payment atomically connected to the final_spent_tx. there can be	a clause saying	that if	a particular kind of waiver is created, then this payment is canceled.
-
-oh, that doesn't work. because most times they don't win the lottery, so the evidence wouldn't get exposed
-
-We probably do need lots of validators.
-```
-
-
-
-
-double check that the winner of a sortition chain can be someone who doesn't have an account yet.
-
-
-
-update code and tests to have one validator per sortition chain.
-
-update code and tests to have ownership cycles.
-Use 2-cycles instead of channels.
-
-remove the state channel code from sortition chains, we will use ownership cycles instead.
-
-
-
-
-I think for the sortition ownership object, we should have 3 kinds of priority.
-1) the height at which you can prove your ownership from. earlier heights are higher priority.
-2) if the heights are the same, then whichever ownership object has the higher priority nonce wins.
-3) if the heights are the same, and the priority nonces are the same, then whoever can make a claim using a lower cycle-nonce wins.
-
-So if you don't want to use the cycle features, and you just want to own probabilistic value in the sortition chain, you can have a cycle of just one account, you own account. and if you sign a waiver, make it give up ownership for the entire priority nonce.
-
-If you are in a cycle, don't give up ownership to the priority nonce, instead give up ownership of some of the cycle nonces.
-
-
-
-
-
-seems like we only need one validator per sortition chain.
-We should update:
-X sortition defense doc,
-X and sortition design doc,
-and some tx types.
-sortition object format,
-and sortition block tx format.
-
-
-
-document how cycle hubs work
-* putting them in line many times in a cycle.
-* giving up multiple spots in line by having the waiver smart contract reference the height and priority nonce of the claim.
-
-
-document about the sortition contract - sortition waiver relationship.
-* 3 kinds of priority.
-* who is in line to own value.
-
-
-
-sortition chains point of sale tests.
-
-
-
-
-
-currently, if an attacker keeps publishing invalid sortition_claim_txs, they can indefinitely delay settlement of a sortition chain.
-
-Maybe we should limit sortition_claims to only being one claim per pubkey or pair of pubkeys per sortition block?
-
-Since the cost of adding more claims increases exponentially with the number already in line, maybe this is not an issue?
-
-
-
-
-in sortition_chains_implementation.md, review the horizontal and vertical payments documentation.
-
-
-
-sortition_chains_implementation has a timeline of the steps of each sortition chain. Verify that all the steps are restricted to happening at the proper times.
-
-
-
-persistent ownership merkle tree enabled from the configuration file, for the validators.
-we need a sortition wallet to keep track of the proof of ownership for users.
 
 
 make it more clear what "oracle starts" means in the light node.

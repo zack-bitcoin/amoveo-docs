@@ -4,9 +4,11 @@ Shareable Contracts Implementation
 Trees
 =========
 
--record(account, {balance, nonce, pubkey, contract, type}).
--record(channel, {id, accounts_root, amounts_root, nonce, last_modified, delay, closed}).
--record(contract, {code, many_types, nonce, last_modified, delay, closed, result, veo}).
+-record(account, {balance, nonce, pubkey, contract_id, type}).
+-record(channel, {id, accounts_root, amounts_root, nonce, last_modified, delay, closed, contract_id, type}).
+-record(contract, {code, many_types, nonce, expires, closed, result, veo}).
+
+%for contract record, the result has length depending on how many-types there are. How do we make this compatible with our merkle trees?
 
 the shareable contracts use 3 trees: colored-accounts, colored-channels, contracts.
 
@@ -22,18 +24,14 @@ Tx Types
 ===========
 
 -record(new_contract_tx, {contract_hash, many_types}).
--record(use_contract, {amount, veo_accounts, type_keys}).%veo accounts [{pubkey1, amount1}|...] amount can be positive or negative.
+-record(use_contract, {contract_id, amount, veo_accounts, type_keys}).%veo accounts [{pubkey1, amount1}|...] amount can be positive or negative.
 %type_keys = [pubkeyA|...].
--record(resolve_contract, {contract, evidence}).
+-record(resolve_contract, {contract, contract_id,  evidence}).
 -record(contract_timeout, {contract_id}).
--channel_solo_close, channel_team_close, channel_timeout, channel_new, channel_slash
-
-* create a new shareable contract
-* send some source currency to a shareable contract to have it divided into the new types.
-* send all the types to the shareable contract to have them recombined into the source currency.
-* run the smart contract to resolve the shareable contract.
-* convert back to source currency based on the resolution price of the smart contract.
-* create a channel priced in the subcurrency. (all the different kinds of channel txs need to work)
+-record(contract_winnings, {contract_id, type, pubkey}).
+-new version of spend, how to handle fees?? probably paid in veo. allow stablecoin fees if miners accept them.
+-new version of channel_new tx.
+-should all handle the new channel type: channel_solo_close, channel_team_close, channel_timeout, channel_slash
 
 Contract Resolution
 ===========
