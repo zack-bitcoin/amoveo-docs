@@ -49,3 +49,13 @@ So an example of a shareable contract would be a stablecoin contract. We could s
 And anyone who owns both USD-stablecoin as well as the double-VEO, they could use this same contract to convert them back into normal VEO.
 
 [you can learn about how shareable contracts are implemented here](shareable_contracts_implementation.md)
+
+
+conclusion
+=========
+
+If you have a mutable contract, and they aren't cooperating, you just put a hash of the last smart contract on-chain, and it becomes shareable, so you can sell you stake as subcurrency, or make channels out of it with other people.
+
+If you and someone else want to do something faster or at higher bandwidth than the blockchain offers, you can make a mutable contract out of any subcurrency in the system.
+
+So smart contracts can switch types over time, depending on the needs of the users.

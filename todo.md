@@ -1,12 +1,57 @@
-set up the hard update to activate the new merkle trees
+
+
+
+
+
+
+
+documenting shareable contracts
+one of the features we discussed in regard to shareable currency, is we would like a tx type that can atomically allow a pair of people to buy opposite sides of a contract, or sell opposite sides.
+Also a tx type to atomically swap different kinds of currency on-chain.
+
+The current channels in Amoveo have a feature where you can post an open offer, and anyone can accept the other side of the new channel tx to participate in the opposite side of the contract from you.
+
+So a feature I am considering is that we should allow open offers for making txs to buy/sell/swap subcurrencies.
+
+I am imagining a process like this. If you start with VEO, and want to buy stable USD.
+First you do an on-chain swap to change from VEO into a subcurrency that acts as an open order to purchase stablecoins. Because the batch price isn't yet known, the exchange rate between the limit-order subcurrency and VEO is stable, this prevents front running and allows us to do it on-chain.
+
+When a batch occurs, if it is inside the limit price of the shareable contract, then the 2 kinds of shares of this contract become long-veo and stablecoins.
+
+If the batch price is outside the limit price, then the 2 kinds of shares become regular veo. It works like a refund.
+
+If you end up holding stablecoins after the batch, you can use a on-chain swap tx to convert these stablecoins into stablecoins defined by a more standard contract, without risk of front running. because the relative price between the stablecoins defined by the 2 contracts, it is the same.
+
+
+
+
+
+
+when a channel is enforced on-chain, maybe that should create a new shareable contract.
+another benefit of this strategy is that if multiple channels are all using the same contract internally, that contract will only ever need to go on-chain once, because the channels are all going to reference the same shareable contract.
+
+
+
+
+
+It would be really cool, if instead of fully resolving one of the shareable contracts, if there was a way of showing that it can be partially-resolved to become equivalent to another existing shareable contract, and then the 2 shareable contracts combine, so the subcurrencies in each are fungible, and when spent, they automatically convert to the simpler type.
+Which allows us to smoothly prune obsolete parts of the code from shareable contracts, and reduces the amount of data you need to provide to prove the value of your partially resolved sub-sub-currency.
+
+This would help us avoid running the same computation more than once. and it would reduce on-chain traffic, because participants in sub-sub-currencies wont need to use a market to swap to the sub-currency, it will be automatic.
+
+It also provides a natural way to break up complicated computation into steps in multiple blocks.
+
+
+
+
+
+
+
+mutable contracts should resolve into shareable contracts.
 
 implement the new tx types as defined in the design/shareable... document
 
 update the channel tx types to accept the new format of channels as well, or rewrite them if necessary.
-
-
-
-
 
 
 

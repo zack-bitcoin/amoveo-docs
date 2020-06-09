@@ -3,7 +3,7 @@ Avalanche review
 
 Avalanche is a idea on how to build proof of stake consensus for blockchains.
 
-[review of other papers from the same author](other_blockchains/Emin_Gun_Sirer.md)
+[review of other papers from the same author](Emin_Gun_Sirer.md)
 
 Here is the avalanche white paper: https://avalanchelabs.org/QmT1ry38PAmnhparPUmsUNHDEGHQusBLD6T5XJh4mUUn3v.pdf
 
