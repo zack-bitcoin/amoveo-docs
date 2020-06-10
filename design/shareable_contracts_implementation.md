@@ -4,9 +4,11 @@ Shareable Contracts Implementation
 Trees
 =========
 
+```
 -record(account, {balance, nonce, pubkey, contract_id, type}).
 -record(channel, {id, accounts_root, amounts_root, nonce, last_modified, delay, closed, contract_id, type}).
 -record(contract, {code, many_types, nonce, expires, closed, result, veo}).%closed = 0 is still active, 1 is settled to source currency, 2 is settled into a different subcurrency.
+```
 
 %for contract record, the result has length depending on how many-types there are. How do we make this compatible with our merkle trees?
 
@@ -23,6 +25,7 @@ It remembers the kind of input currency that it can accept.
 Tx Types
 ===========
 
+```
 -record(new_contract_tx, {from, nonce, fee, contract_hash, many_types}).
 -record(use_contract, {contract_id, amount, veo_accounts}).
         %veo accounts [{pubkey1, amount1}|...] amounts need to sum up to amount.
@@ -41,6 +44,7 @@ Tx Types
 -record(new_channel_accept, {from, fee, signed(new_channel_offer(from, fee, contract))}).
 -record(channel_evidence, {id, accounts, signed{nonce, contract_hash, delay}}).
 -record(channel_timeout, {id}).
+```
 
 
 
@@ -56,8 +60,8 @@ If the top of the output stack is a 1, then that means one of the subcurrencies 
 for example, if this was the output stack: [1, 0|_]
 It would indicate that 100% of the value should go to the first subcurrency.
 
-If the top of the output stack is a 2, then that means the different subcurrencies divide up the value between themselves. Say there are 3 flavors of subcurrency, then the stack could for example look like this: [2, 10, 15, 22|_]
-This would mean that the first subcurrency has (10/(10+15+22)) = 10/47 portion of the value.
+If the top of the output stack is a 2, then that means the different subcurrencies divide up the value between themselves. Say there are 3 flavors of subcurrency, then the stack could for example look like this: `[2, 10, 15, 22|_]`
+This would mean that the first subcurrency has `(10/(10+15+22)) = 10/47` portion of the value.
 The second subcurrency has 15/47 of the value.
 The third subcurrency has 22/47 of the value.
 And anything else on the stack is ignored.
