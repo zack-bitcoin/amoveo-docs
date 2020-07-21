@@ -1,77 +1,87 @@
 Shareable Contracts Implementation
 =============
 
-Trees
+Consensus Merkel Trees
 =========
 
 ```
--record(account, {balance, nonce, pubkey, contract_id, type}).
--record(channel, {id, accounts_root, amounts_root, nonce, last_modified, delay, closed, contract_id, type}).
--record(contract, {code, many_types, nonce, expires, closed, result, veo}).%closed = 0 is still active, 1 is settled to source currency, 2 is settled into a different subcurrency.
+-record(sub_acc, {balance, nonce, pubkey, contract_id, type}).
 ```
 
-% for contract record, the result has length depending on how many-types there are. How do we make this compatible with our merkle trees?
+sub_acc is the tree for storing account balances in various kinds of subcurrency.
+So if you own 2 different subcurrency, you have a different address for each, and they get stored as different elements in the merkle tree.
+Even 2 different subcurrencies from the same smart contract have different accounts.
 
-the shareable contracts use 3 trees: colored-accounts, colored-channels, contracts.
+```
+-record(contract, {code, many_types, nonce, last_modified, delay, closed, result, source, source_type, sink, volume}).%closed = 0 is still active, 1 is settled to source currency, 2 is settled into a different subcurrency.
+```
 
-The colored-accounts and channels work almost the same as the existing accounts and channels trees. the only difference is that each element records which flavor of subcurrency is being stored.
-The key to store a colored-account is hash(pubkey ++ contract id ++ subcurrency type).
+Contracts exist in an active state for a period of time. Anyone can provide evidence for how the contract should enforce the outcome of the bet. The contract prefers the evidence that causes the smart contract to output a higher nonce. Eventually the contract settles on one evidence with the highest nonce, and changes to a closed state.
 
-the contract element remembers the hash of the contract that defines this shareable contract.
-It remembers the total outstanding input currency that has been put into it (so we can be double-sure that it doesn't create output currency from nothing.)
-It remembers how many kinds of subcurrency it produces from the input currency.
-It remembers the kind of input currency that it can accept.
+`code` is the hash of the bytecode that determines the result of the bet.
+
+`closed` starts as 0, meaning that it is open, and eventually gets converted to a 1, when that contract is finalized.
+
+`many_types` is how many flavors of subcurrency are defined by this contract.
+
+`nonce` is the priority level of the highest-priority evidence that has been provided. The evidence is used to decide how this contract will enforce the outcome of the bet.
+
+`last_modified` is how long ago the highest-nonced evidence had been provided.
+
+`delay` is for how much time after last_modified that we need to wait until the contract can be closed in this state.
+
+`result` is for how to pay owners of the subcurrency their winnings from the bet.
+
+`source` and `source_type` define the subcurrency that this contract is priced in. For example, if a contract is priced in BTC-stablecoins, then that means you can convert 1 unit of BTC-stablecoins into a complete set of shares in this market, and you can convert a complete set back into BTC-stablecoins.
+
+`sink` is used if a contract resolves into another contract. It is a pointer to where you get paid your subcurrency if you withdraw your winnings from this contract.
+
+`volume` is a record of how much money is locked in this contract.
+
+Even after a contract is closed, the `volume`, `result` and `sink` elements can still get changed.
+`volume` can decrease as people withdraw their winnings from a contract. 
+`result` and `sink` can change if this is a contract that settles by pointing to some child contract, and that child contract has also settled, and we simplify the result so that you can withdraw your winnings with a single tx and a small fixed sized number of merkel proofs.
+
 
 Tx Types
 ===========
 
 ```
--record(new_contract_tx, {from, nonce, fee, contract_hash, many_types}).
+-record(new_contract_tx, {from, nonce, fee, contract_hash, many_types, source, source_type}).
 -record(use_contract_tx, {from, nonce, fee, contract_id, amount, many}).
-
--record(use_contract_tx, {contract_id, amount, veo_accounts}).
-        %veo accounts [{pubkey1, amount1}|...] amounts need to sum up to amount.
-        %amount can be positive or negative, depending on if we are buying or selling veo from the contract.
-        %needs to be signed by all veo accounts.
-        %the order of accounts determines who is buying/selling each type of subcurrency.
--record(swap_offer, {from, nonce, type1, type2, fee}).
--record(swap, {from, nonce, signed_swap_offer, fee}).%swap 2 kinds of currency of any type
--record(contract_offer, {contract_id, amount, pub, types}).%types is like [{0, Portion1},{2, Portion2}], where the integer is the type that the offerer wants to control, and amount is the portion of it that they want to control.
--record(contract_accept, {pub2, signed_offer}).
--record(resolve_contract, {contract, contract_id,  evidence}).%potentially unsigned tx.
--record(contract_timeout, {contract_id}).%possibly converts it into a new kind of contract.
--record(contract_winnings, {contract_id, type, pubkey}).
--new version of spend, how to handle fees?? probably paid in veo. allow stablecoin fees if miners accept them.
--record(new_channel_tx, {id, accounts_hash}).
--record(new_channel_accept, {from, fee, signed(new_channel_offer(from, fee, contract))}).
--record(channel_evidence, {id, accounts, signed{nonce, contract_hash, delay}}).
--record(channel_timeout, {id}).
+-record(sub_spend_tx, {from, nonce, fee, to, amount, contract, type}).
+-record(resolve_contract_tx, {from, nonce, fee, contract, contract_id, evidence, prove}).
+-record(contract_timeout_tx, {from, nonce, fee, contract_id, proof, contract_hash, row}).%possibly converts it into a new kind of contract. %possibly unsigned
+-record(contract_winnings_tx, {from, nonce, fee, contract_id, amount, sub_account, winner, proof, row}).
+-record(contract_simplify_tx, {from, nonce, fee, cid, cid2, cid3, m1, m2}).
 ```
 
+`resolve_contract_tx` is for providing evidence for a potential way to close the contract, but it doesn't close it yet. It sets a delay timer.
+
+`contract_timeout_tx` is for closing the contract, once the delay timer has run out.
+
+`contract_simplify_tx` is for when a contract resolves into another contract, and they have both been closed. So now we want to update both contracts to be resolvable directly to the source currency, that way owners of any sub-currency can withdraw their winnings with one tx, and a small fixed sized number of merkel proofs.
 
 
 Contract Resolution
 ===========
 
-There are a couple ways that the smart contract could resolve.
-If the top of the output stack is a zero, then that means the contract is not ready yet.
-Either more time needs to pass, or an oracle needs to resolve, or something like that.
-It still isn't possible to resolve the contract.
+A smart contract's final state can be `[Nonce, Delay, PayoutVector|_]`, or it can be `[Nonce, Delay, ContractHash, Matrix|_]`.
 
-If the top of the output stack is a 1, then that means one of the subcurrencies has won 100% of the value. The second element of the output stack specifies which of the subcurrencies gets all the value.
-for example, if this was the output stack: [1, 0|_]
-It would indicate that 100% of the value should go to the first subcurrency.
+The nonce determines how much priority this outcome has relative to others. The contract will resolve with whatever evience provides the highest priority nonce.
 
-If the top of the output stack is a 2, then that means the different subcurrencies divide up the value between themselves. Say there are 3 flavors of subcurrency, then the stack could for example look like this: `[2, 10, 15, 22|_]`
-This would mean that the first subcurrency has `(10/(10+15+22)) = 10/47` portion of the value.
-The second subcurrency has 15/47 of the value.
-The third subcurrency has 22/47 of the value.
-And anything else on the stack is ignored.
+the delay determines how long to wait for counter-evidence before allowing the contract to close in this state.
 
-If the top of the output stack is a 3, then that means this contract is identical to some other contract. [3, Pointer|_], where pointer is the id of the shareable contract that this one is resolved into.
+If the contract is resolving directly to the source currency, then it outputs a `PayoutVector`. the length of this vector is the same as the number of subcurrencies defined by the contract. It is used to specify how to divide up the money.
+N = (2^32) - 1
+N is the biggest number that can be expressed in the 4-byte integer format used in the chalang smart contract language.
+The sum of the elements in the `PayoutVector` must equal N.
 
+If the contract is resolving to another contract that shares the same source currency, then it outputs a contract hash and a matrix.
+If you own subcurrency N in the first contract, then you can find out which subcurrencies you own in the new contract by reading row N from the matrix.
+So the height of the matrix is the number of subcurrencies of the first contract, and the width of the matrix is the number of subcurrencies in the second contract.
 
-Finally, we always also output a nonce for the priority of this outome, and a delay for how long to wait for counter-evidence before resolving in this state.
+To maintain constant the total number of veo, each column of the matrix needs to sum to N. It is a kind of left stochastic matrix generalized to allow for changing dimensions.
 
 
 Contract resolves to another contract
@@ -96,7 +106,7 @@ we have multiple because they resolve at different expiration dates.
 Alice and Bob want to have a contract ContractAB, and if it doesn't work, they want to be refunded.
 Alice wants to be refunded the USD equivalent of what she had put in, and she wants it in the USD_* contract that will expire as soon as possible.
 
-if ContractAB gets cancelled, Alice's tokens in ContractAB all get converted to USD_* tokens, which are totally fungible with all the other USD_* tokens, because their outcome is deteremined by the same USD_* on-chain contract.
+if ContractAB gets cancelled, Alice's tokens in ContractAB all get converted to USD_* tokens, which are totally fungible with all the other USD_* tokens, because their outcome is determined by the same USD_* on-chain contract.
 
 
 A more computer science description.
@@ -109,16 +119,16 @@ This also allows us to spread out a very long contract into multiple blocks. So 
 Simplifying resolved contracts
 ===========
 
-Let S be the column vector of the subcurrencies you own in contract A.
+Let S be the vector of the subcurrencies you own in contract A.
 Contract A uses matrix A to convert your subcurrencies into subcurrencies for contract B.
-B goes to C, and C results in a payout row vector = C which converts subcurrencies into an integer value of how many Veo you own = V.
+B goes to C, and C results in a payout vector = C which converts subcurrencies into an integer value of how many Veo you own = V.
 
 So the formula is 
 SABC = V.
 
 Matrix multiplication is associative.
-So the payout row vector for contract A is (ABC).
-The payout row vector for contract B is (BC).
+So the payout vector for contract A is (ABC).
+The payout vector for contract B is (BC).
 
 The matrix that takes subcurrencies from contract A to contract C is (AB).
 

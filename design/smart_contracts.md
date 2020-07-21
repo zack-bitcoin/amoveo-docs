@@ -1,6 +1,6 @@
-# The nature of smart contracts
+# Smart Contracts
 
-# Smart contracts
+# Introduction
 
 A blockchain smart contract is a computer program that is used to determine how some money will get divided up among the participants.
 For example, if you want to bet on the outcome of a sporting event, you could use a smart contract to enforce that the winner gets paid his prize, and the loser does not.
@@ -45,6 +45,8 @@ The server can have a channel with Alice that has 200 units of A-coins in it, an
 In this example there are $200 of bets, and only $200 of money locked in the contracts, so the liquidity problem has been solved.
 
 ### Converting state channels to on-chain contracts
+
+The second half of our solution to the liquidity problem is to allow for state channels to be converted into on-chain contracts.
 
 Another way liquidity can get trapped in the old version of state channels is if your channel partner goes offline, or refuses to cooperate with updating or closing the channel.
 Channels can only be updated if all participants cooperate, or if you wait long enough for the smart contract to be completely executed.
