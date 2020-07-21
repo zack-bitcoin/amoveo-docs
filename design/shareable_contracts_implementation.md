@@ -10,7 +10,7 @@ Trees
 -record(contract, {code, many_types, nonce, expires, closed, result, veo}).%closed = 0 is still active, 1 is settled to source currency, 2 is settled into a different subcurrency.
 ```
 
-%for contract record, the result has length depending on how many-types there are. How do we make this compatible with our merkle trees?
+% for contract record, the result has length depending on how many-types there are. How do we make this compatible with our merkle trees?
 
 the shareable contracts use 3 trees: colored-accounts, colored-channels, contracts.
 
@@ -27,7 +27,9 @@ Tx Types
 
 ```
 -record(new_contract_tx, {from, nonce, fee, contract_hash, many_types}).
--record(use_contract, {contract_id, amount, veo_accounts}).
+-record(use_contract_tx, {from, nonce, fee, contract_id, amount, many}).
+
+-record(use_contract_tx, {contract_id, amount, veo_accounts}).
         %veo accounts [{pubkey1, amount1}|...] amounts need to sum up to amount.
         %amount can be positive or negative, depending on if we are buying or selling veo from the contract.
         %needs to be signed by all veo accounts.
@@ -70,3 +72,54 @@ If the top of the output stack is a 3, then that means this contract is identica
 
 
 Finally, we always also output a nonce for the priority of this outome, and a delay for how long to wait for counter-evidence before resolving in this state.
+
+
+Contract resolves to another contract
+==============
+
+Lets say there are 2 sporting events coming up, EA and EB.
+you are confident in your ability to predict the outcome of both. So you make a bet where you win only if you are correct about both.
+
+There are existing markets for EA and EB alone, but your market for EA && EB has almost no traders.
+
+So, if oracle EA expired first, it would be nice if you could convert your shares of EB, and if oracle EB expired, it would be nice if you could convert your shares to shares in EA.
+
+Once you have shares that are fungible with everyone else, you can participate in the bigger markets.
+
+
+Another example
+=======
+
+Lets say there are several contracts for USD stablecoins: USD_A, USD_B...
+we have multiple because they resolve at different expiration dates.
+
+Alice and Bob want to have a contract ContractAB, and if it doesn't work, they want to be refunded.
+Alice wants to be refunded the USD equivalent of what she had put in, and she wants it in the USD_* contract that will expire as soon as possible.
+
+if ContractAB gets cancelled, Alice's tokens in ContractAB all get converted to USD_* tokens, which are totally fungible with all the other USD_* tokens, because their outcome is deteremined by the same USD_* on-chain contract.
+
+
+A more computer science description.
+========
+
+Our contracts are very lazily executed. This allows us to avoid redundancy, because contracts that share code, they can wait and just run that code once for everyone. 
+This also allows us to spread out a very long contract into multiple blocks. So your contract's size isn't limited by the availability of space in a single block.
+
+
+Simplifying resolved contracts
+===========
+
+Let S be the column vector of the subcurrencies you own in contract A.
+Contract A uses matrix A to convert your subcurrencies into subcurrencies for contract B.
+B goes to C, and C results in a payout row vector = C which converts subcurrencies into an integer value of how many Veo you own = V.
+
+So the formula is 
+SABC = V.
+
+Matrix multiplication is associative.
+So the payout row vector for contract A is (ABC).
+The payout row vector for contract B is (BC).
+
+The matrix that takes subcurrencies from contract A to contract C is (AB).
+
+

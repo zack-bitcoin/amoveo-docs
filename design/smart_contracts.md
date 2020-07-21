@@ -1,6 +1,74 @@
 ## The nature of smart contracts
 
-Blockchains need to scale much bigger for global adoption.
+Table of contents
+===========
+
+* what is a smart contract?
+* motivations for our new design
+- limitations in the old design
+- flavored state channels
+- converting state channels to on-chain contracts
+* the new design
+- mutable contracts
+- shareable contracts
+
+Smart contracts
+============
+
+A blockchain smart contract is a computer program that is used to determine how some money will get divided up among the participants.
+For example, if you want to bet on the outcome of a sporting event, you could use a smart contract to enforce that the winner gets paid his prize, and the loser does not.
+
+Motivations
+============
+
+We want to have big liquid markets with single-price batch trading, so that we can trade our contracts at good prices.
+
+We want it to be impossible for miners to front-run these markets by ordering the txs.
+So this means the market smart contract needs to be inside of state channels.
+State channels are a kind of smart contract that can be modified merely by consensus of participants in that contract, without needing to report any information to the blockchain or involve the miners.
+
+Limitations of a pure state-channel smart contract system
+=============
+
+In previous experiments with state channels, the markets we had built had very serious liquidity issues.
+
+For example, there was a server that hosted betting on a sporting event.
+If Alice bets on team A, and Bob bets on team B, then there are 2 channels. Channel A is between Alice and the server. Channel B is between Bob and the server.
+
+If the bet is for $100, then that means Alice can potentially win $100, and she can potentially lose $100, so her channel needs $200 locked in it. $100 is her money, and the other $100 is the server's money.
+Similarly, Bob needs $200 locked in his channel.
+
+So this means to support $200 of trading, the channels need a total of $400 locked up, and the server owns half this money.
+The server needs to be ready for these channels to be updated at any time, so the $200 needs to be controlled by a hot wallet. That means there private key is on a computer connected to the internet.
+
+The requirement of the server to lock up so much money makes it cost prohibitive to run this kind of market. The server would need to charge such high fees that no one would trade in this market.
+
+Another liquidity issue with state channels is the situation where your channel partner is refusing to update the channel, and also the contract is not yet ready to be completely executed. In this situation it is impossible to get your money out of the channel until the contract can be completely executed. You can hedge your position by betting in the opposite directly, but that locks up even more liquidity in contracts.
+
+Flavored State Channels
+============
+
+The first half of our solution to the liquidity problem is to allow for channels to be denominated in oter currencies besides VEO.
+
+Looking at the same example of Alice and Bob betting on a sporting event.
+This time, instead of making a $200 channel between Alice and the server, instead the server takes $200 and splits it up into 2 flavors of currency.
+The server has 200 units of A-coins, which are only valuable if team A wins the sporting event, and the server has 200 units of B-coins, which are only valuable if team B wins the sporting event.
+
+The server can have a channel with Alice that has 200 units of A-coins in it, and the server can have a channel with Bob that has 200 units of B-coins in it. The channels can be linked to atomically sell A-coins and B-coins simultaniously, so the server is never holding risk in the outcome of the sporting event.
+
+In this example there are $200 of bets, and only $200 of money locked in the contracts, so the liquidity problem has been solved.
+
+Converting state channels to on-chain contracts
+============
+
+Another way liquidity can get trapped in the old version of state channels is if your channel partner goes offline, or refuses to cooperate with update or closing the channel.
+Channels can only be updated if all participants cooperate, or if you wait long enough for the smart contract to be completely executed.
+
+For example, if you are betting on a sporting event, and the sporting event occured today, then you know who won. But it will take the oracle another week or longer to import the winning results into the blockchain to enforce the correct outcome.
+In this situation you would like to get your money out of the channel now, and not need to wait a week to get it out.
+
+Our new strategy is to allow for a state channel to be converted into an on-chain contract.
+The two participants in the state channel, they each receive subcurrencies defined by the new on-chain contract. The subcurrencies have a value defined exactly the same as their positions in the state channels. The advantage of holding a subcurrency is that it can be spent without needing anyone else's permission. So this allows you to sell your position in a contract even if the contract has not completely executed yet, and even if your channel partner is refusing to cooperate.
 
 Mutable Contracts
 ============
@@ -49,7 +117,6 @@ So an example of a shareable contract would be a stablecoin contract. We could s
 And anyone who owns both USD-stablecoin as well as the double-VEO, they could use this same contract to convert them back into normal VEO.
 
 [you can learn about how shareable contracts are implemented here](shareable_contracts_implementation.md)
-
 
 conclusion
 =========

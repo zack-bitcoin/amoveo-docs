@@ -1,6 +1,27 @@
+the workflow we want.
+Someone who buys a contract, they should simultaniously make an offer to sell it for 99% of it's value.
+
+
+test layers of contracts built in a subcurrency, to make sure the anti-counterfeit system is being obeyed correctly.
+
+swap-accept tx type.
 
 
 
+if all the trades in an oracle aren't being displayed because they are in the mempool, then don't display the oracle either.
+
+
+
+governance variable for the maximum number of subcurrencies in new shareable contracts.
+
+test withdrawing from a contract priced in a non-veo subcurrency.
+
+
+a shareable contract needs to be able to resolve into some different shareable contract with the same source currency.
+* make a test
+* update contract_winnings tx to support this case.
+
+mutable contracts.
 
 
 
@@ -85,6 +106,32 @@ make it more clear what "oracle starts" means in the light node.
 
 
 
+
+
+Light node should have pages with more pre-set defaults for the things that common users want to do.
+
+retitle the "Txs" page in the light node to "Amoveo wallet".
+
+a tool for duplicating a trade. it fills out the form for creating a new trade.
+
+the otc tool should give an estimate for how long until the trade expires.
+
+the p2p_derivatives website should recognize some kinds of contracts, like bitcoin put contracts, and optimize how they are displayed to keep it simple.
+show strike, maturity, premium, notional
+
+remove bets from the p2p_derivatives website one block before they expire.
+Keep a list of recently matched/expired bets for reference.
+
+when you accept a bet from the p2p_derivatives page, it should automatically create close offers, so if someone realizes that they have lost, they can quickly unlock the funds.
+specifically, Mr Flinstone wants to receive close offers, so he can give up the money if he loses, so his customers can have a one click experience.
+
+* integrate p2p explorer into the light node.
+* when you accept a channel offer, immediately create a channel close offer and send it to the server, to win 99% of the value.
+* the server should store the most recent 1000, and have an api for viewing them.
+* the light node should scan the full node peer list to find all the p2p derivatives explorers.
+
+the p2p explorer needs a database to store channel close offers. store the most recent N.
+There should be an api to request all the close offer that relate to channels where acc1 is the account being searched.
 
 
 
