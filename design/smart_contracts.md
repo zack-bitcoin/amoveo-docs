@@ -13,6 +13,8 @@ We want it to be impossible for miners to front-run these markets by ordering th
 So this means the market smart contract needs to be inside of state channels.
 State channels are a kind of smart contract that can be modified merely by consensus of participants in that contract, without needing to report any information to the blockchain or involve the miners.
 
+We want to only lock up the minimum liquidity necessary to enforce the correct outcome, and only for the shortest period of time necessary.
+
 ### Limitations of a pure state-channel smart contract system
 
 In previous experiments with state channels, the markets we had built had very serious liquidity issues.
@@ -32,7 +34,7 @@ Another liquidity issue with state channels is the situation where your channel 
 
 ### Flavored State Channels
 
-The first half of our solution to the liquidity problem is to allow for channels to be denominated in oter currencies besides VEO.
+The first half of our solution to the liquidity problem is to allow for channels to be denominated in other currencies besides VEO.
 
 Looking at the same example of Alice and Bob betting on a sporting event.
 This time, instead of making a $200 channel between Alice and the server, instead the server takes $200 and splits it up into 2 flavors of currency.
@@ -44,7 +46,7 @@ In this example there are $200 of bets, and only $200 of money locked in the con
 
 ### Converting state channels to on-chain contracts
 
-Another way liquidity can get trapped in the old version of state channels is if your channel partner goes offline, or refuses to cooperate with update or closing the channel.
+Another way liquidity can get trapped in the old version of state channels is if your channel partner goes offline, or refuses to cooperate with updating or closing the channel.
 Channels can only be updated if all participants cooperate, or if you wait long enough for the smart contract to be completely executed.
 
 For example, if you are betting on a sporting event, and the sporting event occured today, then you know who won. But it will take the oracle another week or longer to import the winning results into the blockchain to enforce the correct outcome.
@@ -62,25 +64,20 @@ Scalability plans today tend to involve [turing complete state channels](program
 Putting the smart contracts into the channels gives many advantages
 * speed - off-chain state can be updated as quickly as you can communicate with your channel partner. This is much faster than waiting for confirmations on-chain. If your partner is a server, you can use Amoveo smart contracts instantly.
 * privacy - off-chain state can stay secret. As long as neither channel participant disappears or tries to cheat, they never have to publish the contract on-chain.
+* atomicity - channels can be connected together so either both update, or neither does.
+* secure against manipulations of miners - since channel contracts are updated off-chain, the miners are not involved at all. They have no way to manipulate a state channel contract to their advantage.
 * scalability- parallel off-chain computation. The channel contracts are usually only processed by the 2 participants in the channel. Every pair of channel participants can be running different channel contracts simultaneously.
 
 The majority of smart contracts will exist off-chain, inside of state channels, in the lightning network.
-
-We used to think that sharding would solve scalability entirely, allow for scalable contracts on-chain. But, modern sharding techniques tend to be a compliment to state channels rather than a replacement. The shards can depend upon channels to achieve certain security requirements, like front-running prevention.
 
 So, let's make the assumption that smart contracts will be in the channels, and let's use cryptoeconomics to try to predict what these contracts would look like. 
 [Why we need markets.](why_markets.md)
 
 Techniques like [hashlocking](https://en.bitcoin.it/wiki/Atomic_cross-chain_trading) are used to connect many channels together into markets.
 
-Amoveo has passing tests for smart contracts that connect many channels together to make a big market. Amoveo has off-chain order books to enforce these markets in the channels.
+The limitation of mutable contracts is that they have a finite list of participants, and everyone needs to sign off on every update.
 
-Since you get a better price in a bigger market, we know that most contracts will be formatted in a simple way that will be useful to the maximum number of people, that way the markets can be as big as possible.
-Traditional markets for financial contracts face these same problems. They have settled on a handful of popular contracts, like: contract for difference, options, forwards.
-
-The limitation of mutable contracts is that they are limited to a finite list of participants, and everyone needs to sign off on every update.
-
-A simple example of using a mutable contract would be for micropayments between the same pair of users.
+To enforce the outcome of a mutable contract, it first gets converted into an on-chain shareable contract.
 
 # Shareable Contracts
 
@@ -96,6 +93,8 @@ a shareable contract creates 2 or more subcurrencies. you can split the parent c
 So an example of a shareable contract would be a stablecoin contract. We could split VEO into 2 types: one kind that follows the price of USD, and one that has double VEO volatility.
 
 And anyone who owns both USD-stablecoin as well as the double-VEO, they could use this same contract to convert them back into normal VEO.
+
+You can build a mutable-contract (a state channel) out of any kind of subcurrency defined by any shareable contract.
 
 [you can learn about how shareable contracts are implemented here](shareable_contracts_implementation.md)
 
