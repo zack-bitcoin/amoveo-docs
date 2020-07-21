@@ -1,25 +1,11 @@
-## The nature of smart contracts
+# The nature of smart contracts
 
-Table of contents
-===========
-
-* what is a smart contract?
-* motivations for our new design
-- limitations in the old design
-- flavored state channels
-- converting state channels to on-chain contracts
-* the new design
-- mutable contracts
-- shareable contracts
-
-Smart contracts
-============
+# Smart contracts
 
 A blockchain smart contract is a computer program that is used to determine how some money will get divided up among the participants.
 For example, if you want to bet on the outcome of a sporting event, you could use a smart contract to enforce that the winner gets paid his prize, and the loser does not.
 
-Motivations
-============
+# Motivations
 
 We want to have big liquid markets with single-price batch trading, so that we can trade our contracts at good prices.
 
@@ -27,8 +13,7 @@ We want it to be impossible for miners to front-run these markets by ordering th
 So this means the market smart contract needs to be inside of state channels.
 State channels are a kind of smart contract that can be modified merely by consensus of participants in that contract, without needing to report any information to the blockchain or involve the miners.
 
-Limitations of a pure state-channel smart contract system
-=============
+### Limitations of a pure state-channel smart contract system
 
 In previous experiments with state channels, the markets we had built had very serious liquidity issues.
 
@@ -45,8 +30,7 @@ The requirement of the server to lock up so much money makes it cost prohibitive
 
 Another liquidity issue with state channels is the situation where your channel partner is refusing to update the channel, and also the contract is not yet ready to be completely executed. In this situation it is impossible to get your money out of the channel until the contract can be completely executed. You can hedge your position by betting in the opposite directly, but that locks up even more liquidity in contracts.
 
-Flavored State Channels
-============
+### Flavored State Channels
 
 The first half of our solution to the liquidity problem is to allow for channels to be denominated in oter currencies besides VEO.
 
@@ -58,8 +42,7 @@ The server can have a channel with Alice that has 200 units of A-coins in it, an
 
 In this example there are $200 of bets, and only $200 of money locked in the contracts, so the liquidity problem has been solved.
 
-Converting state channels to on-chain contracts
-============
+### Converting state channels to on-chain contracts
 
 Another way liquidity can get trapped in the old version of state channels is if your channel partner goes offline, or refuses to cooperate with update or closing the channel.
 Channels can only be updated if all participants cooperate, or if you wait long enough for the smart contract to be completely executed.
@@ -70,8 +53,7 @@ In this situation you would like to get your money out of the channel now, and n
 Our new strategy is to allow for a state channel to be converted into an on-chain contract.
 The two participants in the state channel, they each receive subcurrencies defined by the new on-chain contract. The subcurrencies have a value defined exactly the same as their positions in the state channels. The advantage of holding a subcurrency is that it can be spent without needing anyone else's permission. So this allows you to sell your position in a contract even if the contract has not completely executed yet, and even if your channel partner is refusing to cooperate.
 
-Mutable Contracts
-============
+# Mutable Contracts
 
 Also known as "state channels".
 
@@ -100,8 +82,7 @@ The limitation of mutable contracts is that they are limited to a finite list of
 
 A simple example of using a mutable contract would be for micropayments between the same pair of users.
 
-Shareable Contracts
-===============
+# Shareable Contracts
 
 the limitation of shareable contracts is that they can't be changed.
 
@@ -118,8 +99,7 @@ And anyone who owns both USD-stablecoin as well as the double-VEO, they could us
 
 [you can learn about how shareable contracts are implemented here](shareable_contracts_implementation.md)
 
-conclusion
-=========
+# conclusion
 
 If you have a mutable contract, and they aren't cooperating, you just put a hash of the last smart contract on-chain, and it becomes shareable, so you can sell you stake as subcurrency, or make channels out of it with other people.
 
