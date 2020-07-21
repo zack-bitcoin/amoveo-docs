@@ -60,7 +60,7 @@ Tx Types
 
 `contract_timeout_tx` is for closing the contract, once the delay timer has run out.
 
-`contract_simplify_tx` is for when a contract resolves into another contract, and they have both been closed. So now we want to update both contracts to be resolvable directly to the source currency, that way owners of any sub-currency can withdraw their winnings with one tx, and a small fixed sized number of merkel proofs.
+`contract_simplify_tx` is for when a contract resolves into another contract, and they have both been closed. So now we want to update both contracts to be resolvable directly to the source currency, that way owners of any subcurrency can withdraw their winnings with one tx, and a small fixed sized number of merkel proofs.
 
 
 Contract Resolution
@@ -73,15 +73,21 @@ The nonce determines how much priority this outcome has relative to others. The 
 the delay determines how long to wait for counter-evidence before allowing the contract to close in this state.
 
 If the contract is resolving directly to the source currency, then it outputs a `PayoutVector`. the length of this vector is the same as the number of subcurrencies defined by the contract. It is used to specify how to divide up the money.
-N = (2^32) - 1
+`N = (2^32) - 1`
 N is the biggest number that can be expressed in the 4-byte integer format used in the chalang smart contract language.
 The sum of the elements in the `PayoutVector` must equal N.
 
 If the contract is resolving to another contract that shares the same source currency, then it outputs a contract hash and a matrix.
-If you own subcurrency N in the first contract, then you can find out which subcurrencies you own in the new contract by reading row N from the matrix.
+If you own subcurrency type X in the first contract, then you can find out which subcurrencies you own in the new contract by reading row X from the matrix.
 So the height of the matrix is the number of subcurrencies of the first contract, and the width of the matrix is the number of subcurrencies in the second contract.
 
-To maintain constant the total number of veo, each column of the matrix needs to sum to N. It is a kind of left stochastic matrix generalized to allow for changing dimensions.
+It is a kind of left stochastic matrix generalized to allow for changing dimensions.
+
+To maintain constant the total number of veo, each column of the matrix needs to sum to `(2^32)-1`. When we store integer X in the matrix, this is a way to represent the fractional value between 0 and 1: (X/((2^32)-1))
+
+For matrix multiplication we need a dot product.
+a deterministic definition of the dot product in this encoding is:
+`sum from i = 0 to R of M[i] * N[i] div ((2^32)-1)`
 
 
 Contract resolves to another contract
