@@ -54,7 +54,7 @@ Channels can only be updated if all participants cooperate, or if you wait long 
 For example, if you are betting on a sporting event, and the sporting event occured today, then you know who won. But it will take the oracle another week or longer to import the winning results into the blockchain to enforce the correct outcome.
 In this situation you would like to get your money out of the channel now, and not need to wait a week to get it out.
 
-Our new strategy is to allow for a state channel to be converted into an on-chain contract.
+The solution is to allow for a state channel to be converted into an on-chain contract.
 The two participants in the state channel, they each receive subcurrencies defined by the new on-chain contract. The subcurrencies have a value defined exactly the same as their positions in the state channels. The advantage of holding a subcurrency is that it can be spent without needing anyone else's permission. So this allows you to sell your position in a contract even if the contract has not completely executed yet, and even if your channel partner is refusing to cooperate.
 
 # Mutable Contracts

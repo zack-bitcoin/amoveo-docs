@@ -51,7 +51,7 @@ Tx Types
 -record(use_contract_tx, {from, nonce, fee, contract_id, amount, many}).
 -record(sub_spend_tx, {from, nonce, fee, to, amount, contract, type}).
 -record(resolve_contract_tx, {from, nonce, fee, contract, contract_id, evidence, prove}).
--record(contract_timeout_tx, {from, nonce, fee, contract_id, proof, contract_hash, row}).%possibly converts it into a new kind of contract. %possibly unsigned
+-record(contract_timeout_tx, {from, nonce, fee, contract_id, proof, contract_hash, row}).%possibly converts it into a new kind of contract. 
 -record(contract_winnings_tx, {from, nonce, fee, contract_id, amount, sub_account, winner, proof, row}).
 -record(contract_simplify_tx, {from, nonce, fee, cid, cid2, cid3, m1, m2}).
 ```
@@ -75,7 +75,9 @@ the delay determines how long to wait for counter-evidence before allowing the c
 If the contract is resolving directly to the source currency, then it outputs a `PayoutVector`. the length of this vector is the same as the number of subcurrencies defined by the contract. It is used to specify how to divide up the money.
 `N = (2^32) - 1`
 N is the biggest number that can be expressed in the 4-byte integer format used in the chalang smart contract language.
-The sum of the elements in the `PayoutVector` must equal N.
+To maintain constant the total number of veo, the sum of the elements in the `PayoutVector` must equal N.
+When we store integer X in the matrix, this is a way to represent the fractional value between 0 and 1: (X/((2^32)-1))
+
 
 If the contract is resolving to another contract that shares the same source currency, then it outputs a contract hash and a matrix.
 If you own subcurrency type X in the first contract, then you can find out which subcurrencies you own in the new contract by reading row X from the matrix.
@@ -83,7 +85,8 @@ So the height of the matrix is the number of subcurrencies of the first contract
 
 It is a kind of left stochastic matrix generalized to allow for changing dimensions.
 
-To maintain constant the total number of veo, each column of the matrix needs to sum to `(2^32)-1`. When we store integer X in the matrix, this is a way to represent the fractional value between 0 and 1: (X/((2^32)-1))
+To maintain constant the total number of veo, each column of the matrix needs to sum to `(2^32)-1`.
+
 
 For matrix multiplication we need a dot product.
 a deterministic definition of the dot product in this encoding is:

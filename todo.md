@@ -1,10 +1,105 @@
+swap_offers and pair_buy offers shouldn't have 2 fees inside of them. what if the person who is accepting wants to pay a higher fee?
+
+
+
+* allow for txs to be combined and a single signature validates them all. WHen processing these txs, allow balances to go negative, as long as the final balance is positive.
+
+
+
+* in contracts.html, when we are displaying the swap offers for a given market, we should use the {history, mid, nonce} api request and merge updates with existing data.
+
+
+
+* garbage collection for p2p_derivatives binary_contracts.erl. we should delete data if it is more than 30 minutes old, and we have never stored any trade related to that contract data. if a trade gets matched, it is important to store the data until either the contract closes.
+
+
+* a delayed response tool for headers would be nice. so the light node could automatically sync when new headers are found.
+
+
+do the pair-buy part of the subcurrency branch of p2p_derivatives explorer.
+* make a module for storing and verifying pair-buy offers for binary derivatives. Maybe include nonces for each subcurrency or pair or something. to make it easier to track when things change. Maybe store the changes in blocks, so it is easier to sync them. each pair-buy should store a swap offer to sell possible winnings.
+* api for publishing pair-buy offers (along with swap offer to sell winnings)
+* api to learn about available pair-buy offers.
+* tool to accept a pair-buy offer (along with publishing a swap offer to sell winnings)
+* combine it with swap_offers to sell winnings.
+
+
+
+consider getting rid of the governance variable for the block time, or making some system so the oracles can have consistent expiration, even if the block time changes.
+- instead, how about calculating the oracle ID inside the smart contract, so we can have rules about acceptable start_heights.
+
+
+the smart contract can have rules like:
+make an oracle with text: "the result of the football game was known after block height N", and another oracle who's betting begins at block height N, with the text "Alice's team won the football game".
+
+So when it is time for enforcement, we can figure out what N needs to be to resolve this contract, and then build the oracles that that N.
+Can we use 2 binary oracles to enforce the outcome of a scalar contract?
+
+smart contract can have rules saying how they work as upper and lower bounds on the price.
+maybe just one.
+Is the price of X within 0.1% of P?
+and require that the outcome of that oracle is "True"
+using bits of smart contract to generate oracles that enforce the same smart contract, it seems like a technique with a lot of potential.
+
+I think this is a lot more secure than what we were doing before, encoding the value with N binary oracles
+
+
+
+
+
+
+light node update for subcurrencies.
+* an interface for making and publishing these offers.
+ * an interface for accepting these offers.
+* an interface for swapping veo for winning subcurrencies to let people withdraw early.
+* an interface for trading in winning subcurrencies for veo, once the oracle has expired.
+
+
+
+
+we need smart contracts embedded in the light node.
+* 2 of 2 contract. accepts a pair of signatures for arbitrary updates. also called a "state channel"
+* binary bet
+* scalar bet
+
+first make tests of these smart contracts in the full node tx testing system.
+
+
+
+
+
+
+make a tx that batch accepts many open offers together.
+
+
+
+
+
+
+make smart contracts for binary and scalar forwards.
+
+hard update to accept subcurrencies.
+
+start updating the light node to support the new channels.
+
+hard update to remove old txs.
+
+
+
+
+
+it is a serious problem that the contracts aren't distinguishing between provably non-existence, and a contract simply not being included.
+Tree:dict_get needs to handle "error" and "empty" differently.
+
+
+
+
+
 the workflow we want.
 Someone who buys a contract, they should simultaniously make an offer to sell it for 99% of it's value.
 
 
-test layers of contracts built in a subcurrency, to make sure the anti-counterfeit system is being obeyed correctly.
-
-swap-accept tx type.
+swap-accept tx type needs some swap-id to prevent reuse of the trades without incrementing any account nonce.
 
 
 
