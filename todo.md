@@ -1,9 +1,14 @@
-swap_offers and pair_buy offers shouldn't have 2 fees inside of them. what if the person who is accepting wants to pay a higher fee?
+it would be nice if the interface for subcurrencies was like, a big matrix.
+So each row was a different currency, and you could quickly do what you want to any of them.
+* buy/sell in market
+* post a swap offer to a server
+* also ability to look up pool by ticker.
 
 
 
-* allow for txs to be combined and a single signature validates them all. WHen processing these txs, allow balances to go negative, as long as the final balance is positive.
 
+we need some explorer database to look up which subcurrencies each account owns.
+maybe make it a configuration option of the full node, and default it to "yes".
 
 
 * in contracts.html, when we are displaying the swap offers for a given market, we should use the {history, mid, nonce} api request and merge updates with existing data.
@@ -16,18 +21,17 @@ swap_offers and pair_buy offers shouldn't have 2 fees inside of them. what if th
 * a delayed response tool for headers would be nice. so the light node could automatically sync when new headers are found.
 
 
-do the pair-buy part of the subcurrency branch of p2p_derivatives explorer.
-* make a module for storing and verifying pair-buy offers for binary derivatives. Maybe include nonces for each subcurrency or pair or something. to make it easier to track when things change. Maybe store the changes in blocks, so it is easier to sync them. each pair-buy should store a swap offer to sell possible winnings.
-* api for publishing pair-buy offers (along with swap offer to sell winnings)
-* api to learn about available pair-buy offers.
-* tool to accept a pair-buy offer (along with publishing a swap offer to sell winnings)
-* combine it with swap_offers to sell winnings.
+after the subcurrency update activates
+* hard update to get rid of the old version of smart contracts.
+* p2p_derivatives_server_subcurrency should be merged into master. if it is in test mode, change it to full mode.
+
 
 
 
 consider getting rid of the governance variable for the block time, or making some system so the oracles can have consistent expiration, even if the block time changes.
 - instead, how about calculating the oracle ID inside the smart contract, so we can have rules about acceptable start_heights.
 
+chalang should be able to make empty binaries.
 
 the smart contract can have rules like:
 make an oracle with text: "the result of the football game was known after block height N", and another oracle who's betting begins at block height N, with the text "Alice's team won the football game".
@@ -47,36 +51,20 @@ I think this is a lot more secure than what we were doing before, encoding the v
 
 
 
+hard update so balances can be bigger than 2.8 million veo.
 
-light node update for subcurrencies.
-* an interface for making and publishing these offers.
- * an interface for accepting these offers.
-* an interface for swapping veo for winning subcurrencies to let people withdraw early.
-* an interface for trading in winning subcurrencies for veo, once the oracle has expired.
 
+
+
+
+consider posting stuff to hackernoon for SEO.
+youtube with hashtags for SEO
 
 
 
 we need smart contracts embedded in the light node.
 * 2 of 2 contract. accepts a pair of signatures for arbitrary updates. also called a "state channel"
-* binary bet
-* scalar bet
 
-first make tests of these smart contracts in the full node tx testing system.
-
-
-
-
-
-
-make a tx that batch accepts many open offers together.
-
-
-
-
-
-
-make smart contracts for binary and scalar forwards.
 
 hard update to accept subcurrencies.
 
