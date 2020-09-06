@@ -5,7 +5,7 @@ version # 3
 
 The goal of this paper is to show that Proof of Stake blockchain consensus does not work. We take the very general definition of Proof of stake consensus: any blockchain consensus mechanism where your influence over which block is added to the chain is proportional to some value that you own inside the blockchain's consensus state.
 
-[Here you can see counter-arguments to this paper](other_blockchains/the_defence_of_pos.md)
+[Here you can see counter-arguments to this paper](the_defence_of_pos.md)
 
 History
 ======
@@ -126,3 +126,4 @@ So, plugging in some example values.
 If there are 1000 validators, and the blockchain is worth $1 billion, and 90% of the value is staked, then the total cost to bribe >50% of the validators would be: `($1 billion) * (0.9) * (1/2) * (1/1000) => $450 000`
 
 So less than $1/2 million in bribes is sufficient to completely destroy a $1 billion PoS blockchain.
+

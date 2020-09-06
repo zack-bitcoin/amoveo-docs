@@ -1,3 +1,68 @@
+uniswap tool needs to be in units of veo, not satoshis***
+
+update explorer to use the new api for markets so that the UX will display all subcurrency balances for zeroth confirmation txs.
+
+
+uniswap pool tab.
+
+it would be nice if there was a page of existing markets. including historical price data.
+convert to convenient format when possible. usd/veo is better than usd/long-veo
+* even more important is a chart of liquidity and volume.
+
+
+uniswap tool should display something more useful than contract ids.
+
+
+market swap dust hard update
+================
+
+market swap tx should sell everything you have, up to the limit you write on the tx.
+That way you can use this tx in a multi-tx and not worry about owning dust at the end.
+
+
+
+hard update
+==================
+* governance variable to change all the fees at once.
+* governance variable to change the block time, block reward, and those 2 oracle delays, block size.
+
+
+
+rewrite binary derivatives to not have a start height.
+
+
+
+
+
+
+it is a serious problem that the contracts aren't distinguishing between provably non-existence, and a contract simply not being included.
+Tree:dict_get needs to handle "error" and "empty" differently.
+
+get syncing blocks in reverse working again.
+make syncing blocks in reverse be the default behaviour of full nodes.
+
+
+zero veo fee payments hard update
+===========
+
+* multi-tx should allow an account to start as empty, as long as it gains enough veo during the tx to pay the fee.
+* multi-tx loans should be a bit bigger to cover the cost of the tx fee.
+
+
+perpetual subcurrency hard update
+=========
+
+* when you provide evidence to a contract, there should be a way for the contract to finalize with an intention to swap it's source currency out for a different source currency. The person who makes this tx does a safety deposit to pay for this.
+* if someone else makes a safety deposit, the older deposit should be refunded.
+* when the contract is settled, the person who had paid the security deposit should get the other kind of money instead.
+* we need a new version of the contract tree to remember the contract ID, because we can't use the source to generate the contract ID. (or maybe we just don't use the source when generating the id?)
+ - also remembers the amount deposited, and who deposited it.
+ * if we are in the process of switching source currencies, don't let anyone buy a complete set. but we should allow people to combine a complete set back to the first source. doing this also refunds part of the safety deposit for whoever is swapping us out for the new source.
+
+
+
+
+
 it would be nice if the interface for subcurrencies was like, a big matrix.
 So each row was a different currency, and you could quickly do what you want to any of them.
 * buy/sell in market
@@ -23,8 +88,6 @@ maybe make it a configuration option of the full node, and default it to "yes".
 
 after the subcurrency update activates
 * hard update to get rid of the old version of smart contracts.
-* p2p_derivatives_server_subcurrency should be merged into master. if it is in test mode, change it to full mode.
-
 
 
 
@@ -76,8 +139,6 @@ hard update to remove old txs.
 
 
 
-it is a serious problem that the contracts aren't distinguishing between provably non-existence, and a contract simply not being included.
-Tree:dict_get needs to handle "error" and "empty" differently.
 
 
 

@@ -1,6 +1,5 @@
 mining pools:
 veoscan.pw Sy on telegram
-       amoveopool potato on telegram
 lolopool loloxiao on discord
 
 exchanges:
@@ -13,3 +12,9 @@ Dennis Voskvitsov on telegram
 
 announcement channnels:
 discord
+
+
+info to include:
+* block height
+* update number
+* why we need this
