@@ -128,12 +128,6 @@ Here is an [explanation of how the market smart contract works.](design/limit_or
 * Amoveo uses the stateless full node model. That means a full node doesn't have to store any consensus state to stay in sync and verify blocks. You only have to store headers. Every block has all the merkel proofs that you need to verify that block.
 * this means that a full node can process blocks in any order.
 
-## Sharding/side-chains
-
-* You can learn about the Amoveo sharding plan here: design/sortition_chains.md
-* it is similar to the "channel factory" idea talked about in some bitcoin communities.
-* basically, we are combining probabilistic payments with state channels.
-
 
 ## Example Use Cases
 * [Fund-raising for creation of public goods](use-cases-and-ideas/insured_crowdfund.md) This is how we will fund further development of Amoveo.

@@ -1,16 +1,24 @@
-uniswap tool needs to be in units of veo, not satoshis***
+* in uniswap.html, add a third tab called "spend" for spending veo or subcurrency.
+- maybe change the name of that page to "simple-wallet.html"
 
-update explorer to use the new api for markets so that the UX will display all subcurrency balances for zeroth confirmation txs.
+* uniswap.html needs a way to make new markets.
 
 
-uniswap pool tab.
+
+
+* the contract.html page, subcurrency spender, it should also allow us to spend veo.
+
+
+* when you publish a tx in uniswap, it should update your balances.
+
+
+* if you try to do a swap involving market liquidity shares, the uniswap tool should know how to deposit into markets, if that is the most affordable way to complete the swap.
+
+
 
 it would be nice if there was a page of existing markets. including historical price data.
 convert to convenient format when possible. usd/veo is better than usd/long-veo
 * even more important is a chart of liquidity and volume.
-
-
-uniswap tool should display something more useful than contract ids.
 
 
 market swap dust hard update

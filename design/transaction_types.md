@@ -8,13 +8,6 @@ These are the 15 types of transaction that can be in blocks.
 * spend_tx
 * multi_tx
 
-5 transactions for channels:
-* new_channel_tx
-* channel_team_close_tx
-* channel_solo_close
-* channel_slash_tx
-* channel_timeout_tx
-
 5 transactions for the oracle:
 * oracle_new_tx
 * oracle_bet_tx
@@ -22,56 +15,46 @@ These are the 15 types of transaction that can be in blocks.
 * oracle_unmatched_tx
 * oracle_winnings_tx
 
+6 transaction types for smart contract:
+* contract_new_tx
+* contract_use_tx
+* contract_evidence_tx
+* contract_timeout_tx
+* contract_winnings_tx
+* contract_simplify_tx
+
+transaction types for subcurrencies:
+* sub_spend_tx
+* swap_tx
+* market_swap_tx
+
+transaction types for managing markets:
+* market_new_tx
+* market_liquidity_tx
+
 1 bonus transactions:
 * coinbase_tx
 
 # create_account
 
-This creates a new account on the blockchain and gives it some tokens.
+This creates a new account on the blockchain and gives it some Veo.
 
 # spend_tx
 
-Spends tokens to a different account.
+Spends Veo to a different account.
 
-# account_delete
-
-This deletes an account on the blockchain and sends all of it's Veo to a different account.
-
-WARNING! do not reuse a pubkey after it has been deleted.
 
 # multi_tx
 
-A multi-tx contains multiple create_account and spend_txs inside of it. A multi-tx only updates your account nonce once, this makes it ideal for cold storage.
+A multi-tx contains multiple other inside of it.
+There are multiple reasons to use this:
+* cold storate. A multi-tx only updates your account nonce once, this makes it simpler for cold storage.
+* tx fees. a multi-tx only has one signature, so it is smaller than using multiple tx.
+* atomically linking txs. sometimes you need multiple txs to go through together, otherwise you are left holding risk you don't want to hold. A multi-tx can be used to link the txs together, so either they all succeed, or they all fail.
+* flash loans. multi-tx allows for veo and subcurrency balances to go temporarily negative, as long as they end positive.
+* accounts without veo. You can use a flash loan and a amm-market to buy the veo to pay the fee inside the same tx.
 
-# channel_new
-
-This creates a new channel on the blockchain.
-It needs to be signed by both participants in the channel.
-It takes money from both participant's accounts to put into the channel.
-Channels can only hold Veo tokens.
-There is a record of recently closed channels. You can't reuse an id from a recently closed channel.
-
-# channel_team_close
-
-Both parties need to sign.
-This closes the channel.
-The tokens in the channel are distributed to the 2 account owners.
-
-# channel_solo_close
-
-If your partner disappears, or refuses to close the channel, this is how you can start the process of closing the channel without your partner's help.
-
-# channel_slash
-
-If channel participant does a channel_solo_close at the wrong state, this is how you stop them.
-Anyone is allowed to publish this tx, it doesn't have to be one of the two channel participants.
-The blockchain records who closed a channel most recently in a tree.
-channel ids can't be reused for a long time, so the record will be good.
-The channel can be slashed many times, but each time it is slashed the evidence needs to be for a higher nonce.
-
-# channel_timeout
-
-If you did a channel_solo_close, and then waited the delay number of blocks after the final channel_slash, now you can do this transaction to close the channel.
+* it is not possible to put a contract_evidence_tx inside of a multi_tx, because this would be a denial of service vulnerability to mining pools and full nodes.
 
 # oracle_new
 
@@ -108,5 +91,54 @@ If you had money in orders in the oracle order book when the oracle_close transa
 If you bet in an oracle, and the oracle has closed, this is how you get your winnings out.
 If you bet on the winning outcome, then you get twice as much money back, otherwise you get nothing.
 
+# contract_new_tx
+
+This creates a new smart contract on-chain. The turing complete code is not store on-chain, we only store the hash of the code.
+Each smart contract has a source currency and 2 or more subcurrency.
+
+# contract_use_tx
+
+You can use the contract to transform the source into a complete set of subcurrencies, and you can do the reverse. you can combine a complete set of subcurrencies back into the source currency.
+
+# contract_evidence_tx
+
+You can provide the turing complete smart contract code, along with evidence, to help the contract figure out how it should divide it's source currency value to the holders of the different subcurrencies.
+
+# contract_timeout_tx
+
+If someone provided evidence, and enough time has passed without anyone else being able to provide stronger counter-evidence, then it becomes possible to do this tx. This tx ends the smart contract. Now it is possible for owners of subcurrency from that contract to claim the source currency that they won.
+
+# contract_winnings_tx
+
+This is how you transform your subcurrency into the source currency that you won.
+
+# contract_simplify_tx
+
+If contract A settled by paying out currencies from contract B. and contract B settled by paying out currencies to contract C. then it is possible to use this tx type to directly connect A to C, so holders of subcurrency in A can withdraw directly to C without having to go through B first.
+
+# sub_spend_tx
+
+This is used to spend subcurrencies. any currency besides veo.
+
+# swap_tx
+
+this tx is for 2 users to exchange one currency for another.
+one user publishes a swap_offer explaining the currency they are willing to give up, and what they want to receive in return.
+the second user can take the swap_offer and use it to make this tx.
+
+# market_swap_tx
+
+This is for participating in an on-chain constant product automatic market maker. you can exchange one kind of currency for another.
+
+# market_new_tx
+
+This is for creating a new on-chain market maker. you need to provide currency on both sides of the market for initial liquidity.
+
+# market_liquidity_tx
+
+This is for adding or withdrawing liquidity to a market. If you leave money in a market to provide liquidity, you will collect trading fees.
+If one of the 2 currencies loses significant value, then you can lose a lot of money.
+
 
 [transaction types are the ways to modify blockchain consensus state. All the consensus state is stored in trees. Read about the trees here](trees.md)
+

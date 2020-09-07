@@ -8,15 +8,22 @@ Amoveo stores it's consensus state in merkle trees.
 
 There are 8 [Merkle trees](basics/merkle.md).
 
-* oracles+
-* orders
-* channels+
-* accounts+
-* oracle bets
-* proof of existence+
-* governance+
+* accounts
+* oracles
+* matched
+* unmatched
+* governance
+* contracts
+* sub_accounts
+* markets
+* trades
 
-(The ones with +'s are included in the generation of the state-hash that is recorded on the block's header)
+
+
+=== accounts
+
+This tree stores accounts by integer id. Each account has a merkel root written in it. It is for the oracle bets tree.
+[more about accounts](accounts.md)
 
 === oracles
 
@@ -27,25 +34,36 @@ This data is available to the VM.
 The result is stored in 1 byte. Either it is 0 for false, 1 for true, or 2 if the questions was bad, or a 4 if the question hasn't been answered yet.
 [read more about oracles here](oracle.md)
 
-=== Orders
+=== matched
 
 Every oracle has an order book. The order book is a linked list of orders. Each order has an amount, and the id of the owner.
 
-=== channels
+the `matched` tree stores orders that have matched pairs. these are active bets inside the oracle.
 
-This tree stores channels by an integer channel id.
-[more about channels](channels.md)
+=== unmatched
 
-=== accounts
-
-This tree stores accounts by integer id. Each account has a merkel root written in it. It is for the oracle bets tree.
-[more about accounts](accounts.md)
-
-=== proof of existence
-
-This tree stores by hash. It returns a 1 if the thing exists, a 0 otherwise.
-This data is available to the VM.
+`unmatched` is for those orders which are not yet matched. they are in an order book.
 
 === governance
 
-This tree stores by atom name. It contains many variables that define the consensus protocol. The oracles can be used to update these variables.
+This tree stores by atom name. It contains many variables that define the consensus protocol. The oracles can be used to update these variables, to optimize Amoveo for changing conditions.
+
+=== contracts
+
+This tree stores smart contracts. each smart contract has a source currency, and 2 or more subcurrencies.
+When the contract ends, a virtual machine runs the smart contract along with evidence to decide how to divide the source value between the different subcurrencies.
+
+=== sub_accounts
+
+the sub_accounts tree is used to remember how much subcurrency each person owns in each contract.
+
+=== markets
+
+the markets tree is used for storing constant product automatic market makers that exist on-chain.
+Anyone can make markets between any pair of currencies. Liquidity providers earn trading fees.
+
+=== trades
+
+This merkle tree is for storing trade IDs from when users swap subcurrency together. That way each swap-offer can be published to the blockchain at most once.
+
+
