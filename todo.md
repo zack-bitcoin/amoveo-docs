@@ -1,9 +1,15 @@
+* in uniswap, it would be nice if we could do a keyword search for contracts to display, instead of just the top 10. also for markets.
+
+
 * in uniswap.html, add a third tab called "spend" for spending veo or subcurrency.
+- use the dropdown to select which to spend.
 - maybe change the name of that page to "simple-wallet.html"
 
 * uniswap.html needs a way to make new markets.
 
-
+* a tab for creating contracts that should:
+- create the contract
+- buy value in both sides
 
 
 * the contract.html page, subcurrency spender, it should also allow us to spend veo.
