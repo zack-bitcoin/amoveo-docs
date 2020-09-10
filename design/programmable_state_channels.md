@@ -39,3 +39,5 @@ It matches trades in single-price batches.
 Almost all state channel smart contracts will need to be integrated into markets like these.
 The only exceptions are perfectly symmetrical contracts.
 If a contract isn’t symmetric, then you need a market to determine the price of participating in the contract.
+
+

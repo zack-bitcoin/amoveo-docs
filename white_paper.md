@@ -62,6 +62,11 @@ Using the oracle, the parameters that define the system can be modified. The mec
 [Read more about governance here](design/governance.md)
 
 
+## Smart Contracts
+Amoveo smart contracts are all financial derivatives. [why we want smart contracts to be derivatives](design/smart_contracts_as_derivatives.md)
+
+You can learn more specific implementation details [here](design/smart_contracts.md)
+
 ## Channels
 Publishing a transaction to a blockchain is time consuming. You need to wait for the transaction to be included in a block, and then depending on how much money is moved, you need to wait for more confirmations. Waiting for confirmations means that you wait for enough blocks to be added to the blockchain for enough security. Trying to avoid this time-consuming process as much as possible is why we use channels.
 
@@ -85,20 +90,18 @@ Amoveo has something much better than subcurrencies, it has derivatives.
 With derivatives, you can build an asset that stays the same value as a Euro. It is a synthetic asset. 
 You can send these synthetic-Euros to your friends, and treat them like Euros.
 You could participate in a market that is priced in synthetic-Euros. 
-[Read more about subcurrencies and why they are incompatible with channels here.](design/why_not_channels_with_multiple_currencies.md)
 
 
 ## Chalang Smart Contract VM
 * [Official chalang github repository](https://github.com/zack-bitcoin/chalang)
-* Used for the smart contracts in the channels.
+* Used for financial derivative type smart contracts.
 * Chalang has two stacks for storing values during computation, so you can write highly optimized forth-style code.
 * Chalang functions are tail call optimized, so you don't have to worry about call stack overflow when you do lots of recursion.
-* Chalang lisp compiler is the compiler that was used to write the smart contracts currently in use on the testnet.
+* Includes a lisp compiler for easy development.
 
 
 ## Lightning Network - Smart Contracts with more than 2 Participants
 
-Amoveo uses the hub and spoke model. Each user finds a hub to make a channel with. The user pays the hub a fee to route their payments and bets where they need to go using the lightning network.
 Lightning contracts are made by hash time-locking and similar techniques. This connects multiple bets from different channels together. Either they all update, or they all do not update. This way users can participate in a smart contract that has more than two participants.
 
 If a bet follows a long path, it could be locking up more liquidity than necessary. We can recover the excess in a trust-free way, without interrupting the bet.
@@ -124,7 +127,7 @@ The market is secure because the rules are enforced by channel smart contracts.
 Here is an [explanation of how the market smart contract works.](design/limit_order_in_channel.md)
 
 
-## Light Nodes
+## stateless full nodes.
 * Amoveo uses the stateless full node model. That means a full node doesn't have to store any consensus state to stay in sync and verify blocks. You only have to store headers. Every block has all the merkel proofs that you need to verify that block.
 * this means that a full node can process blocks in any order.
 
