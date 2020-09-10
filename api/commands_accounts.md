@@ -32,13 +32,6 @@ This spends 500 satoshis to one account, and 450 to another:
 api:spend([{500, base64:decode(<<"BBH26TpQgvscsPWyfIz3zjSA4wopZrVKf3mYktTd2xnjOYi/MW5AXODhK4ZZnud2DeRFkyVlq9q5zESFqbWJCE8=">>)},{450, base64:decode("BCjdlkTKyFh7BBx4grLUGFJCedmzo4e0XT1KJtbSwq5vCJHrPltHATB+maZ+Pncjnfvt9CsCcI9Rn1vO+fPLIV4=")}]).
 ```
 
-####Delete Account
-To delete an account and send all it's money to account ID:
-```
-api:delete_account(Pub).
-```
-WARNING! do not reuse a pubkey after it has been deleted.
-
 ####Look up an account
 ```
 api:account(Pub).

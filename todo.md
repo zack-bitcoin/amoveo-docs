@@ -1,3 +1,17 @@
+new contract + new market + teach oracle text
+
+
+it needs to be simpler.
+oracle questions are too long. a ticker would be better.
+make the contract id disappear.
+
+
+
+standardized version of scalar contracts for making stablecoins
+i think it would be easier to have whitelisted oracle language across all kinds of assets with an oracle language scheme like this.  "W = coinmarketcap.com; X = $10,000; Y = Bitcoin; Z = Jul 13 2020; return (price of Y is less than X as of Z as reported by W)"
+
+
+
 * in uniswap, it would be nice if we could do a keyword search for contracts to display, instead of just the top 10. also for markets.
 
 
@@ -45,6 +59,20 @@ hard update
 rewrite binary derivatives to not have a start height.
 
 
+a smart contract to create a warm-wallet.
+A private key that can be used to have restricted trading access to an account.
+This way people can keep most of their value in cold storage, but still be able to use it to do certain things.
+I publish a swap offer that can only exist if the contract gets created.
+
+And if you accept a swap under invalid conditions, you lose your money. It is the same as creating a contract that gives me your money, and then depositing your money into it.
+So this way I can have a warm-wallet. With restricted access for trading.
+It's like, you pre-sign a bunch of swap offers from your cold storage.
+And these swap offers reference off-chain contract code that specifies the rules under which the swap is valid.
+Both my warm wallet, and the person I am trading with, they can both provide evidence to determine how the contract should resolve.
+my contract could specify that I am allowed to sell for down to 3% below some on-chain markets price.
+But before I give this offer to someone, I can sign more evidence onto it if I want. Like saying this particular offer is for 5% above the current market price.
+
+It is a valid trade offer which meets the conditions for restricted trading.
 
 
 
