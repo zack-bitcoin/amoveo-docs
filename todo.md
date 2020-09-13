@@ -1,4 +1,4 @@
-new contract + new market + teach oracle text
+checkbox to auto-sell your winnings if you win a bet.
 
 
 it needs to be simpler.
@@ -17,19 +17,6 @@ i think it would be easier to have whitelisted oracle language across all kinds 
 
 * in uniswap.html, add a third tab called "spend" for spending veo or subcurrency.
 - use the dropdown to select which to spend.
-- maybe change the name of that page to "simple-wallet.html"
-
-* uniswap.html needs a way to make new markets.
-
-* a tab for creating contracts that should:
-- create the contract
-- buy value in both sides
-
-
-* the contract.html page, subcurrency spender, it should also allow us to spend veo.
-
-
-* when you publish a tx in uniswap, it should update your balances.
 
 
 * if you try to do a swap involving market liquidity shares, the uniswap tool should know how to deposit into markets, if that is the most affordable way to complete the swap.
@@ -39,13 +26,6 @@ i think it would be easier to have whitelisted oracle language across all kinds 
 it would be nice if there was a page of existing markets. including historical price data.
 convert to convenient format when possible. usd/veo is better than usd/long-veo
 * even more important is a chart of liquidity and volume.
-
-
-market swap dust hard update
-================
-
-market swap tx should sell everything you have, up to the limit you write on the tx.
-That way you can use this tx in a multi-tx and not worry about owning dust at the end.
 
 
 
@@ -77,18 +57,9 @@ It is a valid trade offer which meets the conditions for restricted trading.
 
 
 
-it is a serious problem that the contracts aren't distinguishing between provably non-existence, and a contract simply not being included.
-Tree:dict_get needs to handle "error" and "empty" differently.
-
 get syncing blocks in reverse working again.
 make syncing blocks in reverse be the default behaviour of full nodes.
 
-
-zero veo fee payments hard update
-===========
-
-* multi-tx should allow an account to start as empty, as long as it gains enough veo during the tx to pay the fee.
-* multi-tx loans should be a bit bigger to cover the cost of the tx fee.
 
 
 perpetual subcurrency hard update
@@ -102,15 +73,10 @@ perpetual subcurrency hard update
  * if we are in the process of switching source currencies, don't let anyone buy a complete set. but we should allow people to combine a complete set back to the first source. doing this also refunds part of the safety deposit for whoever is swapping us out for the new source.
 
 
+hard update to get rid of the burner address
 
 
-
-it would be nice if the interface for subcurrencies was like, a big matrix.
-So each row was a different currency, and you could quickly do what you want to any of them.
-* buy/sell in market
-* post a swap offer to a server
-* also ability to look up pool by ticker.
-
+hard update to make the market-cap written on each block correct.
 
 
 
