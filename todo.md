@@ -1,3 +1,37 @@
+mining pool white list for request frequency.
+
+
+i think it would be easier to have whitelisted oracle language across all kinds of assets with an oracle language scheme like this.  "W = coinmarketcap.com; X = $10,000; Y = Bitcoin; Z = Jul 13 2020; return (price of Y is less than X as of Z as reported by W)"
+so then, the language inside of the return statement could uniquely define a put
+so we can have 1 standard per instrument type
+"W = coinmarketcap.com; X1 = $10,000; X2 = $9000; Y = Bitcoin; Z = Jul 13 2020; return (price of Y is less than X1 and greater than X2 of Z as reported by W)"
+this would be a strangle
+it isnt really 1:1 since they arent technically options in the vanilla sense but you can get similar kinds of exposures using these "binary options"
+
+
+
+the swap tool should look up the price automatically without pressing the button.
+
+
+
+or “TRUMP WINS - Liquidity”
+“TRUMP WINS - True”
+
+like TSLA - Sep 30 - 3x
+or vBTC - Sep 30 - 3x
+
+so stablecoin, competiton, election
+these would be 3 different standards
+
+And 3 different instruments
+maybe election and competition can be the same
+
+put the short version in the dropdown.x
+
+
+
+
+
 checkbox to auto-sell your winnings if you win a bet.
 
 
@@ -5,6 +39,8 @@ it needs to be simpler.
 oracle questions are too long. a ticker would be better.
 make the contract id disappear.
 
+
+integrate the AMM and order book with one UX.
 
 
 standardized version of scalar contracts for making stablecoins
@@ -14,9 +50,6 @@ i think it would be easier to have whitelisted oracle language across all kinds 
 
 * in uniswap, it would be nice if we could do a keyword search for contracts to display, instead of just the top 10. also for markets.
 
-
-* in uniswap.html, add a third tab called "spend" for spending veo or subcurrency.
-- use the dropdown to select which to spend.
 
 
 * if you try to do a swap involving market liquidity shares, the uniswap tool should know how to deposit into markets, if that is the most affordable way to complete the swap.
@@ -57,8 +90,7 @@ It is a valid trade offer which meets the conditions for restricted trading.
 
 
 
-get syncing blocks in reverse working again.
-make syncing blocks in reverse be the default behaviour of full nodes.
+it would be nice if we could pause and continue while syncing in reverse. or restart it if one peer stops sharing.
 
 
 
