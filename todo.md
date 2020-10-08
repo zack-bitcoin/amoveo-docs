@@ -1,3 +1,40 @@
+
+looks like ubuntu 2020 isn't working.
+
+drop downs for the date when creating markets.
+
+when you sell liquidity shares, or buy shares in a swap, it should auto-combine when possible.
+
+
+
+maybe we should display balances more intelligently. have a module that keeps track of them, and only refreshes when it makes sense to.
+
+
+
+in the pool tab, we should use the correct market data when processing the txs, and for generating the txs.
+Currently we update it sometimes, and not other times. and we don't reset it when we should.
+
+
+display prices and liquidity with market tickets. use market prices to calculate what we need.
+drop down for currency to get paid in.
+
+update the stablecoin oracle text to support a limit price, if it gets crossed, then the market immediately ends and 100% of the source currency goes to one party.
+
+when you scroll over a market ticker, a box with more info should appear.
+
+when yo uare swapping, it should update the price when you edit the field. no "lookup price" button.
+
+
+
+in the wallet page, it is currently looking up all your market balances before displaying anything.
+we should set it up to trickle info onto the page instead.
+
+
+
+if you try buying liqudity, but don't have the source currency, it should give a useful error message.
+
+
+
 mining pool white list for request frequency.
 
 
