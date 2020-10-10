@@ -1,11 +1,28 @@
+put a ticker in the url and optimize for trading that ticker. maybe even get rid of inverse.
 
-looks like ubuntu 2020 isn't working.
+gossip swap offers and oracle text for oracles that are not yet in a block.
+
+pool tab. total liquidity, my liquidity.
+
+
+in the [pool] tab, the "lookup price to sell all liquidity shares" button is confusing. We need to make it more clear what is happening.
+* hide unnecessary fields.
+* maybe use more tabs.
+
+
+“you can sell 2 VEO at a price of 0.00326 vBTC per VEO. in total you receive 0.00652 vBTC”
+currently:
+you can sell 0.09985259 at a price of 2.3996128693306806. in total you receive 0.23960756
+starting price of this stablecoin: 0.00327619
+
 
 drop downs for the date when creating markets.
 
 when you sell liquidity shares, or buy shares in a swap, it should auto-combine when possible.
 
 
+
+history price chart of markets
 
 maybe we should display balances more intelligently. have a module that keeps track of them, and only refreshes when it makes sense to.
 
@@ -38,34 +55,6 @@ if you try buying liqudity, but don't have the source currency, it should give a
 mining pool white list for request frequency.
 
 
-i think it would be easier to have whitelisted oracle language across all kinds of assets with an oracle language scheme like this.  "W = coinmarketcap.com; X = $10,000; Y = Bitcoin; Z = Jul 13 2020; return (price of Y is less than X as of Z as reported by W)"
-so then, the language inside of the return statement could uniquely define a put
-so we can have 1 standard per instrument type
-"W = coinmarketcap.com; X1 = $10,000; X2 = $9000; Y = Bitcoin; Z = Jul 13 2020; return (price of Y is less than X1 and greater than X2 of Z as reported by W)"
-this would be a strangle
-it isnt really 1:1 since they arent technically options in the vanilla sense but you can get similar kinds of exposures using these "binary options"
-
-
-
-the swap tool should look up the price automatically without pressing the button.
-
-
-
-or “TRUMP WINS - Liquidity”
-“TRUMP WINS - True”
-
-like TSLA - Sep 30 - 3x
-or vBTC - Sep 30 - 3x
-
-so stablecoin, competiton, election
-these would be 3 different standards
-
-And 3 different instruments
-maybe election and competition can be the same
-
-put the short version in the dropdown.x
-
-
 
 
 
@@ -80,16 +69,11 @@ make the contract id disappear.
 integrate the AMM and order book with one UX.
 
 
-standardized version of scalar contracts for making stablecoins
-i think it would be easier to have whitelisted oracle language across all kinds of assets with an oracle language scheme like this.  "W = coinmarketcap.com; X = $10,000; Y = Bitcoin; Z = Jul 13 2020; return (price of Y is less than X as of Z as reported by W)"
-
 
 
 * in uniswap, it would be nice if we could do a keyword search for contracts to display, instead of just the top 10. also for markets.
 
 
-
-* if you try to do a swap involving market liquidity shares, the uniswap tool should know how to deposit into markets, if that is the most affordable way to complete the swap.
 
 
 
