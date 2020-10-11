@@ -26,17 +26,18 @@ For example, you could start by making the binary contract: "Hard update X merge
 So the "true" shares are only valuable if we merge, and the "false" shares are only valuable if we do not merge. Lets call them T and F.
 
 Next we use each of these kinds of shares as the source currencies to make markets for the price of veo relative to some stable asset. So now there are 4 more currencies:
-TV, which is worth long-veo, but only if we merge the update.
-TB, which is worth stable btc, but only if we merge the update.
-FV, which is worth long-veo, but only if we do not merge the update.
-FB, which is worth stable btc, but only if we do not merge the update.
+
+* TV, which is worth long-veo, but only if we merge the update.
+* TB, which is worth stable btc, but only if we merge the update.
+* FV, which is worth long-veo, but only if we do not merge the update.
+* FB, which is worth stable btc, but only if we do not merge the update.
 
 So we have 2 important markets.
 Market1 has 2 currencies: T and TV.
 So the price of market 1, it shows what the price of long-veo would be, conditional on us merging the hard update.
 
 Market 2 has 2 currencies: F and FV.
-So the price of market 2, it shows what the price of long-veo would be, conditional on us not  merging the hard update.
+So the price of market 2, it shows what the price of long-veo would be, conditional on us not merging the hard update.
 
 By comparing the prices in market1 and market2, we can tell if this hard update will positively or negatively impact the price of veo relative to the stable currency.
 
