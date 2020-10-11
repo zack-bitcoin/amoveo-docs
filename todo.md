@@ -1,3 +1,12 @@
+showing price in synthetic units, for balances. and in pool tab. and in send.
+
+don't display balances in markets.
+
+
+documentation of using the AMM for futarchy.
+
+
+
 put a ticker in the url and optimize for trading that ticker. maybe even get rid of inverse.
 
 gossip swap offers and oracle text for oracles that are not yet in a block.
