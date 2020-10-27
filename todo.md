@@ -1,9 +1,108 @@
-showing price in synthetic units, for balances. and in pool tab. and in send.
+swap offers to sell veo for stablecoins seem to not be working.
+
+
+it is currently impossible to deposit into contracts that you did not create.
+
+
+leverage/collateralization should be on different lines, and the buttons too.
+
+
+
+
+
+## create tab updates
+
+we want to be able to specify a price by referencing more than one publicly available price and multiplying them together.
+So we use qtrade for btc/veo, and we can use coinmarketcap for btc/usd
+
+also a leverage option.
+
+add coinmarketcap back to the defaults.
+
+combine the swap tool with the AMM tool.
+
+investing.com should be a default source.
+https://www.investing.com/indices/us-spx-500-historical-data
+is controversial, lets get it working well first.
+the "price" column specifically is the closing price for that day
+you can use the lowest "low" column # across all the rows as the liquidation provision
+
+
+would be nice if the create tab could be used for more contracts than just stablecoins. in particular we want to bet on the hashrate of blockchains.
+
+#######
+
+configure the light node to give me free money.
+
+
+update text for selling subcurrency for veo.
+
+if selling stablecoin, then the units of how much to sell should be in stablecoin terms.
+also in the spend tab.
+
+when you display slippage for buying long-veo, the slippage should be in terms of how much the stablecoins are changing in price. not in terms of how much the long-veo changes in price.
+
+when you make a trade, it should show you what the price of stablecoin will be after the trade.
+
+
+2) selling subcurrencies not working
+
+auto-combine types of shares.
+
+option to swap liquidity directly to veo when selling it.
+
+
+switch balances to show collateral as a percentrage instead of the limit price.
+
+
+change button color or size or something to indicate which tab is selected.
+
+
+explorer isn't cleaning liquidity shares or subcurencies correclty.
+
+
+graph of historical mining difficulty.
+graph of historical price of each market.
+
+
+selling back to veo
+
+don't display contract hash in standard format.
+
+show balances in stablecoin units./
+
+update pool_tab to use zeroth confirmation state of markets.
+
+update balances if you switch pubkeys*
+
+private key into localstorage in the lightnode.
+
+show liquidity with the contracts.
+
+
+if a tx gets published then we could potentially need to reset some timers in the balances_db in tabs.js
+That way it knows which balances to update.
+specifically for the case where you sell all your stake in something, and then buy more stake later, all without refreshing the page.
+
+
+
+it looks like the wallet is triggering the spam prevention in the full node.
+* some balances aren't being loaded.
+
+in the create tab, make it clearer what the initial price means.
+
+create tab is not starting at the right price.
+
+
+make the swap/create/pool tab look different if it is currently selected.
+say the source unit as part of the price in the ticker text.
+
+
+showing price in synthetic units, for balances. and in pool tab. and in send X .
+
+if current year, don't display the year in the contract details. if the time is noon, don't display the time. etc.
 
 don't display balances in markets.
-
-
-documentation of using the AMM for futarchy.
 
 
 
@@ -17,12 +116,6 @@ pool tab. total liquidity, my liquidity.
 in the [pool] tab, the "lookup price to sell all liquidity shares" button is confusing. We need to make it more clear what is happening.
 * hide unnecessary fields.
 * maybe use more tabs.
-
-
-“you can sell 2 VEO at a price of 0.00326 vBTC per VEO. in total you receive 0.00652 vBTC”
-currently:
-you can sell 0.09985259 at a price of 2.3996128693306806. in total you receive 0.23960756
-starting price of this stablecoin: 0.00327619
 
 
 drop downs for the date when creating markets.
