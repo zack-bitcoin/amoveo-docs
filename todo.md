@@ -30,9 +30,11 @@ you can use the lowest "low" column # across all the rows as the liquidation pro
 
 would be nice if the create tab could be used for more contracts than just stablecoins. in particular we want to bet on the hashrate of blockchains.
 
+
+would be nice if we could end up holding some initial stake after creating the market.
+
 #######
 
-configure the light node to give me free money.
 
 
 update text for selling subcurrency for veo.
