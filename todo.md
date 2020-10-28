@@ -1,7 +1,4 @@
 
-
-paper: composing conditional contracts with conditional contracts, via resolution, and lazily creating the new iteration of the contract at the last minute. This can be used to create a perpetual stablecoin that can quickly rebalance it's collateral to keep the amount of leverage optimized. So the twin goals of security and cost are kept in the proper balance.
-
 paper: why price feeds are a bad idea. Comparing the utility provided by a constantly available price feed, in comparison to the utility of a slow to update price, they are nearly equivalent. So there is almost nothing to gain from using price feeds instead of normal oracle mechanisms.
 Show that a price feed cannot be used to automatically update the price of AMM, because of the MEV. miners want to front run the AMM before the price gets corrected. Bribing the miners to let you correct the price of your AMM is as costly as letting them frontrun.
 Show that a price feed's security for enforcing the outcome of derivatives is very expensive.
