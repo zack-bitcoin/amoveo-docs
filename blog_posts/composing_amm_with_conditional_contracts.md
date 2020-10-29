@@ -1,6 +1,10 @@
 Composing conditional contracts with constant product market makers to solve arbitrage issues between them
 ===============
 
+Abstract:
+By atomically (creating or destroying a full set of subcurrencies from a conditional contract) and (trading in one or more markets), we can achieve about double the liquidity in comparison to using the markets without creating/destroying subcurrency from the conditional contract. We further generalize this technique by atomically participating in multiple conditional contracts and markets simultaniously, for the goal of arbitrage-free swapping and maximum liquidity for trading.
+
+
 A conditional contract.
 what it is:
 Defined by it's source currency, how many subcurrencies it has, and a turing complete contract that determines how to divide the value between the subcurrencies.
@@ -36,3 +40,6 @@ In order to minimize the cost of my swap, I may want to use a mixture of many of
 In order to calculate this ideal mixture, the strategy I have found that works is a simple gradient descent. I look at the price on each path. If a path is more expensive than average, then I spend less on that path. If a path is less expensive than average, then I spend more on that path. Eventually every path has the same price, which means there is no arbitrage opportunity left, and this is the ideal trade.
 
 
+Corollary:
+
+Since any of the 3 markets can be used to provide liquidity, this means that a person holding the source currency of that contract is able to convert the source currency entirely into liquidity shares of the 3 markets, without being left holding any of the subcurrencies, and without changing the price in any of the markets.

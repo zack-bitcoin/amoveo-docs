@@ -1,7 +1,18 @@
-Composing Conditional Contracts Together via Resolution for Perpetual Stablecoins
+Composing Conditional Contracts Together via collateralization for Perpetual Stablecoins
 ==================
 
-abstract: composing conditional contracts with conditional contracts, via resolution, and lazily creating the new iteration of the contract at the last minute. This can be used to create a perpetual stablecoin that can quickly rebalance it's collateral to keep the amount of leverage optimized. So the twin goals of security and cost are kept in the proper balance.
+abstract: composing conditional contracts with conditional contracts, via collateralization. Swapping out the collateral of a contract from one currency into another. This can be used to create a perpetual stablecoin that can quickly rebalance it's collateral to keep the amount of leverage optimized. So the twin goals of security and cost are kept in the proper balance.
+
+What is a conditional contract:
+Defined by it's source currency, how many subcurrencies it has, and a turing complete contract that determines how to divide the value between the subcurrencies.
+
+How to use it:
+If you give it the source currency, it gives you a complete set of it's subcurrencies.
+If you give it a complete set of it's subcurrencies, it gives you the source currency.
+You can provide evidence to help the smart contract resolve.
+Once the smart contract has resolved, then you can exchange any of the subcurrencies to receive the portion of source currency that has been assigned to that subcurrency.
+
+
 
 A finite stablecoin is a stablecoin that has an expiration date. After the expiration, the stablecoin contract automatically converts back to the source currency based on whatever the final price was.
 

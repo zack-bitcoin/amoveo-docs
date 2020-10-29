@@ -1,11 +1,12 @@
 Composing Conditional Contracts via Resolution to Prevent Front Running in Markets
 ==============
 
-A conditional contract.
-what it is:
+Abstract: on-chain markets will always suffer front-running as miner extractable value. In order to prevent front running in off-chain markets, we need to program limit order contracts in channels. A limit order contract can either get matched, in which case it transforms into a stablecoin contract at the price it got matched at, or else it doesn't get matched before it's time limit, in which case it needs to be converted back into the source currency that had been used to create the stablecoin contract. In either case we need to permissionlessly get the money out of the channel. So this means conditional contracts being expired, they need to be able to convert back into the source currency, and they also need to be able to be converted into a different conditional contract that is collateralized in the same source currency.
+
+What it a conditional contract:
 Defined by it's source currency, how many subcurrencies it has, and a turing complete contract that determines how to divide the value between the subcurrencies.
 
-How to use it:
+How to use conditional contracts:
 If you give it the source currency, it gives you a complete set of it's subcurrencies.
 If you give it a complete set of it's subcurrencies, it gives you the source currency.
 You can provide evidence to help the smart contract resolve.

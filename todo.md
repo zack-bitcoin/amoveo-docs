@@ -1,3 +1,17 @@
+1. The units are still messed up in places & formatting is not consistent
+4. You cant trade subcurrencies for subcurrencies (?)
+6. inverse and stable are two separate instruments and should be on different lines
+
+
+
+it seems like rebalancing prices before depositing liquidity isn't working. it has some rounding error that leaves it off by like 0.3%.
+
+display more useful info in the swap tab when you are selling a currency other than veo.
+
+display a "dev fee" in the checksum when making txs.
+
+standardize the oracle to allow for looking up more than one price.
+
 
 paper: why price feeds are a bad idea. Comparing the utility provided by a constantly available price feed, in comparison to the utility of a slow to update price, they are nearly equivalent. So there is almost nothing to gain from using price feeds instead of normal oracle mechanisms.
 Show that a price feed cannot be used to automatically update the price of AMM, because of the MEV. miners want to front run the AMM before the price gets corrected. Bribing the miners to let you correct the price of your AMM is as costly as letting them frontrun.
