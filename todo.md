@@ -1,3 +1,6 @@
+
+
+
 1. The units are still messed up in places & formatting is not consistent
 4. You cant trade subcurrencies for subcurrencies (?)
 6. inverse and stable are two separate instruments and should be on different lines

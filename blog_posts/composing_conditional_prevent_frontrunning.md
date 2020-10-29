@@ -15,7 +15,8 @@ Once the smart contract has resolved, then you can exchange any of the subcurren
 Front running prevention.
 Some methods of preventing front running leave your market open to other attacks. The only secure way to do trading is with single price batches. Here is a great video on the topic: https://www.youtube.com/watch?v=mAtD0ba-hXU
 I can give a quick summary.
-According to game theory, any game can be pareto improved, while being converted into a honest reveal game, were everyone is incentivized to reveal their preferences. By "pareto improve", I mean that every player is no worse off, and possibly better off, after this change.
+
+According to game theory https://en.wikipedia.org/wiki/Revelation_principle , any game can be pareto improved, while being converted into a honest reveal game, were everyone is incentivized to reveal their preferences. By "pareto improve", I mean that every player is no worse off, and possibly better off, after this change.
 So the most efficient market is one where all the traders reveal the highest price they are willing to pay, and an automatic mechanism determines the most fair price for all the trades to get atomically executed.
 
 We can't have single price batch markets on-chain.
