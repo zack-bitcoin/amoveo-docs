@@ -1,15 +1,18 @@
 
 
+1. The units are still messed up in places & formatting is not consistent. pool tab mostly.
 
-1. The units are still messed up in places & formatting is not consistent
-4. You cant trade subcurrencies for subcurrencies (?)
+4. You cant trade subcurrencies for subcurrencies (?) text is very unhelpful.
+* trading subcurrency for subcurrency, seems like slippage is wrong.
+5. swapping veo for subcurrencies is broken in the swap tool.
 6. inverse and stable are two separate instruments and should be on different lines
-
+ 7. you can only create two stablecoins at the moment.
+ * make it more clear the path you take on coinmarketcap to calculate the price.
+ 8. make sure that nothing requires refreshing. getting your new list of balances for example.
 
 
 it seems like rebalancing prices before depositing liquidity isn't working. it has some rounding error that leaves it off by like 0.3%.
 
-display more useful info in the swap tab when you are selling a currency other than veo.
 
 display a "dev fee" in the checksum when making txs.
 
