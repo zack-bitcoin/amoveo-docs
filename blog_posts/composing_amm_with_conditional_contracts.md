@@ -49,7 +49,7 @@ There is a market with liquidity between share type 1 and the source currency of
 
 In this scenario the ideal solution is to use the market to sell more than all of your type 1 shares for source currency. Then use the contract to convert that source currency into a mix of type 1 and type 2, this pays back your debt in type 1, and leaves you holding only type 2 shares.
 
-If we dont have flash minting, then this process would be divided up into many smaller txs, each tx costing a miner fee, and you will lose money to front running the entire way.
+If we dont have flash minting, then this process would be divided up into many smaller txs, each tx costing a miner fee.
 
 
 

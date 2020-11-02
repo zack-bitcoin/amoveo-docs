@@ -1,22 +1,32 @@
+p2p_derivatives was updated. now scalar_contracts cleans out old oracle data.
+we need to update the http_handler so that other nodes can sync the oracle data.
+
+once I can sync a p2p_derivative node locally, then I can run fast local tests of the swap tool, to figure out why we can't sell inverse for stablecoins.
 
 
-1. The units are still messed up in places & formatting is not consistent. pool tab mostly.
+make the swap offer to get your veo out of the contract with whoever.
 
-4. You cant trade subcurrencies for subcurrencies (?) text is very unhelpful.
-* trading subcurrency for subcurrency, seems like slippage is wrong.
-5. swapping veo for subcurrencies is broken in the swap tool.
-6. inverse and stable are two separate instruments and should be on different lines
+
+pulling oracle data from other p2p derivatives servers to make a clone.
+
+
+4 fix selling inverse for stablecoins.
+
  7. you can only create two stablecoins at the moment.
  * make it more clear the path you take on coinmarketcap to calculate the price.
  8. make sure that nothing requires refreshing. getting your new list of balances for example.
 
 
-it seems like rebalancing prices before depositing liquidity isn't working. it has some rounding error that leaves it off by like 0.3%.
+in the pool tab. it seems like rebalancing prices before depositing liquidity isn't working. it has some rounding error that leaves it off by like 0.3%.
 
 
 display a "dev fee" in the checksum when making txs.
 
 standardize the oracle to allow for looking up more than one price.
+
+
+sum up all the long-veo contracts, along with your veo balance. This is your total veo exposure.
+
 
 
 paper: why price feeds are a bad idea. Comparing the utility provided by a constantly available price feed, in comparison to the utility of a slow to update price, they are nearly equivalent. So there is almost nothing to gain from using price feeds instead of normal oracle mechanisms.
