@@ -13,8 +13,8 @@ Vitalik Buterin
 Vitalik Buterin https://vitalik.ca/general/2020/11/06/pos2020.html
 
 He tries to make 2 points for why PoS can possibly be a cryptoeconomically secure consensus mechanism.
-1) PoS is more secure at the same cost.
-2) Attacks are easier to recover from in PoS.
+1) PoS is more secure than PoW at the same cost.
+2) Attacks are easier to recover from in PoS vs PoW.
 
 I will attempt to show that Vitaliks arguments for (1) and (2) are incorrect.
 
