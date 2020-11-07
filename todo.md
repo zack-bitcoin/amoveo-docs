@@ -1,10 +1,30 @@
 
+make the swap/create/pool tab look different if it is currently selected.
+change button color or size or something to indicate which tab is selected.
+
+
+switch balances to show collateral as a percentrage instead of the limit price.
+
+
+
+update how the standard oracle for stablecoins works.
+* referencing more than one price for the conversion path. Also update the create tab to support this. qtrade for btc/veo, and coinmarketcap for btc/usd.
+* optional leverage multiplier on the price measured. add this option to the create tab.
+* shorten the standardized oracle URL string vUSD - 12:00 26-10-2020 -> vUSD - Oct 26 i think
+  if current year, don't display the year in the contract details. if the time is noon, don't display the time. etc.
+* add a mode for betting on the hashrate of blockchains.
 
 
  7. you can only create two stablecoins at the moment.
  * make it more clear the path you take on coinmarketcap to calculate the price.
  8. make sure that nothing requires refreshing. getting your new list of balances for example.
 
+both "how much to sell" and "how much to buy" fields should be editable. if you change one, they both change, based on the possible price.
+We probably only need 1 button in this case.
+
+in the swap tab, change "currency to receive" into a dropdown, instead of having the menu.
+
+a page for historical price in the market.
 
 in the pool tab. it seems like rebalancing prices before depositing liquidity isn't working. it has some rounding error that leaves it off by like 0.3%.
 
@@ -13,12 +33,14 @@ auto-combine when possible.
 * after swapping.
 * when accepting swap offers?
 
+combine the swap tool with the AMM tool.
+
+
 
 display a "dev fee" in the checksum when making txs.
 
 if you lose all of one of the subcurrencies, it should delete that from your balances list.
 
-standardize the oracle to allow for looking up more than one price for a multi-step conversion.
 
 
 sum up all the long-veo contracts, along with your veo balance. This is your total veo exposure.
@@ -49,24 +71,12 @@ leverage/collateralization should be on different lines, and the buttons too.
 
 ## create tab updates
 
-we want to be able to specify a price by referencing more than one publicly available price and multiplying them together.
-So we use qtrade for btc/veo, and we can use coinmarketcap for btc/usd
-
-also a leverage option.
-
-add coinmarketcap back to the defaults.
-
-combine the swap tool with the AMM tool.
 
 investing.com should be a default source.
 https://www.investing.com/indices/us-spx-500-historical-data
 is controversial, lets get it working well first.
 the "price" column specifically is the closing price for that day
 you can use the lowest "low" column # across all the rows as the liquidation provision
-
-
-would be nice if the create tab could be used for more contracts than just stablecoins. in particular we want to bet on the hashrate of blockchains.
-
 
 would be nice if we could end up holding some initial stake after creating the market.
 
@@ -84,31 +94,16 @@ when you display slippage for buying long-veo, the slippage should be in terms o
 when you make a trade, it should show you what the price of stablecoin will be after the trade.
 
 
-2) selling subcurrencies not working
-
 auto-combine types of shares.
 
 option to swap liquidity directly to veo when selling it.
-
-
-switch balances to show collateral as a percentrage instead of the limit price.
-
-
-change button color or size or something to indicate which tab is selected.
 
 
 explorer isn't cleaning liquidity shares or subcurencies correclty.
 
 
 graph of historical mining difficulty.
-graph of historical price of each market.
 
-
-selling back to veo
-
-don't display contract hash in standard format.
-
-show balances in stablecoin units./
 
 update pool_tab to use zeroth confirmation state of markets.
 
@@ -125,29 +120,19 @@ specifically for the case where you sell all your stake in something, and then b
 
 
 
-it looks like the wallet is triggering the spam prevention in the full node.
-* some balances aren't being loaded.
-
-in the create tab, make it clearer what the initial price means.
 
 create tab is not starting at the right price.
 
 
-make the swap/create/pool tab look different if it is currently selected.
 say the source unit as part of the price in the ticker text.
 
-
-showing price in synthetic units, for balances. and in pool tab. and in send X .
-
-if current year, don't display the year in the contract details. if the time is noon, don't display the time. etc.
 
 don't display balances in markets.
 
 
-
 put a ticker in the url and optimize for trading that ticker. maybe even get rid of inverse.
 
-gossip swap offers and oracle text for oracles that are not yet in a block.
+gossip swap offers in p2p_derivatives_explorer
 
 pool tab. total liquidity, my liquidity.
 
