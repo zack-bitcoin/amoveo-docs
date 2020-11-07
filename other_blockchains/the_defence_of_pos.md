@@ -12,11 +12,11 @@ Vitalik Buterin
 
 Vitalik Buterin https://vitalik.ca/general/2020/11/06/pos2020.html
 
-He tries to make 2 points in favor of PoS
+He tries to make 2 points for why PoS can possibly be a cryptoeconomically secure consensus mechanism.
 1) PoS is more secure at the same cost.
 2) Attacks are easier to recover from in PoS.
 
-I will attempt to show that both (1) and (2) are false. 
+I will attempt to show that Vitaliks arguments for (1) and (2) are incorrect.
 
 for (1), he is comparing the cost of bribing PoW miners to temporarily censor all txs on the PoW blockchain, vs the cost of buying up 51% of all validator stake to permanently destroy the PoS blockchain.
 It does not make any sense to put these 2 vastly different attacks side by side, and compare the relative costs of executing these attacks. It is like if I were to point out that the muscle in my bicep is bigger than the muscle in an athlete's pinky, and then I try to use this as evidence that I am stronger.
@@ -26,7 +26,7 @@ Owning 51% of all staked coins is far cheaper than owning 51% of mining hardware
 If an attacker is buying up 5% of all PoS coins, the last coin purchased will cost a similar amount as the first coin purchased.
 If an attacker is buying up 51% of all existing ASICS, then as they buy more ASICS, the price of ASICS will rapidly increase, and this will be very expensive. The market for ASICS is much less liquid than the market for PoS coins.
 
-In part (1) for PoW, he prefers to focus on a very cheap temporary-censorship through bribery attack against PoW, because he wanted to make it seem like PoW is cheap to attack. This attack in PoW is similar to attacking PoS by paying high tx fees to completely fill up every block with txs.
+In part (1) for PoW, he prefers to focus on a very cheap temporary-censorship through bribery attack against PoW, because he wanted to make it seem like PoW is cheap to attack. This attack in PoW is similar to attacking PoS by paying high tx fees to completely fill up every block with txs to censor anyone else from making txs.
 
 In part (2) for PoW, he prefers to focus on a very expensive spawn-camping attack, which depends on buying 51% of all PoW mining hardware, because he wanted to make it seem like PoW attacks are hard to recover from. This attack in PoW is similar to attacking PoS by trying to buy up 51% of all PoS coins.
 
