@@ -1,16 +1,5 @@
-p2p_derivatives was updated. now scalar_contracts cleans out old oracle data.
-we need to update the http_handler so that other nodes can sync the oracle data.
-
-once I can sync a p2p_derivative node locally, then I can run fast local tests of the swap tool, to figure out why we can't sell inverse for stablecoins.
 
 
-make the swap offer to get your veo out of the contract with whoever.
-
-
-pulling oracle data from other p2p derivatives servers to make a clone.
-
-
-4 fix selling inverse for stablecoins.
 
  7. you can only create two stablecoins at the moment.
  * make it more clear the path you take on coinmarketcap to calculate the price.
@@ -19,10 +8,17 @@ pulling oracle data from other p2p derivatives servers to make a clone.
 
 in the pool tab. it seems like rebalancing prices before depositing liquidity isn't working. it has some rounding error that leaves it off by like 0.3%.
 
+auto-combine when possible.
+* when selling liquidity shares.
+* after swapping.
+* when accepting swap offers?
+
 
 display a "dev fee" in the checksum when making txs.
 
-standardize the oracle to allow for looking up more than one price.
+if you lose all of one of the subcurrencies, it should delete that from your balances list.
+
+standardize the oracle to allow for looking up more than one price for a multi-step conversion.
 
 
 sum up all the long-veo contracts, along with your veo balance. This is your total veo exposure.

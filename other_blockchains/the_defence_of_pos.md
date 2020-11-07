@@ -10,7 +10,48 @@ If you feel that your opinion is misrepresented here, or if your opinion has cha
 Vitalik Buterin
 =========
 
-Vitalik Buterin's explanation is in-depth, I wrote an entire blog post responding to it here: other_blockchains/ethereum_casper_ffg.md
+Vitalik Buterin https://vitalik.ca/general/2020/11/06/pos2020.html
+
+He tries to make 2 points in favor of PoS
+1) PoS is more secure at the same cost.
+2) Attacks are easier to recover from in PoS.
+
+I will attempt to show that both (1) and (2) are false. 
+
+for (1), he is comparing the cost of bribing PoW miners to temporarily censor all txs on the PoW blockchain, vs the cost of buying up 51% of all validator stake to permanently destroy the PoS blockchain.
+It does not make any sense to put these 2 vastly different attacks side by side, and compare the relative costs of executing these attacks. It is like if I were to point out that the muscle in my bicep is bigger than the muscle in an athlete's pinky, and then I try to use this as evidence that I am stronger.
+
+For part (2), be wary of the slight of hand going on. Notice that the PoW attack being discussed is no longer about bribing 51% of the miners for temporary censorship, now it is about an attacker who has successfully purchased more than 51% of all ASICS, which is a far more expensive attack to pull off.
+Owning 51% of all staked coins is far cheaper than owning 51% of mining hardware, because the market for coins to stake is much more liquid than the market for ASICS. And buying 51% of staked coins amounts to only buying around 5% of total coins on the PoS blockchain, because not all coins are staked.
+If an attacker is buying up 5% of all PoS coins, the last coin purchased will cost a similar amount as the first coin purchased.
+If an attacker is buying up 51% of all existing ASICS, then as they buy more ASICS, the price of ASICS will rapidly increase, and this will be very expensive. The market for ASICS is much less liquid than the market for PoS coins.
+
+In part (1) for PoW, he prefers to focus on a very cheap temporary-censorship through bribery attack against PoW, because he wanted to make it seem like PoW is cheap to attack. This attack in PoW is similar to attacking PoS by paying high tx fees to completely fill up every block with txs.
+
+In part (2) for PoW, he prefers to focus on a very expensive spawn-camping attack, which depends on buying 51% of all PoW mining hardware, because he wanted to make it seem like PoW attacks are hard to recover from. This attack in PoW is similar to attacking PoS by trying to buy up 51% of all PoS coins.
+
+The proof that PoS is impossible, it heavily relys on a symmetry in PoS; the attacker coalition is symmetric against the defender coalition.
+If the defenders win, they can punish the attackers exactly identically to how attackers would be able to punish defenders, if the attackers win.
+Any security deposits that defenders are using to increase defense, attackers can make security deposits to increase the attack in the same way, at the same cost.
+In order to show that PoS is possible, he is trying to find a way to break this symmetry. He is trying to make it seem like defense can be cheaper than attacking.
+The way he attempts to break this symmetry is by making the [false assumption that the community will be able to use an undefined external mechanism to come to consensus](https://www.jofreeman.com/joreen/tyranny.htm) about which side of the fork is the attack, and which side is the defense.
+That the users will all be able to agree on which version of the protocol is the official version.
+This is an example of circular reasoning.
+If we start with the assumption that the community will be able to reach consensus on what updates to make to the protocol, then it is easy to prove that they have a consensus mechanism.
+In practice, updates are highly controversial.
+Users can not agree on what is a beneficial update, and what is a malicious attack.
+Especially if an attack was paired with propaganda, the community could easily end up tricked into thinking that the attacker version is a good update.
+If the community is tricked into thinking that the attacker version of the fork is actually a good update, then they will be tricked into burning the security deposits for the 49% of validators who were honest, and rewarding the attacker.
+
+PoS must fail in one of these ways, A or B:
+
+A) Once attackers have >51% of validator stake they can maintain the attack perpetually. They control who is added to the validator set. They can censor anything. They can use censorship to push through arbitrary soft-fork updates, including updates to change the consensus mechanism to PoW.
+Users who don't like the new rules are incentivized to sell to users who do like the new rules.
+
+B) Alternatively, if there is a way for the users to decide that the current validator set is majority attackers, and that they should be punished, this is a recovery mechanism. The attackers can use propaganda to abuse this recovery mechanism. If an attacker can convince the users that the current validator set are attackers, then the users will rob those honest validators of their stake.
+
+In either case A or B, this is not a secure consensus mechanism.
+
 
 Jae Kwon
 ========
