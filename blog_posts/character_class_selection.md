@@ -69,7 +69,7 @@ Artists
 
 in PVP mode, the evil classes have an advantage against the same good class.
 
-Academics have bad reputation from questioning our deeply held beliefs. Ritualizers re-confirm our existing beliefs. So people tend to go with ritualizers more easily.
+Evidence from Academics is harder to understand than evidence from ritualizers. 
 
 Philosophers are constrained by the limitations of reality. Utopists can promise anything. So the Utopist will always have the better dream to sell.
 
@@ -81,5 +81,5 @@ Academics can explain why the dreams of utopists are impossible.
 Philosophers can ask credential-lords questions that reveal how little they understand.
 Artists can live out the principles of ritualizers, to build up case studies for why this ritual does not work. 
 
-Other combinations are either non-combatitive, or they fight on equal terms, neither side having an advantage.
+Other combinations are either non-combatitive, or they fight with neither side having an advantage.
 

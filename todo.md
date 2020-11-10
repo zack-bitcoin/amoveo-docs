@@ -1,9 +1,9 @@
+W = coinpaprika.com; T = 12:00 10-29-2020 China Standard Time (GMT+8); ticker = USD; return(the price of ticker at time T according to website W) * 157903209
 
-make the swap/create/pool tab look different if it is currently selected.
-change button color or size or something to indicate which tab is selected.
+standard stablecoin 0; ticker_path = [veo, btc, usd]; website_path = [qtrade.io, coinpaprika.com]; time = 12:00 10-29-2020 China Standard Time (GMT+8); price = 1; for(i=0; i<website_path.length; i++){ price *= (the price of ticker_path[i] in ticker_path[i+1] according to website[i]) }; return(price * 157903209);
 
+standard hashrate 0; blockchain = Bitcoin; units = "million terahashes per second"; max = 200; min = 40; time = 12:00 10-29-2020 China Standard Time (GMT+8); website = blockchain.com; h = hashrate of blockchain according to website; return(4294967295 * ((h/units)-min) / (max-min));
 
-switch balances to show collateral as a percentrage instead of the limit price.
 
 
 
@@ -14,9 +14,9 @@ update how the standard oracle for stablecoins works.
   if current year, don't display the year in the contract details. if the time is noon, don't display the time. etc.
 * add a mode for betting on the hashrate of blockchains.
 
-
  7. you can only create two stablecoins at the moment.
  * make it more clear the path you take on coinmarketcap to calculate the price.
+ 
  8. make sure that nothing requires refreshing. getting your new list of balances for example.
 
 both "how much to sell" and "how much to buy" fields should be editable. if you change one, they both change, based on the possible price.
