@@ -1,10 +1,8 @@
 W = coinpaprika.com; T = 12:00 10-29-2020 China Standard Time (GMT+8); ticker = USD; return(the price of ticker at time T according to website W) * 157903209
 
-standard stablecoin 0; ticker_path = [veo, btc, usd]; website_path = [qtrade.io, coinpaprika.com]; time = 12:00 10-29-2020 China Standard Time (GMT+8); price = 1; for(i=0; i<website_path.length; i++){ price *= (the price of ticker_path[i] in ticker_path[i+1] according to website[i]) }; return(price * 157903209);
+standard stablecoin 0; ticker_path = [veo, btc, usd]; website_path = [qtrade.io, coinpaprika.com]; time = 12:00 10-29-2020 China Standard Time (GMT+8); price = 1; for(i=0; i<website_path.length; i++){price *= (the price of ticker_path[i] in ticker_path[i+1] according to website[i])}; scale = 157903209; return(price * scale);
 
-standard hashrate 0; blockchain = Bitcoin; units = "million terahashes per second"; max = 200; min = 40; time = 12:00 10-29-2020 China Standard Time (GMT+8); website = blockchain.com; h = hashrate of blockchain according to website; return(4294967295 * ((h/units)-min) / (max-min));
-
-
+we made the regex for this new kind of oracle. now we need to update the create_tab interface to generate these kinds of oracles.
 
 
 update how the standard oracle for stablecoins works.
@@ -45,6 +43,7 @@ if you lose all of one of the subcurrencies, it should delete that from your bal
 
 sum up all the long-veo contracts, along with your veo balance. This is your total veo exposure.
 
+standard hashrate 0; blockchain = Bitcoin; units = "million terahashes per second"; max = 200; min = 40; time = 12:00 10-29-2020 China Standard Time (GMT+8); website = blockchain.com; h = hashrate of blockchain according to website; return(4294967295 * ((h/units)-min) / (max-min));
 
 
 paper: why price feeds are a bad idea. Comparing the utility provided by a constantly available price feed, in comparison to the utility of a slow to update price, they are nearly equivalent. So there is almost nothing to gain from using price feeds instead of normal oracle mechanisms.
