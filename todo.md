@@ -1,26 +1,41 @@
-W = coinpaprika.com; T = 12:00 10-29-2020 China Standard Time (GMT+8); ticker = USD; return(the price of ticker at time T according to website W) * 157903209
+make it simpler to set up binary derivatives.
 
-standard stablecoin 0; ticker_path = [veo, btc, usd]; website_path = [qtrade.io, coinpaprika.com]; time = 12:00 10-29-2020 China Standard Time (GMT+8); price = 1; for(i=0; i<website_path.length; i++){price *= (the price of ticker_path[i] in ticker_path[i+1] according to website[i])}; scale = 157903209; return(price * scale);
+maybe we should have contracts for options.
 
-we made the regex for this new kind of oracle. now we need to update the create_tab interface to generate these kinds of oracles.
+when you are making a trade it would be nice if there was a clear explanation in english of what exactly this trade is doing.
 
+create tab. betting on hashrate
+we probably need new regex for a new standard oracle format.
+
+
+test the order book tool.
+send the spare money to a different account, and set up sales, that way they wont get un-done by the nonce changing.
+
+
+make a new tool for browsing contracts.
+show open interest, trading volume in 24h, price, liquidity, volume in 24h, trades in 24h, 
+Allow comparing prices of related contracts.
+show historical price, liquidity, volume in graphs.
+remove price and open interest from the dropdown in the swap tab.
+
+
+soft fork bribery attack doesn't work.
+add a disclamer to old incorrect documents.
+as long as the validator bond is locked up long enough, we can eventually identify which validators were honest, and undo whatever punishment the dishonest validators had done to them.
+Look into if this constraint means pos is necessarily vulnerable to data availability attacks.
+
+look more into the merged mining idea.
+
+
+in the swap tab, auto lookup price and other info, so we don't need 2 buttons.
 
 update how the standard oracle for stablecoins works.
-* referencing more than one price for the conversion path. Also update the create tab to support this. qtrade for btc/veo, and coinmarketcap for btc/usd.
-* optional leverage multiplier on the price measured. add this option to the create tab.
-* shorten the standardized oracle URL string vUSD - 12:00 26-10-2020 -> vUSD - Oct 26 i think
-  if current year, don't display the year in the contract details. if the time is noon, don't display the time. etc.
-* add a mode for betting on the hashrate of blockchains.
+* set up the UX for the optional leverage multiplier on the price measured. add this option to the create tab.
 
- 7. you can only create two stablecoins at the moment.
- * make it more clear the path you take on coinmarketcap to calculate the price.
- 
  8. make sure that nothing requires refreshing. getting your new list of balances for example.
 
 both "how much to sell" and "how much to buy" fields should be editable. if you change one, they both change, based on the possible price.
 We probably only need 1 button in this case.
-
-in the swap tab, change "currency to receive" into a dropdown, instead of having the menu.
 
 a page for historical price in the market.
 

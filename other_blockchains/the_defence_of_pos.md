@@ -1,11 +1,33 @@
 The Defense of PoS
 ========
 
-I wrote [the PoS paper](other_blockchains/proof_of_stake.md) as a general argument to show that PoS is not possible.
+I wrote [the PoS paper](other_blockchains/proof_of_stake.md) as an attempt at a general argument to show that PoS is not possible.
 
 I shared the PoS paper with many people who have a vested interest in PoS technology, and I have received different responses from them. The goal of this paper is to collect the various arguments in favor of PoS together in one place, so we can see why different people believe PoS can still work.
 
 If you feel that your opinion is misrepresented here, or if your opinion has changed, feel free to contact me and I will adjust this document for you.
+
+Elliot Olds
+=========
+
+Here you can see where he attempted to explain that the soft fork bribery attack cannot work: https://twitter.com/elliot_olds/status/1325270961793331200
+
+The recovery against soft fork bribery attacks works very similar to the recovery against the DAO hack.
+The idea is that as long as the PoS bonds are locked up for a long enough period, then the community will eventually be able to identify which stakers are honest, and use a hard update to undo whatever punishments the stakers had received during the attack.
+
+This kind of defense can only work if:
+1) the frequency of these attacks is kept low enough for the community to respond to them with hard forks.
+2) money is locked up long enough for us to do a hard fork to prevent it from getting stolen.
+3) we can eventually identify which stakers are honest.
+
+(3) isn't true for all kinds of attacks. in particular, information availability attacks don't have this property. There is a problem called speaker-listener fault equivalence. The staker with an obligation to send the message claims that they sent it. the staker with an obligation to receive the message claims that the message was never sent. It is a he-said-she-said situation, with no objective way to determine who is lying.
+
+If the protocol punishes both speaker and listener, then we are leaving ourselves open to attacks. It is cheap for an attacker to bribe the validators to execute the attack.
+If the attack succeeds, the attacker loses almost nothing, but all the stakers are punished heavily.
+
+Anyone who is watching the protocol at the time of the attack can see which messages were available at which points in time, and so they can tell which validators are lying. But they have no way to prove this evidence to anyone who wasn't watching the protocol during the attack.
+So one potential solution to speaker-listener fault equivalence would be requiring nearly all users to maintain 24/7 software to record timestamped protocol messages. This is almost as burdensome as requiring all users to run full nodes 24/7, and is generally considered an unacceptable limitation in cryptocurrency design.
+
 
 Vitalik Buterin
 =========
