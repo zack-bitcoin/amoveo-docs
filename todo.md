@@ -1,4 +1,14 @@
-make it simpler to set up binary derivatives.
+perpetual derivatives update.
+
+
+
+the swap tab should have url variables to auto-load a contract that you want to trade.
+the explorer page should have links so you can open up your wallet with a trade for this contract auto-loaded.
+
+
+
+
+when you look up a trade price, it should also give you details about the collateral currency.
 
 maybe we should have contracts for options.
 
