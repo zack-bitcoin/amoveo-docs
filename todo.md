@@ -1,4 +1,17 @@
+
+rewrite the smart contracts as derivatives paper to be more clear.
+
+review the white paper for changes related to the new smart contract system.
+
+the contract_explorer should have a button to load the same contract id into the uniswap tool in wallet.html
+
+the contract_explorer page needs to say the current price of the true outcome.
+
 perpetual derivatives update.
+
+hard update to give back the veo from the old version of channels.
+
+in contract explorer "total amount invested in this contract" is actually just amount1. it should be changed somehow.
 
 
 
