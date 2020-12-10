@@ -1,7 +1,7 @@
 Governance decides a different minimum fee size for each transaction type.
 The miner profits by including transactions that pay above the minimum fee for that transaction type.
 
-These are the 15 types of transaction that can be in blocks.
+These are the 20 types of transaction that can be in blocks.
 
 3 transactions for accounts:
 * create_account_tx
@@ -23,12 +23,12 @@ These are the 15 types of transaction that can be in blocks.
 * contract_winnings_tx
 * contract_simplify_tx
 
-transaction types for subcurrencies:
+3 transaction types for subcurrencies:
 * sub_spend_tx
 * swap_tx
 * market_swap_tx
 
-transaction types for managing markets:
+2 transaction types for managing markets:
 * market_new_tx
 * market_liquidity_tx
 
@@ -94,11 +94,11 @@ If you bet on the winning outcome, then you get twice as much money back, otherw
 # contract_new_tx
 
 This creates a new smart contract on-chain. The turing complete code is not store on-chain, we only store the hash of the code.
-Each smart contract has a source currency and 2 or more subcurrency.
+Each smart contract has a source currency and 2 or more subcurrencies.
 
 # contract_use_tx
 
-You can use the contract to transform the source into a complete set of subcurrencies, and you can do the reverse. you can combine a complete set of subcurrencies back into the source currency.
+If you own the kind of currency that is used as collateral for this contract, this tx can be used to give more collateral to the contract, and to receive in exchange a complete set of the subcurrencies defined by this contract. You can also do the reverse; you can combine a complete set of subcurrencies to receive the collateral.
 
 # contract_evidence_tx
 
@@ -106,11 +106,11 @@ You can provide the turing complete smart contract code, along with evidence, to
 
 # contract_timeout_tx
 
-If someone provided evidence, and enough time has passed without anyone else being able to provide stronger counter-evidence, then it becomes possible to do this tx. This tx ends the smart contract. Now it is possible for owners of subcurrency from that contract to claim the source currency that they won.
+If someone had already provided evidence, and enough time has passed without anyone else being able to provide stronger counter-evidence, then it becomes possible to do this tx. This tx ends the smart contract. Then it is possible for owners of subcurrency from that contract to claim the collateral currency that they won.
 
 # contract_winnings_tx
 
-This is how you transform your subcurrency into the source currency that you won.
+This is how you transform your subcurrency into the collateral currency that you won.
 
 # contract_simplify_tx
 
@@ -125,6 +125,8 @@ This is used to spend subcurrencies. any currency besides veo.
 this tx is for 2 users to exchange one currency for another.
 one user publishes a swap_offer explaining the currency they are willing to give up, and what they want to receive in return.
 the second user can take the swap_offer and use it to make this tx.
+
+Swap_offers can be stored in centralized off-chain order books.
 
 # market_swap_tx
 
