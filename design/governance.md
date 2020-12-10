@@ -3,11 +3,12 @@ Using the oracle, the parameters that define the system can be modified. The mec
 We have an oracle that asks "should this variable be pushed up or down?". Depending on the final state of the oracle, the variable is changed.
 
 
-The parameters that can be modified are of 4 different types:
+The parameters that can be modified are of 5 different types:
 1) blockchain variables
 2) virtual machine variables
 3) oracle variables
 4) transaction fees
+5) other
 
 
 1 blockchain variables
@@ -38,8 +39,15 @@ The parameters that can be modified are of 4 different types:
 4 Transaction fees
 ======
 
-Each of the 15 transaction types has a fee who's size is determined by a governance variable.
+Each of the transaction types has a fee who's size is determined by a governance variable.
 This fee does not go to the miner, it is deleted.
 The miner fee is a different fee from this one.
 
 [The transaction types are listed here](transaction_types.md)
+
+5 Other
+=======
+
+* max_contract_flavors - this is the maximum number of subcurrencies that can be defined from a single smart contract.
+* market_trading_fee - this is the fee that you pay to use the on-chain constant product markets. It is used to pay the liquidity providers.
+
