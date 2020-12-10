@@ -98,3 +98,4 @@ Ideally we want some system so that a large trade in one of these markets would 
 
 This can be done off-chain in state channels.
 The market maker who keeps publishing batch prices for the markets, it should be set up so that if they reveal 2 batch prices, those 2 prices can be combined, and this is the batch price of the 3rd market.
+

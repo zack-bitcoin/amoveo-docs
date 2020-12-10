@@ -7,13 +7,11 @@
 * Accounts
 * Oracles
 * Governance
-* Channels
-* Smart Contracts Inside Channels
-* Derivatives, not Subcurrency
-* Chalang Smart Contract VM
-* Lightning Network
+* Smart Contracts 
+* Derivatives and synthetic assets
 * Markets
-* Light Nodes and Sharding
+* Light Nodes
+* stateless full nodes
 * Example Use Cases
 * Oracle Game Theory
 
@@ -22,7 +20,6 @@
 
 Blockchain is a form of cryptographic database technology. Each blockchain hosts a cryptocurrency. Cryptocurrencies are a form of wealth that is made secure by blockchain technology.
 Amoveo is a blockchain which secures a cryptocurrency called Veo.
-Using Amoveo you can host a market on a server where you make money every time anyone trades.
 Using Veo in the markets, you can buy and sell risk in anything.
 With Amoveo it is impossible for customers to steal from a market, and it is impossible for the market to steal from its customers.
 
@@ -37,99 +34,82 @@ Combining finance with a monopoly on violence means that we can't truly trust th
 
 
 ## Blockchain Consensus Protocol
-Amoveo uses Nakamoto consensus, just like Bitcoin. In this system, some people act as miners. They receive a reward for producing blocks. Producing a block involves doing an expensive calculation called proof-of-work. The difficulty of this proof-of-work changes so that the rate of block production stays about 10 minutes.
+
+Amoveo is secured by Nakamoto consensus, like Bitcoin. In this system some people act as miners. They receive a reward for producing blocks. Producing a block involves doing an expensive calculation called proof-of-work. The difficulty of this proof-of-work changes so that the rate of block production stays about 10 minutes.
+To interact with Amoveo, you create transactions that get included in blocks. Miners will include your transaction in their blocks because you pay them a fee.
+[Read more about the Amoveo transaction types here](design/transaction_types.md).
 
 
 ## Accounts
-Accounts are data structures recorded in the blockchain consensus state. Each account has a positive balance of Veo that it can spend to other accounts. Anyone with sufficient Veo to pay the fee, can create new accounts. Spending from an account requires a signature from the private key that the owner of the account knows. To give someone Veo, you need to know their public key.
 
-You use accounts by making transactions. [Read more about the Amoveo transaction types here](design/transaction_types.md).
+Accounts are data structures recorded in the blockchain consensus state. Each account has a positive balance of Veo that it can spend to other accounts by making transctions. Anyone with sufficient Veo to pay the fee can create new accounts. Spending from an account requires a signature from the private key that the owner of the account knows. To give someone Veo, you need to know their public key.
+
 Accounts are stored in one of the consensus state merkle trees. [Read more about the trees used in Amoveo here](design/trees.md).
 
 
 ## Oracles
-Anyone can ask the oracle any question if they are willing to pay the cost.
+For a small fee, anyone can ask the oracle any question about publicly available data.
+The result provided by the oracle is honest.
+We use the oracle to settle bets.
 The oracle can settle in 3 states: True, False, Bad Question.
-Unlike some competitors, Amoveo does not have a subcurrency to power the oracle. Because this subcurrency doesn't exist, the users of the oracle don't have to pay rent to the owners. This means Amoveo's oracle will be more affordable than competitors whose oracles depend on subcurrencies such as Augur or Bitcoin Hivemind.
-The Amoveo oracle does not usually have much collateral at stake, so the cost of launching an oracle is small. To launch an oracle, you pay just enough to provide initial liquidity to get a market going.
-Amoveo's oracle has the ability to escalate its defense in response to an attack. Oracles that cannot escalate are prohibitively expensive, or they aren't secure.
-It is this ability to escalate that allows Amoveo to keep the collateral for each oracle so low most of the time.
+
+Amoveo oracles do not depend on any transaction fee in order to provide accurate data to the blockchain.
+Instead, the oracle is based on an escalation-betting game with a nash equilibrium of honesty.
+
+The lack of transaction fees not only makes the Amoveo oracle more affordable, it is also a necessary feature to prevent the oracle-parasite problem. The oracle-parasite problem is when an attacker blockchain oracle is set up to automatically provide the same outcome as an existing victim blockchain oracle, and undercuts on fees, as a way to steal customers and fees from the victim. If enough fees are stolen, then the victim doesn't have enough funds to maintain security, and both the attacker oracle and the victim oracle will fail to provide accurate data.
+
+Amoveo's oracle is the only existing blockchain oracle design that is immune to the oracle-parasite problem
+
+The Amoveo oracle does not usually have much collateral at stake, so the cost of launching an oracle is small. To launch an oracle, you pay just enough to provide a small prize for whoever reports the result on-chain.
+
 [Read more about oracles here](design/oracle.md)
 
 
 ## Governance
-Using the oracle, the parameters that define the system can be modified. The mechanism is built with the goal that the oracle will choose parameters that make the value of Veo increase.
+
+Using the oracle mechanism we can tell the amoveo blockchain about the results from futarchy markets that are used to adjust the parameters that define the system. The mechanism is built with the goal that the oracle will choose parameters that improve the Amoveo system.
 [Read more about governance here](design/governance.md)
 
 
 ## Smart Contracts
-Amoveo smart contracts are all financial derivatives. [why we want smart contracts to be derivatives](design/smart_contracts_as_derivatives.md)
 
-You can learn more specific implementation details [here](design/smart_contracts.md)
+Amoveo smart contracts are optimized to be scalable and affordable. [How to make smart contracts scalable](design/smart_contracts_as_derivatives.md)
 
-## Channels
-Publishing a transaction to a blockchain is time consuming. You need to wait for the transaction to be included in a block, and then depending on how much money is moved, you need to wait for more confirmations. Waiting for confirmations means that you wait for enough blocks to be added to the blockchain for enough security. Trying to avoid this time-consuming process as much as possible is why we use channels.
+You can learn more about amoveo contracts and this history of how our design was developed [here](design/smart_contracts.md)
 
-Channels are two party relationships recorded on the blockchain. Each channel has a finite amount of money it controls, just like an account.
-Once two people have a channel together, they can instantly move the money inside the channel back and forth. This is much faster than publishing a transaction to the blockchain and waiting for confirmations.
-When the channel is closed, the money goes back to the accounts that created it according to the final distribution of money in the channel.
-[Read more about channels here](design/channels.md)
+Amoveo uses the chalang VM for our smart contracts. [learn more here](https://github.com/zack-bitcoin/chalang)
+
+Channels built out of Amoveo contracts can be used for lightning network transactions.
 
 
-## Smart Contracts Inside Channels
-Amoveo smart contracts are built on top of the Amoveo channel system. Amoveo channels allow for bets, which are Turing complete contracts written as a part of the channel.
-In the case of a disagreement, the blockchain can look at the channel and its bets in order to know how to distribute the money from the channel to the participants.
-[Common misconceptions about smart contracts inside of channels](design/programmable_state_channels.md)
-[Read more about Amoveo smart contracts.](design/smart_contracts.md)
+## Derivatives and synthetic assets
 
-
-## Derivatives, not Subcurrencies
-Since there is no on-chain state, it would be impossible to put subcurrencies onto Amoveo. Subcurrencies are contrary to Amoveo's scaling strategy.
-It is also impossible to do ICOs on Amoveo, but Amoveo does support other forms of fundraising.
-Amoveo has something much better than subcurrencies, it has derivatives.
-With derivatives, you can build an asset that stays the same value as a Euro. It is a synthetic asset. 
+Veo is the native currency of Amoveo. All other assets in Amoveo are derivatives collateralized by Veo.
+So, you cannot do ICOs on Amoveo, but Amoveo does support better forms of fundraising.
+With derivatives, as an example, you can build an asset that stays the same value as a Euro. It is a synthetic asset. 
 You can send these synthetic-Euros to your friends, and treat them like Euros.
 You could participate in a market that is priced in synthetic-Euros. 
 
 
-## Chalang Smart Contract VM
-* [Official chalang github repository](https://github.com/zack-bitcoin/chalang)
-* Used for financial derivative type smart contracts.
-* Chalang has two stacks for storing values during computation, so you can write highly optimized forth-style code.
-* Chalang functions are tail call optimized, so you don't have to worry about call stack overflow when you do lots of recursion.
-* Includes a lisp compiler for easy development.
-
-
-## Lightning Network - Smart Contracts with more than 2 Participants
-
-Lightning contracts are made by hash time-locking and similar techniques. This connects multiple bets from different channels together. Either they all update, or they all do not update. This way users can participate in a smart contract that has more than two participants.
-
-If a bet follows a long path, it could be locking up more liquidity than necessary. We can recover the excess in a trust-free way, without interrupting the bet.
-
-For example, let's say Alice and Carol made channels with server Bob. Alice and Carol are betting against each other. Alice is betting $1 on the Astros, and Carol is betting $1 on the Cowboys. They are betting at 50-50 odds.
-
-Alice has at least $1 locked up in her channel, and so does Carol.
-Bob has at least $1 locked in Alice's channel to pay her if she wins. Bob also needs $1 locked in Carol's channel to pay her if she wins.
-
-Alice and Carol could make a new channel directly between them, and they could trustlessly move the bet from the long path to the direct path.
-This unlocks Bob's $2, so he can use them for something different.
-
-
 ## Markets
 The killer app of blockchain is a scalable market to trade assets whose price is determined by a trust-free and affordable oracle.
-[State channels are worthless without markets](design/state_channel_without_off_chain_market.md).
-There is no value in being able to make smart contracts if you can't securely determine the market price for those contracts.
-All the rest of the security doesn't matter if they can get away charging you above the market rate.
-A market provides liquidity, so you can trade financial risk with other users at the *current market price*.
-Markets on Amoveo are centralized and trust-free.
-Each market exists on a centralized server.
-The market is secure because the rules are enforced by channel smart contracts.
-Here is an [explanation of how the market smart contract works.](design/limit_order_in_channel.md)
+Amoveo uses 2 tools to enable markets.
+
+Amoveo has on-chain constant product market makers, similar to the famous Uniswap protocol on Ethereum.
+
+Amoveo supports off-chain order books with limit orders.
+
+[Markets and synthetic assets are a critical component to enable secure cross-chain atomic swapping](design/state_channel_without_off_chain_market.md).
+
+
+## light nodes
+
+The amoveo light node in javascript [here](https://github.com/zack-bitcoin/light-node-amoveo) makes it easy for anyone to participate in Amoveo from the convenience of their browser.
 
 
 ## stateless full nodes.
 * Amoveo uses the stateless full node model. That means a full node doesn't have to store any consensus state to stay in sync and verify blocks. You only have to store headers. Every block has all the merkel proofs that you need to verify that block.
-* this means that a full node can process blocks in any order.
+* this means that a full node can process blocks in any order. In particular, we can process blocks in reverse order. Which means that a mining pool can launch a new Amoveo node and start mining immediately.
 
 
 ## Example Use Cases
@@ -144,7 +124,6 @@ Here is an [explanation of how the market smart contract works.](design/limit_or
 
 
 ## Oracle Game Theory
-*warning, this math is intense, feel free to skip this section.*
 Users can bet at 50-50 odds on which of the 3 outcomes they think will win.
 Whichever outcome gets the most bets, and maintains it's lead for a long enough amount of time, wins.
 If you are uncomfortable with the outcome of an oracle, simply move to a fork of the blockchain that you think is honest.
@@ -157,3 +136,4 @@ Yes there is a cost for the miners to keep an eye on the oracle this way, but ev
 The Nash equilibrium will be for miners to put some effort into watching the oracle for potential cheaters.
 Therefore, the Nash equilibrium will be an honest oracle.
 [Read more about oracles here](design/oracle.md)
+
