@@ -1,7 +1,7 @@
 Governance decides a different minimum fee size for each transaction type.
 The miner profits by including transactions that pay above the minimum fee for that transaction type.
 
-These are the 20 types of transaction that can be in blocks.
+These are the 21 types of transaction that can be in blocks.
 
 3 transactions for accounts:
 * create_account_tx
@@ -32,7 +32,8 @@ These are the 20 types of transaction that can be in blocks.
 * market_new_tx
 * market_liquidity_tx
 
-1 bonus transactions:
+2 bonus transactions:
+* multi_tx
 * coinbase_tx
 
 # create_account
@@ -140,6 +141,17 @@ This is for creating a new on-chain market maker. you need to provide currency o
 
 This is for adding or withdrawing liquidity to a market. If you leave money in a market to provide liquidity, you will collect trading fees.
 If one of the 2 currencies loses significant value, then you can lose a lot of money.
+
+# multi_tx
+
+This can have one or more of the other tx types inside of it, except for contract_evidence_tx. If this tx is included in a block, then all the txs inside of it are executed.
+Contract_evidence tx executes a turing complete contract, so including it here would be a denial of service vulnerability.
+This tx is useful for atomically combining other txs, to prevent an attacker inserting their txs in between your txs, and to prevent a malicious miner from including only some of your txs.
+This tx is a flash loan. You can temporarily have negative balances, as long as at the end of the multi-tx all your balances are non-negative.
+
+# coinbase_tx
+
+Every block can have one coinbase tx. it needs to be the first tx in the list of txs. this tx is used to give the block reward and miner-tx-fees to the miner who found the block.
 
 
 [transaction types are the ways to modify blockchain consensus state. All the consensus state is stored in trees. Read about the trees here](trees.md)
