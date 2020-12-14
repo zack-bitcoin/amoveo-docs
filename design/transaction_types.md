@@ -1,7 +1,7 @@
 Governance decides a different minimum fee size for each transaction type.
 The miner profits by including transactions that pay above the minimum fee for that transaction type.
 
-These are the 21 types of transaction that can be in blocks.
+These are the 20 types of transaction that can be in blocks.
 
 3 transactions for accounts:
 * create_account_tx
@@ -32,8 +32,7 @@ These are the 21 types of transaction that can be in blocks.
 * market_new_tx
 * market_liquidity_tx
 
-2 bonus transactions:
-* multi_tx
+1 bonus transactions:
 * coinbase_tx
 
 # create_account
@@ -47,15 +46,14 @@ Spends Veo to a different account.
 
 # multi_tx
 
-A multi-tx contains multiple other inside of it.
+A multi-tx contains one or more other transactions inside of it. If this tx is included in a block, then all the txs inside of it are executed.
 There are multiple reasons to use this:
-* cold storate. A multi-tx only updates your account nonce once, this makes it simpler for cold storage.
+* cold storage. A multi-tx only updates your account nonce once, this makes it simpler for cold storage.
 * tx fees. a multi-tx only has one signature, so it is smaller than using multiple tx.
-* atomically linking txs. sometimes you need multiple txs to go through together, otherwise you are left holding risk you don't want to hold. A multi-tx can be used to link the txs together, so either they all succeed, or they all fail.
+* atomically linking txs. sometimes you need multiple txs to go through together, otherwise you are left holding risk you don't want to hold. A multi-tx can be used to link the txs together, so either they all get included in a block, or none do. This is important for preventing an attacker from inserting their txs between your txs, and to prevent a malicious miner from including only some of your txs.
 * flash loans. multi-tx allows for veo and subcurrency balances to go temporarily negative, as long as they end positive.
 * accounts without veo. You can use a flash loan and a amm-market to buy the veo to pay the fee inside the same tx.
-
-* it is not possible to put a contract_evidence_tx inside of a multi_tx, because this would be a denial of service vulnerability to mining pools and full nodes.
+* it is not possible to put a contract_evidence_tx inside of a multi_tx, because this would be a denial of service vulnerability to mining pools and full nodes. Contract_evidence_tx run a turing complete smart contract, it is necessary that if this contract runs out of gas, we should include that tx, and charge the tx fee, but without executing the tx. This is contradictory with how multi-tx atomically either execute all the txs, or none of them.
 
 # oracle_new
 
@@ -141,13 +139,6 @@ This is for creating a new on-chain market maker. you need to provide currency o
 
 This is for adding or withdrawing liquidity to a market. If you leave money in a market to provide liquidity, you will collect trading fees.
 If one of the 2 currencies loses significant value, then you can lose a lot of money.
-
-# multi_tx
-
-This can have one or more of the other tx types inside of it, except for contract_evidence_tx. If this tx is included in a block, then all the txs inside of it are executed.
-Contract_evidence tx executes a turing complete contract, so including it here would be a denial of service vulnerability.
-This tx is useful for atomically combining other txs, to prevent an attacker inserting their txs in between your txs, and to prevent a malicious miner from including only some of your txs.
-This tx is a flash loan. You can temporarily have negative balances, as long as at the end of the multi-tx all your balances are non-negative.
 
 # coinbase_tx
 

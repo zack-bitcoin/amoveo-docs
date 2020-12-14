@@ -1,3 +1,19 @@
+in the scalar contract tab, the newly created contract needs to have some text in it about the maximum value that can be measured.
+
+in the contract explorer, we should convert the price into a prediction in terms of the native units of the contract.
+
+the swap tool has issues.
+We should probably convert the list of paths into a minimal vector basis, and possibly convert that vector basis into an orthogonal vector basis.
+
+
+maybe we want an alternative mode in the swap tool optimized for futarchy applications.
+So a user can say "changing this law will have this effect" without betting on whether the law will change or not.
+you want to own both sides of the base binary market, and only bet with one of the two kinds of shares.
+possibly a futarchy-betting tab would make sense.
+
+A futarchy-creation tab could be better.
+waiting around for the first market to get created before you can make the next 2 is bad UX. we should create them all simultaniously. 
+
 
 rewrite the smart contracts as derivatives paper to be more clear.
 
