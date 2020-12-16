@@ -25,6 +25,7 @@ With Amoveo it is impossible for customers to steal from a market, and it is imp
 
 
 ## Motivation
+
 Separating church and state is good. It makes both the church and the state less dangerous.
 Combining religious convictions with a monopoly on violence was deadly. It meant that people could be easily convinced to kill you at any time, and there was no consequence to the religious leader who called for your death. 
 
@@ -42,6 +43,8 @@ To interact with Amoveo, you create transactions that get included in blocks. Mi
 
 ## Accounts
 
+Amoveo accounts work similarly to accounts in other blockchains, like Ethereum.
+
 Accounts are data structures recorded in the blockchain consensus state. Each account has a positive balance of Veo that it can spend to other accounts by making transactions. Anyone with sufficient Veo to pay the fee can create new accounts. Spending from an account requires a signature from the private key that the owner of the account knows. To give someone Veo, you need to know their public key.
 
 Accounts are stored in one of the consensus state merkle trees. [Read more about the trees used in Amoveo here](design/trees.md).
@@ -53,10 +56,10 @@ The result provided by the oracle is honest.
 We use the oracle to settle bets.
 The oracle can settle in 3 states: True, False, Bad Question.
 
-Amoveo oracles do not depend on any transaction fee in order to provide accurate data to the blockchain.
+Amoveo oracles do not depend on any trading fees in order to provide accurate data to the blockchain.
 Instead, the oracle is based on an escalation-betting game with a nash equilibrium of honesty.
 
-The lack of transaction fees not only makes the Amoveo oracle more affordable, it is also a necessary feature to prevent the oracle-parasite problem. The oracle-parasite problem is when an attacker blockchain oracle is set up to automatically provide the same outcome as an existing victim blockchain oracle, and undercuts on fees, as a way to steal customers and fees from the victim. If enough fees are stolen, then the victim doesn't have enough funds to maintain security, and both the attacker oracle and the victim oracle will fail to provide accurate data.
+The lack of trading fees not only makes the Amoveo oracle more affordable, it is also a necessary feature to prevent the oracle-parasite problem. The oracle-parasite problem is when an attacker blockchain oracle is set up to automatically provide the same outcome as an existing victim blockchain oracle, and undercuts on fees, as a way to steal customers and fees from the victim. If enough fees are stolen, then the victim doesn't have enough funds to maintain security, and both the attacker oracle and the victim oracle will fail to provide accurate data.
 
 Amoveo's oracle is the only existing blockchain oracle design that is immune to the oracle-parasite problem
 
@@ -67,36 +70,39 @@ The Amoveo oracle does not usually have much collateral at stake, so the cost of
 
 ## Governance
 
-Using the oracle mechanism we can tell the amoveo blockchain about the results from futarchy markets that are used to adjust the parameters that define the system. The mechanism is built with the goal that the oracle will choose parameters that improve the Amoveo system.
+Using the oracle mechanism we can trustlessly report to the amoveo blockchain about the results from futarchy markets. This way we can adjust the parameters that define the Amoveo blockchain. The mechanism is built with the goal that the oracle will choose parameters that improve Amoveo.
 [Read more about governance here](design/governance.md)
 
 
 ## Smart Contracts
 
-Amoveo smart contracts are optimized to be scalable and affordable. [How to make smart contracts scalable](design/smart_contracts_as_derivatives.md)
+Amoveo is a blockchain for financial derivatives. The smart contract system is Turing complete, so any kind of contract is technically possible. Amoveo is highly optimized for financial derivatives. It is not recommended to use Amoveo to make other kinds of contracts.
 
-You can learn more about amoveo contracts and this history of how our design was developed [here](design/smart_contracts.md)
+Amoveo smart contracts are optimized to be scalable and affordable. [How to make smart contracts scalable](design/smart_contracts_as_derivatives.md) 
 
-Amoveo uses the chalang VM for our smart contracts. [learn more here](https://github.com/zack-bitcoin/chalang)
+You can learn more about amoveo contracts and the history of how we ended up using this design [here](design/smart_contracts.md)
 
-Channels built out of Amoveo contracts can be used for lightning network transactions.
+Amoveo uses the chalang VM for our smart contracts. [learn more about chalang in the chalang github page](https://github.com/zack-bitcoin/chalang) Chalang is a forth-like VM, heavily influenced by Bitcoin script and the Ethereum VM.
 
 
 ## Derivatives and synthetic assets
 
 Veo is the native currency of Amoveo. All other assets in Amoveo are derivatives collateralized by Veo.
-So, you cannot do ICOs on Amoveo, but Amoveo does support better forms of fundraising.
+So, Amoveo does not work well for ICOs, but Amoveo does support other better forms of fundraising.
+
+Derivatives are very versatile. 
 With derivatives, as an example, you can build an asset that stays the same value as a Euro. It is a synthetic asset. 
 You can send these synthetic-Euros to your friends, and treat them like Euros.
-You could participate in a market that is priced in synthetic-Euros. 
+You could participate in a market that is priced in synthetic-Euros.
+You could use the synthetic Euros as collateral for other contracts.
 
 
 ## Markets
+
 The killer app of blockchain is a scalable market to trade assets whose price is determined by a trust-free and affordable oracle.
+
 Amoveo uses 2 tools to enable markets.
-
-Amoveo has on-chain constant product market makers, similar to the famous Uniswap protocol on Ethereum.
-
+Amoveo has on-chain constant product market makers, similar to the Uniswap protocol on Ethereum.
 Amoveo supports off-chain order books with limit orders.
 
 [Markets and synthetic assets are a critical component to enable secure cross-chain atomic swapping](design/state_channel_without_off_chain_market.md).
@@ -105,20 +111,25 @@ Amoveo supports off-chain order books with limit orders.
 ## light nodes
 
 The amoveo light node in javascript [here](https://github.com/zack-bitcoin/light-node-amoveo) makes it easy for anyone to participate in Amoveo from the convenience of their browser.
-
+The light node downloads block headers, verifies proof of work in them. It uses merkel proofs so you can have cryptographic evidence that the consensus state reported in the light node is correct.
+The light node is the standard way to interact with the Amoveo blockchain. You use the light node to create contracts, and markets. To trade in markets. To create off-chain limit orders. To report on the outcome of contracts. 
+Full nodes are only needed for mining, everything else can be done with light nodes.
 
 ## stateless full nodes.
-* Amoveo uses the stateless full node model. That means a full node doesn't have to store any consensus state to stay in sync and verify blocks. You only have to store headers. Every block has all the merkel proofs that you need to verify that block.
-* this means that a full node can process blocks in any order. In particular, we can process blocks in reverse order. Which means that a mining pool can launch a new Amoveo node and start mining immediately.
+
+Amoveo uses the stateless full node model. That means a full node doesn't have to store any consensus state to stay in sync and verify blocks. You only have to store headers. Every block has all the merkel proofs that you need to verify that block.
+So, an Amoveo full node can process blocks in any order. In particular, it can process blocks in reverse order. Which means that a mining pool can launch a new Amoveo node and start mining immediately, without waiting to re-process the history of blocks.
 
 
 ## Example Use Cases
+
+* [Maintaining the climate so our planet can support future generations of humans](use-cases-and-ideas/climate_maintenance.md) This is an example of futarchy, which means using financial derivative markets to help communities of people make better decisions.
 * [Fund-raising for creation of public goods](use-cases-and-ideas/insured_crowdfund.md) This is how we will fund further development of Amoveo.
-* [Prediction markets](use-cases-and-ideas/prediction_market.md) This is how we will plan further development of Amoveo.
+* [Prediction markets and futarchy](use-cases-and-ideas/prediction_market.md) This is how we will plan further development of Amoveo.
 * [Insurance](use-cases-and-ideas/insurance.md)
 * Gambling
 * [Stablecoin, also called "synthetic assets"](use-cases-and-ideas/stablecoin.md) This way you can own US dollars on Amoveo.
-* [Preventing nuclear disaster](use-cases-and-ideas/north_korea.md)
+* [Preventing nuclear disaster](use-cases-and-ideas/north_korea.md) 
 * [Preventing sexual abuse in the workplace](use-cases-and-ideas/Harvey_Weinstein.md)
 * [Options](use-cases-and-ideas/options.md)
 

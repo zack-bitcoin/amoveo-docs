@@ -50,20 +50,28 @@ This tree stores by atom name. It contains many variables that define the consen
 
 # contracts
 
-This tree stores smart contracts. each smart contract has a source currency, and 2 or more subcurrencies.
-When the contract ends, a virtual machine runs the smart contract along with evidence to decide how to divide the source value between the different subcurrencies.
+This tree stores smart contracts. each smart contract has a source currency used as collateral, and 2 or more subcurrencies.
+When you create a contract, you include the hash of some software code.
+When the contract ends, a virtual machine runs the smart contract code along with evidence to decide how to divide the source collateral between the different subcurrencies.
 
 # sub_accounts
 
-the sub_accounts tree is used to remember how much subcurrency each person owns in each contract.
+the sub_accounts tree is used to remember how much subcurrency each account owns in each subcurrency.
 
 # markets
 
 the markets tree is used for storing constant product automatic market makers that exist on-chain.
-Anyone can make markets between any pair of currencies. Liquidity providers earn trading fees.
+Anyone can make markets between any pair of currencies. Anyone can trade in these markets.
+Anyone can deposit value into a market to be a liquidity provider. Liquidity providers earn trading fees.
 
 # trades
 
-This merkle tree is for storing trade IDs from when users swap subcurrency together. That way each swap-offer can be published to the blockchain at most once.
+This merkle tree is for storing trade IDs from when users use the off-chain order book to swap subcurrency together. That way each swap-offer can be published to the blockchain at most once, without requiring that swap_tx increment the account nonce.
+This is for replay-attack prevention of swap_tx.
+We use account nonces to prevent replay of other txs, similar to Ethereum.
+In Bitcoin replay-attacks are prevented by the system of unspent/spent txids.
+The benefit of not incrementing the account nonce when proessing swap_tx is that you can publish many swap_tx offers, and if some of the offers get accepted, it doesn't cause the other offers to become invalidated.
+Another benefit is that if you have many swap offers all programmed to the same nonce, you can cancel them all by making any other tx that would cause your nonce to increase, and thereby invalidate all those swap_txs.
+Alternatively, you can program your swap offers to use a nonce much higher than your current account nonce, in which case you are free to make many txs without invalidating your swap_tx_offers. In this case, if you do want to invalidate your swap_tx_offers, you would need to send the money from your account into a different account that you control, so that there is insufficient balance for anyone to match your swapt_tx_offers.
 
 

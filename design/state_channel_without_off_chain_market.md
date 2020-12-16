@@ -12,6 +12,6 @@ The worry is that you will set up the atomic swap tx, and the person on the othe
 
 So, how do we solve the free option problem?
 First we need synthetic bitcoin on the Amoveo blockchain. Then you can use Amoveo markets to trustlessly change your Veo into synthetic bitcoin.
-Finally, you can do an atomic swap to sell your synthetic bitcoin on Amoveo for bitcoin on the Bitcoin blockchain.
+You can trustlessly do an atomic swap to sell your synthetic bitcoin on Amoveo for bitcoin on the Bitcoin blockchain.
 Since the synthetic bitcoin and bitcoin both maintain the same price relative to each other, there is no free option.
 
