@@ -115,7 +115,7 @@ The light node downloads block headers, verifies proof of work in them. It uses 
 The light node is the standard way to interact with the Amoveo blockchain. You use the light node to create contracts, and markets. To trade in markets. To create off-chain limit orders. To report on the outcome of contracts. 
 Full nodes are only needed for mining, everything else can be done with light nodes.
 
-## stateless full nodes.
+## Stateless Full Nodes
 
 Amoveo uses the stateless full node model. That means a full node doesn't have to store any consensus state to stay in sync and verify blocks. You only have to store headers. Every block has all the merkel proofs that you need to verify that block.
 So, an Amoveo full node can process blocks in any order. In particular, it can process blocks in reverse order. Which means that a mining pool can launch a new Amoveo node and start mining immediately, without waiting to re-process the history of blocks.
