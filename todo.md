@@ -1,3 +1,7 @@
+in the scalar tab, not all the stuff is loading in the tab that you can buy.
+It specifically happens to well connected light nodes.
+Probably the spam limit is being hit. we should add some delay.
+
 in the scalar contract tab, the newly created contract needs to have some text in it about the maximum value that can be measured.
 
 in the contract explorer, we should convert the price into a prediction in terms of the native units of the contract.
