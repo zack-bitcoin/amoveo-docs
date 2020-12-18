@@ -21,6 +21,7 @@ Many people who try to explain why PoW will fail, they start with the assumption
 
 A proper argument that PoW can be attacked, it needs to first show (1), (2), and (3), only then is it possible to use CCA to show that the attack is cheap.
 
+
 Buy equipment attack
 =================
 
@@ -96,7 +97,7 @@ let B = potential miner rewards if they made an unorphaned block full of high fe
 
 let P = probability that the block is orphaned.
 
-If C/B is around 1, then the attack is unsustainably costly. The attacker is paying thousands of times more than the value they are destroying. To be affordable, C/B needs to be a very small number, like 0.01 or less.
+If C/B is around 1, then the attack is unsustainably costly. The attacker is paying thousands of times more than the value they are destroying. To be affordable, C/B needs to be a very small number, like 0.001 or less.
 
 The incentive to mine on a block with txs instead of participating in censorship:
 
@@ -124,6 +125,70 @@ If the probability that the attack will continue is >~99.9%, that means sabateur
 So the existence of a counter-coordinating market, it ends the attack in all cases. Either it acts as insurance so that miners are incentivized to end the attack, or else it acts as an intense bribe to cause the attack to end.
 
 
+Evil Mining Pool + Safety Deposit
+=============
+
+This is similar to the evil mining pool attack, but this time a miner needs to give a safety deposit in order to participate in the evil mining pool.
+If they stop mining, then they lose the deposit.
+This way it is costly for miners to switch from supporting the attack to doing the counter-coordination to end the attack.
+
+Game theoretically, there are 2 important steps to analyze here. First off, we need to understand under what conditions a miner would be willing to lock up the security deposit in order to mine.
+Secondly, we need to know under what conditions a miner would abandon their security deposit in order to participate in the counter-coordination.
+
+The incentive for a miner to lock up the security deposit is:
+```(expected mining rewards they will receive from the attackers) - min((value of the security deposit), ((probability that the counter-coordination succeeds)*(potential profit of participating in the counter-coordination)))```
+
+let D = the duration of the attack in blocks.
+
+let S = the size of the security deposit.
+
+let P = the probability that the attack succeeds.
+
+let B2 = the expected profit from abandoning the security deposit to participate in mining the many blocks with high block rewards.
+
+```C*D - min(S, (1-P)*B2)```
+If this is greater than 0, then miners have an incentive to pay the security deposit to be able to mine.
+
+lets divide everything by B2.
+```(C*D/B2) - min((S/B2), (1-P))```
+
+B2 is a little different from B. It isn't the reward for mining the one most valuable block, it is the reward for participating in mining many blocks with high tx fees.
+If the probability of the attack succeeding is 50%, then on the order of 1/2 of all coins will be in fees ready to be earned by miners.
+
+In order for the attack to work, C*D/B2 needs to be around 1, or less. Otherwise the attacker is paying more than $1 for every $1 of value they are destroying, and it would be profitable to launch more blockchains and convince the attacker to attack them as well.
+```1 - min((S/B2), (1-P))```
+
+(1-P) is always less than 1, so this means miners would pay the security deposit to participate in the attack.
+
+Next lets calculate the incentive to abandon the security deposit to participate in the counter-coordination.
+
+```B2(1-P) - C*P - S```
+If this is positive, then they are incentivized to abandon the security deposit to pariticipate in the counter-coordination.
+```B2 - (C+B2)*P - S > 0```
+dividing everything by B2
+```1 - ((C/B2)+1)*P - (S/B2) > 0```
+solving for P
+```P < (1 - (S/B2))/(1 + (C/B2))
+
+We know that C/B2 needs to be very small. like 0.001 or less.
+```P < (1 - (S/B2))/(1.001)```
+```P < 0.999*(1 - (S/B2))```
+
+P is a probability, it can't be negative.
+So if `S>B2`, then it is never in the miner's interest to abandon their security deposit. Even if there is a 100% chance that the attack will fail.
+
+But, miners can't afford to lock up an amount of money proportional to B2.
+B2 is on the order of the entire market cap of the blockchain. And S needs to be denominated in some kind of money external to the blockchain.
+
+At most, we can expect the miners to have available liquidity of about 0.1% of B2. In the case of bitcoin today, that would be $400 million.
+
+If we set ```S = B2/1000```
+
+```P < 0.999*(1 - 1/1000)```
+```P < 0.998```
+
+This is basically identical to the case of the evil mining pool without safety deposit.
+So the safety deposit doesn't change anything.
 
 
 
