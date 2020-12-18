@@ -16,5 +16,7 @@ discord
 
 info to include:
 * block height
+* date when it is expected to activate
 * update number
 * why we need this
+* a link to the instructions for updating
