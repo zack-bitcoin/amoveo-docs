@@ -1,20 +1,54 @@
+make the failure report for the 9 hours without blocks.
 
-the swap tool has issues.
-We should probably convert the list of paths into a minimal vector basis, and possibly convert that vector basis into an orthogonal vector basis.
+
+
+
+sync needs a gen server so we don't have more than one thread running at once.
+* also to automate restarting the sync process if it gets stuck.
+
+
+in the light node store the top header in localstorage, so we don't have to resync.
+
+in the light node auto-sync headers. a background thread. get rid of sync headers button.
+
+in the light node refresh market prices after trading or syncing blocks.
+
+batch the api, so you can look up subcurrency balances all at once.
+
+when you load the private key from file, it would be nice if it defaulted to the file that is default for saving. or simplify the process somehow.
+
+link from the contract explorer page to auto-load some data into the wallet swap page.
+
+
+in wallet.html, maybe key management should be a different tab.
+but if we load the page with configuration data in the url, we would still want to display key management at the top.
+
+the contracts_list page could organize by new instead of by size.
+
+some way to atomically match multiple limit orders to earn arbitrage. maybe a part of mixing the AMM with the limit order tool.
+* maybe it makes more sense to auto-combine opposite types when you accept a swap offer.
+
+some way to assign small tickers to markets.
+
+
+look into reducing the number of iterations of the swap tab AI to make it faster.
+Maybe comment out some unused code.
+
+
+if you try to sell you shares in the pool tab, and you don't have any shares to sell, it should give a more useful message.
+
+maybe the block meta tool should track contracts and markets.
+
+new plan for the update to get rid of channels.
+1) soft fork to turn off channel txs.
+2) use normal spends to pay people back from developer reward funds.
+3) hard update to refund zack's developer reward funds.
 
 
 maybe we want an alternative mode in the swap tool optimized for futarchy applications.
 So a user can say "changing this law will have this effect" without betting on whether the law will change or not.
 you want to own both sides of the base binary market, and only bet with one of the two kinds of shares.
 possibly a futarchy-betting tab would make sense.
-
-A futarchy-creation tab could be better.
-waiting around for the first market to get created before you can make the next 2 is bad UX. we should create them all simultaniously. 
-
-
-rewrite the smart contracts as derivatives paper to be more clear.
-
-review the white paper for changes related to the new smart contract system.
 
 the contract_explorer should have a button to load the same contract id into the uniswap tool in wallet.html
 
@@ -24,7 +58,11 @@ perpetual derivatives update.
 
 hard update to give back the veo from the old version of channels.
 
-in contract explorer "total amount invested in this contract" is actually just amount1. it should be changed somehow.
+in contract explorer "total amount invested in this contract" is actually just amount1. it should be changed somehow
+.
+
+
+review drop zone https://github.com/17Q4MX2hmktmpuUKHFuoRmS5MfB5XPbhod/dropzone_ruby/blob/master/Drop%20Zone%20-%20Whitepaper.pdf
 
 
 
