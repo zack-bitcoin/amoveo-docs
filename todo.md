@@ -1,15 +1,18 @@
-make the failure report for the 9 hours without blocks.
+the order book and AMM need to be combined.
+
+a link from the contract_explorer to the pool tab, so you can sell all your liquidity from any contract.
+
+when you link from contract_explorer directly to make a bet, it should hide all the tab buttons.
 
 
+change the market explorer and contract explorer into tabs in wallet.html, that way you don't have to reload keys.
+in wallet.html, key management should be a different tab, to keep each tab cleaner.
+* if they load an explorer tab directly, don't load headers or contracts until you leave the explorer part of wallet.html
 
 
 sync needs a gen server so we don't have more than one thread running at once.
 * also to automate restarting the sync process if it gets stuck.
 
-
-in the light node store the top header in localstorage, so we don't have to resync.
-
-in the light node auto-sync headers. a background thread. get rid of sync headers button.
 
 in the light node refresh market prices after trading or syncing blocks.
 
@@ -17,11 +20,6 @@ batch the api, so you can look up subcurrency balances all at once.
 
 when you load the private key from file, it would be nice if it defaulted to the file that is default for saving. or simplify the process somehow.
 
-link from the contract explorer page to auto-load some data into the wallet swap page.
-
-
-in wallet.html, maybe key management should be a different tab.
-but if we load the page with configuration data in the url, we would still want to display key management at the top.
 
 the contracts_list page could organize by new instead of by size.
 
