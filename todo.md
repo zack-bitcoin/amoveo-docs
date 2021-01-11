@@ -1,13 +1,146 @@
+test that a 1-subcurrency smart contract is possible.
+
+
+perpetual subcurrency hard update
+=========
+
+-record(stablecoin, {
+      source, %collateral
+      auction_mode, %can be 'false', time_limit, or under_coll
+      source_type, 
+      source_amount,
+      outstanding,
+      code_hash, %hash of code to decide if a collateral smart contract is valid
+      timeout, %height at which an timelimit auction should start.
+      max_bid_pubkey, %pubkey of whoever made the biggest bid so far.
+      max_bid_amount, %how much they had bid.
+}).
+
+-record(stablecoin_buy_tx, {
+      SID, %id of the stablecoin contract we are depositing into.
+      source,%finite subcurrency depositing
+      source_type,
+      amount %amount of source currency to deposit into SID to receive perpetual stablecoins. If it is negative, then we are selling the perpetual stablecoins for the source currency.
+      %during auction mode, amount cannot be positive.
+      }).
+      
+-record(stablecoin_undercollateralized_tx, {
+      %starts the auction because the source isn't collateralized enough.
+      %spending lots of veo to buy all the finite stablecoins currently collateralizing the perpetual stablecoin.
+      SID,
+      source,%finite stablecoin currently backing this perpetual stablecoin
+      source_type,
+      amount, %the quantity of veo being paid. 99.9% of the stablecoins.
+      }).
+
+-record(stablecoin_u_bid_tx, {
+      %bid veo in a auction to try and win long-veo contracts for a new finite stablecoin contract.
+      %must be bigger than the previous biggest.
+      %gives a refund to whoever had the biggest bid before us.
+      SID,
+      amount
+}).
+
+-record(stablecoin_auction_end_u_tx, {
+      %end an auction that happened for undercollateralization.
+      %whoever made the biggest bid deposit, they get the long-veo of the new contract. their veo is added to the pool of collateral.
+      SID,
+      code,%matches the code_hash from the stablecoin
+      %code is used to define the new finite stablecoin contract.
+      %the winning bid in the auction, it's price is given to code, to help decide the limit price of the new contract.
+}).
+
+-record(stablecoin_timelimit_tx, {
+      %starts the auction because the timelimit is nearly reached.
+      SID
+      }).
+
+-record(stablecoin_t_bid_tx, {
+      %bid veo in an auction to try to win lots of a finite stablecoin that is nearly expired, and long-veo for a new finite stablecoin contract.
+      SID,
+      Amount
+      }).
+
+-record(stablecoin_auction_end_t_tx, {
+      %end a timelimit auction.
+      %whoever made the biggest deposit, they get the finite stablecoins of the old contract, and the long veo of the new one.
+      SID,
+      code, %matches code_hash in SID. used to generate the new finite stablecoin contract.
+      %the winning bid parice is given to the code to decide the limit price of the new contract.
+      }).
+
+
+The perpetual stablecoin is collateralized in a finite stablecoin.
+The finite stablecoin is collateralized in veo.
+
+* initiate auction because of undercolateralization.
+- if the collateral is 1000 finite stablecoins, it is always possible to give 990 veo to buy those 1000 finite stablecoin, which initiates the next auction period.
+- During the auction, the perpetual stablecoin is linked to the price of veo.
+- People bid in the auction with veo. If they win, they get the long-veo side of the new finite stablecoin.
+- It is like they are trading 210 veo for ~220 veo worth of long-veo contracts.
+- so the long-veo has leverage around 6x.
+
+* initiate auction because of overcollateralization.
+- just keep the time limits short enough so it wont matter.
+- people can swap out to different perpetual contract if it is extremely overcollateralized.
+
+* initiate auction because of time limit.
+- the auction is selling finite1.
+- creating finite2+longVeo2 is atomic with winning the auction.
+- they bid in veo. if they win, they get finite1 + longVeo2.
+
+
+
+* when you provide evidence to a contract, there should be a way for the contract to finalize with an intention to swap it's source currency out for a different source currency. The person who makes this tx does a safety deposit to pay for this.
+* if someone else makes a safety deposit, the older deposit should be refunded.
+* when the contract is settled, the person who had paid the security deposit should get the other kind of money instead.
+* we need a new version of the contract tree to remember the contract ID, because we can't use the source to generate the contract ID. (or maybe we just don't use the source when generating the id?)
+ - also remembers the amount deposited, and who deposited it.
+ * if we are in the process of switching source currencies, don't let anyone buy a complete set. but we should allow people to combine a complete set back to the first source. doing this also refunds part of the safety deposit for whoever is swapping us out for the new source.
+
+
+
+
+update the light node and p2p_derivatives_explorer to use the new version of swap_tx.
+
+light node should know how to cancel your limit orders.
+
+update the AMM swap tool to use limit orders when possible, and you should be able to make your trade as a limit order.
+
+soft fork to turn off the old version of swap_tx.
+
+
+
+contract_explorer and market_explorer could be tabs in wallet.html, that way if you click to make a bet in the contract_explorer, you don't need to re-load your private key.
+
+
+
+
+
+interblock changes in the contract_explorer graph could be displayed better.
+
 the order book and AMM need to be combined.
 
-a link from the contract_explorer to the pool tab, so you can sell all your liquidity from any contract.
 
-when you link from contract_explorer directly to make a bet, it should hide all the tab buttons.
+it seems like the explorer might be counting txs twice. it is counting them in the next block, even when no txs exist in that block.
+
+
+we load headers automatically now.
+only check if balances have changed if the height changes. don't check every time.
+
+
+for contract/market explorer.
+if the market is only created once, then there is only one unit of data, but the chart is empty. display something more useful.
+http://159.89.87.58:8080/contract_explorer.html?cid=hujphLVR3ayTMVFQWs6hq9NSQMwOYB9xXV95GpWKwPk=
+
 
 
 change the market explorer and contract explorer into tabs in wallet.html, that way you don't have to reload keys.
 in wallet.html, key management should be a different tab, to keep each tab cleaner.
 * if they load an explorer tab directly, don't load headers or contracts until you leave the explorer part of wallet.html
+
+
+a link from the contract_explorer to the pool tab, so you can sell all your liquidity from any contract.
 
 
 sync needs a gen server so we don't have more than one thread running at once.
@@ -29,10 +162,6 @@ some way to atomically match multiple limit orders to earn arbitrage. maybe a pa
 some way to assign small tickers to markets.
 
 
-look into reducing the number of iterations of the swap tab AI to make it faster.
-Maybe comment out some unused code.
-
-
 if you try to sell you shares in the pool tab, and you don't have any shares to sell, it should give a more useful message.
 
 maybe the block meta tool should track contracts and markets.
@@ -48,11 +177,6 @@ So a user can say "changing this law will have this effect" without betting on w
 you want to own both sides of the base binary market, and only bet with one of the two kinds of shares.
 possibly a futarchy-betting tab would make sense.
 
-the contract_explorer should have a button to load the same contract id into the uniswap tool in wallet.html
-
-the contract_explorer page needs to say the current price of the true outcome.
-
-perpetual derivatives update.
 
 hard update to give back the veo from the old version of channels.
 
@@ -327,15 +451,6 @@ it would be nice if we could pause and continue while syncing in reverse. or res
 
 
 
-perpetual subcurrency hard update
-=========
-
-* when you provide evidence to a contract, there should be a way for the contract to finalize with an intention to swap it's source currency out for a different source currency. The person who makes this tx does a safety deposit to pay for this.
-* if someone else makes a safety deposit, the older deposit should be refunded.
-* when the contract is settled, the person who had paid the security deposit should get the other kind of money instead.
-* we need a new version of the contract tree to remember the contract ID, because we can't use the source to generate the contract ID. (or maybe we just don't use the source when generating the id?)
- - also remembers the amount deposited, and who deposited it.
- * if we are in the process of switching source currencies, don't let anyone buy a complete set. but we should allow people to combine a complete set back to the first source. doing this also refunds part of the safety deposit for whoever is swapping us out for the new source.
 
 
 hard update to get rid of the burner address
