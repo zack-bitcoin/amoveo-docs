@@ -1,13 +1,31 @@
+Basics
+==========
 
-You can see how many headers you node has:
-`api:height()`
-When you first turn on, it should automatically start downloading headers. After that point, you will only automatically receive headers if you have port 8080 open so that peers can send them to you.
+Wait for it to sync the blocks. then do:
+```
+sync_mode:normal().
+keys:unlock().
+```
+you can use Control + D to detach from the node and let it run in the background
+
+
+Advanced. For if something goes wrong.
+==============
+
+When you first turn on, it should automatically start downloading headers, and then it should automatically start syncing blocks.
+Sometimes downloading freezes. you can start it again with the command:
+```sync:start().```
+
+
+After you sync the blocks, you will only automatically receive headers and blocks if you have port 8080 open so that peers can send them to you.
+
+You can see how many headers your node has:
+`api:height().`
+you can see how many blocks your node has:
+`block:height().`
 
 You can only download a block if you already have the header for that block.
-Once you have more than 0 headers, you can start downloading blocks:
-`sync:start().`
-Sometimes downloading freezes. you can start it again with the same command:
-`sync:start().`
+
 
 Once the node has synced all the blocks, it needs to be changed from quick-mode to normal-mode like this:
 ```
@@ -31,8 +49,6 @@ If you can't accept messages from the internet, possibly because you are behind 
 P1 = lists:nth(3, peers:all()).%grabs 3rd peer from you list of peers.
 sync:get_headers(P1).
 ```
-
-
 
 If you want it to stop syncing, you can use:
 ```sync:stop().```

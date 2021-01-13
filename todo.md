@@ -1,3 +1,21 @@
+look into starting the undercollateralization auction when we are more than 100% collateralized, and maintaining the stablecoin backing during the auction.
+
+
+if the price to trigger the auction was 900 veo, then the 1000 finite stablecoins are worth at least 900 veo in that moment.
+so we would want someone to pay 1100 veo to receive the 1000 finite stablecoins, as well as 1000 long-veo in the new contract.
+
+So then, the auction is more like, whoever reacts first to the opportunity gets it.
+as the price of veo is falling, eventually the cost of doing this falls below the price of whoever is willing to pay the most.
+
+if the veo fell 10% past our goal, then the 1000 finite1 are worth 990 veo, and the 1000 long-veo are worth 100.
+no one wants to pay 1100 veo for something worth 1090 veo.
+
+
+
+
+
+
+
 
 perpetual subcurrency hard update
 =========
