@@ -24,11 +24,12 @@ if you want to use the new version of the config file, then remove old version o
 
 if you need to delete the old blocks
 ```make prod-clean```
+[in that case see the syncing instructions](sync.md)
 
 turn the node back on
 ```make prod-restart```
 
-Tell it to re-sync rejected blocks with the new rules (only important if your node is frozen at a historical height because you didn't update in time for a hard update.)
+If you want it to re-sync rejected blocks with the new rules (only important if your node is frozen at a historical height because you didn't update in time for a hard update.)
 ```block_hashes:second_chance().```
 
 the blocks are already synced, so switch to normal mode
