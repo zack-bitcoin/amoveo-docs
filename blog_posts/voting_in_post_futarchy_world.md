@@ -10,7 +10,7 @@ Imagine there was an institution with the goal:
 This goal is not self-consistent.
 You can redraw lines to make anyone part of the minority.
 So a majority-rules institution would eternally waste it's energy on violently redistributing the resources of it's members.
-Re-dividing a smaller and smaller pie between it's members.
+Redividing a smaller and smaller pie between it's members.
 A majority-rules institution would cannibalize itself, and so would not have any influence in post-futarchy society.
 
 

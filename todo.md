@@ -1,27 +1,29 @@
-test that a 1-subcurrency smart contract is possible.
-
 
 perpetual subcurrency hard update
 =========
 
 -record(stablecoin, {
-      source, %collateral
-      auction_mode, %can be 'false', time_limit, or under_coll
-      source_type, 
-      source_amount,
-      outstanding,
+      auction_mode, %can be: false, time_limit, under_coll
+      source, %collateral contract id. for the finite stablecoin.
+      source_amount, %amount of collateral locked in the perpetual stablecoin
       code_hash, %hash of code to decide if a collateral smart contract is valid
       timeout, %height at which an timelimit auction should start.
       max_bid_pubkey, %pubkey of whoever made the biggest bid so far.
       max_bid_amount, %how much they had bid.
+      timelimit_auction_duration,
+      undercollateralization_auction_duration,
+      undercollateralization_price_trigger, %out of 100000, if this is 99000, and there are 100 veo worth of perpetual stablecoins, then you can use 99 veo to buy all the finite stablecoins backing the contract.
+      collateralization_target, %after each auction the collateralization of the new finite stablecoin backing the perpetual stablecoin. 1000000 means 200%. 200000 means 120%
+      period, %how long until the next finite stablecoin expires. this should be longer than the timelimit_auction_duration
+
 }).
 
 -record(stablecoin_buy_tx, {
       SID, %id of the stablecoin contract we are depositing into.
       source,%finite subcurrency depositing
-      source_type,
       amount %amount of source currency to deposit into SID to receive perpetual stablecoins. If it is negative, then we are selling the perpetual stablecoins for the source currency.
       %during auction mode, amount cannot be positive.
+      %during auction mode, this partially refunds whoever made the highest bid, to maintain the price of their bid.
       }).
       
 -record(stablecoin_undercollateralized_tx, {
