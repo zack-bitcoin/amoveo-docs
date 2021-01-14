@@ -82,6 +82,8 @@ Amoveo smart contracts are optimized to be scalable and affordable. [How to make
 
 You can learn more about amoveo contracts and the history of how we ended up using this design [here](design/smart_contracts.md)
 
+[Amoveo smart contracts in the context of truthcoin](design/truthcoin_contracts.md)
+
 Amoveo uses the chalang VM for our smart contracts. [learn more about chalang in the chalang github page](https://github.com/zack-bitcoin/chalang) Chalang is a forth-like VM, heavily influenced by Bitcoin script and the Ethereum VM.
 
 

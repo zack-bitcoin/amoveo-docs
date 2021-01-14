@@ -1,18 +1,7 @@
+
+
+
 look into starting the undercollateralization auction when we are more than 100% collateralized, and maintaining the stablecoin backing during the auction.
-
-
-if the price to trigger the auction was 900 veo, then the 1000 finite stablecoins are worth at least 900 veo in that moment.
-so we would want someone to pay 1100 veo to receive the 1000 finite stablecoins, as well as 1000 long-veo in the new contract.
-
-So then, the auction is more like, whoever reacts first to the opportunity gets it.
-as the price of veo is falling, eventually the cost of doing this falls below the price of whoever is willing to pay the most.
-
-if the veo fell 10% past our goal, then the 1000 finite1 are worth 990 veo, and the 1000 long-veo are worth 100.
-no one wants to pay 1100 veo for something worth 1090 veo.
-
-
-
-
 
 
 
@@ -20,21 +9,19 @@ no one wants to pay 1100 veo for something worth 1090 veo.
 perpetual subcurrency hard update
 =========
 
--record(stablecoin, {
-      auction_mode, %can be: false, time_limit, under_coll
-      source, %collateral contract id. for the finite stablecoin.
-      source_amount, %amount of collateral locked in the perpetual stablecoin
-      code_hash, %hash of code to decide if a collateral smart contract is valid
-      timeout, %height at which an timelimit auction should start.
-      max_bid_pubkey, %pubkey of whoever made the biggest bid so far.
-      max_bid_amount, %how much they had bid.
-      timelimit_auction_duration,
-      undercollateralization_auction_duration,
-      undercollateralization_price_trigger, %out of 100000, if this is 99000, and there are 100 veo worth of perpetual stablecoins, then you can use 99 veo to buy all the finite stablecoins backing the contract.
-      collateralization_target, %after each auction the collateralization of the new finite stablecoin backing the perpetual stablecoin. 1000000 means 200%. 200000 means 120%
-      period, %how long until the next finite stablecoin expires. this should be longer than the timelimit_auction_duration
-
+-record(stablecoin_new_tx, {
+     id,
+     source,
+     amount,
+     code_hash,
+     timelimit_auction_duration,
+     undercollateralization_auction_duration,
+     undercollateralization_price_trigger,
+     collateralization_step,
+     period
 }).
+
+
 
 -record(stablecoin_buy_tx, {
       SID, %id of the stablecoin contract we are depositing into.
@@ -100,9 +87,14 @@ The finite stablecoin is collateralized in veo.
 - It is like they are trading 210 veo for ~220 veo worth of long-veo contracts.
 - so the long-veo has leverage around 6x.
 
-* initiate auction because of overcollateralization.
+what if someone triggers the auction 10% early?
+Then they are spending 1000 veo to buy 900 veo worth of stablecoins.
+we are auctioning off ~300 veo worth of long-veo contracts, and end up 10% more collateralized than we had intended.
+
+* case of overcollateralization.
 - just keep the time limits short enough so it wont matter.
 - people can swap out to different perpetual contract if it is extremely overcollateralized.
+
 
 * initiate auction because of time limit.
 - the auction is selling finite1.
@@ -110,13 +102,12 @@ The finite stablecoin is collateralized in veo.
 - they bid in veo. if they win, they get finite1 + longVeo2.
 
 
-
 * when you provide evidence to a contract, there should be a way for the contract to finalize with an intention to swap it's source currency out for a different source currency. The person who makes this tx does a safety deposit to pay for this.
 * if someone else makes a safety deposit, the older deposit should be refunded.
 * when the contract is settled, the person who had paid the security deposit should get the other kind of money instead.
 * we need a new version of the contract tree to remember the contract ID, because we can't use the source to generate the contract ID. (or maybe we just don't use the source when generating the id?)
  - also remembers the amount deposited, and who deposited it.
- * if we are in the process of switching source currencies, don't let anyone buy a complete set. but we should allow people to combine a complete set back to the first source. doing this also refunds part of the safety deposit for whoever is swapping us out for the new source.
+ * if we are in the process of switching source currencies, don't let anyone buy more perpetuals. but we should allow people to combine a complete set back to the first source. doing this also refunds part of the safety deposit for whoever is swapping us out for the new source.
 
 
 

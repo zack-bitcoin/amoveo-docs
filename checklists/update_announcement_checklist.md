@@ -5,7 +5,6 @@ lolopool loloxiao on discord
 exchanges:
 hitbtc email
 qtrade.io on discord
-A1 exchange on discord
 
 wallets:
 Dennis Voskvitsov on telegram
