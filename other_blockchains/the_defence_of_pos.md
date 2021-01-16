@@ -34,6 +34,13 @@ Vitalik Buterin
 
 Vitalik Buterin https://vitalik.ca/general/2020/11/06/pos2020.html
 
+
+Vitalik's link calculating the cost of attacking PoW is based on the incorrect assumption that ASICS are a perfectly liquid market, and a person can rent 51% of hashpower by the hour. If you instead consider that they need to purchase the ASICS in an illiquid market, you get very different numbers. In an illiquid market, the more ASICS you buy, the more expensive the ASICS get. The cost of the attack increases parabolically as it gets bigger.
+
+His calculation of cost of attacking PoS is inaccurate, because the only attack he considers is people who literally purchase the coins they are staking. When in reality it is always possible to rent control over PoS deposits, by paying the PoS validators to make a second larger security deposit to enforce that they participate in your coordinated attack, and having a smart contract specifying limits of how the rented coins can be used, to prevent them from being slashed. PoS deposits are made up of a liquid market of coins, so the cost only increases linearly as you rent more coins this way.
+
+
+
 He tries to make 2 points for why PoS can possibly be a cryptoeconomically secure consensus mechanism.
 1) PoS is more secure than PoW at the same cost.
 2) Attacks are easier to recover from in PoS vs PoW.
