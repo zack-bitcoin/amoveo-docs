@@ -18,14 +18,12 @@ Every time someone provides evidence to the smart contract, the smart contract p
 Smart Contract Creation Parts
 ============
 
-There are 4 different times when the smart contract is being made. For clarity, they are explained in this document in this order.
+There are 4 different times when the smart contract is being made. For clarity, they are explained in this document in this order. This is not in time-order. 
 
 1) writing oracle questions 
 2) the smart contract can have rules for what is a valid oracle question. This is a kind of macro for building oracle questions. 
 3) When the MAST merkle root gets recorded on-chain. 
 4) When it is decided which branches of the MAST to publish. A valid trace of the MAST.
-
-This is not in time-order. Steps (2) and (4) happen at the same time.
 
 Each of these 4 steps is turing complete or stronger. Choosing which parts of the computation belong in which of these 4 steps is how we optimize smart contracts to save on fees.
 

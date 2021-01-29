@@ -1,3 +1,18 @@
+write about the decentralized local bitcoins idea.
+use an oracle as the third party to verify that a tx went through.
+
+the contracts.html page, when you accept a swap offer, there should be links to look up what the Contract ID is in reference to.
+
+contracts.html subcurrency set buy shouldn't accept decimal amounts.
+
+in swap tab, seems like veo fees is not calculated correctly.
+
+sometimes the swap tool is making bets in the wrong direction. when you try to make a bet that moves the price near to 100%.
+
+the swap tool should account for txs in the mempool when processing your bet.
+
+
+
 working on stablecoin_new_tx. 
 
 
@@ -113,6 +128,9 @@ we are auctioning off ~300 veo worth of long-veo contracts, and end up 10% more 
 
 
 
+
+
+swap_books:re_absorb_cron/1 is vulnerable to memory overflow. We shouldn't create a new perpetual process for each request. Maybe we can have a thread that keeps a list that it occasionally scans through.
 
 update the light node and p2p_derivatives_explorer to use the new version of swap_tx.
 

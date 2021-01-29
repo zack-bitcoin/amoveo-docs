@@ -5,21 +5,24 @@ We use a market mechanism to allow the disagreement to escalate to the point whe
 
 
 
+For questions that are in the process of being answered, we store a market in the on-chain state, in an order book.
 
-For questions that are in the process of being answered, we store a market in the on-chain state.
-The market remembers how many shares of each type have been sold, and it remembers what it's initial liquidity was, and it should have an order-book.
-
-The first order in the book needs to be as big as the initial liquidity.
-Every order after that needs to be twice as big as the previous order.
+In order to limit how big this order book can become, we use these rules:
+The first order in the book has a minimum size determined by the Amoveo governance mechanism.
+Every order after that, it's minimum size is twice as big as the minimum of the previous.
 
 There are 3 possible outcomes for an oracle:
 True, False, Bad Question
 
-the result of the oracle is determined by which side of the order book has open orders. If one side has open orders for a long enough period of time, then that side wins.
+The order book only allows bets at a price of 50-50. So if you win your bet, you double your money. If you lose your bet, you lose your money.
+This way, the order book only needs to contain one kind of open order at a time.
+The result of the oracle is determined by which side of the order book has open orders.
+If one side has open orders for a long enough period of time, then that side wins.
+The length of the delay until the oracle can finalize is determined by a governance variable.
 
-The initial liquidity can be collected using a [dominant assurance contract](../use-cases-and-ideas/dominant_assurance_contract.md) in a [market](use-cases-and-ideas/trustless_markets.md).
+Locking the money in the order book for a delay gives us time to react if the oracle looks like it might lie. We can do a soft update to prevent it from lying. Mining pools have an incentive to participate in this soft update to stay on the valuable side of the fork.
 
-[to see the short and clear cryptoeconomic explanation for why this oracle will work, look at the bottom of the white paper](../white_ paper.md)
+[to see the short and clear cryptoeconomic explanation for why this oracle will work, look at the bottom of the white paper](../white_paper.md)
 
 Oracles are stored in one of the consensus state merkle trees. [read more about these trees here](trees.md)
 
