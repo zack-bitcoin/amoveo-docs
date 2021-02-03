@@ -1,3 +1,5 @@
+
+
 write about the decentralized local bitcoins idea.
 use an oracle as the third party to verify that a tx went through.
 
@@ -125,7 +127,6 @@ we are auctioning off ~300 veo worth of long-veo contracts, and end up 10% more 
 * we need a new version of the contract tree to remember the contract ID, because we can't use the source to generate the contract ID. (or maybe we just don't use the source when generating the id?)
  - also remembers the amount deposited, and who deposited it.
  * if we are in the process of switching source currencies, don't let anyone buy more perpetuals. but we should allow people to combine a complete set back to the first source. doing this also refunds part of the safety deposit for whoever is swapping us out for the new source.
-
 
 
 

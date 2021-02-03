@@ -22,7 +22,7 @@ The length of the delay until the oracle can finalize is determined by a governa
 
 Locking the money in the order book for a delay gives us time to react if the oracle looks like it might lie. We can do a soft update to prevent it from lying. Mining pools have an incentive to participate in this soft update to stay on the valuable side of the fork.
 
-[to see the short and clear cryptoeconomic explanation for why this oracle will work, look at the bottom of the white paper](../white_paper.md)
+[to see a short cryptoeconomic explanation for why this oracle will work, look at the bottom of the white paper](../white_paper.md)
 
 Oracles are stored in one of the consensus state merkle trees. [read more about these trees here](trees.md)
 
