@@ -1,4 +1,15 @@
 
+in crosschain tab builder. Every time we generate the cancel buttons, we should remove any memoized data related to that subcurrency. That way you don't need to refresh the page to see the "release the funds" buttons when they are ready.
+
+
+improve the crosschain DEX tab
+
+maybe separate into two sections
+"information on coin to receive (buy)"
+"information on coin to send (sell)"
+
+
+
 
 write about the decentralized local bitcoins idea.
 use an oracle as the third party to verify that a tx went through.
