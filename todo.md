@@ -1,4 +1,31 @@
 
+Idea: Amoveo atomic swap tool. for enforcing swaps between 2 other blockchains.
+If someone refuses to participate in the swap they should be over-punished in veo terms.
+
+
+
+
+in crosschain DEX.
+when accepting an offer, maybe instead of doing it in a single button, there should be a "more details" button that shows the address. and to help protect from misclicks.
+maybe it should copy the btc address to clipboard too.
+when you broadcast it.
+and maybe the confirmation message could include the BTC address.
+ordering trades by price would be nice.
+
+would be nice if the refresh button was automatic.
+could connect it to when new blocks are found, and to clicking the crosschain-DEX tab.
+
+
+in crosschain DEX.
+go through the process of making a trade and trying to sell both sides.
+look at what gets displayed in the tab all along the way, and make sure it makes sense.
+
+
+the "accept offer" tool in the crosschain DEX should display price as well.
+
+
+
+
 in crosschain tab builder. Every time we generate the cancel buttons, we should remove any memoized data related to that subcurrency. That way you don't need to refresh the page to see the "release the funds" buttons when they are ready.
 
 
