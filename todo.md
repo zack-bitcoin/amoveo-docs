@@ -1,3 +1,21 @@
+crosschain dex.
+it should automatically buy the other side and combine to veo when possible, with a flash mint, so it works even if your balance is really low.
+
+
+p2p derivatives swap verify.
+should check if they have enough subcurrency to make the trade.
+
+
+
+look into the idea of having merkle root checkpoints inside the same block, so that the txs can be processed in parallel.
+How can miners produce this blocks as fast as they can be verified?
+we don't need to include proofs of the same data more than once, because one checkpoint produces the proof for the next.
+We just need a copy of what the data looks like after running that checkpoint.
+
+maybe the mining pool can process in parallel if it cuts the database into shards, and charges users less if they make txs that only touch a single shard.
+
+
+
 
 Idea: Amoveo atomic swap tool. for enforcing swaps between 2 other blockchains.
 If someone refuses to participate in the swap they should be over-punished in veo terms.

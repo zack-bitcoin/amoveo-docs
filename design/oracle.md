@@ -1,9 +1,20 @@
-Nakamoto consensus (invented in bitcoin) is a way for the network to make decisions. It incentivizes us to agree.
+Oracle Explanation
+==============
 
-Using Nakamoto consensus to answer questions like "Would it be better if block reward was increased?" is possible, but it is very expensive. The users and miners would have to manually answer that question as part of the process of syncing the blockchain.
-We use a market mechanism to allow the disagreement to escalate to the point where Nakamoto consensus can profitably answer the question.
+Amoveo's oracle is based on how Ethereum recovered from the DAO hack.
+If these 3 conditions are met, we can do a hard fork to prevent money from getting stolen:
+
+* enough money is at risk to make the update worth it.
+* it is easy to verify that money is getting stolen.
+* the money is locked up long enough for us to do the hard fork.
+
+The goal of the Amoveo oracle mechanism is to cause these 3 conditions to be met.
+How this is done is by letting people bet at 50-50 odds on which oracle result they think is honest.
+People have an incentive to make honest oracle reports because they can double their money.
 
 
+In depth
+==========
 
 For questions that are in the process of being answered, we store a market in the on-chain state, in an order book.
 
