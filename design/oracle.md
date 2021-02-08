@@ -12,6 +12,8 @@ The goal of the Amoveo oracle mechanism is to cause these 3 conditions to be met
 How this is done is by letting people bet at 50-50 odds on which oracle result they think is honest.
 People have an incentive to make honest oracle reports because they can double their money.
 
+Since dishonest reports result in losing your funds, and failing to influence the oracle, people are incentivized to not make dishonest reports. So the expectation is that the oracle will never actually excalate to the point where we need to hard fork the blockchain.
+
 
 In depth
 ==========
