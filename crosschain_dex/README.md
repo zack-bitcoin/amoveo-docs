@@ -49,3 +49,5 @@ Alternative DEXs
 [chainflip](chainflip.md)
 
 [thorchain](thorchain.md)
+
+[Bisq](bisq.md)
