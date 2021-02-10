@@ -1,10 +1,23 @@
+
 crosschain dex.
 it should automatically buy the other side and combine to veo when possible, with a flash mint, so it works even if your balance is really low.
+* automatically sell for 99% when you post an offer.
+
+
+
+we need a tool to keep track of recent oracles. api:
+* get all governance oracles
+* oracles by cid of related contract in the contract explorer
+
+
+
 
 
 p2p derivatives swap verify.
 should check if they have enough subcurrency to make the trade.
 
+
+take your money from this oracle when it resolves 9K42QGvIK4t5zyp62Zy76gWXVuQpF/VpU2R5azRUri8= around the 15-feb.
 
 
 look into the idea of having merkle root checkpoints inside the same block, so that the txs can be processed in parallel.
@@ -13,6 +26,8 @@ we don't need to include proofs of the same data more than once, because one che
 We just need a copy of what the data looks like after running that checkpoint.
 
 maybe the mining pool can process in parallel if it cuts the database into shards, and charges users less if they make txs that only touch a single shard.
+
+how about one checkpoint per tx, or more than one per tx.
 
 
 

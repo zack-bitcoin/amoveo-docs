@@ -45,6 +45,9 @@ Under nakamoto consensus everyone needs to be able ot mine, so everyone can calc
 Since votes are txs, that means we can calculate the consensus state after removing any votes from the pool of votes.
 By looking at the result of the election after censoring various votes, we can calculate each individual's vote.
 
+The cost of these bribes is very low, because of tragedy of the commons.
+Tragedy of the commons applies because the benefit of accepting the bribe is centralized to the person who accepts it, but the cost of accepting the bribe and participating in the attack is spread to everyone.
+
 P+epsilon, attacker doesn't even have to spend money to take control of the result.
 ========
 The P+epsilon attack is where an attacker commits to paying a bribe, but the attacker only has to pay if the attack fails.
@@ -61,3 +64,4 @@ Links to other writing on this topic
 ========
 
 http://hackingdistributed.com/2018/07/02/on-chain-vote-buying/
+
