@@ -16,6 +16,8 @@ The Amoveo DEX is enforced using Amoveo's [oracle, which you can read about here
 
 Using the oracle you can ask any question in a human language like English, making it very versatile.
 
+Basically, one person bets some veo that bitcoin will not be sent to their address. anyone can match that bet, send the bitcoin, and then they win the veo from the bet. effectively, they have traded bitcoin for VEO.
+
 Using Amoveo's oracle for DEX has advantages:
 
 * It is very cheap, currently costing about 0.015 VEO to use.
