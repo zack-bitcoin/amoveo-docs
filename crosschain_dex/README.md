@@ -29,8 +29,8 @@ Using Amoveo's oracle for DEX has advantages:
 
 Amoveo's oracle has disadvantages:
 
-* It is slow. It takes at least a week to have a result. It can take longer, but in that case, the attacker who caused the oracle to take longer, they are paying any costs incurred by this delay.
-* It only works if there is a way for the Amoveo oracle reporters to look up the account balance or transaction on the other blockchain to verify that the payment on that blockchain had occured.
+* It is slow. It takes at least a week to have a result. It can take longer, but in that case, the attacker who caused the oracle to take longer, they are paying any costs incurred by this delay. In practice, if you want to get your money out faster, you can sell your shares in the contract for 99% of their value to someone who is willing to wait for the oracle to finalize.
+* It only works if there is a way for the Amoveo oracle reporters to look up the account balance or transaction on the other blockchain to verify that the payment on that blockchain had occured. 
 
 Alternative DEXs
 =========
@@ -38,3 +38,5 @@ Alternative DEXs
 [Atomic swaps are the original DEX tech](atomic_swap.md)
 
 [chainflip](chainflip.md)
+
+[thorchain](thorchain.md)
