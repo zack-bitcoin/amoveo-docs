@@ -20,3 +20,4 @@ Notice that it is using flash minting to combine several txs. It would have been
 [Here is the tx where the person buying BTC release the veo, because the bitcoin had arrived](http://159.89.87.58:8080/tx_explorer.html?txid=c8lrn31kuF/2nxHJ42T53s8HCNAOYCh/N8Ti4dRNTnA=)
 
 [Here is the tx where the person selling BTC combined the 2 share types of the contract to get their VEO out of the smart contract](http://159.89.87.58:8080/tx_explorer.html?txid=1NGS14+56OYk/3z5vK+/JStAf7dEvaTD2vcS3xiaNcY=)
+
