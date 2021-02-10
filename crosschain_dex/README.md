@@ -53,3 +53,5 @@ Alternative DEXs
 [thorchain](thorchain.md)
 
 [Bisq](bisq.md)
+
+[Binance DEX](binance.md)

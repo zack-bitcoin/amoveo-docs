@@ -14,5 +14,5 @@ So the process is like this:
 The problem is that the 2-of-2 multisig is not secure. Bob could refuse to send the fiat to Alice, and refuse to let Alice withdraw from the 2-of-2 unless she gives some of the money to Bob.
 Alice could refuse to unlock from the 2-of-2 after receiving her fiat currency unless Bob agrees to give some extra money to her.
 
-If one of either Alice or Bob has more need to access their bitcoin sooner, they can end up needing to pay a premium to the other to withdraw their Bitcoin sooner.
+If one of either Alice or Bob has more need to access their bitcoin sooner, they can end up needing to pay a 50% or bigger premium to the other to withdraw their Bitcoin sooner.
 

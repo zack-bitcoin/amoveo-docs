@@ -22,5 +22,5 @@ Hashlocking has disadvantages:
 * It requires that both blockchains support locked payments using the same hash function.
 * It requires specialized user interfaces to be sure that the locked payments on each side are using the same crypto, and that the amount of time that the money is locked for on each side is compatible.
 * It is vulnerable to the free option problem.
-* It is interactive. The participants have to be online at the same time and send messages back and forth to each other.
+* It is interactive. The participants have to be online at the same time and send messages back and forth to each other. In particular, if you go offline during certain prats of the exchange, you can lose your side of the swap without receiving the money on the other side of the swap.
 * It is not commitable. You can post fake offers, and when people try to accept them, you can refuse to cooperate and the swap is canceled.
