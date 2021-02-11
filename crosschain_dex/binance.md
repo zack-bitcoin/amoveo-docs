@@ -11,8 +11,11 @@ You can trade your wrapped tokens on their on-chain order book.
 Then you swap your wrapped tokens back for the BTC/Eth whatever with the centralized binance team, and hope that they give you back your BTC.
 Security wise, this is the same thing as withdrawing BTC from the centralized binance exchange.
 
-Similar to like Tether, Binance claims to be holding all the cryptocurrency backing each of their wrapped tokens as collateral to maintain the value of their wrapped token.
+Similar to like Tether, Binance claims to be holding all the cryptocurrency backing each of their wrapped tokens as collateral to maintain the value of their wrapped token. Since you are trusting binance to hold your BTC during the entire exchange process, it doesn't really matter what tech is being used to secure the wrapped token.
+Binance could refuse to give back the BTC that they were holding for you.
+Not your keys, not your coins.
 
 There is no point to creating a blockchain for this, because the security is the same as just depositing your money into the centralized Binance exchange. 
 
 Calling this a "DEX" is very misleading. I think you should not do business with a company that misleads it's customers this way. Imagine what else they could be lying about.
+

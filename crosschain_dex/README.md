@@ -43,10 +43,10 @@ Examples of using the DEX
 
 [Here is the report from the very first time the DEX was used. To trade 0.182 VEO for 160 DOGE. This example was from before we had a specialized DEX UI, so it goes in depth about what is happening behind the scenes during a crosschain swap.](../blog_posts/DEX_feb_2021.md)
 
-Alternative DEXs
+Alternative crosschain DEXs
 =========
 
-[Atomic swaps are the original DEX tech](atomic_swap.md)
+[atomic swaps are the original DEX tech](atomic_swap.md)
 
 [chainflip](chainflip.md)
 
@@ -54,4 +54,6 @@ Alternative DEXs
 
 [Bisq](bisq.md)
 
-[Binance DEX](binance.md)
+[Binance crosschain DEX](binance.md)
+
+[serum](serum.md)
