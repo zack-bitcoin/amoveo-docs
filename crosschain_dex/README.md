@@ -20,8 +20,8 @@ Basically, one person bets some veo that bitcoin will not be sent to their addre
 
 Using Amoveo's oracle for DEX has advantages:
 
-* It is very cheap, currently costing about 0.015 VEO to use.
-* You only need to use it in the case where one of the participants refuses to cooperate, and the participant who refuses to cooperate pays the cost of making the oracle. 
+* Oracle enforcement is very cheap, currently costing about 0.015 VEO to use.
+* You only need to use oracle enforcement in the case where one of the participants refuses to cooperate, and the participant who refuses to cooperate pays the cost of making the oracle. 
 * It is completely trustless. There is no one who can make the oracle lie.
 * It does not require any special programming on any blockchain. No need to use the same crypto or support certain types of transactions.
 * It does not require any special user interfaces for any blockchain.
@@ -57,3 +57,5 @@ Alternative crosschain DEXs
 [Binance crosschain DEX](binance.md)
 
 [serum](serum.md)
+
+[incognito](incognito.md)
