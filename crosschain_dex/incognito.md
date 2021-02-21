@@ -30,3 +30,29 @@ This oracle is controlled by the centralized team of incognito developers. https
 So the incognito developers can steal the the collateral from the custodians.
 In order for the developers to be incentivized not to steal this collateral, they need to receive enough fees so that the long term expected profit of fees exceeds the short term expected profit of stealing the collateral.
 The cost of these fees makes the system prohibitively expensive.
+
+
+Incognito V4
+============
+
+I was asked to review the design of version 4 of incognito, explained here https://we.incognito.org/t/incognito-s-trustless-non-custodians-bridge-v4/9605
+
+V3 had 2 sets of people with capacity to steal the money, so users needed to pay enough fees to each the validators, and the developers to convince them not to steal.
+V4 only has one set of people with the capacity to steal. The validators. 
+
+I think it is dishonest to use words like "trustless" or "no custodians" when there is a multisig of trusted beacon validators who can refuse to unlock your coins.
+
+A multisig is a kind of voting protocol. It doesn't make sense to use voting protocols for customer funds like this https://github.com/zack-bitcoin/amoveo-docs/blob/master//design/voting_in_blockchains.md
+
+Given that a DEX can be free, it makes me think that a design that involves paying people to not rob you, like in Incognito V4, it is a cost prohibitive design.
+
+There is a fundamental connection between security and the cost to use a service. Less secure services are necessarily more expensive. https://github.com/zack-bitcoin/amoveo-docs/blob/master/basics/trust_theory.md
+Both Incognito v3 and v4 are level 4 trust, because there is a way for attackers to profitably destroy user's value. Level 4 is the least secure class of mechanisms. The opposite of trustless.
+
+Level 1 trust is the class of mechanisms where there is no one with the capacity to destroy funds. Level 1 is the only level where you can use the word "trustless".
+
+A trustless DEX has no locked funds.
+It isn't paying APY yield to anyone.
+APY yield is an unnecessary cost on the system.
+Increasing APY yield means increasing the cost on your users.
+

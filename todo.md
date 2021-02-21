@@ -1,15 +1,19 @@
-
-crosschain dex.
-it should automatically buy the other side and combine to veo when possible, with a flash mint, so it works even if your balance is really low.
-* automatically sell for 99% when you post an offer.
+you are in the middle of hard update 47. which will charge by the number of bytes in a tx.
 
 
 
-we need a tool to keep track of recent oracles. api:
-* get all governance oracles
-* oracles by cid of related contract in the contract explorer
+maybe contract evidence tx and oracle new tx should have a fee per byte.
+block:gov_fees2
 
 
+
+take your money from this oracle when it resolves
+d4TQD0dcYWTz9i9JTmKngpR+ypt8DGPRBl3flx+WVX4= around 25-feb
+de01XJM9elbsxRgvHp5ELLTqgWHEHguvibeq5zXFTNs= cid
+
+
+
+hard update to be able to make offers to buy veo.
 
 
 
@@ -17,7 +21,6 @@ p2p derivatives swap verify.
 should check if they have enough subcurrency to make the trade.
 
 
-take your money from this oracle when it resolves 9K42QGvIK4t5zyp62Zy76gWXVuQpF/VpU2R5azRUri8= around the 15-feb.
 
 
 look into the idea of having merkle root checkpoints inside the same block, so that the txs can be processed in parallel.
