@@ -2,10 +2,10 @@ instructions for adding a new consensus level merkel tree to Amoveo, which is a 
 
 in amoveo_sup.erl
 
-`-define(trees`
+`trees() ->`
 add your new merkel tree process here so it will be turned on and off with the rest.
 
-the 'trie_child' macro is used to start the merkel trees. start you new on there.
+the 'tree_child' macro is used to start the merkel trees. start you new on there.
 
 
 in block.erl

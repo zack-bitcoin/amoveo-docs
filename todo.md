@@ -1,10 +1,4 @@
-you are in the middle of hard update 47. which will charge by the number of bytes in a tx.
-
-
-
-maybe contract evidence tx and oracle new tx should have a fee per byte.
-block:gov_fees2
-
+update test_txs:test(59) to not store the entire second contract definition inside the first. We just need the hash of the contract.
 
 
 take your money from this oracle when it resolves
@@ -13,13 +7,11 @@ de01XJM9elbsxRgvHp5ELLTqgWHEHguvibeq5zXFTNs= cid
 
 
 
-hard update to be able to make offers to buy veo.
-
+Update the light node and p2p derivative tool for making offers to buy veo.
 
 
 p2p derivatives swap verify.
 should check if they have enough subcurrency to make the trade.
-
 
 
 
@@ -89,7 +81,7 @@ the swap tool should account for txs in the mempool when processing your bet.
 
 
 
-working on stablecoin_new_tx. 
+working on stablecoin_new_tx.  for the perpetual stablecoins hard update.
 
 
 

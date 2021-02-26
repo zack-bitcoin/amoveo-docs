@@ -33,6 +33,11 @@ The result of the oracle is determined by which side of the order book has open 
 If one side has open orders for a long enough period of time, then that side wins.
 The length of the delay until the oracle can finalize is determined by a governance variable.
 
+the bet needs to be double the previous bet's limit in the order book.
+So like, for a question type oracle, the initial bet is around 0.002 veo.
+So if there is already a bet for type "true" in the order book, and you also wanted to bet for "true", then your minimum bet is 0.004 veo.
+if there is already 2 bets of type "true", and you want to bet on "true", then your minimum bet is 0.008 veo.
+
 Locking the money in the order book for a delay gives us time to react if the oracle looks like it might lie. We can do a soft update to prevent it from lying. Mining pools have an incentive to participate in this soft update to stay on the valuable side of the fork.
 
 [to see a short cryptoeconomic explanation for why this oracle will work, look at the bottom of the white paper](../white_paper.md)
