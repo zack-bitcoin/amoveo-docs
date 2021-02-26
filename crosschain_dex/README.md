@@ -43,6 +43,28 @@ Examples of using the DEX
 
 [Here is the report from the very first time the DEX was used. To trade 0.182 VEO for 160 DOGE. This example was from before we had a specialized DEX UI, so it goes in depth about what is happening behind the scenes during a crosschain swap.](../blog_posts/DEX_feb_2021.md)
 
+Free Options after matching.
+=========
+
+The free option problem can happen when people are exchanging assets that change in price relative to each other. If one of the participants in the exchange has a period of time during which they have the choice to either accept or cancel the exchange, they can wait around an see how the price moves before making their decision.
+
+For example, if Bob has the free option when he is selling VEO for BTC. Bob could wait to see the price of VEO/BTC. If VEO is worth more, he would cancel the trade to not lose his VEO. If VEO is worth less, he would complete the trade to get the more valuable BTC. This is a way of stealing from the counterparty of the trade.
+
+Amoveo's DEX is secure against free options after an order is matched, because the amount of VEO enforcing the delivery is worth more than how much BTC is being sent. If Bob decides not to send the BTC, he loses an amount of VEO worth more than that much BTC. So even if the price of BTC increased, it is still not in Bob's interest to cancel the swap after he has agreed to participate in the swap.
+
+Free Options before matching.
+==========
+
+Imagine using the Amoveo DEX to swap VEO for ZEC.
+
+You could make an Amoveo contract to be a synthetic version of ZEC, and trade those synthetic ZEC for ZEC on Zcash.
+Amoveo is a platform for financial derivatives, a synthetic version of ZEC is a financial derivative designed to maintain the same value as ZEC. Basically, a contract for difference.
+Since the price of ZEC and synthetic ZEC don't move relative to each other, there is no free option.
+
+Another way to deal with free options is that you could make a tx to cancel your order in reaction to the ZEC/VEO price moved too much. This technique can be more costly, because you need to pay a tx fee to cancel your order.
+
+Another way to deal with free options is to make your orders have very short expirations, and you keep re-publishing them at the new price as the ZEC/VEO price moves. This strategy is free of cost, because making an order that doesn't get matched is all off-chain, you don't pay anything. But you need to stay online to keep publishing new limit orders.
+
 Alternative crosschain DEXs
 =========
 
