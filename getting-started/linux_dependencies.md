@@ -29,8 +29,11 @@ Finally proceed to [instructions after dependencies](#after-dependencies)
 
 3. Install following dependencies:
    ```
-   sudo apt install erlang-asn1 erlang-public-key erlang-ssl erlang-inets erlang-jiffy erlang-dev erlang-base-hipe libncurses5-dev libssl-dev unixodbc-dev g++ git make python
+   sudo apt install erlang-base make erlang-asn1 erlang-public-key erlang-ssl erlang-inets erlang-dev g++ erlang-xmerl python erlang-lager
    ```
+<!----
+sudo apt install erlang-asn1 erlang-public-key erlang-ssl erlang-inets erlang-jiffy erlang-dev erlang-base-hipe libncurses5-dev libssl-dev unixodbc-dev g++ git make python
+---->
 
 ## For ArchLinux
 

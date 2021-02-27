@@ -66,3 +66,4 @@ If you did not update, it is much faster to do `make prod-go` and then `make pro
 
 
 [Once the node is turned on, and you are attached to it, then you can issue commands.](../api/commands.md)
+
