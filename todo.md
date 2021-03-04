@@ -1,9 +1,7 @@
-update test_txs:test(59) to not store the entire second contract definition inside the first. We just need the hash of the contract.
+in test_txs, look more into the buy veo offer contract.
+Check that it works when the bitcoin address is not provided.
+check that it works when the bitcoin are not delivered.
 
-
-take your money from this oracle when it resolves
-d4TQD0dcYWTz9i9JTmKngpR+ypt8DGPRBl3flx+WVX4= around 25-feb
-de01XJM9elbsxRgvHp5ELLTqgWHEHguvibeq5zXFTNs= cid
 
 
 

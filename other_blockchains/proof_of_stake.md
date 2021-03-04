@@ -127,3 +127,25 @@ If there are 1000 validators, and the blockchain is worth $1 billion, and 90% of
 
 So less than $1/2 million in bribes is sufficient to completely destroy a $1 billion PoS blockchain.
 
+The Attack
+============
+
+We need to get >2/3rds of the validators to lock up a second security bond, the attacker bond, on a different blockchain, that is greater than or equal to their security bond on the PoS blockchain. In order to do this we offer them staking rewards worth slightly more than what they are earning on the main chain.
+
+Once we have >2/3rds participation, these validators start ignoring the 1/3rd who are not participating in the attack, causing that 1/3rd to lose their security deposits.
+Because of speaker-listener fault equivalence, there is no way to later prove that the 1/3rd were participating correctly and should not have lost their bonds.
+So the bonded validators who do not participate in the attack, their entire bond gets burned.
+
+Now that the attackers have 100% control, we can block anyone new from bonding, and we can start unbonding while maintaining 100% control. This allows everyone participating in the attack to cash out of the network before we execute the destructive attack.
+As they are cashing out of the PoS network, we can also decrease the size of the attacker bond, which decreases the cost of doing this attack.
+So the bonded validators who do participate in the attack, they can remove >99% of their bond from the network before the attack occurs. Meaning at worst only <1% of their security bond gets burned as a punishment for participating in the attack.
+
+In Cosmos the unbonding period is 3 weeks. In Cardano it is 15 days.
+
+Once we have 100% control, and the attackers have removed the vast majority of their stake from the system, we can execute any kind of attack, and we have almost no value in the system that could be burned to punish us. Depending on the applications available to this blockchain, it will look different.
+
+Since we have 100% control of the validator stake, we could allow any fraction of our stake to get burned and still have 100% control after. This opens up the possibility of double-spend attacks. We could make a large payment to purchase something, and then re-write the blocks to undo the payment. We could undo days of history if necessary.
+In particular, we could sell tokens from the PoS blockchain on an exchange for bitcoin, and then undo the tx that had deposited our PoS tokens on that exchange. So we get to keep both the bitcoin and the PoS tokens.
+
+If this blockchain supports betting markets, we could rewrite history after the market resolves, so we can censor everyone who made winning bets, and replace them with our own winning bets. So we can steal all the value from that betting market.
+
