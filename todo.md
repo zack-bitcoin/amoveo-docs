@@ -1,8 +1,17 @@
-in test_txs, look more into the buy veo offer contract.
-Check that it works when the bitcoin address is not provided.
-check that it works when the bitcoin are not delivered.
+
+ in the new page of the crosschain dex, we still need these things:
+
+send/receive should switch spots on the form.
+it still needs an interface for the person selling veo to have a address on the other blockchain to receive.
+It needs a way to display that address once it is available.
+it needs those buttons saying that the trade has completed, or they failed to deliver, or they failed to reveal their address.
+We also need a way to look up the oracle text for this contract.
 
 
+in crosschain DEX, if you accept an offer to buy veo, make sure you have time left to post the address where you want the deposit to go to.
+
+
+in the swap tool, it is calculating the fee wrong sometimes.
 
 
 Update the light node and p2p derivative tool for making offers to buy veo.
@@ -22,6 +31,8 @@ maybe the mining pool can process in parallel if it cuts the database into shard
 
 how about one checkpoint per tx, or more than one per tx.
 
+
+in the swap tool, it should click "lookup price" by default.
 
 
 

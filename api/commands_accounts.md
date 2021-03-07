@@ -1,11 +1,14 @@
 Commands related to accounts
 =========
 
+The full node can also work as a wallet. 
+
 #### Find out your account pubkey in external base64 format
 ```
 api:pubkey().
 ```
 It returns pub key that identifies an account
+
 
 #### Check your balance
 ```

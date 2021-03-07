@@ -4,13 +4,13 @@ It is made to help you be able to start contributing to the software as quickly 
 
 [Guide to erlang](https://learnyousomeerlang.com/)
 
+[installing and turning on the amoveo node](https://github.com/zack-bitcoin/amoveo-docs/blob/master/getting-started/turn_it_on.md)
+
 ## Testing
 
 We maintain two kinds of tests: unit tests and integration tests. Final test is syncing fresh node with public testnet node.
 
-To run the tests, you need be running an Amoveo full node https://github.com/zack-bitcoin/amoveo
-
-For integration tests that simulate multiple full nodes and test how they interact, do `make tests`.
+For integration tests that simulate multiple full nodes and test how they interact, first make sure your full node is turned off, then do `make tests`.
 
 To run the single-node tests of all the modules in Amoveo, first, turn on a test full-node.
 `make local_quick`
@@ -26,6 +26,8 @@ you can kill the erlang process with `halt().`
 
 
 ## Blockchain Commands
+
+[Here are some basic commands you might want to run from a full node](../api/commands.md)
 
 [Here is the external JSON HTTP api for the full node.](https://github.com/zack-bitcoin/amoveo/blob/master/apps/amoveo_http/src/ext_handler.erl)
 

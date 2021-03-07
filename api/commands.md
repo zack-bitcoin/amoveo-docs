@@ -8,6 +8,8 @@ Different types of commands:
 
 [accounts](commands_accounts.md)
 
+[keys](keys.md)
+
 [lookup history](commands_history.md)
 
 [oracle](commands_oracle.md)
