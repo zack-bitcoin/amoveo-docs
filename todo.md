@@ -1,7 +1,20 @@
+better explanation of what MSRs are, why they are useful for prediction markets. what is an order book. how well these things work on blockchains.
+
+white paper in voice.
+
+
+
+in crosschain_tab_builder2.js change 127.0.0.1 to the server's ip.
+in swaps.js change 127.0.0.1 to the server's ip.
+
+
+would be nice if the DEX orders were organized into a chart on some page. maybe /VEO-BTC
+
+
+
 
  in the new page of the crosschain dex, we still need these things:
 
-send/receive should switch spots on the form.
 it still needs an interface for the person selling veo to have a address on the other blockchain to receive.
 It needs a way to display that address once it is available.
 it needs those buttons saying that the trade has completed, or they failed to deliver, or they failed to reveal their address.
