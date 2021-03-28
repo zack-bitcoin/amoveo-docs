@@ -1,4 +1,3 @@
-better explanation of what MSRs are, why they are useful for prediction markets. what is an order book. how well these things work on blockchains.
 
 white paper in voice.
 

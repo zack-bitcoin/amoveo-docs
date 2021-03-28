@@ -51,7 +51,7 @@ We would like it if creating the MSR costs less, but it is even more important t
 The LMSR
 ================
 
-The LMSR is the classic MSR used for prediction markets. The LMSR has one very big advantage against all the other MSRs: With LMSR, if there are many different markets created at the same time, it is possible to recycle the funds used to create these markets to allow for additional liquidity.
+The LMSR has one very big advantage against all the other MSRs: if there are many different markets created at the same time, it is possible to recycle the liquidity in all these markets, so each individual part has more liquidity than it would have bad on it's own.
 
 For example, lets say we are betting on 2 different football games A and B. Using capital/lower case letters for whether the game is a win or a loss, there are 4 possible outcomes: AB, Ab, aB, or ab.
 
