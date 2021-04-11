@@ -5,6 +5,13 @@ Lately a lot of people have been making arguments that PoW is vulnerable to cert
 
 Thanks to Elliot Olds for helping to explain to me the various attacks against PoW currently being discussed in the Ethereum community. Elliot can explain complicated topics clearly and concisely, he keeps himself up-to-date with current research in crypto, you can follow him on Twitter https://twitter.com/elliot_olds
 
+Double Spend attack.
+========
+
+If a significant amount of history gets re-written, everyone can see that a long fork of orphans exists. We can freeze all the wallets and exchanges until we realize which side is correct. Everyone has an incentive to get on the correct side.
+So for the remainder of this paper I will be focusing on censorship type attacks.
+
+
 Credible commitment to attack.
 ========
 

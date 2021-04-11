@@ -1,3 +1,24 @@
+oracles:ready_to_close().
+produces quite the list - what about adding oracles:close_closeable(). which just iterates that list and closes them?
+
+
+
+crosschain tab builder 142 and 803.
+one of the values in the contract is incorrect.
+
+
+
+in crosschain_tab_builder2 line 828, we are trying to publish the evidence tx.
+but when it processes the tx, it fails saying it tried to chop up a binary, but the binary was to short to chop at that point.
+
+
+working on accepting an offer in crosschain2.
+
+contract_timeout_tx is creating json that can't be decoded into amoveo objects. so we temporarily commented it out.
+
+
+
+
 
 white paper in voice.
 
