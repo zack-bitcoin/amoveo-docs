@@ -1,10 +1,6 @@
-first `sh install.sh` the install script located in the same folder.
+first send the install script to the nixos server.
+```cat NixosInstall.bin | NIX_CHANNEL=nixos-20.09 bash 2>&1 | tee /tmp/infect.log```
 
 then `ssh veo@ip-addr`
 
-now you can [turn it on normally](../turn_it_on.md)
-
-then `git clone https://github.com/zack-bitcoin/amoveo`
-
-then `make prod-build`
-the user script takes a little while to run, so you need to wait for around 10minutes
+The dependencies are ready. Now you can [turn it on normally by downloading it from github](../turn_it_on.md)
