@@ -1,5 +1,21 @@
+api:close_oracles should have an upper limit for how many you close at once, and maybe some error message for when it goes wrong.
+maybe tx_pool feeder shouldn't start another thread in the background?
+
+
+oracle_winnings and oracle_unmatched shouldn't need to be signed, anyone should be able to make them. and they should be able to be in anyone's multi-tx.
+
+the account explorer should tell you if you have money in any oracles or contracts.
+
+
 oracles:ready_to_close().
 produces quite the list - what about adding oracles:close_closeable(). which just iterates that list and closes them?
+
+So if you are going to implement an api:close_closeable() i would call it periodicly with the pool as a service to the community
+
+same if you give me a method for unmatched and winnings, i need a function that iterates them so i dont have to do anything by hand, probably limited by n so i can just call it and the node checks itself which are left
+api:close_unmatched(10)
+api:close_winnings(10)
+something like that so i can control how many it will do every time
 
 
 
