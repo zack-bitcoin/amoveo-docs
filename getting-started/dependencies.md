@@ -4,5 +4,5 @@ You will need Erlang and a couple of libraries before you are able to run this s
 
 [For Mac](mac_dependencies.md)
 
-[NixOS](nixos/README.md)
+[NixOS](nixos_install/README.md)
 
