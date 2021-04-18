@@ -23,10 +23,12 @@ Now to derive this formula
 ```MC = (B - R*MC)/I```
 
 Next lets solve for the market cap.
-```MC + R*MC/I = B/I```
-```MC*(1+R/I) = B/I```
-```MC*(I+R) = B```
-```MC = B / (I+R)```
+```
+MC + R*MC/I = B/I
+MC*(1+R/I) = B/I
+MC*(I+R) = B
+MC = B / (I+R)
+```
 
 Plugging in for examples
 ==========
