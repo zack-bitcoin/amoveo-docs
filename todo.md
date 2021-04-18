@@ -1,3 +1,6 @@
+review the other_blockchains/pos_time_warp document.
+
+
 api:close_oracles should have an upper limit for how many you close at once, and maybe some error message for when it goes wrong.
 maybe tx_pool feeder shouldn't start another thread in the background?
 

@@ -175,7 +175,7 @@ If this is positive, then they are incentivized to abandon the security deposit 
 dividing everything by B2
 ```1 - ((C/B2)+1)*P - (S/B2) > 0```
 solving for P
-```P < (1 - (S/B2))/(1 + (C/B2))
+```P < (1 - (S/B2))/(1 + (C/B2))```
 
 We know that C/B2 needs to be very small. like 0.001 or less.
 ```P < (1 - (S/B2))/(1.001)```
