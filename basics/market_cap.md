@@ -98,7 +98,7 @@ Additionally, the long-term historical interest rate has always been increasing.
 A global Harberger tax currency
 ================
 
-Our current financial system uses things like mortgage backed debt to give access to more currency. We can do something similar with cryptocurrency using the Harberger tax system.
+Our current financial system uses things like mortgage backed debt to give access to more currency. We can do something similar with cryptocurrency using the Harberger tax system, where the taxes paid all get burned.
 
 Lets plug the harberger tax system into our equation and see how valuable this kind of cryptocurrency could be.
 
