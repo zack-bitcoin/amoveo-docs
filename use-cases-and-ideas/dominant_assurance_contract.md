@@ -20,7 +20,7 @@ We distribute the costs to the companies that will benefit proportionally to how
 
 If every company agree to pay their portion, then we attempt to build it. If the public good gets built, then the builder gets the money that the companies had provided. If the public good is not built, then every investor gets a refund, plus some extra money from the builder for having wasted their time.
 
-If even one company refuses to pay their portion, then we do not build it.
+If even one company refuses to pay their portion, then we do not build it. Every company on the list gets a refund of the money they had locked in the contract, as well as some extra money from the builder for having wasted their time.
 
 Why cancel it if someone doesn't agree to pay?
 ========================
@@ -39,12 +39,22 @@ Why does the prediction market ask about their benefit conditional on them not h
 
 We want to measure how much the public good would have benefited each company, independent of the impact this DAC has on them.
 
+In particular, we want to avoid the burning-money strategy, like what exists in the Battle-of-the-Sexes game from game theory https://en.wikipedia.org/wiki/Battle_of_the_sexes_(game_theory)
+
 The older version of the DAC involved insurance, why did we get rid of that?
 ================
 
 For the DAC to work, we need to know how much the public good will benefit various entities. One way we had though to get them to reveal this information is by selling insurance.
 The problem with selling insurance is that if that insurance potentially comes with an obligation to pay for something that would have been free otherwise, this significantly impacts how much insurance they are willing to buy, and so the price of insurance fails to reveal how much each entity is benefiting from the public good.
 
-[insured crowdfunding](insured_crowdfund.md)
+Why reward participants if someone refuses to sign?
+==========
+
+The worry is that one of the entities on the list of who should pay for the public good, they could demand a bribe and refuse to pay their portion unless everyone else on the list pays them first. This kind of problem means that everyone would want to be the last participant to lock their funds into the DAC.
+
+Giving a reward to the other participants means that they can safely ignore the hostage attempt, and still profit.
+
+The attacker's hostage attempt will fail, and they are missing out on receiving the extra reward for having participated, so this mechanism prevents hostage attempts from occuring.
+
 [raising funds with amoveo](raising_funds.md)
 

@@ -1,3 +1,8 @@
+we just rewrote the dominant assurance contract doc.
+We should rewrite the raising funds doc to explain about using futarchy and hard updates to get paid.
+
+
+
 we are in the process of doing this:
 we need a new version of contract_timeout_tx.
 If this contract is creating a child contract, we need to include the child contract's id in that tx.
