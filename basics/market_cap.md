@@ -1,4 +1,14 @@
-Market cap of a cryptocurrency
+The market cap of a cryptocurrency
+===================
+
+There are 2 ways a cryptocurrency can sustain it's market cap. Either by currency getting burned, or by providing utility features.
+
+Mining a cryptocurrency is a way for the current market cap to be pushed upwards, by making new tokens available. But mining cannot sustain a market cap. If a blockchain continues using mining when it's market cap is above the sustainable level, then value is being destroyed.
+
+First we will look at how the market cap is influenced by the rate that currency is burned, and this will give us tools to analyze how utility features impact the sustainable market cap.
+
+
+Market cap of a cryptocurrency from burning
 ===================
 
 Using economics, we can know what the market cap of a cryptocurrency should be, if they weren't being influenced by speculators.
@@ -117,3 +127,47 @@ So a cryptocurrency that is used to control all the real estate on the planet an
 This would give us enough liquidity to satisfy our paymets and store of value needs.
 
 A harberger cryptocurrency would keep growing in value over time, because as new technology is invented, we are able to generate more value from the same amount of land. Importantly, the harberger system is not losing value from an increasing interest rate, because the tax rate can be connected to the interest rate.
+
+
+Market cap from utility
+==============
+
+Some currencies have features that make that currency useful. They let you exchange risk, or create prediction markets, or participate in an online community.
+
+The way to think of utility is that a person who is holding some of the cryptocurrency, they have the option to make some fixed returns off of that cryptocurrency.
+
+If the currency + utility is giving bigger returns than the current interest rate, people will keep buying the currency and using the utility features. If the currency + utility is giving smaller returns than the interest rate, people will keep selling the currency to get other investments.
+
+So if we consider the value of the currency without any utility features, it is providing returns worse than the current interest rate. Someone holding the currency and not participating in utility features would be losing money against other available investments.
+
+So the market cap of the currency would be continually shrinking in comparison to a currency that did not have those utility features.
+
+(market cap today) = (market cap in the future) + (how much returns you can get from utility features)
+
+
+
+
+
+
+
+
+We want to have a good stablecoin.
+It is impossible to have a stablecoin that is expected to increase in value against VEO.
+So we want VEO to not be bleeding value vs the interest rate.
+
+The market cap of VEO will settle at a value so that the expected returns of holding VEO + using the utility features as much as possible is the same as the interest rate.
+So the expected returns of holding VEO is (interest rate) - (returns of using utility features).
+
+So, if we add more utility features to Amoveo, then the stablecoin mechanism keeps getting worse.
+And we can fix this problem by charging a rent to use the utility features, and burning the rent.
+Having a good stablecoin will make all the utility features even more useful, compounding the benefits of this strategy
+
+
+
+
+
+is the rent lower than the premium would have been?
+
+premium is the difference between the expected future price of veo, and the stablecoin.
+
+rent is the expected utility provided by the smart contract.

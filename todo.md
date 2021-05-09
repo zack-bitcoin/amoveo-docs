@@ -1,34 +1,90 @@
+we are in the process of doing this:
+we need a new version of contract_timeout_tx.
+If this contract is creating a child contract, we need to include the child contract's id in that tx.
+This way we can have the merkle proof for that smart contract.
+we wrote contract_timeout_tx2 and proofs.erl for it already.
+we need to add the word to the white list.
+record.
+block.erl
+txs.erl: key2module/1
+we need to update the tests to use the new version.
+run the tests
+
+consider whether this update should also allow contract_simplify and contract_winnings to happen in the same block. we would need to add tests for that.
+
+we need to change the height for the hard update, and do an announcement.
+Make sure we are testing the new feature in some capacity.
+
+
+
+
+hard update to allow a contract to be interacted with in more ways in the same block.
+contract_simplify_tx and contract_winnings_tx.
+Maybe the contract was finalized in the same block, so it's sink isn't available yet, or maybe the contract was created in the same block, so the contract itself isn't available yet.
+In that case, the only way the tx is valid is if the merkle proofs for those things is included by another tx. So we don't need to include them in proofs.erl
+
+
+
+get rid of unused function potential_block:save/2
+
+
+
+
+hard update 51
+new versions of contract_timeout_tx, contract_winnings_tx, and contract_simplify_tx.
+we need to write the sink CID into the tx, that way we don't look it up in proofs.erl.
+we need to verify that the sink CID is correct when we process the txs.
+update the tests to use the new version.
+update test(59) to verify that we can create the contract and do a timeout in the same block.
+update the light node to use the new versions of the txs.
+do a second hard update to turn off the old versions of the txs.
+
+
+
+the explorer contracts.erl page should also keep track of contract_evidence_tx and contract_timeout_tx that are associated to each contract.
+The light node needs to be able to scan these txs and find out the bitcoin address that we need to send to for our offer to buy veo.
+we need to re-calculate the entire smart contract and contract ID, so we can verify a merkle proof and it is trustless.
+
+
+
+crosschain_tab_builder2 around line 300.
+We are trying to display the address that should be sent to.
+
+
+
+the contract_timeout tx is failing in crosshcain_tab_builder2.
+
+
+when you click "accept this offer" in crosschain-swap2, it should remove the button so you don't accidentally click it twice.
+
+
+we are now able to accept offers to buy veo.
+We have comments for displaying the address to send to.
+try accepting an offer on-chain, so we can test that the address to send to shows up correctly.
+look at the "todo" in the refresh() function.
+
+
+
+
+I feel like a sound alert would be useful when someone accepts your offer to buy veo
+
+
+
+
 review the other_blockchains/pos_time_warp document.
+
+
+lower some gov fees to zero.
+oracle close, unmatched, oracle winnings, withdrawing from a finished contract.
 
 
 api:close_oracles should have an upper limit for how many you close at once, and maybe some error message for when it goes wrong.
 maybe tx_pool feeder shouldn't start another thread in the background?
 
 
-oracle_winnings and oracle_unmatched shouldn't need to be signed, anyone should be able to make them. and they should be able to be in anyone's multi-tx.
+withdrawing winnings from a contract shouldn't need to be signed, anyone should be able to make them. and they should be able to be in anyone's multi-tx.
 
 the account explorer should tell you if you have money in any oracles or contracts.
-
-
-oracles:ready_to_close().
-produces quite the list - what about adding oracles:close_closeable(). which just iterates that list and closes them?
-
-So if you are going to implement an api:close_closeable() i would call it periodicly with the pool as a service to the community
-
-same if you give me a method for unmatched and winnings, i need a function that iterates them so i dont have to do anything by hand, probably limited by n so i can just call it and the node checks itself which are left
-api:close_unmatched(10)
-api:close_winnings(10)
-something like that so i can control how many it will do every time
-
-
-
-crosschain tab builder 142 and 803.
-one of the values in the contract is incorrect.
-
-
-
-in crosschain_tab_builder2 line 828, we are trying to publish the evidence tx.
-but when it processes the tx, it fails saying it tried to chop up a binary, but the binary was to short to chop at that point.
 
 
 working on accepting an offer in crosschain2.
@@ -43,30 +99,22 @@ white paper in voice.
 
 
 
-in crosschain_tab_builder2.js change 127.0.0.1 to the server's ip.
-in swaps.js change 127.0.0.1 to the server's ip.
-
-
 would be nice if the DEX orders were organized into a chart on some page. maybe /VEO-BTC
 
 
 
+Update the light node and p2p derivative tool for making offers to buy veo.
 
  in the new page of the crosschain dex, we still need these things:
 
-it still needs an interface for the person selling veo to have a address on the other blockchain to receive.
 It needs a way to display that address once it is available.
 it needs those buttons saying that the trade has completed, or they failed to deliver, or they failed to reveal their address.
 We also need a way to look up the oracle text for this contract.
 
 
-in crosschain DEX, if you accept an offer to buy veo, make sure you have time left to post the address where you want the deposit to go to.
-
-
 in the swap tool, it is calculating the fee wrong sometimes.
 
 
-Update the light node and p2p derivative tool for making offers to buy veo.
 
 
 p2p derivatives swap verify.
