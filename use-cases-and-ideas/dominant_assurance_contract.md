@@ -32,6 +32,8 @@ Why remove 30% from the list?
 
 The prediction market is asking about the case when they are not on the list. So we need there to be some significant probability that each company will not be included, that way there is enough probability space available to be measured by the prediction market.
 
+It is important that if we re-attempt to raise money for a DAC after the first DAC failed to get everyone to sign, that we exclude the same 30% of the list. If we change who is excluded, then people have an incentive to refuse to pay, in the hopes that they are in the next round's 30%.
+
 Why does the prediction market ask about their benefit conditional on them not having to pay?
 ===============
 
