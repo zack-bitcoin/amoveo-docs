@@ -73,6 +73,6 @@ But they don't go very deep into details.
 
 But it seems like they are making an assumption that the majority of miners will honestly report about which tx they had seen first.
 
-Assuming that miners will honestly report which tx they had seen first, even if there is not financial incentive to enforce them to report honestly, that is a vulnerability based on my model of trust theory https://github.com/zack-bitcoin/amoveo/blob/master/docs/basics/trust_theory.md
+Assuming that miners will honestly report which tx they had seen first, even if there is not financial incentive to enforce them to report honestly, that is a vulnerability based on my model of trust theory https://github.com/zack-bitcoin/amoveo-docs/blob/master/basics/trust_theory.md
 If the cost to execute an attack is zero, then it is not secure.
 

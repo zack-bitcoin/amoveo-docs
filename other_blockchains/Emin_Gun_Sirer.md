@@ -93,7 +93,7 @@ Emin in July 2018
 
 Avalanche consensus is for the altcoin Emin is planning to sell.
 
-my review of avalanche: https://github.com/zack-bitcoin/amoveo/tree/masterother_blockchains/avalanche.md
+[my review of avalanche](/other_blockchains/avalanche.md)
 
 bloxroute
 ========

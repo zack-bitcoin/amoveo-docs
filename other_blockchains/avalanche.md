@@ -26,7 +26,7 @@ Assuming 100% of users behave honestly, does Avalanche work?
 
 Assuming that 100% of the users of Avalanche participate honestly, this is a kind of voting protocol where each user's influence over the outcome is proportional to how much stake they control in the system.
 
-Voting can never work in blockchains: design/voting_in_blockchains.md
+[Voting can never work in blockchains](/design/voting_in_blockchains.md)
 
 So Avalanche is level 4 vulnerable to soft fork bribery attacks, even if 100% of the users follow the rules 100% honestly. So Avalanche is worse than centralized alternatives, even if 100% of users are honest.
 
