@@ -3,7 +3,7 @@ Proof of stake links
 
 [Why I think PoS does not work](/other_blockchains/proof_of_stake.md)
 
-[A plan on how to actually do this attack](other_blockchains/RCO.md)
+[A plan on how to actually do this attack](/other_blockchains/RCO.md)
 
 [Why others think that PoS does work](/other_blockchains/the_defence_of_pos.md)
 
