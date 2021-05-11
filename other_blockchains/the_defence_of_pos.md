@@ -1,7 +1,7 @@
 The Defense of PoS
 ========
 
-I wrote [the PoS paper](other_blockchains/proof_of_stake.md) as an attempt at a general argument to show that PoS is not possible.
+I wrote [the PoS paper](/other_blockchains/proof_of_stake.md) as an attempt at a general argument to show that PoS is not possible.
 
 I shared the PoS paper with many people who have a vested interest in PoS technology, and I have received different responses from them. The goal of this paper is to collect the various arguments in favor of PoS together in one place, so we can see why different people believe PoS can still work.
 
@@ -164,7 +164,7 @@ Lion's argument is that PoS is game-theoretically the same as PoW in bitcoin for
 
 This is basically the same as Vitalik's arguments in favor of PoS from January 2015 in his [P+epsilon paper](https://blog.ethereum.org/2015/01/28/p-epsilon-attack/) in the "Further Consequences" section.
 
-I explain why this bribery attack can not be done against proof of work in [this paper](other_blockchains/proof_of_stake.md) in the section "Censorship can be good".
+I explain why this bribery attack can not be done against proof of work in [this paper](/other_blockchains/proof_of_stake.md) in the section "Censorship can be good".
 
 sebastiengllmt
 ========

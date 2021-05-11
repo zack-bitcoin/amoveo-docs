@@ -42,5 +42,5 @@ Synthetix has on-chain exchanges for each asset they support. Miners can re-orde
 The oracle
 ===========
 
-They use [chainlink. Chainlink is not secure.](other_blockchains/chainlink.md)
+They use [chainlink. Chainlink is not secure.](/other_blockchains/chainlink.md)
 

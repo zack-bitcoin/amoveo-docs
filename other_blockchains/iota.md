@@ -26,4 +26,4 @@ in the second paragraph:
 There is no reason for us to waste time studying centralized services like the current version of IOTA.
 
 Looks like they are adding a subcurrency called "mana" for a voting based consensus mechanism. I have already written a lot about why that strategy can not work.  [voting in blockchains](design/voting_in_blockchains.md)
-[why proof of stake does not work](other_blockchains/proof_of_stake.md)
+[why proof of stake does not work](/other_blockchains/proof_of_stake.md)
