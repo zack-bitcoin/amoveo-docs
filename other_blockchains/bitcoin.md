@@ -153,4 +153,4 @@ explains: 1, 2, 3
 
 The crabs in a bucket model breaks down if ever there is one individual who has physical control over the majority of hashpower. Since an individual is always able to coordinate with himself, there is no way to prevent him from taking control of the consensus. An attacker with physical control of the majority of hashpower could steal any BTC, and change any consensus rules that define bitcoin.
 
-Crabs in a bucket model is very un-popular with PoS blockchain communities, since we can use this model to show that PoS can not work other_blockchains/proof_of_stake.md
+Crabs in a bucket model is very un-popular with PoS blockchain communities, since we can use this model to show that PoS can not work [proof_of_stake.md](/other_blockchains/proof_of_stake.md)

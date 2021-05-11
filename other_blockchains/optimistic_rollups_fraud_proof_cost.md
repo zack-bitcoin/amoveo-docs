@@ -1,7 +1,7 @@
 Optimistic Rollups Fraud Proof Cost Estimate
 ===========
 
-[optimistic rollup review home](other_blockchains/optimistic_rollups.md)
+[optimistic rollup review home](/other_blockchains/optimistic_rollups.md)
 
 
 

@@ -7,13 +7,13 @@ The Zano white paper is very high quality documentation. Possibly the best white
 The graphs are great, the explanations are clear.
 Accurately communicating your work is critical for others to be able to review it and give helpful advice. This is where Zano shines.
 
-Here is a general proof that PoW/PoS hybrid protocols are impossible: other_blockchains/pow_pos_hybrid.md
+Here is a general proof that PoW/PoS hybrid protocols are impossible: [pow_pos_hybrid.md](/other_blockchains/pow_pos_hybrid.md)
 
 
 Privacy and Bribery
 ========
 
-In general, proof of stake type mechanisms are vulnerable to bribery other_blockchains/proof_of_stake.md
+In general, proof of stake type mechanisms are vulnerable to bribery [proof_of_stake.md](/other_blockchains/proof_of_stake.md)
 
 The optimal way to do this in Zano is by paying validators to move all their money to a different address, and to sell you a copy of their now empty private key, which was a valid private key a couple hours earlier.
 

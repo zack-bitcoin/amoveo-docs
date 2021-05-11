@@ -40,7 +40,7 @@ Sharding Plans
 
 * optimistic roll-up. https://arxiv.org/pdf/1904.06441.pdf  With optimistic roll-up we keep the history on-chain, but we move all processing of editable state onto side-chains. Miners pay a safety deposit when they publish a block. If anyone can show that a block improperly processed a transaction, they can destroy half the safety deposit and win the rest as a reward.
 
-[My review of optimistic rollup](other_blockchains/optimistic_rollups.md)
+[My review of optimistic rollup](/other_blockchains/optimistic_rollups.md)
 
 [Vitalik talking about optimistic rollup](https://twitter.com/Shaughnessy119/status/1187390153662316544?s=20) it looks like this is the plan for Eth2.0
 

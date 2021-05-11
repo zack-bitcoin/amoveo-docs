@@ -1,7 +1,7 @@
 Optimistic Rollups sidechain attack
 ==========
 
-[optimistic rollup review home](other_blockchains/optimistic_rollups.md)
+[optimistic rollup review home](/other_blockchains/optimistic_rollups.md)
 
 This is an attempt to show that if optimistic rollup scales worse than linearly.
 If you increase the rate of tx production, the fee per tx necessarily increases.
@@ -24,7 +24,7 @@ Lets suppose that more than one person has permission to publish a sidechain blo
 
 A sidechain block needs to hold many txs, but an attacker can build a contradictory sidechain block that only contains 1 tx, and he can get his small contradictory block inserted in front of the large block.
 
-So the cost to the attacker is the cost of publishing a single tx into the available consensus state. And the destruction caused by the attack is proportional to the size of an average sidechain block, which we know from [fraud proof analysis](other_blockchains/optimistic_rollups_fraud_proof_cost.md) must be at least O(sqrt(sqrt(total # of txs in the available consensus space))).
+So the cost to the attacker is the cost of publishing a single tx into the available consensus state. And the destruction caused by the attack is proportional to the size of an average sidechain block, which we know from [fraud proof analysis](/other_blockchains/optimistic_rollups_fraud_proof_cost.md) must be at least O(sqrt(sqrt(total # of txs in the available consensus space))).
 Since the destruction is bigger than the cost of the attack, this would be a level 3 attack. So that means it would not be secure to have a sidechain where more than one person has permission to publish blocks.
 
 So that means that for any moment in time, there needs to be someone, or some group of people with exclusive permission to make sidechain blocks. They are the leadership for that sidechain.
@@ -32,7 +32,7 @@ So that means that for any moment in time, there needs to be someone, or some gr
 Permanent leadership does not work
 ============
 
-if the leadership for any one sidechain was permanent, then that sidechain would be vulnerable to soft fork bribery attacks. other_blockchains/proof_of_stake.md
+if the leadership for any one sidechain was permanent, then that sidechain would be vulnerable to soft fork bribery attacks. [proof_of_stake.md](/other_blockchains/proof_of_stake.md)
 
 As long as the leadership is being swapped out regularly, and you are unable to predict who the next leaders will be, and it is infeasible to bribe all the validators for all the shards all at once, then bribing is ineffective. Because you don't know who you would need to lock into a contract to have the guarantees you need to start executing the attack.
 

@@ -99,7 +99,7 @@ Attacks
 Soft fork bribery attacks
 ==========
 
-This section applying the attack described in this paper other_blockchains/proof_of_stake.md to Nyzo.
+This section applying the attack described in this paper [proof_of_stake.md](/other_blockchains/proof_of_stake.md) to Nyzo.
 
 An attacker can bribe the voters to use the validator-vote-slashing mechanism to kick out any arbitrary validator that they dislike.
 If the attacker keeps doing this, eventually they can control the majority of the validator pool.

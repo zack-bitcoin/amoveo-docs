@@ -3,7 +3,7 @@ Algorand Review
 
 Algorand is a PoS blockchain consensus protocol. Here is the paper describing its design https://algorandcom.cdn.prismic.io/algorandcom%2Fece77f38-75b3-44de-bc7f-805f0e53a8d9_theoretical.pdf
 
-I have attempted to show that proof of stake is impossible other_blockchains/proof_of_stake.md
+I have attempted to show that proof of stake is impossible [proof_of_stake.md](/other_blockchains/proof_of_stake.md)
 
 So the goal of this paper is to use what I have learned about PoS, and to see if Algorand is a counter-example of my conclusions, or if I can show that Algorand is not secure.
 

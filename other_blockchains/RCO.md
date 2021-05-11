@@ -17,7 +17,7 @@ This is a call for volunteers who are willing to put their money at risk to help
 Important Features
 ============
 
-We can do an RCO against any blockchain that is vulnerable to soft fork attacks. For example, [any proof-of-stake blockchain](other_blockchains/proof_of_stake.md)
+We can do an RCO against any blockchain that is vulnerable to soft fork attacks. For example, [any proof-of-stake blockchain](/other_blockchains/proof_of_stake.md)
 
 If we do an RCO on a blockchain, Cardano for example, then people who donate to the RCO will receive real ADA upon the mission's success. ADA that are identical to the rest on Cardano, and fungible with any other on Cardano. So if you are sad that you didn't get to participate in Cardano's ICO, this is your second chance.
 

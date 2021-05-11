@@ -9,7 +9,7 @@ Documentation includes expired data and is not searchable.
 Devs would respond "dyor" to even the most basic questions about how Decred works.
 
 
-Here is a document that explores the capabilities of pow/pos hybrid designs in general: other_blockchains/pow_pos_hybrid.md
+Here is a document that explores the capabilities of pow/pos hybrid designs in general: [pow_pos_hybrid.md](/other_blockchains/pow_pos_hybrid.md)
 
 https://docs.decred.org/proof-of-stake/overview/ Looking at this page.
 At the top of that page, they listed 5 reasons that they incorporate PoS elements into their blockchain. Some of these reasons show flaws in the design.
