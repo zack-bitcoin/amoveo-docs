@@ -3,7 +3,7 @@ Iota Review
 
 Iota descripton from their team: https://assets.ctfassets.net/r1dr6vzfxhev/2t4uxvsIqk0EUau6g2sw0g/45eae33637ca92f85dd9f4a3a218e1ec/iota1_4_3.pdf
 
-This review is applying the techniques from this paper: other_blockchains/proof_of_stake.md
+This review is applying the techniques from this paper: [proof_of_stake.md](/other_blockchains/proof_of_stake.md)
 
 The pow half of Iota's pow/pos hybrid model is not being used for consensus. It is cheap to get >50% hashpower, but having >50% hashpower wont matter. It is just an anti-spam feature so that the total number of valid messages that a full node would have to consider has some reasonable bounds.
 

@@ -1,7 +1,7 @@
 Review of Ethereum Casper FFG
 ==========
 
-I wrote a paper about why all PoS blockchains are vulnerable to soft fork bribery attacks other_blockchains/proof_of_stake.md
+I wrote a paper about why all PoS blockchains are vulnerable to soft fork bribery attacks [proof_of_stake.md](/other_blockchains/proof_of_stake.md)
 
 In general, any attempt to recover from a soft fork bribery attack will have one of these shortcomings:
 1) we undo the history that occured during the soft fork bribery attack, enabling the attacker to do double-spends between that version of history, and the new version.

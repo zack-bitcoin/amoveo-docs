@@ -47,4 +47,4 @@ So Avalanche is insecure like a voting protocol, but it is even worse because it
 More reading on this topic
 ==========
 
-Here is a paper showing that all PoS blockchains are vulnerable to soft fork bribery attacks other_blockchains/proof_of_stake.md
+Here is a paper showing that all PoS blockchains are vulnerable to soft fork bribery attacks [proof_of_stake.md](/other_blockchains/proof_of_stake.md)

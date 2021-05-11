@@ -1,7 +1,7 @@
 Cosmos
 =======
 
-Recently it was discovered that proof-of-stake cannot be a secure consensus mechanism. other_blockchains/proof_of_stake.md
+Recently it was discovered that proof-of-stake cannot be a secure consensus mechanism. [proof_of_stake.md](/other_blockchains/proof_of_stake.md)
 
 Cosmos is one of the most popular PoS blockchains.
 

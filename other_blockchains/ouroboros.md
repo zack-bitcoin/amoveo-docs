@@ -31,7 +31,7 @@ The process of proving the security of a blockchain has these steps:
 Step (2) is the part we can prove in an undeniable mathematical way.
 
 Step (1) is a controversial topic in blockchain today.
-For example, we cannot even agree on which security model is securing bitcoin other_blockchains/bitcoin.md
+For example, we cannot even agree on which security model is securing bitcoin [bitcoin.md](/other_blockchains/bitcoin.md)
 
 In this paper, I will be trying to explain what security model Ouroboros is based upon, and I will try to show that their security model is not good enough to secure a cryptocurrency.
 

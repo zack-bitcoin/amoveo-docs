@@ -52,7 +52,7 @@ consensus-creating state-machine.
 
 Since they don't describe a PoS mechanism, there is nothing for me to review.
 
-Instead I will link to a paper I have written that shows proof-of-stake is not a solvable problem other_blockchains/proof_of_stake.md
+Instead I will link to a paper I have written that shows proof-of-stake is not a solvable problem [proof_of_stake.md](/other_blockchains/proof_of_stake.md)
 
 
 Governance

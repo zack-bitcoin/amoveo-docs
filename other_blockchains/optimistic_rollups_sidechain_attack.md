@@ -32,7 +32,7 @@ So that means that for any moment in time, there needs to be someone, or some gr
 Permanent leadership does not work
 ============
 
-if the leadership for any one sidechain was permanent, then that sidechain would be vulnerable to soft fork bribery attacks. other_blockchains/proof_of_stake.md
+if the leadership for any one sidechain was permanent, then that sidechain would be vulnerable to soft fork bribery attacks. [proof_of_stake.md](/other_blockchains/proof_of_stake.md)
 
 As long as the leadership is being swapped out regularly, and you are unable to predict who the next leaders will be, and it is infeasible to bribe all the validators for all the shards all at once, then bribing is ineffective. Because you don't know who you would need to lock into a contract to have the guarantees you need to start executing the attack.
 
