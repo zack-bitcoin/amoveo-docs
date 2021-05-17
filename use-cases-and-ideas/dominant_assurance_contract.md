@@ -56,5 +56,26 @@ Giving a reward to the other participants means that they can safely ignore the 
 
 The attacker's hostage attempt will fail, and they are missing out on receiving the extra reward for having participated, so this mechanism prevents hostage attempts from occuring.
 
+Nash equilibrium analysis
+================
+
+Whether the project is funded or not, it is more profitable for each company to sign up to fund their part. So the Nash equilibrium is that the project gets funded.
+
+Trust Theory analysis
+=============
+
+[trust theory explained here](../basics/trust_theory.md)
+
+If someone refuses to pay their part of the public good, this causes a cost to them of not being able to receive the extra reward money from the builder.
+
+If someone refuses to pay their part, the cost on the builder is as much as all the extra reward money they need to pay to those entities which did sign up.
+
+So the cost of the attack is less than how much value the attack can destroy. This means that the mechanism has security level 3.
+
+If customers of the companies reduced their business with companies that engage in extortion threats, this extra cost could move the mechanism to security level 2.
+
+Related documents
+==============
+
 [raising funds with amoveo](raising_funds.md)
 

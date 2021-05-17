@@ -15,7 +15,7 @@ txs.erl: key2module/1
 we need to update the tests to use the new version.
 run the tests
 
-consider whether this update should also allow contract_simplify and contract_winnings to happen in the same block. we would need to add tests for that.
+writing test_txs:test(63).
 
 we need to change the height for the hard update, and do an announcement.
 Make sure we are testing the new feature in some capacity.

@@ -5,6 +5,9 @@ Lately a lot of people have been making arguments that PoW is vulnerable to cert
 
 Thanks to Elliot Olds for helping to explain to me the various attacks against PoW currently being discussed in the Ethereum community. Elliot can explain complicated topics clearly and concisely, he keeps himself up-to-date with current research in crypto, you can follow him on Twitter https://twitter.com/elliot_olds
 
+Thanks for Fernando Nietom for explaining the modern security model for PoW. https://twitter.com/fnietom
+
+
 Double Spend attack.
 ========
 
@@ -28,6 +31,27 @@ Many people who try to explain why PoW will fail, they start with the assumption
 
 A proper argument that PoW can be attacked, it needs to first show (1), (2), and (3), only then is it possible to use CCA to show that the attack is cheap.
 
+
+PoW Security
+===========
+
+If a cartel of attackers starts censoring some kinds of blocks, the users can schedule a hard fork to blacklist one of the attacker's blocks, and build a lower-hashpower fork that doesn't censor blocks.
+
+Even though the non-censoring side has lower hashpower, it is still more valuable to users who prefer to not have censorship.
+
+So the attackers have 2 ways to respond to these hard forks. They can either build a new attack from before the hard fork height, or from after.
+
+If they resume the attack from before
+===========
+
+Every time the attackers resume the attack, they have to rebuild a longer chain of blocks to catch up with the defenders. The cost of the attack increases by 2^(number of times the defenders hard fork). The exponential increase in the cost of maintaining the attack makes it unsustainable.
+
+If they resume the attack from after
+===========
+
+In this case the defenders managed to get a few non-censored blocks through. So the attack is only reducing the volume of txs, it isn't successfully censoring.
+
+<!---
 
 Buy equipment attack
 =================
@@ -196,6 +220,8 @@ If we set ```S = B2/1000```
 
 This is basically identical to the case of the evil mining pool without safety deposit.
 So the safety deposit doesn't change anything.
+
+--->
 
 
 
