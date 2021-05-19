@@ -40,4 +40,3 @@ If the road is not built, then the investor gets their money back plus interest,
 The builder only gets paid if they successfully build the public good.
 
 [dominant assurance contracts](dominant_assurance_contract.md)
-[raising funds with amoveo](raising_funds.md)

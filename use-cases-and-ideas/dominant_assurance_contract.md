@@ -77,5 +77,5 @@ If customers of the companies reduced their business with companies that engage 
 Related documents
 ==============
 
-[raising funds with amoveo](raising_funds.md)
+[game theory of raising funds](insured_crowdfund.md)
 

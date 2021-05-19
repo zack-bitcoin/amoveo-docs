@@ -3,53 +3,11 @@ We should rewrite the raising funds doc to explain about using futarchy and hard
 
 
 
-we are in the process of doing this:
-we need a new version of contract_timeout_tx.
-If this contract is creating a child contract, we need to include the child contract's id in that tx.
-This way we can have the merkle proof for that smart contract.
-we wrote contract_timeout_tx2 and proofs.erl for it already.
-we need to add the word to the white list.
-record.
-block.erl
-txs.erl: key2module/1
-we need to update the tests to use the new version.
-run the tests
+update the light node to use contract_timeout_tx2 instead.
 
-writing test_txs:test(63).
-
-we need to change the height for the hard update, and do an announcement.
-Make sure we are testing the new feature in some capacity.
-
-
-
-
-hard update to allow a contract to be interacted with in more ways in the same block.
-contract_simplify_tx and contract_winnings_tx.
-Maybe the contract was finalized in the same block, so it's sink isn't available yet, or maybe the contract was created in the same block, so the contract itself isn't available yet.
-In that case, the only way the tx is valid is if the merkle proofs for those things is included by another tx. So we don't need to include them in proofs.erl
-
-
+hard update to turn off contract_timeout_tx.erl type 1.
 
 get rid of unused function potential_block:save/2
-
-
-
-
-hard update 51
-new versions of contract_timeout_tx, contract_winnings_tx, and contract_simplify_tx.
-we need to write the sink CID into the tx, that way we don't look it up in proofs.erl.
-we need to verify that the sink CID is correct when we process the txs.
-update the tests to use the new version.
-update test(59) to verify that we can create the contract and do a timeout in the same block.
-update the light node to use the new versions of the txs.
-do a second hard update to turn off the old versions of the txs.
-
-
-
-the explorer contracts.erl page should also keep track of contract_evidence_tx and contract_timeout_tx that are associated to each contract.
-The light node needs to be able to scan these txs and find out the bitcoin address that we need to send to for our offer to buy veo.
-we need to re-calculate the entire smart contract and contract ID, so we can verify a merkle proof and it is trustless.
-
 
 
 crosschain_tab_builder2 around line 300.
