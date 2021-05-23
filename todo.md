@@ -1,18 +1,10 @@
-we just rewrote the dominant assurance contract doc.
-We should rewrite the raising funds doc to explain about using futarchy and hard updates to get paid.
-
-
-
 update the light node to use contract_timeout_tx2 instead.
 
 hard update to turn off contract_timeout_tx.erl type 1.
 
-get rid of unused function potential_block:save/2
-
 
 crosschain_tab_builder2 around line 300.
 We are trying to display the address that should be sent to.
-
 
 
 the contract_timeout tx is failing in crosshcain_tab_builder2.

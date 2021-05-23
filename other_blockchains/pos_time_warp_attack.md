@@ -16,11 +16,15 @@ The attack
 
 A coalition of validators, they make a bunch of blocks ahead of time.
 For example, if the unbonding period is 1000 blocks.
-In that case, the validators immediately make the 1000 blocks, then the following 1000 blocks, each one takes 2x longer than normal.
+In that case, the validators can publish 1000 blocks all at the same time, then the following 1000 blocks, each one takes 2x longer than normal.
 So after 2000 blocks, the network is back on track, and normal full nodes can sync all the history as if nothing unusual had happened.
 
 Non-attacking validators are not able to do any validation for the 2000 block period, and so are dropped out of the system.
-After the first 1000 blocks, the attacking validators have unbonding the vast majority of their stake, but the attackers still have 100% control.
+During the second 1000 blocks, the attacking validators can unbond the vast majority of their stake, but the attackers still have 100% control.
 
 
+Why it doesn't work
+================
 
+The blockchain can do a hard fork to kick out the censoring majority of stakers.
+Users had been using a version of full nodes that wont sync blocks faster than the speed they can be made according to the protocol rules, so that means everyone can update before their full nodes had the attacker's finish unbonding.
