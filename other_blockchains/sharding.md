@@ -36,8 +36,6 @@ Sharding Plans
 
 * Lazy Ledger - https://arxiv.org/pdf/1905.09274.pdf . Lazy ledger is a tehnique where full nodes only need to download around sqrt(# transactions), and they can get a probabilistic gurantee that all the txs in that block were processed correctly. It uses erasure coding and merkel fraud proofs. Lazy Ledger depends on the existance of storage node specialists that are paid to remember the entire history of all the txs, and to serve random subsets of this information to everyone who needs it.
 
-* state channels. like payment channels, but you can put turing complete smart contracts inside of them.
-
 * optimistic roll-up. https://arxiv.org/pdf/1904.06441.pdf  With optimistic roll-up we keep the history on-chain, but we move all processing of editable state onto side-chains. Miners pay a safety deposit when they publish a block. If anyone can show that a block improperly processed a transaction, they can destroy half the safety deposit and win the rest as a reward.
 
 [My review of optimistic rollup](/other_blockchains/optimistic_rollups.md)
@@ -89,8 +87,6 @@ The meaning of various scores:
 The plans we compare:
 B = Bitcoin,
 S = Stateless full nodes,
-C = state channels,
-CS = state channels + stateless full nodes,
 O = optimistic rollup,
 OL = optimistic rollup + lazyledger,
 P = Plasma
@@ -107,8 +103,6 @@ CH = Coins*Hours. how much stake is locked up.
         CPU  NB  MS  MB  CH
 B       3    3   4   3   10
 S       3    3   10  10  10
-C       4    4   4   4   10
-CS      4    4   10  10  10
 O       3    3   3   6   1
 OL      6    6   6   6   1
 P       4    4   4   4   9 
