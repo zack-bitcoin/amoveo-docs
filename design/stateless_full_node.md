@@ -135,8 +135,7 @@ When processing the block, after each chunk of the smart contract, the full node
 Other tricks Amoveo uses so Smart Contracts are scalable
 ==========
 
-It has been said that stateless full nodes will only make Ethereum 3x more scalable, but this design will allow Amoveo to scale far more than that.
-Amoveo has been designed for stateless full nodes since day 1, in a sense, Amoveo invented stateless full nodes, because we have been using this design since before the term "stateless full nodes" existed. Amoveo's smart contract system is totally optimized for this design.
+It has been said that stateless full nodes will only make Ethereum 3x more scalable, but this design will allow Amoveo to scale far more than that. Amoveo's smart contract system is totally optimized for this design.
 
 Amoveo's smart contract system is based on fraud proofs. The majority of smart contracts do not ever need to go on-chain, because if the participants agree on the outcome, they can settle for the correct result without needing the blockchain to enforce it. They are incentivized to resolve their contract without the blockchain, because using the blockchain to enforce the result is more costly to them. This significantly reduces CPU costs relative to other smart contract blockchains, like Ethereum.
 
