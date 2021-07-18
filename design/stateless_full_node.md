@@ -143,3 +143,7 @@ Amoveo's smart contract system uses Merklized abstract syntax trees. That means 
 
 Amoveo's smart contract transactions are always parallelizable. It isn't possible to cause them to become a single-threaded task, like can happen in other smart contract blockchains, like Ethereum or any blockchain using the EVM. This significantly reduces the CPU cost of Amoveo's smart contract system.
 
+Related Links
+===============
+
+[Ethereum looking into a similar idea](https://ethresear.ch/t/the-stateless-client-concept/172/11)

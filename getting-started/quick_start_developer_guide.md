@@ -23,6 +23,7 @@ This will run all the tests, and return `success` if they all pass.
 
 you can kill the erlang process with `halt().`
 
+If you want to do tests on a full node, you might want to try creating transactions without publishing them to the network. To do this, first sync you full node normally, then use `peers:remove_all().` so that you disconnect from all your peers. Now you can try making txs, and those txs will not get sent to any mining pools.
 
 
 ## Blockchain Commands

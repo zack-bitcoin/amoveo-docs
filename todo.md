@@ -1,13 +1,48 @@
-update the light node to use contract_timeout_tx2 instead.
+
+the light node merkle proof library still can't verify the proof that a data slot is empty.
+
+
+would be cool if the light node could be set to require a certain number of confirmations everywhere.
+
+
+
+
+
+
+
+several todos in the buy_veo_contracts_viewer page.
+
+some notification when the deposit address is available.
+
+refresh could be automatic after loading keys or opening the tab.
+
+
+
+
+remember, if the bitcoin arrive, then type 2 wins.
+
+
+hard update idea. contract_evidence_tx2.
+the txid should be stored in consensus space.
+if the evidence tx is creating a child contract, then the CID of the child needs to be written in the evidence tx.
+After we can simplify crosschain_tab_builder2 to not need to run the smart contract to verify the child's id.
+
+
+
+Exactly! Also expose some api for offer creation so that can write bot that scrapes bets from other sites...? Allow hashtags for categories/filtering. Maybe put the hashtag into oracle text? Show the 99% pool only to specialists... Zero interaction trustless bets! Making the looser cooperate should give some little cashback maybe... But just minimize clicks as FIRST PRIORITY. Then im gonna turn it into dedicated page xD.
+Make a javascript function that can create a bet offer all in one step.
+
+
+a new tab in wallet.html
+We want to make an off-chain binary bet offer to bet on some arbitrary text.
+
+
 
 hard update to turn off contract_timeout_tx.erl type 1.
 
 
 crosschain_tab_builder2 around line 300.
 We are trying to display the address that should be sent to.
-
-
-the contract_timeout tx is failing in crosshcain_tab_builder2.
 
 
 when you click "accept this offer" in crosschain-swap2, it should remove the button so you don't accidentally click it twice.
@@ -24,9 +59,6 @@ look at the "todo" in the refresh() function.
 I feel like a sound alert would be useful when someone accepts your offer to buy veo
 
 
-
-
-review the other_blockchains/pos_time_warp document.
 
 
 lower some gov fees to zero.

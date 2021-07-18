@@ -3,8 +3,9 @@ veoscan.pw Sy on telegram
 lolopool loloxiao on discord
 
 exchanges:
-hitbtc email
+relations@hitbtc.com email
 qtrade.io on discord
+relations@scalableintegration.com email for bitcoin.com exchange
 
 wallets:
 Dennis Voskvitsov on telegram
