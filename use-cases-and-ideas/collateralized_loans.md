@@ -40,3 +40,11 @@ the bet is "(1000 veo does not drop below $11,000 at any point by time Y AND per
 
 person A bets on true person B bets on false
 
+How Amoveo improves on existing solutions
+==============
+
+Amoveo collaterlized loans don't need to be for currency that is on the same blockchain.
+You can use VEO as collateral to have access to BTC on bitcoin or Eth on Ethereum.
+
+If you wanted to use Eth to get access to BTC on bitcoin, you would need to exchange some wrapped BTC for BTC at some step of the process and pay a fee for this exchange. In Amoveo we don't have this limitation. You can borrow BTC that are already on Bitcoin without needing to use any exchange. Similarly, when the loan ends, you are paying BTC on the Bitcoin blockchain to end the loan and unlock your VEO.
+
