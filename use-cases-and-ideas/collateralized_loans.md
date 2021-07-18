@@ -7,7 +7,7 @@ Why do we want this?
 A collateralized loan is a tool used for:
 * it can be a more capital efficient way to gain exposure to a cryptocurrency.
 * gaining access to a cryptocurrency for a chosen period of time, without needing to use illiquid markets to convert back and forth.
-* gaining the ability to use a cryptocurrency without needing to pay capital gains tax for selling cryptocurrency.
+* gaining the ability to use a cryptocurrency without needing to pay capital gains tax.
 
 Capital Efficiency
 ===============
