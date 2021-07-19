@@ -33,19 +33,18 @@ There are 3 strategies.
 ```
 _______ Fair   Demands Folding
 Fair    0/0    -1/-1   0/0
-Demands -1/-1  -1/-1   1/-1
-Folding 0/0    -1/1    0/0
+Demands -1/-1  -1/-1   1-e/e-1
+Folding 0/0    e-1/1-e 0/0
 ```
 
+where `e` is a small bribe to encourage them to choose the Fold instead of the Fair.
 
-It looks like Fair is no less profitable than Folding.
-So we can expect Folding to be 0.
-So everyone will either be Fair or Demands.
-In that case, Fair is the better strategy. Every row is either equal or better.
+Fold is better or equal than Fair everywhere, so we expect no one to use the Fair strategy in the case where this game is one-round. The Demand strategy is better or equal to Fold everywhere, so we can expect that we need to use an Oracle every time. People will never cooperate to end their contract early.
 
-So it looks like the nash equilibrium is Fair.
-That means that oracles very rarely need to go on-chain, and contract usually do not need to be settled on-chain. Users have an incentive to end the contract at the correct final price without needing the blockchain to enforce it.
-
+But, that is only true for the single-round version of this game.
+Specialists can build up a reputation for never using the Fold strategy, for any size of bribe.
+If a specialist has the other side of the trade, and you are certain that they are using the Fair strategy, then you are better off using the Fair strategy instead of the Demand strategy.
+So, if you own the winning side of a contract, you can sell it to a specialist who has a reputation of never Folding, and you get almost all of the value out.
 
 
 
