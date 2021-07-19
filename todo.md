@@ -1,10 +1,8 @@
-
-hard update idea. contract_evidence_tx2.
-if the evidence tx is creating a child contract, then the CID of the child needs to be written in the evidence tx.
-After we can simplify crosschain_tab_builder2 to not need to run the smart contract to verify the child's id.
+maybe offers should disappear one block sooner for the DEX?
 
 
 hard update to turn off contract_timeout_tx.erl type 1.
+* make sure we aren't using it anywhere in the light  node first.
 
 
 the light node merkle proof library still can't verify the proof that a data slot is empty.
@@ -17,13 +15,11 @@ Make a javascript function that can create a bet offer all in one step.
 * minimize clicking.
 
 
+collateralized loans smart contracts and interface.
 
 
 would be cool if the light node could be set to require a certain number of confirmations everywhere.
 
-
-
-collateralized loans smart contracts and interface.
 
 
 
@@ -34,8 +30,15 @@ refresh could be automatic after loading keys or opening the tab.
 
 
 
-
 when you click "accept this offer" in crosschain-swap2, it should remove the button so you don't accidentally click it twice.
+
+
+
+
+Maybe we don't need this??
+hard update idea. contract_evidence_tx2.
+if the evidence tx is creating a child contract, then the CID of the child needs to be written in the evidence tx.
+After we can simplify crosschain_tab_builder2 to not need to run the smart contract to verify the child's id.
 
 
 
