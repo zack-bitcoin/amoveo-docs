@@ -3,7 +3,7 @@ Ending Contracts Early
 
 For Amoveo smart contracts to be scalable and efficient, it is best if we do not need to actually run the contract on chain, it is best if we do not need to use an oracle.
 
-If the participants in a contract can agree on how that contract would end, if enforcement occurs, then they can take their money out early, and they don't need to pay the cost of doing enforcement.
+If the participants in a contract can agree on how that contract would be enforced, then they don't need to pay the cost of doing enforcement, and they can get their money out early.
 
 Potential Failure Mode
 ==============
