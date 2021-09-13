@@ -125,7 +125,7 @@ Now you can go into the directory, and compile Amoveo.
 
 ```
 cd amoveo/
-make prod-build
+make prod-restart
 ```
 
 Now you can run your node. For instructions proceed to [turn_it_on](turn_it_on.md).

@@ -110,11 +110,14 @@ Additionally, the long-term historical interest rate has always been increasing.
 A global Harberger tax currency
 ================
 
+
 Our current financial system uses things like mortgage backed debt to give access to more currency. We can do something similar with cryptocurrency using the Harberger tax system, where the taxes paid all get burned.
 
 Lets plug the harberger tax system into our equation and see how valuable this kind of cryptocurrency could be.
 
 Assuming the economy has an interest rate of 1%, we can charge a 1% harberger tax, so then the owner of land would keep half the productive rents from their land, and pay half into the harberger tax system.
+
+[learn more about harberger land](use-cases-and-ideas/harberger_land.md)
 
 The total value of real estate is around $200 trillion
 

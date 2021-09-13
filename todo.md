@@ -1,4 +1,80 @@
+
+javascript tool to keep re-publishing swap offers that expire in 1 block. usable with DEX and bet tab and anywhere we could use swap offers.
+how about if the javascript light wallet generates the first swap offer, and you give that to an erlang program.
+the erlang program keeps asking the network for the block height and checking if your offer was already accepted. and it re-publishes the offer at every block, after increasing the expiration and re-signing it.
+maybe javascript is easier. look into if javascript still runs when you are in a different tab.
+
+
+
+amoveo full node rebar isn't working.
+
+
+A tab for creating a bet offer without any AMM, and without putting the bet on-chain.
+
+
+
+hard update.
+a way to settle the contract, so the money all gets sent to an address.
+
+
+look into doing a sell veo dex offer, but where the counterparty has zero veo.
+* maybe a faucet that gives like 100 satoshis per identity.
+* would be nice if the pow also covered the cost of the tx fee.
+
+another option. a hard update so that people who don't yet have accounts can accept these swap offers for onboarding.
+1) the swap offer needs to support negative values, so you can pay people free veo to get free participation in the contract.
+2) multi-tx needs to handle the case where the account building the tx doesn't yet exist, but the tx is net profitable in veo, so it creates a new account.
+
+
+hard update.
+A new way to use the oracle.
+You can print money for yourself, as long as the oracle says you went through the proper procedure to have futarchy permission.
+
+
+the dex tools should give you the option to post the same offer repeatedly.
+* need multiple addresses for receiving off-chain currency.
+
+
+Idea: Amoveo atomic swap tool. for enforcing swaps between 2 other blockchains.
+If someone refuses to participate in the swap they should be over-punished in veo terms.
+A tab for going from crypto to crypto.
+
+crosschain_tab_builder3.
+
+
+
+
+
+
+
+connect some governance values together so we can adjust the block time without destroying everything else.
+block time, block rewards, oracle minimum, oracle maximum, block size.
+
+
+
+
+in the light node dex, would be nice to extract the fields from the js and put it into the html with ids, to make it easier for a UX person to organize the interfaces.
+
+
+
+
+
+
+in the dex, maybe we need:
+* order book.
+* maybe instead of text there could be dropdowns for commonly selected choices?
+
+"crosschain DEX buy veo" tab is used to accept offers and sell veo. this is confusing. Maybe we should combine both tabs?
+
+when you click buttons in the DEX, it isn't obvious enough that a message has appeared in response. Maybe put it in a box and bigger.
+
+We need some way to quickly get an idea of what markets are available in the dex, and what their prices are. 
+
 maybe offers should disappear one block sooner for the DEX?
+
+would be nice if you could offer to make some trades that are mutually exclusive. Like you could sell veo and get paid in either tether or USDC.
+
+
 
 
 hard update to turn off contract_timeout_tx.erl type 1.
@@ -31,6 +107,12 @@ refresh could be automatic after loading keys or opening the tab.
 
 
 when you click "accept this offer" in crosschain-swap2, it should remove the button so you don't accidentally click it twice.
+
+
+transferable options idea.
+What if you could make a swap in the DEX to buy bitcoin, but you don't provide your bitcoin address for like a month. so you can sell your side of the contract to someone else.
+* we would need the smart contracts to be able to look up their own contract ID, to calculate the subcurrency address.
+* we would need smart contracts to be able to get locked, to prevent anyone else from depositing money into them, so no one else can have the power to choose the bitcoin address.
 
 
 
@@ -72,17 +154,7 @@ would be nice if the DEX orders were organized into a chart on some page. maybe 
 
 
 
-Update the light node and p2p derivative tool for making offers to buy veo.
-
- in the new page of the crosschain dex, we still need these things:
-
-It needs a way to display that address once it is available.
-it needs those buttons saying that the trade has completed, or they failed to deliver, or they failed to reveal their address.
-We also need a way to look up the oracle text for this contract.
-
-
 in the swap tool, it is calculating the fee wrong sometimes.
-
 
 
 
@@ -105,10 +177,6 @@ in the swap tool, it should click "lookup price" by default.
 
 
 
-Idea: Amoveo atomic swap tool. for enforcing swaps between 2 other blockchains.
-If someone refuses to participate in the swap they should be over-punished in veo terms.
-
-
 
 
 in crosschain DEX.
@@ -120,11 +188,6 @@ ordering trades by price would be nice.
 
 would be nice if the refresh button was automatic.
 could connect it to when new blocks are found, and to clicking the crosschain-DEX tab.
-
-
-in crosschain DEX.
-go through the process of making a trade and trying to sell both sides.
-look at what gets displayed in the tab all along the way, and make sure it makes sense.
 
 
 the "accept offer" tool in the crosschain DEX should display price as well.
@@ -142,10 +205,6 @@ maybe separate into two sections
 "information on coin to send (sell)"
 
 
-
-
-write about the decentralized local bitcoins idea.
-use an oracle as the third party to verify that a tx went through.
 
 the contracts.html page, when you accept a swap offer, there should be links to look up what the Contract ID is in reference to.
 
