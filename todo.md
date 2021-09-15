@@ -1,3 +1,28 @@
+update crosschain_tab_builder2 to use swap_offer_downloader.subaccounts
+
+update crosschain_tab_builder2 to use apost_offer from format. delete repeated function.
+update crosschain_tab_builder3 to use apost_offer from format. delete repeated function.
+
+update crosschain_tab_builder to not need so many buttons. It should automatically try to sell for 99% at the beginning, so we don't need those extra cases.
+
+can we reuse crosschain_tab_builder:release in crosschain_tab_builder2? why did we abstract that?
+
+
+also abstract the release button stuff.
+we get the market from the p2p tool by scanning the markets for the one that matches.
+we get the swap offer for the lowest priced order in this market.
+* if they already made a deal to end it, then accept that. otherwise we should make it.
+
+**** make sure to check that ht eprice is good, if we match with an existince trade! lowest_price_order
+
+
+
+
+crosschain_tab_builder:post offer also exists in croscshain tab builder2.
+also in crosschain tab builder3, from which it is already exported.
+
+
+
 
 javascript tool to keep re-publishing swap offers that expire in 1 block. usable with DEX and bet tab and anywhere we could use swap offers.
 how about if the javascript light wallet generates the first swap offer, and you give that to an erlang program.
@@ -5,12 +30,7 @@ the erlang program keeps asking the network for the block height and checking if
 maybe javascript is easier. look into if javascript still runs when you are in a different tab.
 
 
-
 amoveo full node rebar isn't working.
-
-
-A tab for creating a bet offer without any AMM, and without putting the bet on-chain.
-
 
 
 hard update.
