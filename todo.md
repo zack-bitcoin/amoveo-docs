@@ -1,26 +1,98 @@
-update crosschain_tab_builder2 to use swap_offer_downloader.subaccounts
-
-update crosschain_tab_builder2 to use apost_offer from format. delete repeated function.
-update crosschain_tab_builder3 to use apost_offer from format. delete repeated function.
-
-update crosschain_tab_builder to not need so many buttons. It should automatically try to sell for 99% at the beginning, so we don't need those extra cases.
-
-can we reuse crosschain_tab_builder:release in crosschain_tab_builder2? why did we abstract that?
+99% offers should expire much later than the original offer.
 
 
-also abstract the release button stuff.
-we get the market from the p2p tool by scanning the markets for the one that matches.
-we get the swap offer for the lowest priced order in this market.
-* if they already made a deal to end it, then accept that. otherwise we should make it.
-
-**** make sure to check that ht eprice is good, if we match with an existince trade! lowest_price_order
+bet_tab_builder can use the 99% function too.
 
 
+hard update to turn off contract_timeout_tx.erl type 1.
+* make sure we aren't using it anywhere in the light  node first.
+
+lower some gov fees to zero.
+oracle close, unmatched, oracle winnings, withdrawing from a finished contract.
 
 
-crosschain_tab_builder:post offer also exists in croscshain tab builder2.
-also in crosschain tab builder3, from which it is already exported.
+look into that hard update so we can use governance system to update multiple at once. should be an easy update.
+connect some governance values together so we can adjust the block time without destroying everything else.
+block time, block rewards, oracle minimum, oracle maximum, block size.
 
+* it seems like if we are aware of txs from future blocks, it can prevent us from verifying those future blocks.
+
+
+the light node merkle proof library still can't verify the proof that a data slot is empty.
+
+
+would be nice if the DEX orders were organized into a chart on some page. maybe /VEO-BTC
+
+
+collateralized loans smart contracts and interface.
+an optimization of the DEX?
+transferable options idea.
+What if you could make a swap in the DEX to buy bitcoin, but you don't provide your bitcoin address for like a month. so you can sell your side of the contract to someone else.
+* we would need the smart contracts to be able to look up their own contract ID, to calculate the subcurrency address.
+* we would need smart contracts to be able to get locked, to prevent anyone else from depositing money into them, so no one else can have the power to choose the bitcoin address.
+
+
+
+in the light node dex, would be nice to extract the fields from the js and put it into the html with ids, to make it easier for a UX person to organize the interfaces.
+
+
+
+
+combine the 3 dex tabs into one tab.
+
+DEX some sound notifaction when the next step is ready.
+DEX the tab should flash when the next step is ready.
+Should auto-refresh in more situations.
+
+
+make sure the buttons disappear when you click them in the dex, to avoid double-clicking.
+
+
+hard update.
+A new way to use the oracle.
+You can print money for yourself, as long as the oracle says you went through the proper procedure to have futarchy permission.
+
+
+
+hard update.
+a way to settle the contract, so that the money gets divided up between one or more specific addresses, or a linear combination of this outcome with the other.
+
+
+
+less variance in block time on a weekly timescale and higher.
+maybe we should reduce randomness in block's per day, so we can estimate future block times more accurately.
+Find out if we can maintain blocks per day without breaking anything else we need our retargetting system to do.
+
+
+
+amoveo full node rebar isn't working in the new version of ubuntu.
+
+
+
+partial matching in the DEX
+maybe the first contract has like 1000 veo in it.
+And when they accept the contract, they decide to only match with 30 of the veo.
+So the other 970 veo go to a subcurrency for the person who posted the offer, and the 30 go to a child contract that is a normal crypto->crypto dex contract.
+the same way the person accepting the deal can add their own address to the smart contract, they can choose how much of the money they need to deliver to the bitcoin address
+the 970 veo of subcurrency could automatically convert back to veo without them having to bring their private key onto a hot wallet, and when the contract ends, the liquidity provider has all the same VEO they started with, so it is an infinite cycle.
+use a master bitcoin address to generate more addresses for each DEX swap.
+for ethereum we can save money by reusing the receiving address, so we should identify DEX payments by the insignificant bits of the amount sent, that way the oracle can know which tx is a part of which DEX swap.
+the liquidity provider can have a zero-balance private key online, and use that to generate entropy.
+So the sender doesn't know what final bits to use until after they already signed up for the DEX swap
+so the order would be like.
+1) Paul publishes an offer to sell BTC and gain Eth.
+2) Alice accepts the offer and gives her bitcoin address.
+3) Paul reveals the entropy, so Alice knows the insignificant bits.
+4) Alice sends the Eth.
+5) Paul sends the BTC and releases the subcurrency.
+6) Alice releases the VEO
+Steps 1 and 2 don't really take time the way the others do.
+So maybe a better comparison is that it would take 4 steps instead of 2 steps. twice as cumbersome.
+Assuming paul leaves his zero-value private key online, steps 2, 3, and 4 can all happen really fast. It could feel like 1 step for Alice.
+so maybe it wouldn't be any worse
+To make it work nicely, we need to prevent paul from revealing 2 different entropy for the same contract.
+Because when paul reveals the first entropy, we need alice to be confident to send her Eth immediately, without waiting for that entropy to get included in an Amoveo block with confirmations.
+If paul commits to his entropy in step 1, then he can reveal in step 3, and so Alice doesn't need to wait for any confirmations. steps 2, 3, and 4 can happen at the same time.
 
 
 
@@ -29,12 +101,6 @@ how about if the javascript light wallet generates the first swap offer, and you
 the erlang program keeps asking the network for the block height and checking if your offer was already accepted. and it re-publishes the offer at every block, after increasing the expiration and re-signing it.
 maybe javascript is easier. look into if javascript still runs when you are in a different tab.
 
-
-amoveo full node rebar isn't working.
-
-
-hard update.
-a way to settle the contract, so the money all gets sent to an address.
 
 
 look into doing a sell veo dex offer, but where the counterparty has zero veo.
@@ -46,45 +112,10 @@ another option. a hard update so that people who don't yet have accounts can acc
 2) multi-tx needs to handle the case where the account building the tx doesn't yet exist, but the tx is net profitable in veo, so it creates a new account.
 
 
-hard update.
-A new way to use the oracle.
-You can print money for yourself, as long as the oracle says you went through the proper procedure to have futarchy permission.
-
-
-the dex tools should give you the option to post the same offer repeatedly.
-* need multiple addresses for receiving off-chain currency.
-
-
-Idea: Amoveo atomic swap tool. for enforcing swaps between 2 other blockchains.
-If someone refuses to participate in the swap they should be over-punished in veo terms.
-A tab for going from crypto to crypto.
-
-crosschain_tab_builder3.
-
-
-
-
-
-
-
-connect some governance values together so we can adjust the block time without destroying everything else.
-block time, block rewards, oracle minimum, oracle maximum, block size.
-
-
-
-
-in the light node dex, would be nice to extract the fields from the js and put it into the html with ids, to make it easier for a UX person to organize the interfaces.
-
-
-
-
 
 
 in the dex, maybe we need:
-* order book.
 * maybe instead of text there could be dropdowns for commonly selected choices?
-
-"crosschain DEX buy veo" tab is used to accept offers and sell veo. this is confusing. Maybe we should combine both tabs?
 
 when you click buttons in the DEX, it isn't obvious enough that a message has appeared in response. Maybe put it in a box and bigger.
 
@@ -95,44 +126,14 @@ maybe offers should disappear one block sooner for the DEX?
 would be nice if you could offer to make some trades that are mutually exclusive. Like you could sell veo and get paid in either tether or USDC.
 
 
-
-
-hard update to turn off contract_timeout_tx.erl type 1.
-* make sure we aren't using it anywhere in the light  node first.
-
-
-the light node merkle proof library still can't verify the proof that a data slot is empty.
-
-
-a new tab in wallet.html
-We want to make an off-chain binary bet offer to bet on some arbitrary text.
-Make a javascript function that can create a bet offer all in one step.
+the bet tab
 * eventually with hashtags for categories and filtering.
 * minimize clicking.
-
-
-collateralized loans smart contracts and interface.
 
 
 would be cool if the light node could be set to require a certain number of confirmations everywhere.
 
 
-
-
-crosschain_tab2.js
-some notification when the deposit address is available. sound would be nice.
-refresh could be automatic after loading keys or opening the tab.
-
-
-
-
-when you click "accept this offer" in crosschain-swap2, it should remove the button so you don't accidentally click it twice.
-
-
-transferable options idea.
-What if you could make a swap in the DEX to buy bitcoin, but you don't provide your bitcoin address for like a month. so you can sell your side of the contract to someone else.
-* we would need the smart contracts to be able to look up their own contract ID, to calculate the subcurrency address.
-* we would need smart contracts to be able to get locked, to prevent anyone else from depositing money into them, so no one else can have the power to choose the bitcoin address.
 
 
 
@@ -144,21 +145,10 @@ After we can simplify crosschain_tab_builder2 to not need to run the smart contr
 
 
 
-
-lower some gov fees to zero.
-oracle close, unmatched, oracle winnings, withdrawing from a finished contract.
-
-
-api:close_oracles should have an upper limit for how many you close at once, and maybe some error message for when it goes wrong.
 maybe tx_pool feeder shouldn't start another thread in the background?
-
-
-withdrawing winnings from a contract shouldn't need to be signed, anyone should be able to make them. and they should be able to be in anyone's multi-tx.
 
 the account explorer should tell you if you have money in any oracles or contracts.
 
-
-working on accepting an offer in crosschain2.
 
 contract_timeout_tx is creating json that can't be decoded into amoveo objects. so we temporarily commented it out.
 
@@ -167,14 +157,6 @@ contract_timeout_tx is creating json that can't be decoded into amoveo objects. 
 
 
 white paper in voice.
-
-
-
-would be nice if the DEX orders were organized into a chart on some page. maybe /VEO-BTC
-
-
-
-in the swap tool, it is calculating the fee wrong sometimes.
 
 
 
@@ -206,11 +188,6 @@ when you broadcast it.
 and maybe the confirmation message could include the BTC address.
 ordering trades by price would be nice.
 
-would be nice if the refresh button was automatic.
-could connect it to when new blocks are found, and to clicking the crosschain-DEX tab.
-
-
-the "accept offer" tool in the crosschain DEX should display price as well.
 
 
 
@@ -1586,8 +1563,6 @@ We should update CTC to accept the accounts in either order, that way acc2 could
 
 * we need to add more information to all the txs. when a channel is closed, it should say how much money is going to each participant, and there are many other cases.
 
-* we should give a reward for closing oracles.
-
 * merkel proof and verification code for txs in blocks. and rewrite it to javascript. That way we can prove if a tx has been included in a block.
 
 * the oracle should say the sum of open bets, otherwise it is so complicated for light nodes to request a proof of this information.
@@ -1804,8 +1779,6 @@ I think he means put an entry in /etc/hosts for amoveopool2.com such that it poi
 * add the hash of the github commit in the explorer.
 % git ls-remote | grep HEAD
 
-* atomic swap protocol
-
 * main.html from the mining pool should say the total number of miners, and the total outstanding shares.
 
 * check the case where someone sends a good headers with a bad block. Don't ignore the good block after this happens.
@@ -1822,8 +1795,6 @@ I think he means put an entry in /etc/hosts for amoveopool2.com such that it poi
 
 * test the case where we know about more headers than blocks, and we want to recover the network by mining a new version of history.
 
-* it seems like if we are aware of txs from future blocks, it can prevent us from verifying those future blocks.
-
 * sync gen server is getting a too-full mailbox, and it is filled with unnecessary repeat data.
 
 * optimize the protocol for trading peers and txs. Only send txs and peers that they don't know about. Trade these lists less frequently, right now it is too much bandwidth.
@@ -1832,7 +1803,7 @@ I think he means put an entry in /etc/hosts for amoveopool2.com such that it poi
 
 * we are wasting some time syncing with ourselves.
 
-* it isn't switching to normal mode well !!!!!!!!!!!!!!!!!!!!!!!!!
+* it isn't switching to normal mode well
 maybe we should switch back to the original idea. If it finds less than 1 block per 5 seconds in the last 2 minutes, then switch to normal mode.
 - update docs getting-started/turn_it_on.md
 
@@ -1977,11 +1948,7 @@ Maybe encoding the pubkeys should happen at the wallet level, not the node level
 * calculating block_to_header is too very slow. Which means calculating the hash of a block is slow too.
 * We should store the hash of the block along with the block, that way we don't have to re-calculate it more than once. When sharing blocks we can use this hash to quickly ignore blocks we have already seen, but for a block to be considered valid, we need to check at least once that the hash was calculated correctly.
 
-* merkle.js should be able to verify proofs of the trie being empty in some places.
-
 * light nodes should only download headers and a few recent blocks. They should verify blocks in parallel.
-
-Get rid of any reference to "ae", "aeternity", and "testnet".
 
 in the proofs dict we should have a flag for each thing to know if it has been updated. That way we can know exactly what to include in the batch update of the tree.
 
@@ -1991,9 +1958,6 @@ Cold storage and tools.
 
 Download blocks talk/1 seems useless. talker:talk is accomplishing the same goal.
 
-Javascript light wallets need to be able to do all the channel stuff that full nodes do. 
-
-It would be nice if there were some macros for chalang/src/compiler_lisp2.erl that did backtracking. that way we wouldn't have to think about control flow when making smart contracts.
 
 The current market design charges a 1/10000 fee on every trade. This is to protect from rounding errors.
 There is a more elegant way to stop rounding errors. Set a certain maximum trade size. All orders must be measured in increments of the same size
@@ -2007,8 +1971,6 @@ Making A1 rem B == 0 limits the possible output values of the contract, which sl
 
 Blocks should be serialized to be fully compressed.
 
-* We need some way of garbage collecting old channels from the channels manager once the channel has been closed long enough.
-
 * reading from the hard drive can be slow. order_book can be updated to recover from errors without having to re-read everything from the hard drive.
 
 * it is weird how spk_force_update22 in chalang.js calls run5. Since it's parent function is already calling the VM, it seems like we are running it multiple times unnecessarily.
@@ -2018,6 +1980,6 @@ Blocks should be serialized to be fully compressed.
 * maybe governance history should be stored by default.
 
 * we need configuration options to decide which parts of the historical data you want to keep.
-* it should be possible to store a shart of a tree.
+* it should be possible to store a shard of a tree.
 
 * an api for downloading blocks in a compressed format. good for blocks with smart contracts.
