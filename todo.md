@@ -4,6 +4,19 @@
 bet_tab_builder can use the 99% function too.
 
 
+* it seems like if we are aware of txs from future blocks, it can prevent us from verifying those future blocks.
+
+
+combine the 3 dex tabs into one tab.
+
+DEX some sound notifaction when the next step is ready.
+DEX the tab should flash when the next step is ready.
+Should auto-refresh in more situations.
+make sure the buttons disappear when you click them in the dex, to avoid double-clicking.
+
+
+
+
 hard update to turn off contract_timeout_tx.erl type 1.
 * make sure we aren't using it anywhere in the light  node first.
 
@@ -11,11 +24,19 @@ lower some gov fees to zero.
 oracle close, unmatched, oracle winnings, withdrawing from a finished contract.
 
 
+hard update.
+A new way to use the oracle.
+You can print money for yourself, as long as the oracle says you went through the proper procedure to have futarchy permission.
+
+
+
 look into that hard update so we can use governance system to update multiple at once. should be an easy update.
 connect some governance values together so we can adjust the block time without destroying everything else.
 block time, block rewards, oracle minimum, oracle maximum, block size.
 
-* it seems like if we are aware of txs from future blocks, it can prevent us from verifying those future blocks.
+
+organize light node javascript into files.
+organize format file into modules.
 
 
 the light node merkle proof library still can't verify the proof that a data slot is empty.
@@ -36,21 +57,6 @@ What if you could make a swap in the DEX to buy bitcoin, but you don't provide y
 in the light node dex, would be nice to extract the fields from the js and put it into the html with ids, to make it easier for a UX person to organize the interfaces.
 
 
-
-
-combine the 3 dex tabs into one tab.
-
-DEX some sound notifaction when the next step is ready.
-DEX the tab should flash when the next step is ready.
-Should auto-refresh in more situations.
-
-
-make sure the buttons disappear when you click them in the dex, to avoid double-clicking.
-
-
-hard update.
-A new way to use the oracle.
-You can print money for yourself, as long as the oracle says you went through the proper procedure to have futarchy permission.
 
 
 
