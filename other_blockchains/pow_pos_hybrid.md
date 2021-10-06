@@ -59,7 +59,7 @@ F1: weight(H1, P*2) = weight(H0, P).
 
 lets suppose that the pow/pos hybrid design is more secure than pow, or at least equally secure. This means that the attacker's hashpower needs to be bigger than the network hashpower for the attack to succeed. (We will use proof by contradiction to show that this supposition is false.)
 
-S1: H1 > H0.
+F1: H1 > H0.
 
 Since weight only increases as participation increases, that means that:
 
