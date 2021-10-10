@@ -1,8 +1,8 @@
-99% offers should expire much later than the original offer.
+
+update check_binary_contract to reuse the new smart contract explanation code that we are using in the DEX pages.
 
 
-bet_tab_builder can use the 99% function too.
-
+organize documents in the light node into files.
 
 * it seems like if we are aware of txs from future blocks, it can prevent us from verifying those future blocks.
 
