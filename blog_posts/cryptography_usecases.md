@@ -33,7 +33,7 @@ Vector commitments are seen to have the potential to allow for something that is
 
 Merkle trees take O(log2( number of elements in the database )) many reads and writes to update a single element in a database.
 
-Vector commitments have the potential to be much faster, which would let us process transactions faster.
+Vector commitments have the potential to be much faster, which would let us process transactions faster. A merkle tree that uses vector commitments instead of merkle hashes is called a "verkle tree"
 
 Cryptonote
 ==========
@@ -92,13 +92,13 @@ https://vitalik.ca/general/2021/01/26/snarks.html
 Less Explored Opportunities
 =============
 
-privacy in auctions
-* second-price auction where the prices of all other bids are private, and all participants besides the winner are private.
-* harberger taxes where the self-imposed tax rate is private.
-* combinatorial multi-round auctions where the bids that don't win in each round are private.
+privacy in accessing data stored in the blockchain.
+In Amoveo the blockchain stores many facts that people can bet on.
+It stores the results of football games, the results of elections, the prices of different things, big decisions made by companies or governments, and many more facts.
+Currently, when users run a smart contract, it reveals what exactly they are betting on. You can see which contracts are for betting on sporting events, and which contracts are for betting on politics.
+It would be great if it was possible for betters to keep hidden the topic that they are betting on. So anyone looking at the blockchain, they can't tell if a smart contract is betting on politics or if it is betting on sports.
 
-
-privacy in smart contracts.
+generalized privacy in smart contracts.
 Updating a blockchain is difficult, because you need the majority of users of that blockchain to cooperate in updating.
 Smart contracts are a way to add abilities to a blockchain without anyone needing to update.
 It is like a computer program that lives inside the blockchain consensus state.
@@ -106,5 +106,4 @@ These computer programs are written in a smart contract language, and they are p
 Can we add partially homomorphic tools to the virtual machine that runs the smart contracts?
 Would that give smart contract designers the ability to build partially homomorphic tools without needing to update the blockchain source code?
 
-cryptography for scalability.
 
