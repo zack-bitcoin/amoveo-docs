@@ -69,14 +69,29 @@ In each transaction:
 * the amount sent is private.
 
 
+General purpose zk-SNARKs.
+============
+
+People are working on zero knowledge proof systems that allow for general computation.
+
+Vitalik is great at explaining.
+https://vitalik.ca/general/2021/01/26/snarks.html
+
+
 Less Explored Opportunities
 =============
 
 privacy in auctions
 * second-price auction where the prices of all other bids are private, and all participants besides the winner are private.
-* harberger taxes where the self-imposed tax rate is private. 
+* harberger taxes where the self-imposed tax rate is private.
+* combinatorial multi-round auctions where the bids that don't win in each round are private.
+
 
 privacy in smart contracts.
-Can we add partially homomorphic tools to the virtual machines that run the smart contracts?
-Would that give smart contract designers more control?
+Updating a blockchain is difficult, because you need the majority of users of that blockchain to cooperate in updating.
+Smart contracts are a way to add abilities to a blockchain without anyone needing to update.
+It is like a computer program that lives inside the blockchain consensus state.
+These computer programs are written in a smart contract language, and they are processed by a virtual machine.
+Can we add partially homomorphic tools to the virtual machine that runs the smart contracts?
+Would that give smart contract designers the ability to build partially homomorphic tools without needing to update the blockchain source code?
 
