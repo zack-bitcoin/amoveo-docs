@@ -39,7 +39,7 @@ This means the RSA accumulator is write-only. You cannot delete any information,
 Binary storage
 ===========
 
-One strategy is to specifically use the first 100k prime numbers to store binary information. One bit per prime number.
+One strategy is to use the first 100k prime numbers to store binary information. One bit per prime number.
 
 If you assign useful questions to these prime numbers, then this is a good way to store the answers to those questions, once they become available.
 
@@ -88,7 +88,7 @@ A merkle tree with only 8 elements has proofs that are 3x longer than the equiva
 A merkle tree with 1024 elements has proofs that are 10x longer than the equivalent RSA accumulator.
 You can only use an rsa proof instead of a merkle proof if the value being referenced is not changing in this block. Otherwise you would be unable to calculate the new merkle proof.
 
-One way to use this kind of accumulator is to just accumulate over all the data being proved in the block. So that if the next block happens to re-use any of the same data (without editing it), they can use a short RSA proof instead of the long merkle proof.
+One way to use this kind of accumulator is to just accumulate over all the data being proved in the block. So that if the next block happens to re-use any of the same data (without editing it), they can use a short RSA proof instead of the long merkle proof. Notice that this isn't a limitation in the RSA proof exactly, rather it is an incompatibility that happens when you are using RSA proofs side by side with merkle proofs.
 
 A miner can initially build a block with a long merkle proof, and someone can later do the computation to replace it with a short RSA proof. So blocks shrink over time.
 
@@ -111,9 +111,9 @@ Simulated mutible variable
 
 Even though you cannot edit anything stored in RSA accumulators, you can simulate a mutible variable by storing versions of it over time.
 
-In binary storage we should consume the next prime number every time we update the state. So if we are on version 9, then the first 8 primes should have already been consumed. So it should be possible to make a proof that the 8th prime is used up, but the 9th prime is not. These 2 proofs together tell us that we are on step 9.
+In binary storage we should consume the next prime number every time we update the variable. So if we are on version 9, then the first 8 primes should have already been consumed. So it should be possible to make a proof that the 8th prime is used up, but the 9th prime is not. These 2 proofs together tell us that we are on step 9.
 
-Using fact storage, we should be able to proof a fact of the form [9, State].
+Using fact storage, we should be able to prove a fact of the form [9, State].
 The 9 indicates that this is the state on step number 9. Since we are on step 9, we want to know the state for step 9.
 
 All together, to be able to prove the current state, you need 3 rsa proofs, but they can be compressed into a single multi-proof of 64 bytes.
@@ -147,7 +147,16 @@ If we have an RSA accumulator with 128 variables, and each of those variables is
 
 The on-chain cost of a state proof is only be log_128(# elements stored).
 
-If we let each accumulator go until it has been updated 10k times, then that means every 5k proofs or so we need to refresh an accumulator. But that only costs something like 128*64 = ~ 8 kilobytes, and we can pay a reward to whoever refreshes it, the mandatory transaction fees can more than cover this reward.
+If we let each accumulator go until it has been updated 1000 times, then that means every 500 proofs or so we need to refresh an accumulator. But that only costs something like 128*64 = ~ 8 kilobytes, and we can pay a reward to whoever refreshes it, the mandatory transaction fees can more than cover this reward.
+
+The cost of storing an accumulator that has been updated 500 times, so that you can make proofs of it, it is 500 * 64 = about 30 kilobytes.
+If the network has 1 trillion elements being stored, and people store a local copy of their own account state, then proof nodes need to remember (1 trillion) * 30 kilobytes / 127
+or 236 terabytes.
+
+if the network has 1 million elements, then this cost is 236 megabytes.
+Nodes that generate proofs, they can shard the parts of the database that they generate proofs for. And it can be a completely seperate computer from the miners.
+
+Once you have a proof for RSA state N, you can easily update that proof to be valid for RSA state N+1.
 
 If there are 1 trillion elements being stored, that would mean merkle proofs are 64*40 bytes, which is around 2560 bytes each.
 
