@@ -37,6 +37,8 @@ https://en.wikipedia.org/wiki/Accumulator_(cryptography)
 RSA accumulator, simple blog post explanation
 https://blog.goodaudience.com/deep-dive-on-rsa-accumulators-230bc84144d9
 
+other blog post explanation https://www.gakonst.com/deep-dive-rsa-accumulators
+
 RSA accumulators first introduced Benaloh and Mare 1994
 https://link.springer.com/content/pdf/10.1007%2F3-540-48285-7_24.pdf
 
@@ -55,3 +57,26 @@ https://eprint.iacr.org/2018/1188.pdf
 
 page 14 has an algorithm to prove non-membership of elements.
 there is also an algorithm for proving multiple non-memberships.
+
+maybe bilinear map accumulators would be better:
+http://cs.brown.edu/research/pubs/theses/ugrad/2013/tremel.pdf
+or maybe they are worse because they don't have dynamic updates: https://crypto.stackexchange.com/questions/77395/what-is-the-bilinear-map-accumulator-disadvantage
+
+
+Potential tool. oracle result cache.
+=================
+
+Block headers need 2 new numbers. They are for 2 rsa accumulators.
+
+Every time an oracle resolves, we insert the final state into these accumulators.
+
+The first accumulator gets reset to empty every ten thousandth oracle, starting on oracle five thousand.
+
+the second is reset to empty on every ten thousandth oracle, starting on oracle ten thousands.
+
+So at any time, it is possible to make RSA proofs for the 5000 oracles that settled most recently.
+
+Hopefully it is also possible to make private RSA proofs.
+
+Potentially we can store other cache like this.
+Recently settled contracts.
