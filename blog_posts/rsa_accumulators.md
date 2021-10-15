@@ -147,18 +147,20 @@ If we have an RSA accumulator with 128 variables, and each of those variables is
 
 The on-chain cost of a state proof is only be log_128(# elements stored).
 
-If we let each accumulator go until it has been updated 1000 times, then that means every 500 proofs or so we need to refresh an accumulator. But that only costs something like 128*64 = ~ 8 kilobytes, and we can pay a reward to whoever refreshes it, the mandatory transaction fees can more than cover this reward.
+If we let each accumulator go until it has been updated 1000 times, then that means every 500 proofs or so we need to refresh an accumulator. But that only costs something like 128*256 bytes of block space, 32 kilobytes, and we can pay a reward to whoever refreshes it, the mandatory transaction fees can more than cover this reward.
 
-The cost of storing an accumulator that has been updated 500 times, so that you can make proofs of it, it is 500 * 64 = about 30 kilobytes.
-If the network has 1 trillion elements being stored, and people store a local copy of their own account state, then proof nodes need to remember (1 trillion) * 30 kilobytes / 127
-or 236 terabytes.
+The cost of storing an accumulator that has been updated 500 times, so that you can make proofs of it, it is 500 * 256 = about 120 kilobytes.
+If the network has 1 trillion elements being stored, and people store a local copy of their own account state, then proof nodes need to remember (1 trillion) * 120 kilobytes / 127
+or ~1 petabyte.
 
-if the network has 1 million elements, then this cost is 236 megabytes.
+if the network has 1 million elements, then this cost is ~1 gigabyte.
 Nodes that generate proofs, they can shard the parts of the database that they generate proofs for. And it can be a completely seperate computer from the miners.
 
 Once you have a proof for RSA state N, you can easily update that proof to be valid for RSA state N+1.
 
 If there are 1 trillion elements being stored, that would mean merkle proofs are 64*40 bytes, which is around 2560 bytes each.
 
-but rsa trees with 128 children per node, they would be 64*log_128(1 trillion) = 364 bytes each. So RSA trees with 128 children per node have proofs that are about 7x shorter than a merkle tree.
+but rsa trees with 128 children per node, they would be 256*log_128(1 trillion) = 1456 bytes each. So RSA trees with 128 children per node have proofs that are about 4/7 ths the length of the proofs from the merkle tree.
+
+In some cases, this can be more efficient than a merkle tree. 
 
