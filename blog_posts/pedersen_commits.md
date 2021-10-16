@@ -117,6 +117,20 @@ If every account has it's own generator point, then we can store all the account
 The problem with this strategy is that there is no way to make non-membership proofs.
 So a tree structure is probably better, but it could be a tree with a million elements per node.
 
+Pedersen accumulator with non-membership proofs
+====================
+
+To make a non-membership proof, the accumulator needs to use a deterministic strategy to make new generator points, and it assigns a generator point to each new account in the system.
+The accumulator needs to keep track of how many account slots it has assigned so far.
+
+So if you want to prove that a slot is unused, you look up its generator number from the deterministic tool to make those. Then you look up if this generator number is smaller or larger than how many accounts slots have been assigned so far.
+
+So your address isn't generated from your pubkey, instead it is assigned to you when the create_account transaction is made.
+To receive your first coins, they use your pubkey instead of your address, and once the transaction is included, then you can calculate your address.
+
+Similarly, if a new oracle is being made, you can't know the ID of that oracle until after it is created.
+If a new contract is being made, you can't know the ID of that contract until after it is created.
+
 Links to learn more
 =============
 
