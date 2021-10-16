@@ -112,6 +112,7 @@ The Pedersen accumulator, it can learn new generators and gain the capacity to s
 
 Every address for every account could have a requirement that it also determines a basis point in the group. So generating an address also involves generating a new generator point.
 If every account has it's own generator point, then we can store all the accounts in a single layer. We can prove the value of any account's state with a single elliptic point. We can prove the value of any combination of account's states with a single elliptic point.
+[this test shows that almost half of random points can be used to make a valid generator](https://github.com/zack-bitcoin/homomorphic-tools/blob/master/secp256k1.erl)
 
 So this would be the absolute perfect tool, if it works.
 
