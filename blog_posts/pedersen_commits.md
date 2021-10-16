@@ -114,7 +114,8 @@ Every address for every account could have a requirement that it also determines
 If every account has it's own generator point, then we can store all the accounts in a single layer. We can prove the value of any account's state with a single elliptic point. We can prove the value of any combination of account's states with a single elliptic point.
 [this test shows that almost half of random points can be used to make a valid generator](https://github.com/zack-bitcoin/homomorphic-tools/blob/master/secp256k1.erl)
 
-So this would be the absolute perfect tool, if it works.
+The problem with this strategy is that there is no way to make non-membership proofs.
+So a tree structure is probably better, but it could be a tree with a million elements per node.
 
 Links to learn more
 =============
