@@ -131,6 +131,18 @@ To receive your first coins, they use your pubkey instead of your address, and o
 Similarly, if a new oracle is being made, you can't know the ID of that oracle until after it is created.
 If a new contract is being made, you can't know the ID of that contract until after it is created.
 
+Pedersen accumulator with non-membership cycle
+=============
+
+We can have a metric that ranks every pubkey.
+Every account in the accumulator, it needs a pointer to the next higher ranked account.
+
+So, to prove that one account does not exist, you need to prove the accounts that would be on either side of it.
+
+To add a new account, you need to update the account ranked below it, and prove that you are correctly pointing to the account above your rank.
+
+To edit an existing account's balance, you can ignore the ranking system entirely.
+
 Links to learn more
 =============
 
