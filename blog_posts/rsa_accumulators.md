@@ -7,6 +7,8 @@ I explored the possibility of using them to allow for private oracles https://gi
 
 The goal of this blog post is to explore the trade-offs you can make for the different configurations you can have an RSA Accumulator in.
 
+RSA Accumulators have really long keys. If you are thinking of using an RSA accumulator, you should probably be using [pedersen commits](pedersen_commits.md) instead.
+
 Merkle Trees
 ===========
 

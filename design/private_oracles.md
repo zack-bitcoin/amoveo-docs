@@ -62,21 +62,6 @@ maybe bilinear map accumulators would be better:
 http://cs.brown.edu/research/pubs/theses/ugrad/2013/tremel.pdf
 or maybe they are worse because they don't have dynamic updates: https://crypto.stackexchange.com/questions/77395/what-is-the-bilinear-map-accumulator-disadvantage
 
+Here is a way to prove 2 values in a pedersen commit are equal, without revealing the value.
+https://research.nccgroup.com/2021/06/15/on-the-use-of-pedersen-commitments-for-confidential-payments/
 
-Potential tool. oracle result cache.
-=================
-
-Block headers need 2 new numbers. They are for 2 rsa accumulators.
-
-Every time an oracle resolves, we insert the final state into these accumulators.
-
-The first accumulator gets reset to empty every ten thousandth oracle, starting on oracle five thousand.
-
-the second is reset to empty on every ten thousandth oracle, starting on oracle ten thousands.
-
-So at any time, it is possible to make RSA proofs for the 5000 oracles that settled most recently.
-
-Hopefully it is also possible to make private RSA proofs.
-
-Potentially we can store other cache like this.
-Recently settled contracts.
