@@ -82,15 +82,15 @@ B = # of children per verkle tree node for the pedersen tree.
 S = # of shards.
 
 
-Challenge | Optimistic RSA strong stateless | optimistic RSA weak statless | Pedersen + IPA
+Challenge | Optimistic RSA strong stateless | optimistic RSA weak statless | Pedersen + IPA |
 | --- | --- | --- |
-1 | 256*S     |  256        | log2(B) + T*logB(A)
-2 | O(T)      |  O(T)             | O(T*B*logB(A))
-3 | yes      |  yes              | no
-4 | yes      |  yes              | no
-5 | O(T)      |  O(T*log2(A))     | O(T*B*logB(A))
-6 | 0      |  O(T*log2(A+256)) | O(T*logB(A)*log2(B*32))
-7 | O(log2(A)) |  O(log2(A))  | O(B*logB(A))
-8 | 256 | 256 | log2(B) + logB(A)
+1 | 256*S     |  256        | log2(B) + T*logB(A) |
+2 | O(T)      |  O(T)             | O(T*B*logB(A)) |
+3 | yes      |  yes              | no |
+4 | yes      |  yes              | no |
+5 | O(T)      |  O(T*log2(A))     | O(T*B*logB(A)) |
+6 | 0      |  O(T*log2(A+256)) | O(T*logB(A)*log2(B*32)) |
+7 | O(log2(A)) |  O(log2(A))  | O(B*logB(A)) |
+8 | 256 | 256 | log2(B) + logB(A) |
  
 
