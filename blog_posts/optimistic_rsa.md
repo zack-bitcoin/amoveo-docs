@@ -89,7 +89,7 @@ Challenge | Optimistic RSA strong stateless | optimistic RSA weak statless | Ped
 3 | yes      |  yes              | no |
 4 | yes      |  yes              | no |
 5 | O(T)      |  O(T * log2(A))     | O(T * B * logB(A)) |
-6 | 0      |  O(T * log2(A+256)) | O(T*logB(A)*log2(B*32)) |
+6 | 0      |  O(T * log2(A+256)) | O(T * logB(A) * log2(B * 32)) |
 7 | O(log2(A)) |  O(log2(A))  | O(B * logB(A)) |
 8 | 256 | 256 | log2(B) + logB(A) |
  
