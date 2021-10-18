@@ -83,7 +83,7 @@ S = # of shards.
 
 
 Challenge | Optimistic RSA strong stateless | optimistic RSA weak statless | Pedersen + IPA |
-| --- | --- | --- |
+| --- | --- | --- | --- | 
 1 | 256*S     |  256        | log2(B) + T*logB(A) |
 2 | O(T)      |  O(T)             | O(T*B*logB(A)) |
 3 | yes      |  yes              | no |
