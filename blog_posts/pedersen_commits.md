@@ -4,11 +4,7 @@ Pedersen Commits
 Motivation
 ============
 
-Pedersen commitments can be used as an alternative to merkle trees. This makes proofs shorter.
-
-If a merkle tree is storing N elements, then the proofs are log2(N) long. And we are storing 2 hashes per level.
-
-With Pedersen commitments we can store thousands of elements per node so it is something like log2048(N). Much shorter proofs.
+Maybe pedersen commitments can be used as an alternative to merkle trees wit shorter proofs.
 
 Pedersen Commits Basics
 =============
@@ -70,19 +66,34 @@ If the values that you want to commit to are: [V1, V2, ... , VN], then the commi
   Commitment = H1*V1 + H2*V2 + ... + HN*VN.
 ```
 
-If you want a proof that V2 is inside of the commitment. 
-```
-  Proof = H1*V1 + H3*V3 + H4*V4 + ... + HN*VN.
-```
-notice that H2*V2 is not included in the proof.
-If you store N intermediate values, then these proofs can be calculated in O(log2(N)) time. Maintaining the intermediate values costs O(log2(N)) time per update. calculation and updating can be sped up a lot by batching operations.
+visualization of IPA bullet proofs https://twitter.com/VitalikButerin/status/1371844878968176647/photo/1
 
-Calculating and maintaing proofs for merkle tree also costs O(log2(N)), so we haven't slowed down.
+an explanation of the math https://dankradfeist.de/ethereum/2021/07/27/inner-product-arguments.html
 
-You can verify the proof of V2 in location 2 like this:
 ```
-  Commitment == H2*V2 + Proof.
+  Commitment = H1*V1 + H2*V2 + H3*V3 + H4*V4 + H5*V5 + H6*V6 + H7*V7 + H8*V8,
+  L = H1*V2 + H3*V4 + H5*V6 + H7*V8,
+  R = H2*V1 + H4*V3 + H6*V5 + H8*V7,
+
+  H1*V2 + H2*V1 + H2*V2 + H1*V1 = (H1+H2)*(V1+V2)
+
+  Commitment + L + R = (H1+H2)*(V1+V2) + (H3+H4)*(V3+V4) + (H5+H6)*(V5+V6) + (H7+H8)*(V7+V8)
+
+  ...
+
+  Commitment = H1*V1 + H2*V2,
+  L = H1*V2,
+  R = H2*V1,
+
+  Commitment + L + R = (H1+H2)*(V1+V2)
+
+
+  % proof is L and R from each round, and the final commitment.
 ```
+
+
+
+
 
 Pedersen Tree
 =============
