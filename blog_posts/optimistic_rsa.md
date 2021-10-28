@@ -1,8 +1,8 @@
 Optimistic RSA Accumulator
 ==============
 
-My idea did not work. you can't combine partially made rsa proofs. 
-
+This idea does not work. you can't combine partially made rsa proofs.
+================
 
 
 

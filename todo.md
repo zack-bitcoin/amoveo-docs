@@ -1,4 +1,42 @@
 
+
+slot machine app, uses trusted coin flip for quick results.
+thinking about the slot machine app.
+
+There are 2 participants. the house and the player.
+
+The house writes up the trustless coin flip contract, and makes a swap offer to sell it. This swap offer is off-chain, so it is free up to this point.
+
+The player makes a multi-tx that
+* accepts the swap offer
+* creates the smart contract
+* does a contract-evidence tx to choose the odds for their bet, and to choose their entropy.
+
+The house makes a contract evidence tx to reveal the value they had committed to, which allows the contract to choose the winner.
+The house makes contract withdraw txs so both the house and the player get their money out of the contract.
+
+This strategy has advantages:
+1) it is free to make a slot machine that doesn't have customers.
+2) the player only needs to interact once to play. If they go offline at any moment, money wont get stuck anywhere.
+
+I think we can make the slot machine playable, and it pays out veo to winners, all in a single block.
+
+The worry is that a mining pool would play the game, and revert a block to re-roll their randomness.
+But we can add a clause to the smart contract, so that if anyone besides the house is providing the evidence, there is a 20 block delay for counter-evidence.
+And as counter-evidence, if the house can show that you did a reroll, by selecting 2 different random numbers to  play, then you lose the bet, and you lose a little extra money to cover tx fees.
+
+
+
+
+
+
+in bet tab "1=1" is not a good example.
+
+
+in homomorphic pedersen.erl, calculate randomness more correctly for the IPAs.
+X = hash(Cr, Cl)
+
+
 organize documents in the light node into files.
 scalar/binary/buy_veo contract file?
 oracle file?
