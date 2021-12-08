@@ -23,3 +23,5 @@ But, notice that these 254 numbers being inverted, there are only 256 valid sets
 So we can pre-calculate the 256 batches of 254 numbers, and when they are needed, just read them from the database instead of re-calculating them.
 
 32 bytes * 256 batches * 254 numbers is around 2 megabytes of data.
+
+This technique is used in this verkle tree: https://github.com/zack-bitcoin/verkle
