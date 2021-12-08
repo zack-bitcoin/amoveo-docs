@@ -1,4 +1,32 @@
+try syncing in hard drive mode. it is important to maintain support for this because if Amoveo grew, we would need it.
 
+
+
+update dump not to use erlang_hipe, because it is an old unsupported project.
+Make a big tuple, and store 1 byte in each spot, it will be fast.
+
+
+
+
+update to schnorr signatures, so we can have multi-sig without needing to update any tx types.
+
+
+
+look into cryptography called "private information retrieval". it could be useful for making a private oracle.
+
+
+
+I guess we should build some interfaces for doing private oracles.
+* something to publish the oracle hash, and send the oracle text encrypted to the coutnerparty of your trade.
+* a tool for accepting these private trades.
+* add support for private oracles to the oracle reporting tools.
+* a tool to publish the oracle text publicly, if needed for enforcement.
+* update the explorer to display oracle text correctly for private oracles that had their text revealed.
+
+
+
+
+look into integrating the dex with swapzone. https://swapzone.gitbook.io/developer/
 
 slot machine app, uses trusted coin flip for quick results.
 thinking about the slot machine app.
