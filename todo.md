@@ -1,10 +1,15 @@
+make futarchy markets about controversial decisions in the cryptocurrency space. BIPs and EIPs.
+
+
+we need liquidity in the DEX.
+
+
 try syncing in hard drive mode. it is important to maintain support for this because if Amoveo grew, we would need it.
 
 
 
 update dump not to use erlang_hipe, because it is an old unsupported project.
-Make a big tuple, and store 1 byte in each spot, it will be fast.
-
+* update amoveo to use the new version of dump that doesn't have erlang_hipe.
 
 
 
