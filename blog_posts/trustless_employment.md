@@ -41,6 +41,7 @@ Here is the one I am serving: http://159.89.87.58:8080/contracts.html
 Alice scrolls down to the subcurrency set buy tool. She buys a complete set of shares in the new binary contract. She uses all of her stablecoins for this.
 Now Alice has both the shares that are valuable if Bob completes the job, and the shares that are valuable if Bob does not complete the job.
 
+Alice needs to wait to receive the subcurrency in the block before she can continue.
 Next Alice can send the shares of type 1 to Bob's address directly, using the spend tab in wallet.html.
 Here is the one I am serving: http://159.89.87.58:8080/wallet/wallet.html
 
