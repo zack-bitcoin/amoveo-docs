@@ -1,3 +1,10 @@
+https://github.com/top-type/veoex
+look into this exchange tool.
+
+
+people would use the dex more if there was a bot or something to provide liquidity.
+
+
 make futarchy markets about controversial decisions in the cryptocurrency space. BIPs and EIPs.
 
 
