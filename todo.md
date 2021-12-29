@@ -1,3 +1,6 @@
+amoveo-docs/design/private_oracles.md is old. maybe remove it.
+
+
 https://github.com/top-type/veoex
 look into this exchange tool.
 

@@ -5,6 +5,8 @@ An oracle is a blockchain tool for importing real world data onto the blockchain
 
 For example, if you want to bet on a football game, there needs to be some kind of oracle so that the blockchain can know who won the game. [You can learn about Amoveo's oracle design here](oracle.md)
 
+Deniable oracles is the idea of being able to make bets on any publicly available data, and no one can tell what you are betting on. Even if your counterparty wants to reveal what you had bet on, they cannot. Similarly, you cannot prove to anyone what it was that your contract had bet on.
+
 Why private oracles matter for smart contracts.
 ============
 
