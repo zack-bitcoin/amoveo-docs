@@ -68,13 +68,24 @@ Hash functions are deterministic. That means if you give it the same input more 
 Hash functions are one-way functions. That means that given the output of a hash function, it is not possible to guess what the input was.
 
 Important for deniability:
-Given 256-bits of random data, it is impossible to prove that this is not the output of SHA256 for some data that you know. You can't prove that you do not know something.
+Given 256-bits of random data Y, it is impossible to prove that this is not the output of SHA256 for some data X that you know. You can't prove that you do not know something.
+
+This enables us to build crypto databases where it is impossible to prove the existence or non-existence of certain elements.
+
+You need to be careful about how you generate Y.
+If a 3rd party can use a deterministic process to generate it, then deniability is broken.
+
+Each participant generates lots of unsigned, unhashed randomness. Then it is XOR'd together.
+Do use any seed to generate more bits.
 
 Verkle trees with SNARKS
 ===========
 
+A zkSNARK is a calculation where some of the values being calculated over are encrypted.
+
 Verkle trees are a kind of cryptographic database, they are similar to merkle trees, but they are based on alternatives to hash functions.
 The important property of verkle trees is that we can snarkify a verkle proof.
+Once a verkle proof has been snarkified, we can hide aspects of the proof, and verifiers can still tell that the proof is valid. 
 
 Using the tree as a key-value store, we can prove that an value exists in the key-value store, without needing to reveal which key we had used to look up that value.
 
