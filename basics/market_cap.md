@@ -7,38 +7,67 @@ Mining a cryptocurrency is a way for the current market cap to be pushed upwards
 
 First we will look at how the market cap is influenced by the rate that currency is burned, and this will give us tools to analyze how utility features impact the sustainable market cap.
 
+A formula for the market cap
+=========================
 
-Market cap of a cryptocurrency from burning
-===================
+(units).
 
-Using economics, we can know what the market cap of a cryptocurrency should be, if they weren't being influenced by speculators.
-Cryptocurrencies with market caps higher than this should tend to shrink in value, and cryptocurrencies with market caps lower than this should tend to increase in value.
+c(t) = market cap at a point in time. (money)
+c_0 = market cap at time 0.
+c_i = c at t=infinity. the natural market cap. (money)
+t = time. (time)
+b = rate that value is burned + sum of the transaction fees. (money/time)
+i = interest rate of economy. (1/time)
+k = rate at which market absorbs new information (1/time)
+m = rate of block rewards. (money/time)
 
-MC = market cap of this cryptocurrency.
-I = interest rate of the economy.
-B = rate at which currency gets burned + rate at which miners are paid tx fees.
-R = how much you would need to pay someone to be exposed to the risk of holding this currency.
+considering the case where `m=0`.
 
-```MC = B / (I + R)```
+Lets assume that there is some natural market cap for this currency, and that the further away it is from the market cap, the more rapidly it approaches the natural market cap. Assuming symmetry of scaling the total money involved, assuming symmetry of changing the time scale.
+in that case c'(t) = k*(c_i - c(t)).
+Solving this ordinary differential equation.
+c(t) = A*e^(-k*t) + c_i.
+c' = k*(c_i - A*e(-k*t))
 
-Proof
+plugging in time zero.
+c_0 = A + c_i
+-> A = c_0 - c_i.
+A is how far away you are from the ideal market cap, at time t=0.
+
+We are considering the m=0 case.
+Assuming the efficient market hypothesis, we know that c_i = b/i.
+Putting it all together.
+
+c(t) = (c_0 - b/i)*e^(-k*t) + (b/i)
+
+what if `m!=0` ?
+(let B = b/i, and A = c_0 - B).
+
+c(t) = A*e^(-k*t) + B.
+
+c'(t) = -k*A*e^(-k*t).
+c' is how quickly the market cap is changing in the m=0 case.
+If coins are also being created by mining, then the differential equation is different:
+
+c'(t) = k*(b/i - c(t)) + m
+-> c' = k*((b/i + m/k) - c)
+
+This time, instead of c_i being b/i, it is ((b/i) + (m/k)).
+So this is the equilibrium market cap.
+((rate that value is burned)/(interest rate)) +
+((rate of block rewards)/(rate that market absorbs info))
+
+If the newly minted coins are created at rate m, and the market cap increases at rate c', then the rate at which the coins change price is:
+c' - m = k*(b/i - c)
+
+
+More explanation for why c = b/i.
 =========
-
-Now to derive this formula
 
 * Burning coins is the same as distributing them to all other holders.
 * Paying a mining fee is the same as a combination of burning some coins, and the miner converting electricity value into cryptocurrency value.
 * People will keep buying or selling the currency until the expected profit of holding the currency is the same as the interest rate of the economy.
 
-```MC = (B - R*MC)/I```
-
-Next lets solve for the market cap.
-```
-MC + R*MC/I = B/I
-MC*(1+R/I) = B/I
-MC*(I+R) = B
-MC = B / (I+R)
-```
 
 Plugging in for examples
 ==========
