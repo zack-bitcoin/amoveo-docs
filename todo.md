@@ -1,3 +1,72 @@
+review the market cap document. It seems like we are near to knowing how the rate of mining impacts the market cap and the value of coins.
+The difference between optimizing for hash rate, market cap, and the price of the coins.
+
+
+buy and sell veo contracts should happen in reverse order, in the alt->alt dex. buy first.
+This means it is one extra step in the protocol, but it still simplifies the user experience.
+
+
+rename the p2p_derivatives server to the "gossip node".
+
+
+in the light node, it would be nice if there was a way to download the oracle text.
+
+
+The light node needs to handle the case where the localstorage root is from an orphaned block.
+Maybe we should store the root from several blocks earlier.
+
+
+it would be nice if we could reuse addresses from bitcoin for the DEX. so we don't need a new address each time.
+Maybe the oracle question should specify that it only counts txs sent to the address after a particular block height.
+"the total coins received by address A after blockheight B is greater or equal to C"
+At the same time, we should give the option to include a from address.
+* oracle question in sell_veo_contract:oid.
+* oracle question in buy_veo_contract.
+* user interface to make offers in all 3 pages.
+* interface for displaying details of the contract on each page.
+* interface for reporting the result of an oracle.
+
+in the buy_veo_contract, we want to have the option to specify which address will be used to send the bitcoin/eth. that way they can potentially be receiving other funds from other addresses, and it wont interfere with the operation of the DEX.
+hide the option in the "advanced tab" to avoid adding complexity.
+
+
+
+Make a faucet tool that works similarly to the p2p_derivatives tool. It should allow each IP address to post an uncollateralized swap offer from a zero balance account to buy $5 of Eth.
+look at design/faucet.md
+
+liquidity provider app.
+depends on p2p_derivatives, clones the state.
+* faucet is a web page served from this.
+IP based faucet.
+For each IP address, we allow a user to make swap in the DEX to buy veo, and the contract is uncollateralized.
+If needed, we also send them 1 satoshi to activate their account.
+
+
+We need to plan out how futarchy executives will work.
+
+
+think about a futarchy tool to pay people for developing on amoveo, and it pays them retroactively, after they complete the job. maybe an LMSR market would work well for this.
+
+
+swapping from arbitrum to ethereum is expensive. like $50. much more than a tx fee on each side.
+Amoveo's DEX could be a good fit for this.
+
+
+
+the verkle tree should be finished.
+* calculating the new verkle root.
+* making a snark.
+
+
+
+we need a way to look up if a given transaction was included in the history, or if it was included in an orphaned block. This should probably be part of the explorer.
+I think there is a log2(#blocks) algorithm for starting at the current block height, and walking backwards to the block height where your tx was included. to see if it exists.
+
+Each block needs a hash to: the previous block, 2 blocks ago, 4 blocks ago, 8 blocks ago, ...
+
+Im pretty sure there is an existing datastructure like this we can use.
+
+
 amoveo-docs/design/private_oracles.md is old. maybe remove it.
 
 

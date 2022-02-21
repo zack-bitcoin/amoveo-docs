@@ -18,8 +18,8 @@ c_i = c at t=infinity. the natural market cap. (money)
 t = time. (time)
 b = rate that value is burned + sum of the transaction fees. (money/time)
 i = interest rate of economy. (1/time)
-k = rate at which market absorbs new information (1/time)
-m = rate of block rewards. (money/time)
+k = springiness of the market's return to the equilibrium price. (1/time)
+m = rate of block rewards + sum of the transaction fees. (money/time)
 
 considering the case where `m=0`.
 
@@ -27,7 +27,7 @@ Lets assume that there is some natural market cap for this currency, and that th
 in that case c'(t) = k*(c_i - c(t)).
 Solving this ordinary differential equation.
 c(t) = A*e^(-k*t) + c_i.
-c' = k*(c_i - A*e(-k*t))
+c' = -k*(A*e(-k*t))
 
 plugging in time zero.
 c_0 = A + c_i
@@ -40,25 +40,35 @@ Putting it all together.
 
 c(t) = (c_0 - b/i)*e^(-k*t) + (b/i)
 
+
 what if `m!=0` ?
 (let B = b/i, and A = c_0 - B).
 
 c(t) = A*e^(-k*t) + B.
-
 c'(t) = -k*A*e^(-k*t).
 c' is how quickly the market cap is changing in the m=0 case.
-If coins are also being created by mining, then the differential equation is different:
 
-c'(t) = k*(b/i - c(t)) + m
--> c' = k*((b/i + m/k) - c)
+If coins are also being created by mining, then the differential equation is different.
+The increase in market cap because of new coins is balanced by the decrease from the current market cap being bigger than `(b/i)`.
+
+c_m is the market cap at the equilibrium with mining.
+
+c'(t) = 0 = m - k*(c_m - b/i)*e^(-k*infinity)
+-> m = k*(c_m - b/i)
+-> m/k = c_m - b/i
+-> c_m = (b/i) + (m/k)
+
 
 This time, instead of c_i being b/i, it is ((b/i) + (m/k)).
 So this is the equilibrium market cap.
 ((rate that value is burned)/(interest rate)) +
 ((rate of block rewards)/(rate that market absorbs info))
+The market cap is maximized if the burn rate and block reward are both high.
 
-If the newly minted coins are created at rate m, and the market cap increases at rate c', then the rate at which the coins change price is:
-c' - m = k*(b/i - c)
+If the market cap is fixed, but coins are being burned at a rate of b, and created at a rate of m, then the value of coins is changing by `((b-m)/c_m)`.
+So the value of coins is maximized by keeping the burn rate high, and the mining reward low.
+
+
 
 
 More explanation for why c = b/i.
@@ -73,23 +83,26 @@ Plugging in for examples
 ==========
 
 Lets plug in some numbers to get an example.
-The interest rate of the economy seems to be around 3% currently, and a google search shows that people are being paid 0.9% to lend their bitcoin.
-The average tx fee is around $12 currently, and there are about 280 000 txs per day.
+The interest rate of the economy seems to be around 1% in bitcoin terms. Looking at the interest of wrapped bitcoin loans on ethereum.
+Transaction fees per day are around $275k.
+Current market cap is 7.26*10^9
 
-```
-fee per tx * txs per day * days per year =
-12$ * 280 000 * 365.24 = 1 230 000 000
-```
-So B is 1.23 billion
+If we were at the equilibrium price, then the market cap should be ((b/i) + (m/k))
+b = 365.24 * $275k = $100375k = $1.004*10^8
+i = 0.01
+m = b + (365.24 * 6.25 * 144 * $38k) = $1.26*10^10
 
-```
-MC = B / (0.03 + 0.009)
-= 1.23 billion / (0.039)
-= $31.5 billion
-```
-So the bitcoin market cap should be around 31.5 billion dollars.
+= $ 1.00*10^10 + (1.26*10^10 / k)
+
+So bitcoin should be at least $10 billion.
+
 
 Next looking at ETH.
+It looks like the rate for lending ETH is around 0.1%.
+eth daily fees are 1163 eth.
+eth price today is $2625.
+
+
 It looks like people are being paid 9.4% to lend their ETH. The interest rate of the economy seems to be around 3%.
 ETH fees are around $15 per tx. There are around 1 million txs per day.
 
