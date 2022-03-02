@@ -16,18 +16,19 @@ c(t) = market cap at a point in time. (money)
 c_0 = market cap at time 0.
 c_i = c at t=infinity. the natural market cap. (money)
 t = time. (time)
-b = rate that value is burned + sum of the transaction fees. (money/time)
+b = rate that value is burned. (money/time)
 i = interest rate of economy. (1/time)
 k = springiness of the market's return to the equilibrium price. (1/time)
-m = rate of block rewards + sum of the transaction fees. (money/time)
+m = rate of block rewards. (money/time)
+f = rate of transaction fees. (money/time)
 
 considering the case where `m=0`.
 
 Lets assume that there is some natural market cap for this currency, and that the further away it is from the market cap, the more rapidly it approaches the natural market cap. Assuming symmetry of scaling the total money involved, assuming symmetry of changing the time scale.
-in that case c'(t) = k*(c_i - c(t)).
+in that case c'(t) = k * (c_i - c(t)).
 Solving this ordinary differential equation.
-c(t) = A*e^(-k*t) + c_i.
-c' = -k*(A*e(-k*t))
+c(t) = A * e^(-k * t) + c_i.
+c' = -k * (A * e(-k * t))
 
 plugging in time zero.
 c_0 = A + c_i
@@ -38,14 +39,14 @@ We are considering the m=0 case.
 Assuming the efficient market hypothesis, we know that c_i = b/i.
 Putting it all together.
 
-c(t) = (c_0 - b/i)*e^(-k*t) + (b/i)
+c(t) = (c_0 - b/i) * e^(-k * t) + (b/i)
 
 
 what if `m!=0` ?
 (let B = b/i, and A = c_0 - B).
 
-c(t) = A*e^(-k*t) + B.
-c'(t) = -k*A*e^(-k*t).
+c(t) = A * e^(-k * t) + B.
+c'(t) = -k * A * e^(-k * t).
 c' is how quickly the market cap is changing in the m=0 case.
 
 If coins are also being created by mining, then the differential equation is different.
@@ -53,8 +54,8 @@ The increase in market cap because of new coins is balanced by the decrease from
 
 c_m is the market cap at the equilibrium with mining.
 
-c'(t) = 0 = m - k*(c_m - b/i)*e^(-k*infinity)
--> m = k*(c_m - b/i)
+c'(t) = 0 = m - k * (c_m - b/i) * e^(-k * infinity)
+-> m = k * (c_m - b/i)
 -> m/k = c_m - b/i
 -> c_m = (b/i) + (m/k)
 
@@ -68,7 +69,13 @@ The market cap is maximized if the burn rate and block reward are both high.
 If the market cap is fixed, but coins are being burned at a rate of b, and created at a rate of m, then the value of coins is changing by `((b-m)/c_m)`.
 So the value of coins is maximized by keeping the burn rate high, and the mining reward low.
 
+So how do we consider transaction fees in this sytem?
+Transaction fees are like block rewards in that miners are doing work to get the reward.
+They are also similar to a burn, because the person paying the fee is losing that money.
+A transaction fee of $10 is the same thing as a combination of a mining reward of $10 and a burn of $10 at the same time.
+So if we had a seperate variable for transaction fees `f`, then we could write the formula for the market cap like this:
 
+c = ((b+f)/i) + ((m+f)/k).
 
 
 More explanation for why c = b/i.
@@ -85,14 +92,15 @@ Plugging in for examples
 Lets plug in some numbers to get an example.
 The interest rate of the economy seems to be around 1% in bitcoin terms. Looking at the interest of wrapped bitcoin loans on ethereum.
 Transaction fees per day are around $275k.
-Current market cap is 7.26*10^9
+Current market cap is 7.26 * 10^9
 
 If we were at the equilibrium price, then the market cap should be ((b/i) + (m/k))
-b = 365.24 * $275k = $100375k = $1.004*10^8
+b = 365.24 * $275k = $100375k = $1.004 * 10^8
 i = 0.01
-m = b + (365.24 * 6.25 * 144 * $38k) = $1.26*10^10
+m = b + (365.24 * 6.25 * 144 * $38k) = $1.26 * 10^10
 
-= $ 1.00*10^10 + (1.26*10^10 / k)
+market cap is (b/i) + (m/k)
+= $ 1.00 * 10^10 + (1.26 * 10^10 / k)
 
 So bitcoin should be at least $10 billion.
 
@@ -101,6 +109,16 @@ Next looking at ETH.
 It looks like the rate for lending ETH is around 0.1%.
 eth daily fees are 1163 eth.
 eth price today is $2625.
+eth daily block rewards are 13500 eth.
+
+i = 0.001
+b = 1163 * $2625 * 365.24 = $1.12 * 10^9
+m = b + (365.24 * 13500 * $2625) = $1.29 * 10^10
+
+market cap is (b/i) + (m/k)
+= $1.12 * 10^12 + (1.29 * 10^10 / k)
+
+So Ethereum should be at least $1.12 trillion.
 
 
 It looks like people are being paid 9.4% to lend their ETH. The interest rate of the economy seems to be around 3%.
