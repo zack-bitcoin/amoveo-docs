@@ -1,3 +1,29 @@
+if a block is rejected because of a timestamp issue, blacklisting that block could be a bad idea, as it could lead to forking the miners.
+
+odds scraper is crashing sometimes.
+
+if you try to accept 2 bet offers in the same market, in the same block, it fails on the second one.
+
+
+if the explorer keeps track of zeroth confirmed txs, then people can learn about these txs while waiting for it to confirm.
+
+bet tab is loading market way too slow. needs a batch api.
+
+
+99% swaps and 1% swaps are using up a lot of space in some interface.
+
+
+in the bet tab, if you lose your bet there is a button to concede.
+the problem is that if you click this button more than once, and one of the offers is accepted, the other offers do not disappear.
+
+explorer.html should have a link to the accounts explorer, when you look up an account.
+
+market_explorer.html is not displaying limit order transactions.
+
+the expiration on bets isn't working. it always uses the default value.
+
+
+
 review the market cap document. It seems like we are near to knowing how the rate of mining impacts the market cap and the value of coins.
 The difference between optimizing for hash rate, market cap, and the price of the coins.
 
