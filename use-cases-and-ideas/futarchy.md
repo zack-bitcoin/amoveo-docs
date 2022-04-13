@@ -5,7 +5,7 @@ Futarchy is a mechanism for groups of people to make a decision together. It is 
 
 With Futarchy, the decision is made in the best interest of the group making that decision. It is not possible for anyone to manipulate the outcome of futarchy for their own benefit.
 
-The futarchy interface is on [this page](http://159.89.87.58:8080/wallet.html). The button that says "create Futarchy".
+The futarchy interface is on [this page](http://159.89.87.58:8080/wallet/wallet.html). The button that says "create Futarchy".
 
 The Mechanism
 ===============
