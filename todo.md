@@ -1,3 +1,55 @@
+for very old blocks, we don't need to check the signatures.
+Have an assume-valid option in the config file, where you store a block height and hash, and only sync with histories that include this block.
+
+
+
+p2p server is dropping the first 99 offer for the bet tab.
+
+assume-valid for old blocks. don't check signatures, just assume they are valid.
+
+tx pool should not be O((# txs)^2)
+
+
+if the odds scraper fails to update the odds, maybe it should try again?
+
+amoveo trading product wishlist
+
+3. rpc call that takes (cid, type1, type2, ...) and replies with all the trades with the markets that contain those types
+4. rpc call to load all positions instantly instead of 1 call initially then 1 call per subcurrency
+
+
+maybe the coinbase tx should be the last tx in the block instead of the first. that way the tx pool and block are processing txs with the same state.
+
+
+we should add some guards to be certain no one can use the atom "none" instead of a nonce in any of the tx types.
+* the full node had a one-liner change. make sure to run tests before pushing anything.
+
+
+sometimes the light node fails to give the message with the tx id, but the tx is still included.
+
+
+p2p derivatives server, maybe it should sync swap offers as well.
+
+
+in p2p derivatives server, if an offer expires without being accepted, then just delete the 99% offer from it.
+
+
+p2p derivatives server is using an incorrectly calculated MID. the ID for markets.
+
+
+We want to have many events being bet on at the same time, they need to load fast.
+* look into batching the api. 
+* have a version of the api that ignores 99% offers.
+* consider letting the api be a search query, with keywords. Maybe use something like AWK, or else an ETS bag.
+* maybe we should have an api so you can give an oracle_id, and it responds with all the swap offers that are related to that.
+* maybe an api so that you can look up all the markets that involve a certain contract_id.
+
+
+
+audit this https://github.com/f-l-i-n-t-s-t-o-n-e/testing
+
+
+
 if a block is rejected because of a timestamp issue, blacklisting that block could be a bad idea, as it could lead to forking the miners.
 
 odds scraper is crashing sometimes.

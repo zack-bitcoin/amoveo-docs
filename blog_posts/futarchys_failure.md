@@ -71,6 +71,7 @@ Attack succeeds due to defenders having insufficient funds to defend, if
 ```
 (defenders have) < (defenders need)
 (S * L) < (X / P)
+-> (S * P) < (X / L)
 ```
 
 The S is because we are expecting the defenders to use a profit maximizing strategy. They want to hedge against the risk that the result of the market is determined by something other than the decision futarchy is making. Kelly's criterion says that investing only S portion of their funds is the most profitable strategy for defenders https://en.wikipedia.org/wiki/Kelly_criterion
