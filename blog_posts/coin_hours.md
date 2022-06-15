@@ -83,8 +83,10 @@ But we don't want to iterate this calculation for every block. We want a closed 
 
 Here is the formula I got.
 
+```
 F = 999/1000
-FN = F^B
-C2 = (C1 * FN) + (V * (1 - FN) / (1 - F))
+FB = F^B
+C2 = (C1 * FB) + (V * (1 - FB) / (1 - F))
+```
 
 The stuff we sum up is a finite geometric series.
