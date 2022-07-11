@@ -16,7 +16,7 @@ They could use futarchy to find out which choice results in BTC having a higher 
 
 Futarchy is a kind of prediction market.
 All markets have a price.
-This price always reveals information.
+This price reveals information.
 Sometimes that information is useful.
 The market for futures for corn is a prediction for what the price of corn will be on some future date.
 A political betting market's price reveals the probabilities that different candidates have for winning the election.
@@ -135,3 +135,84 @@ Futarchy is more accurate when I is lower. So it is better to use a currency wit
 Futarchy is more accurate if L is bigger. So when choosing the currency for making the futarchy market, it is better to use a currency with a higher market cap. And it is better to use a currency where a larger portion of the holders are interested in participating in a futarchy market where they will earn expected profit.
 
 Futarchy is more accurate if X is smaller. So when using futarchy to make decisions, it is better if there are no individuals who can earn or lose a large amount of money based on which decision is made. We should try to format our decisions so that there are no winners or losers. Instead we want to make decisions that result in mutual benefit vs mutual loss. Basically, try to minimize corruption in the decision making processes.
+
+Applying the formula to famous examples of futarchy: Paul Sztorc's political prediction markets.
+================
+
+[In this video, Paul Sztorc describes a plan to use futachy to better select a US president.](https://www.youtube.com/watch?v=dJLYRADcPP4) go to the 18 minute mark to see the chart.
+
+Sztorc's idea is to make a conditional prediction market comparing (whether or not the economy is good) and (who is elected president).
+In his example, the odds that Elon Musk gets elected is very low, but the conditional probability that the economy will be good in that case is 100%.
+
+Is this a valid prediction market, or is it vulnerable to being manipulated?
+Estimating some values.
+
+S = 0.5 (really hard to believe that one person could have more than 50% impact on whether the economy is good.)
+
+P = 0.009 (reading it off the chart at the 18 minute mark in the video.)
+
+L = $400 billion. (market cap of bitcoin)
+
+X = $70 million (obama's net worth at the end of his presidency)
+
+I = 10% annual (my rough guess.)
+
+Is it profitable to defend?
+```
+S * P > I
+0.3 * 0.009 > 0.1 
+-> 0.0027 > 0.1
+```
+
+So what this shows is that during a manipulation, you would be losing money to try and bet against the manipulator.
+Even if you are 100% certain that a manipulation is happening, it is not in your interest to try and fix that manipulation.
+
+Do we have enough money on hand to defend it?
+```
+(S * P) > (X / L)
+(0.5 * 0.009) > ($70 / $400000)
+0.0045 > 0.000175.
+```
+
+So, we do have enough money to defend the market.
+
+Applying the formula to famous examples of futarchy: Robin Hanson's business prediction markets
+=====================
+
+Robin Hanson did a lot of research into prediction markets. He invented the idea of futarchy.
+
+His suggestion for people experimenting in futarchy is to take the 100 biggest businesses, and to ask about each one, whether the CEO is helpful for the stock price, or if changing CEO would be better for the stock price.
+
+Specifically, we are measuring the correlation between these 2 possible events:
+1) whether the CEO is fired.
+2) whether the stock finishes a 365 day period at least 5% higher than the start.
+
+If we made such a market, would it be secure against manipulation? Or could an attacker profitably manipulate it? Lets see.
+
+S = 20% (Whether the stock increases depends on the interest rate, the economy, many things. One person can only matter so much.)
+
+P = 5% (To make futarchy more feasible, the business would automatically fire the CEO 5% of the time. That way P isn't too near to zero, and maybe they can measure something useful.)
+
+L = $200 trillion. (Robin's suggestion is to not use a blockchain. Theoretically, anything of value could be used as collateral to bet in the market, so L has got to be the total value of everything owned by humans.)
+
+X = $200 million. (typical ceo career lasts 10 years. walmart ceo makes around $20 million).
+
+I = 1.5% (current interst rate on USA federal bonds)
+
+Is it profitable to defend?
+```
+S * P > I
+0.2 * 0.05 > 0.015
+0.01 > 0.015
+```
+
+It is not profitable currently. Even if you are 100% certain that there is a manipulation and you will win the bet, you are still going to earn more profit by buying government bonds instead of participating in this market.
+
+
+Do we have enough money on hand to defend it?
+```
+(S * P) > (X / L)
+(0.2 * 0.05) > (1 / 1000000)
+(0.01) > 0.000001
+```
+yes, there is enough money on hand to defend the market against manipulation.

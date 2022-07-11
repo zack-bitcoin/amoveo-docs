@@ -1,7 +1,7 @@
 Governance decides a different minimum fee size for each transaction type.
 The miner profits by including transactions that pay above the minimum fee for that transaction type.
 
-These are the 20 types of transaction that can be in blocks.
+These are the 21 types of transaction that can be in blocks.
 
 3 transactions for accounts:
 * create_account_tx
@@ -19,14 +19,15 @@ These are the 20 types of transaction that can be in blocks.
 * contract_new_tx
 * contract_use_tx
 * contract_evidence_tx
-* contract_timeout_tx
+* contract_timeout_tx2
 * contract_winnings_tx
 * contract_simplify_tx
 
-3 transaction types for subcurrencies:
+4 transaction types for subcurrencies:
 * sub_spend_tx
-* swap_tx
+* swap_tx2
 * market_swap_tx
+* trade_cancel_tx
 
 2 transaction types for managing markets:
 * market_new_tx
@@ -139,6 +140,10 @@ This is for creating a new on-chain market maker. you need to provide currency o
 
 This is for adding or withdrawing liquidity to a market. If you leave money in a market to provide liquidity, you will collect trading fees.
 If one of the 2 currencies loses significant value, then you can lose a lot of money.
+
+# trade_cancel_tx
+
+canceling a swap offer.
 
 # coinbase_tx
 

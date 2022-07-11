@@ -1,16 +1,11 @@
-for very old blocks, we don't need to check the signatures.
-Have an assume-valid option in the config file, where you store a block height and hash, and only sync with histories that include this block.
+figure out which verkle tree code needs to be put in the light node to be able to verify proofs.
 
+fix js injection from user text being displayed.
 
-
-p2p server is dropping the first 99 offer for the bet tab.
-
-assume-valid for old blocks. don't check signatures, just assume they are valid.
+the explorer isn't installing on new computers. ubuntu 20 or 22.
 
 tx pool should not be O((# txs)^2)
 
-
-if the odds scraper fails to update the odds, maybe it should try again?
 
 amoveo trading product wishlist
 
