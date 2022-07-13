@@ -216,3 +216,42 @@ Do we have enough money on hand to defend it?
 (0.01) > 0.000001
 ```
 yes, there is enough money on hand to defend the market against manipulation.
+
+Applying the formula to election betting odds.
+=======================
+
+(Robin Hanson recommends using election betting odds as futarchy to know who should get nominated for running for president.)[https://twitter.com/robinhanson/status/1546864159765082115?s=20&t=9Bil2RCd6T-R2AiL_P1aBQ]
+
+This is measuring the correlation between:
+1) who is republican nomination for president.
+2) whether the republican nominee wins the election.
+
+Is this market secure against manipulation? Or can one of the candidates manipulate it to make it seem like they are a better choice than they are?
+
+S = 10% (looking at the odds currently, the difference between the top choices is 10%. So according to this data, the signal of who is selected as nominee should have about 10% influence on whether the republicans win.)
+
+P = 40% (the least likely option is currently at 40%.)
+
+L = $400 million. (the amount bet in the 2020 election. There are limits on how much each person can bet.)
+
+X = $70 million. (obama's net worth after presidency)
+
+I = 8.6% (current usa inflation rate. Not worth investing if you can't earn at least this.)
+
+Is it profitable to defend against manipulation?
+```
+S * P > I
+0.1 * 0.4 > 0.015
+0.04 > 0.086
+```
+
+So it is not profitable to participate in this market, even if manipulations are happening.
+
+Is there enough money available to stop manipulations?
+```
+(S * P) > (X / L)
+0.1 * 0.4 > 7/40
+0.04 > 0.175
+```
+
+So there is not enough money available to stop manipulations, if they do occur.
