@@ -1,4 +1,3 @@
-figure out which verkle tree code needs to be put in the light node to be able to verify proofs.
 
 fix js injection from user text being displayed.
 
@@ -6,11 +5,23 @@ the explorer isn't installing on new computers. ubuntu 20 or 22.
 
 tx pool should not be O((# txs)^2)
 
+update dump not to use erlang_hipe, because it is an old unsupported project.
+* update amoveo to use the new version of dump that doesn't have erlang_hipe.
+
+look into that hard update so we can use governance system to update multiple at once. should be an easy update.
+connect some governance values together so we can adjust the block time without destroying everything else.
+block time, block rewards, oracle minimum, oracle maximum, block size.
+
+verkle tree rewrite to ed2559.
+figure out which verkle tree code needs to be put in the light node to be able to verify proofs.
 
 amoveo trading product wishlist
+=======
 
 3. rpc call that takes (cid, type1, type2, ...) and replies with all the trades with the markets that contain those types
 4. rpc call to load all positions instantly instead of 1 call initially then 1 call per subcurrency
+
+
 
 
 maybe the coinbase tx should be the last tx in the block instead of the first. that way the tx pool and block are processing txs with the same state.
@@ -126,18 +137,9 @@ Amoveo's DEX could be a good fit for this.
 
 
 
-the verkle tree should be finished.
-* calculating the new verkle root.
-* making a snark.
-
 
 
 we need a way to look up if a given transaction was included in the history, or if it was included in an orphaned block. This should probably be part of the explorer.
-I think there is a log2(#blocks) algorithm for starting at the current block height, and walking backwards to the block height where your tx was included. to see if it exists.
-
-Each block needs a hash to: the previous block, 2 blocks ago, 4 blocks ago, 8 blocks ago, ...
-
-Im pretty sure there is an existing datastructure like this we can use.
 
 
 amoveo-docs/design/private_oracles.md is old. maybe remove it.
@@ -150,18 +152,10 @@ look into this exchange tool.
 people would use the dex more if there was a bot or something to provide liquidity.
 
 
-make futarchy markets about controversial decisions in the cryptocurrency space. BIPs and EIPs.
-
-
 we need liquidity in the DEX.
 
 
 try syncing in hard drive mode. it is important to maintain support for this because if Amoveo grew, we would need it.
-
-
-
-update dump not to use erlang_hipe, because it is an old unsupported project.
-* update amoveo to use the new version of dump that doesn't have erlang_hipe.
 
 
 
@@ -173,7 +167,7 @@ look into cryptography called "private information retrieval". it could be usefu
 
 
 
-I guess we should build some interfaces for doing private oracles.
+We should build some interfaces for doing private oracles.
 * something to publish the oracle hash, and send the oracle text encrypted to the coutnerparty of your trade.
 * a tool for accepting these private trades.
 * add support for private oracles to the oracle reporting tools.
@@ -218,20 +212,6 @@ And as counter-evidence, if the house can show that you did a reroll, by selecti
 in bet tab "1=1" is not a good example.
 
 
-in homomorphic pedersen.erl, calculate randomness more correctly for the IPAs.
-X = hash(Cr, Cl)
-
-
-organize documents in the light node into files.
-scalar/binary/buy_veo contract file?
-oracle file?
-market file?
-swap offer file?
-subcurrency file?
-lisp compiler -> vm
-height.js -> explorers
-
-
 
 look at clean.sh for tips on making scripts to speed things up.
 
@@ -261,13 +241,8 @@ You can print money for yourself, as long as the oracle says you went through th
 
 
 
-look into that hard update so we can use governance system to update multiple at once. should be an easy update.
-connect some governance values together so we can adjust the block time without destroying everything else.
-block time, block rewards, oracle minimum, oracle maximum, block size.
 
-
-organize light node javascript into files.
-organize format file into modules.
+organize light node format file into modules.
 
 
 the light node merkle proof library still can't verify the proof that a data slot is empty.
