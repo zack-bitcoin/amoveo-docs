@@ -1,7 +1,7 @@
 Proof of Stake
 ========
 
-version # 4
+version # 5
 
 The goal of this paper is to show that Proof of Stake blockchain consensus does not work. We take the very general definition of Proof of stake consensus: any blockchain consensus mechanism where your influence over which block is added to the chain is proportional to some value that you own inside the blockchain's consensus state.
 
@@ -13,6 +13,10 @@ The Attack
 
 We need to get >2/3rds of the validators to lock up a second security bond, the attacker bond, on a different blockchain, that is greater than or equal to their security bond on the PoS blockchain. In order to do this we offer them staking rewards worth slightly more than what they are earning on the main chain.
 
+This bond needs to be made deniable. Otherwise, the attacker could double-cross the validators who participate in the attack, by revealing their unloyalty to the others. If the attacker shows that a validator had signed up to attack the protocol, that validator is at risk of losing their stake.
+
+To make the bribe smart contract deniable, the attacker makes fake contracts for all of the validators who do not participate in the attack. The attacker locks up their own money with themselves in a contract. This way, the same identical evidence exists for all the validators. None of them seem more like they accepted a bribe than any of the others.
+
 Once we have >2/3rds participation, these validators start ignoring the 1/3rd who are not participating in the attack, causing that 1/3rd to lose their security deposits.
 Because of speaker-listener fault equivalence, there is no way to later prove that the 1/3rd were participating correctly and should not have lost their bonds.
 So the bonded validators who do not participate in the attack, their entire bond gets burned.
@@ -20,8 +24,6 @@ So the bonded validators who do not participate in the attack, their entire bond
 Now that the attackers have 100% control, we can block anyone new from bonding, and we can start unbonding while maintaining 100% control. This allows everyone participating in the attack to cash out of the network before we execute the destructive attack.
 As they are cashing out of the PoS network, we can also decrease the size of the attacker bond, which decreases the cost of doing this attack.
 So the bonded validators who do participate in the attack, they can remove >99% of their bond from the network before the attack occurs. Meaning at worst only <1% of their security bond gets burned as a punishment for participating in the attack.
-
-In Cosmos the unbonding period is 3 weeks. In Cardano it is 15 days.
 
 Once we have 100% control, and the attackers have removed the vast majority of their stake from the system, we can execute any kind of attack, and we have almost no value in the system that could be burned to punish us. Depending on the applications available to this blockchain, it will look different.
 
@@ -49,7 +51,8 @@ Incentives problem. This was an attempt to show that PoS does not work because i
 moralistic enforcement
 ==========
 
-Here is a paper from 1992 explaining why PoS cannot work. http://citeseerx.ist.psu.edu/viewdoc/download?doi=10.1.1.405.286&rep=rep1&type=pdf
+Here is a paper from 1992 explaining why PoS cannot work.
+http://citeseerx.ist.psu.edu/viewdoc/download?doi=10.1.1.405.286&rep=rep1&type=pdf
 "If the costs of being punished are large enough, moralistic strategies which cooperate, punish noncooperators, and punish those who do not punish noncooperators can be evolutionarily stable. We also show, however, that moralistic strategies can cause any individually costly behavior to be evolutionarily stable, whether or not it creates a group benefit."
 
 The problem with PoS is that since the validator's value is internal to the system, an attack can do second-order punishments. The attack can punish validators who fail to participate in enforcing punishments. And this allows for arbitrary changes to the protocol to be dominant.

@@ -1,3 +1,5 @@
+we can make deniable contracts to bribe validators, as long as for every validator who refuses the bribe, we just make the contract with ourselves.
+
 
 fix js injection from user text being displayed.
 
