@@ -1,3 +1,6 @@
+consider removing the governance variable mechanism, because futarchy doesn't work well enough.
+
+
 we can make deniable contracts to bribe validators, as long as for every validator who refuses the bribe, we just make the contract with ourselves.
 
 
