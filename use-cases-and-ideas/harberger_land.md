@@ -87,6 +87,52 @@ And that is the worst case scenario where we divided up the entire planet into s
 Estimating the value of the cryptocurrency from the value of the land and the tax rate
 ======================
 
+Land is non-fungible.
+Every plot has its own risk profile, and its own specialists who know how to use it.
+So, the interest rate on land is high.
+Good money is fungible, and the price is stable, so the interest rate is low.
+This means if we use the harberger plan, the total value of veo will actually be far higher than the value of the land locked in the system.
+For example, if the land has an interest rate of 2%, and money has an interest rate of 0.5%. The land produces $120 of value per year, and we know that (untaxed value) = (yearly production) * (1/interest rate). so we know that it has an untaxed value of $6000.
+
+$5000 of value was taken from the land. 
+The interest rate of veo is 0.5%, so the $100 per year of taxes will make the market cap of veo increase by $20 000.
+The land lost $5k, but veo gained $20k. So the world ended up $15k richer.
+`(new value) = (old value) * (interest rate of land) / (interest rate of veo).`
+`(value created) = (new value) - (old value)`
+
+Since the market cap of cryptocurrency is growing by 5-10x as much as the value of the land put into it, we could inflate the market cap of veo to buy new land into the system. We could pay land owners 2x the value of their land, and it would still be a net benefit to the holders of veo.
+
+
+Estimating the leverage for land owners in this example.
+===================
+
+If the harberger tax is $100, then the land only cost $1000. Because the tax is taking 5/6ths of the returns, it only costs 1/6th as much to buy.
+`(taxed price) / (untaxed price) = (1 - (yearly tax / yearly production)).`
+So leverage is 6x. `leverage = (untaxed price) / (taxed price).`
+
+So that means it is like you are paying a mortgage where the bank owns 5/6th of the value of the property.
+
+The harberger tax for this example.
+=============
+
+Since the tax is $1000, and the land costs $1000 to buy in the system, that means we are using a 10% harberger tax rate.
+
+Wealth tax for this example.
+=============
+
+If we want to account for the tax like a wealth tax on the untaxed value of the property.
+The untaxed value is $6000, and we only pay $100 annually.
+So that is a 1.66% tax rate.
+
+Income tax for this example.
+=====================
+
+If you look at it as a income tax, then it is like a flat tax of 83.3% of the expected income you would get from owning that land, based on the market's assessment of how much value you should get from the land. So, if you can earn 3x more than a normal business owner in that neighborhood, your tax rate would drop down to 27.8% of your income. If a business can earn 10x more, then their tax rate drops down to 8.3% of income. If your business earns half as much as is expected, then your tax rate is 166% of your income, and you will go broke.
+
+
+Game theoretic relation between the price of land and how high the harberger tax is set.
+=======================
+
 Starting from the tax free case.
 The interest rate is I.
 land produces F value per year.
