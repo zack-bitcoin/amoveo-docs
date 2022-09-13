@@ -7,6 +7,55 @@ The goal of this paper is to show that Proof of Stake blockchain consensus does 
 
 [Here you can see counter-arguments to this paper](the_defence_of_pos.md)
 
+History
+=======
+
+
+PoS security is becoming a tougher subject to learn about, because so much money is at stake now, the propaganda is getting smarter.
+Vitalik is a smart guy, has written a lot on this topic, and his writing tends to be easier to read. 
+If proof of stake doesn't work, then Vitalik must be wrong about something.
+You can understand my perspective on in this debate by understanding vitalik's position, as well as what I think is his mistake.
+https://blog.ethereum.org/2015/01/28/p-epsilon-attack
+In this doc, Vitalik shows that any protocol that involves members of a list voting, and uses security deposits to punish members from voting against the group's interest, it can be cheaply manipulated to do things that are against their own collective interest. The cost of manipulation is much less than the value destroyed. 
+
+if this P+e attack works, then this would mean that things like PoS can never be made secure.
+
+He uses the following reasoning to justify continuing work on PoS protocols:
+1) he makes some arguments that PoW is also vulnerable to this kind of attack. 
+2) he points out the PoW survives even though it has this flaw.
+3) so then, PoS can probably also survive with this flaw.
+
+Vitalik argues that we should throw out all P+e attack reasoning, because it isn't giving accurate predictions about the world as we see it existing around us.
+
+Just because something hasn't been attacked yet, doesn't mean it is secure. I think SHA1 was used for years before the technology was developed to attack it.
+Implementing a P+e attack requires getting the attacker and the validator to deposit very large sums of money into smart contracts. Bigger than all the validator bonds put together. So, we need a very special smart contract in order to pull off the attack, and the technology for that smart contract might not be available yet.
+
+The attack can only happen if there is a smart contract system that has the liquidity for the collateral to host and enforce the P+e smart contract. And this attacker system needs to be secure enough and private enough that PoS validators feel confident that they aren't putting their PoS validator bond at risk.
+The technology to host the attack is still coming together, so it makes sense that these attacks haven't happened yet, even though they are possible.
+
+A little history context of PoS attacks.
+"long range attacks" https://twitter.com/VitalikButerin/status/1029901151200657408
+This is where you buy old private keys from validators, and you re-build a different history for the blockchain. This problem was solved https://twitter.com/vitalikbuterin/status/1029901731704918016
+
+
+Paul Storc came to the discussion from a different perspective entirely. https://www.truthcoin.info/blog/pow-cheapest/
+If we ignore the question of whether PoS or PoW is secure against an attack, and just focus on the economic needs of these systems, and game theoretic consequences for how they will necessarily work.
+
+Economically speaking, we need to be producing new coins for the system to be growing at the optimal rate. If the number of coins grows too slow, that over-rewards early holders and doesn't optimize for market-cap growth. 
+Game theory says that whatever mechanism we use to distribute these new coins, people will end up fighting over who is first to receive the coins, and this fight will use up resources almost as big as the new coins being produced.
+
+So, even if we did switch to PoS, we would need to still have a system of PoW miners for producing new coins.
+If we give out too many free coins to PoS validators, then too many coins get locked up in validators bonds, and there isn't enough collateral available to make smart contracts and use the system. Having too much value locked in validator bonds is destructive to the system. Value is destroyed according to the interest rate of the locked up funds.
+
+Paul's perspective is that since the PoW will need to exist anyway, we might as well recycle that work to also secure the blockchain for free, instead of building a complicated and costly PoS alternative. 
+
+PoS proponents like to say that PoS will allows for strategies that increase the scalability. So the extra cost of running the PoS system will be recuperated by having extra scalability. Even if PoW is necessary, they still think it is better to have the PoS system in parallel.
+
+But, scalability is an active area of research. It isn't clear if PoS has an advantage or not.
+My opinion is that security and scalability are the same thing, because you can adjust system parameters to do trade-offs between them.
+So, if PoW were more secure, then we could take advantage of a trade-off to make it more scalable instead. I tried to make some math to help reason able the trade-off space.
+https://github.com/zack-bitcoin/amoveo-docs/blob/master/design/consensus_efficiency.md
+
 
 The Attack
 ============
