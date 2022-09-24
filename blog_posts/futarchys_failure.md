@@ -46,11 +46,11 @@ Equations explaining when futarchy does not work.
 Attackers make bets that will have an expected loss. They do this to manipulate the prices in the futarchy market.
 Defenders make bets with an expected profit, and this causes the price in the futarchy market to return to being an honest signal.
 
-S = Signal. How much our shared choice determines whether we achieve our goal. If raising the block limit would increase the bitcoin price by 5%, then S=0.05
+S = Signal. How much our shared choice determines whether we achieve our goal. If raising the block limit would increase the bitcoin price by 5%, then S=0.05. The signal is important, because of the kelly criterion. Just because a bet has expected profit doesn't mean you are incentivized to invest 100% of your funds in it.
 
 P = Probability that we make the less likely choice. A number between 0 and 1. If the bitcoin community only has a 0.2% chance of increasing the block size, then P=0.002
 
-L = Liquidity. The amount of money defenders have ready to participate in prediction markets. In the context of blockchains, L is necessarily less than the market cap of the tokens in the blockchain where the prediction market happens.
+L = Liquidity. The amount of money defenders have ready to participate in prediction markets. In the context of blockchains, L < S * (market cap), because there is no more money on the blockchain for the defenders to buy.
 
 X = amount of money an attacker is willing to lose to manipulate the market.
 
@@ -58,7 +58,7 @@ I = interest rate in cryptocurrency for the duration of the market. If you can e
 
 Attack succeeds due to inprofitabilty of defence, if
 ```
-(profit of defense) < (cost of defense)
+(revenue of defense) < (cost of defense)
 S * P < I
 ```
 P is because it is liquidity inefficient to move the price by buying the more expensive type of share. If defenders need to spend 2x as much to move the price the same distance, then the defenders are losing interest on 2x as much money.
@@ -79,6 +79,26 @@ The S is because we are expecting the defenders to use a profit maximizing strat
 P is because the defenders are buying the more likely outcome, so they need to invest more money to move the price a smaller distance.
 
 If both equations are false, then futarchy works.
+
+A more detailed explanation of why we need P.
+======================
+
+imagine we have a futarchy to see if Elon Musk being president would be good for the economy.
+There is only a 0.1% chance that Elon wins the election, and a 0.05% chance that he wins, and then the economy improves, a 0.05% chance that he wins, and the economy gets worse.
+So, it looks like he has a 50% chance of improving the economy, if he wins.
+
+The total money in the market is $1 billion.
+So, total outstanding shares saying that elon wins are worth $1 million.
+
+If I used $1/2 million to raise the chance of him improving the economy, now it looks like he has a 66% chance of improving the economy.
+
+It would have taken like $250 million to have a similar impact on odds of improving the economy for a candidate that is more \
+likely to win.
+
+If a defender wants to profit by fixing the odds, there is no capital efficient way to do it.
+If they bet that Elon wins, and he harms the economy. Then they are betting that he will win, and at a bad price. If they try to buy all the other shares, to cancel out their bet on Elon, then they need to spend 1000x more than the attacker to move the price the same distance.
+
+The point of this example is to show that if an event is less likely to occur, then it is cheaper for an attacker to manipulate what the prediction market says is the impact of that event.
 
 examples
 =========
