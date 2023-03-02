@@ -1,4 +1,8 @@
+maybe we should use Nostr to pass messages between nodes that want to have contracts together. like the DEX.
+
+
 consider removing the governance variable mechanism, because futarchy doesn't work well enough.
+* this is a part of the verkle update.
 
 
 we can make deniable contracts to bribe validators, as long as for every validator who refuses the bribe, we just make the contract with ourselves.

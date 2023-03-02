@@ -50,7 +50,7 @@ S = Signal. How much our shared choice determines whether we achieve our goal. I
 
 P = Probability that we make the less likely choice. A number between 0 and 1. If the bitcoin community only has a 0.2% chance of increasing the block size, then P=0.002
 
-L = Liquidity. The amount of money defenders have ready to participate in prediction markets. In the context of blockchains, L < S * (market cap), because there is no more money on the blockchain for the defenders to buy.
+L = Liquidity. The amount of money defenders have ready to participate in prediction markets. In the context of blockchains, it is possible that L > S * (market cap), because the defenders could potentially own other investments besides their currency in this blockchain.
 
 X = amount of money an attacker is willing to lose to manipulate the market.
 
