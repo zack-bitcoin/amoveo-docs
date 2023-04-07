@@ -4,9 +4,23 @@ Basics
 Wait for it to sync the blocks. then do:
 ```
 sync_mode:normal().
-keys:unlock().
+keys:unlock("").
 ```
 you can use Control + D to detach from the node and let it run in the background
+
+Syncing from a checkpoint
+============
+
+in the config file `config/sys.config.tmpl`, make sure that `reverse_syncing` is set to `true`.
+
+When you turn the node on, you can sync headers with `sync:start().`.
+
+After it finishes syncing headers, you can get the checkpoint with: `checkpoint:sync().`
+
+You can download up to the top block by changing to normal sync mode. `sync_mode:normal().`.
+
+It should sync all the old blocks in reverse, but if the thread crashes you can start it again with a different peer like this:
+`checkpoint:reverse_sync().`
 
 
 Advanced. For if something goes wrong.
@@ -27,7 +41,7 @@ you can see how many blocks your node has:
 You can only download a block if you already have the header for that block.
 
 
-Once the node has synced all the blocks, it needs to be changed from quick-mode to normal-mode like this:
+Once the node has synced nearly all the blocks, it needs to be changed from quick-mode to normal-mode like this:
 ```
 sync_mode:normal().
 ```
