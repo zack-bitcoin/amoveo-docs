@@ -4,16 +4,16 @@ If you want to run Amoveo as an account other than root, you should create that 
 
 Then install dependencies using the instructions for your distribution:
 - [Ubuntu](#for-ubuntu)
+<!--
 - [ArchLinux](#for-archlinux)
 - [openSUSE](#for-opensuse)
+-->
 
 Finally proceed to [instructions after dependencies](#after-dependencies)
 
 ## For Ubuntu
 
-1. Make sure that that you are running Ubuntu 18 or later:
-
-    (earlier versions of ubuntu requires manually installing the latest version of erlang, because the package manager installs an old version)
+1. Make sure that that you are running Ubuntu 20 or Ubuntu 22:
 
     Use this command to check your version number
     ```
@@ -29,13 +29,16 @@ Finally proceed to [instructions after dependencies](#after-dependencies)
    sudo apt-get upgrade
    ```
 
-3. Install following dependencies:
+3. For Ubuntu 20 install following dependencies:
    ```
    sudo apt install erlang-base make erlang-asn1 erlang-public-key erlang-ssl erlang-inets erlang-dev g++ erlang-xmerl python erlang-lager
    ```
+   For Ubuntu 22, use these dependencies:
+   ```
+   sudo apt install erlang-base make erlang-asn1 erlang-public-key erlang-ssl erlang-inets erlang-dev g++ erlang-xmerl python erlang-lager erlang-parsetools erlang-tools
+   ```
 <!----
 sudo apt install erlang-asn1 erlang-public-key erlang-ssl erlang-inets erlang-jiffy erlang-dev erlang-base-hipe libncurses5-dev libssl-dev unixodbc-dev g++ git make 
----->
 
 ## For ArchLinux
 
@@ -113,6 +116,8 @@ openSUSE requires manual compilation and instalation of Erlang.
   ```
 - start erlang from your command line and see, if [hipe] is displayed.
 
+
+---->
 
 ## After Dependencies
 

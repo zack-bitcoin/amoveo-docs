@@ -1,5 +1,54 @@
-Basics
-==========
+Syncing before the verkle update
+========================
+
+Before hard update 52, by default the full node synced blocks chronologically. Starting at the genesis, and working towards the most recent block.
+in the config file `config/sys.config.tmpl`, `reverse_syncing` should be set to `false`, or the line shouldn't exist.
+
+If it isn't already turned on, then [turn the node on.](../turn_it_on.md)
+
+It should download the headers and blocks automatically. wait for it to finish. If it freezes, you can start getting headers from a new peer with `sync:start().`. You can check the current number of headers with `api:height().`
+You can turn off syncing with `sync:stop().` and it saves your progress so you can start again later where you left off.
+
+Once almost all the blocks are synced, change it to normal mode like this: `sync_mode:normal().`. This optimizes the node for staying in sync instead of for getting in sync.
+Finally, unlock the keys if you plan on generating transactions `keys:unlock("").`
+
+you can use Control + D to detach from the node and let it run in the background
+
+
+Syncing after the verkle update
+=======================
+
+As of hard update 52, the verkle update, syncing in reverse is mandatory.
+in the config file `config/sys.config.tmpl`, `reverse_syncing` should be set to `true`.
+
+1) it should download the headers automatically. wait for it to finish. If it freezes, you can start getting headers from a new peer with `sync:start().`. You can check the current number of headers with `api:height().`
+
+2) use `checkpoint:sync().` to sync with a random peer. or, you can use `checkpoint:sync(IP, Port).` to sync with a choosen peer, or if necessary, you can use `checkpoint:sync_hardcoded().` to sync with the node that the developer maintains. This will download the checkpoint, and start syncing from that point forwards and reverse.
+
+If you need to restart the process for syncing from the checkpoint forwards, use `sync:start().`
+
+If you need to restart the process for syncing from the checkpoint in reverse back to the genesis, use `checkpoint:reverse_sync().` or `checkpoint:reverse_sync({IP, Port}).` to sync with a choosen peer.
+
+3) once you are nearly synced with the top block, use `sync_mode:normal().` so that your node is optimized for staying in sync instead of being optimized for getting into sync. 
+
+to pause syncing in reverse:
+`sync_kill:stop().`
+Note that this stops it from syncing forwards as well.
+
+to start syncing in reverse again after it has been paused:
+`sync_kill:start().`
+`checkpoint:reverse_sync().`
+This also allows it to sync forwards again.
+
+
+
+
+<<---- working below this line
+
+
+
+
+
 
 Wait for it to sync the blocks. then do:
 ```
@@ -22,6 +71,7 @@ You can download up to the top block by changing to normal sync mode. `sync_mode
 It should sync all the old blocks in reverse, but if the thread crashes you can start it again with a different peer like this:
 `checkpoint:reverse_sync().`
 
+----->>
 
 Advanced. For if something goes wrong.
 ==============

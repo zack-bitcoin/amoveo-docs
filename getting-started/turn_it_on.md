@@ -35,12 +35,7 @@ First make sure you are attached to it, then do:
 ```
 api:off().
 ```
-to turn off Amoveo.
-Then do:
-```
-halt().
-```
-to turn off erlang.
+to turn off Amoveo and turn off erlang.
 
 You can upgrade the security of your node. First you need to run the node at least once. Then you need to run the node off. Then run this script:
 `sudo sh better_cookie.sh`

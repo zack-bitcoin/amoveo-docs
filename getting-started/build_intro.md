@@ -158,8 +158,5 @@ api:spend(To, Amount).
 ```
 
 
-#### Learn more
-
-If you want to know more, go to the Amoveo Reddit, and see if someone else asked your question. https://www.reddit.com/r/Amoveo
 
 
