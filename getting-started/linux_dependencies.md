@@ -2,6 +2,9 @@ First you have to install the dependencies. This depends on your Linux distribut
 
 If you want to run Amoveo as an account other than root, you should create that account and switch to that account before installing dependencies.
 
+The master branch of Amoveo uses Ubuntu 18.4 or Ubuntu 20.4
+The verkle branch of Amoveo uses Ubuntu 22.4
+
 Then install dependencies using the instructions for your distribution:
 - [Ubuntu](#for-ubuntu)
 <!--
@@ -35,7 +38,7 @@ Finally proceed to [instructions after dependencies](#after-dependencies)
    ```
    For Ubuntu 22, use these dependencies:
    ```
-   sudo apt install erlang-base make erlang-asn1 erlang-public-key erlang-ssl erlang-inets erlang-dev g++ erlang-xmerl python erlang-lager erlang-parsetools erlang-tools
+   sudo apt install erlang-base make erlang-asn1 erlang-public-key erlang-ssl erlang-inets erlang-dev g++ erlang-xmerl python2 erlang-lager erlang-parsetools erlang-tools
    ```
 <!----
 sudo apt install erlang-asn1 erlang-public-key erlang-ssl erlang-inets erlang-jiffy erlang-dev erlang-base-hipe libncurses5-dev libssl-dev unixodbc-dev g++ git make 

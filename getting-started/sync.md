@@ -14,6 +14,11 @@ Finally, unlock the keys if you plan on generating transactions `keys:unlock("")
 
 you can use Control + D to detach from the node and let it run in the background
 
+If you want it to stop syncing, you can use:
+```sync:stop().```
+it can be restarted with
+```sync:start().```
+
 
 Syncing after the verkle update
 =======================
@@ -25,11 +30,19 @@ in the config file `config/sys.config.tmpl`, `reverse_syncing` should be set to 
 
 2) use `checkpoint:sync().` to sync with a random peer. or, you can use `checkpoint:sync(IP, Port).` to sync with a choosen peer, or if necessary, you can use `checkpoint:sync_hardcoded().` to sync with the node that the developer maintains. This will download the checkpoint, and start syncing from that point forwards and reverse.
 
-If you need to restart the process for syncing from the checkpoint forwards, use `sync:start().`
+3) Once almost all the blocks in the forward direction are synced, change it to normal mode like this: `sync_mode:normal().`. This optimizes the node for staying in sync instead of for getting in sync.
+
+4) If you also want to make txs, then you need to decrypt your private key:
+```
+keys:unlock("").
+```
+
+
+If you need to restart the process for syncing from the checkpoint forwards, use `sync:start().`  You can see the top block with `block:height().`
 
 If you need to restart the process for syncing from the checkpoint in reverse back to the genesis, use `checkpoint:reverse_sync().` or `checkpoint:reverse_sync({IP, Port}).` to sync with a choosen peer.
+You can see the lowest block you have with `block:bottom().`
 
-3) once you are nearly synced with the top block, use `sync_mode:normal().` so that your node is optimized for staying in sync instead of being optimized for getting into sync. 
 
 to pause syncing in reverse:
 `sync_kill:stop().`
@@ -110,11 +123,7 @@ Amoveo shares blocks by pulling them, that way we can minimize the volume of dat
 
 If you can't accept messages from the internet, possibly because you are behind a firewall, you can still get your full node in sync by manually requesting headers from a peer, like this:
 ```
-P1 = lists:nth(3, peers:all()).%grabs 3rd peer from you list of peers.
+P1 = lists:nth(3, peers:all()).%grabs 3rd peer from your list of peers.
 sync:get_headers(P1).
 ```
 
-If you want it to stop syncing, you can use:
-```sync:stop().```
-it can be restarted with
-```sync:start().```

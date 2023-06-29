@@ -12,11 +12,11 @@ There are 8 [Merkle trees](/basics/merkle.md).
 * oracles
 * matched
 * unmatched
-* governance
 * contracts
 * sub_accounts
 * markets
 * trades
+* receipts
 
 
 
@@ -44,10 +44,6 @@ the `matched` tree stores orders that have matched pairs. these are active bets 
 
 `unmatched` is for those orders which are not yet matched. they are in an order book.
 
-# governance
-
-This tree stores by atom name. It contains many variables that define the consensus protocol. The oracles can be used to update these variables, to optimize Amoveo for changing conditions.
-
 # contracts
 
 This tree stores smart contracts. each smart contract has a source currency used as collateral, and 2 or more subcurrencies.
@@ -73,5 +69,7 @@ In Bitcoin replay-attacks are prevented by the system of unspent/spent txids.
 The benefit of not incrementing the account nonce when proessing swap_tx is that you can publish many swap_tx offers, and if some of the offers get accepted, it doesn't cause the other offers to become invalidated.
 Another benefit is that if you have many swap offers all programmed to the same nonce, you can cancel them all by making any other tx that would cause your nonce to increase, and thereby invalidate all those swap_txs.
 Alternatively, you can program your swap offers to use a nonce much higher than your current account nonce, in which case you are free to make many txs without invalidating your swap_tx_offers. In this case, if you do want to invalidate your swap_tx_offers, you would need to send the money from your account into a different account that you control, so that there is insufficient balance for anyone to match your swapt_tx_offers.
+
+# receipts
 
 

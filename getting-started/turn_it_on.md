@@ -7,7 +7,7 @@ and you need at least 100 kilobytes per seconds of bandwidth
 Do not run Amoveo as root user.   
 
 It is helpful to have port 8080 exposed to the internet, this will let you find out about blocks more quickly, so you would mine faster.
-[Most other ports need to be blocked. Enable the fire wall for security](firewall.md)
+[Most other ports can be blocked. Enable the fire wall for security](firewall.md)
 
 [Install dependencies](dependencies.md)
 
@@ -18,12 +18,12 @@ make prod-restart
 
 to detach from  a running node, and leave it running in the background, hold the Control key, and press the D key.
 
-You can communicate with the running node from a terminal like this:
+You re-attach to the running node from a terminal like this:
 ```
   make prod-attach
 ```
 
-now that you are attached to a node, you can tell it [commands](../api/commands.md)
+When you are attached to a node, you can tell it [commands](../api/commands.md)
 
 [You can read about how to download the blocks and sync with the network here](sync.md)
 
