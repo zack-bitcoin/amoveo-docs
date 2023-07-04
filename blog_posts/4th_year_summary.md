@@ -18,17 +18,17 @@ Light Node
 =============
 
 * We created a DEX (decentralized exchange) smart contract that allows you to make offers to sell your VEO to buy altcoins.
-You can see it in the light node, the "crosschain DEX, sell veo" tab http://159.89.87.58:8080/wallet/wallet.html
+You can see it in the light node, the "crosschain DEX, sell veo" tab http://64.227.21.70:8080/wallet/wallet.html
 
 * We created a version of the DEX (decentralized exchange) where you can use an altcoin to buy VEO. This is the first Amoveo smart contract where the state of the contract gets updated. The person who accepts your offer, they need to provide their altcoin address where they want to get paid. They need to give this address to the smart contract.
 
-For this buy-veo DEX, we have a tab in the light node wallet as the user interface. It is the "crosschain DEX, buy veo" tab http://159.89.87.58:8080/wallet/wallet.html
+For this buy-veo DEX, we have a tab in the light node wallet as the user interface. It is the "crosschain DEX, buy veo" tab http://64.227.21.70:8080/wallet/wallet.html
 
-* Now we have a web interface where you can test out writing Amoveo smart contract code, and it runs in your browser so you can see the results. http://159.89.87.58:8080/chalang.html It has examples you can test out.
+* Now we have a web interface where you can test out writing Amoveo smart contract code, and it runs in your browser so you can see the results. http://64.227.21.70:8080/chalang.html It has examples you can test out.
 
-* We created a tab in the light node for making binary bets on whatever topic you want. You can offer to bet on a sporting event, and anyone could accept your offer. it is in the "bet" tab on this page: http://159.89.87.58:8080/wallet/wallet.html
+* We created a tab in the light node for making binary bets on whatever topic you want. You can offer to bet on a sporting event, and anyone could accept your offer. it is in the "bet" tab on this page: http://64.227.21.70:8080/wallet/wallet.html
 
-* We made a tool that used both the sell-veo and buy-veo smart contracts so that we can trustlessly exchange any altcoin for any other altcoin. it is in the "crosschain DEX" tab http://159.89.87.58:8080/wallet/wallet.html
+* We made a tool that used both the sell-veo and buy-veo smart contracts so that we can trustlessly exchange any altcoin for any other altcoin. it is in the "crosschain DEX" tab http://64.227.21.70:8080/wallet/wallet.html
 This shows how smart contracts in Amoveo can be composible, without sacrificing the ability to run all the transactions in parallel.
 
 * To test out the smart contract VM, we made a video game, where there are hundreds of smart contract animals competing for a limited resource. https://github.com/zack-bitcoin/life_game

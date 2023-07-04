@@ -9,5 +9,5 @@ message from address: BL0SzhkFGFW1kTTdnO8sGnwPEzUvx2U2nyECwWmUJPRhLxbPPK+ep8eYMx
 this is an address that I control BCjdlkTKyFh7BBx4grLUGFJCedmzo4e0XT1KJtbSwq5vCJHrPltHATB+maZ+Pncjnfvt9CsCcI9Rn1vO+fPLIV4=
 ```
 
-You can decrypt it on this page: http://159.89.87.58:8080/encryption.html
+You can decrypt it on this page: http://64.227.21.70:8080/encryption.html
 Generate your keys using the passphrase "amoveo", then you can decrypt the message.

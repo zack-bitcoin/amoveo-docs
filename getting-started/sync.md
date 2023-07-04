@@ -28,11 +28,13 @@ in the config file `config/sys.config.tmpl`, `reverse_syncing` should be set to 
 
 1) it should download the headers automatically. wait for it to finish. If it freezes, you can start getting headers from a new peer with `sync:start().`. You can check the current number of headers with `api:height().`
 
-2) use `checkpoint:sync().` to sync with a random peer. or, you can use `checkpoint:sync(IP, Port).` to sync with a choosen peer, or if necessary, you can use `checkpoint:sync_hardcoded().` to sync with the node that the developer maintains. This will download the checkpoint, and start syncing from that point forwards and reverse.
+2) use `checkpoint:sync().` to sync with a random peer. or, you can use `checkpoint:sync(IP, Port).` to sync with a choosen peer, or if necessary, you can use `checkpoint:sync_hardcoded().` to sync with the node that the developer maintains. This will download the checkpoint, and start syncing from that point forwards.
 
 3) Once almost all the blocks in the forward direction are synced, change it to normal mode like this: `sync_mode:normal().`. This optimizes the node for staying in sync instead of for getting in sync.
 
-4) If you also want to make txs, then you need to decrypt your private key:
+4) Once you have all the blocks to the top, start syncing backwards from the checkpoint towards the origin with `checkpoint:reverse_sync().`
+
+5) If you also want to make txs, then you need to decrypt your private key:
 ```
 keys:unlock("").
 ```

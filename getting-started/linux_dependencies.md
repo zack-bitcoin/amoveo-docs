@@ -1,7 +1,5 @@
 First you have to install the dependencies. This depends on your Linux distribution. If unsure you can try `lsb_release -d` to check your distribution.
 
-If you want to run Amoveo as an account other than root, you should create that account and switch to that account before installing dependencies.
-
 The master branch of Amoveo uses Ubuntu 18.4 or Ubuntu 20.4
 The verkle branch of Amoveo uses Ubuntu 22.4
 

@@ -7,7 +7,7 @@ There are multiple designs for how the crosschain DEX can work, with their own t
 
 The purpose of the code in this folder is to explain the Amoveo DEX, and compare it's costs and benefits to other similar tools.
 
-[This page has the current interface for the Amoveo DEX, in the "crosschain DEX" tab](http://159.89.87.58:8080/wallet.html)
+[This page has the current interface for the Amoveo DEX, in the "crosschain DEX" tab](http://64.227.21.70:8080/wallet.html)
 
 Basics of Amoveo DEX
 ============
