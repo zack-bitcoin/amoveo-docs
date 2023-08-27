@@ -6,22 +6,37 @@
 * Blockchain Consensus Protocol
 * Accounts
 * Oracles
-* Governance
 * Smart Contracts 
-* Derivatives and synthetic assets
 * Markets
 * Light Nodes
 * stateless full nodes
 * Example Use Cases
 * Oracle Game Theory
+* Land Registry
 
 
 ## Abstract
 
 Blockchain is a form of cryptographic database technology. Each blockchain hosts a cryptocurrency. Cryptocurrencies are a form of wealth that is made secure by blockchain technology.
 Amoveo is a blockchain which secures a cryptocurrency called Veo.
-Using Veo in the markets, you can buy and sell risk in anything.
-With Amoveo it is impossible for customers to steal from a market, and it is impossible for the market to steal from its customers.
+
+Humans need futures markets so that we can communicate our future needs, and cooperate.
+We need good money so that the contracts in the contracts have good collateral.
+Contracts with good collateral can be used to communicate needs further in the future, so we need good collateral.
+
+Good collateral needs to be very liquid, so the price doesn't move when you buy or sell it.
+Good collateral needs to have low volatility from the perspective of a human living in earth's economy.
+We want the collateral's value to be linked to the size of earth's economy.
+
+How can a collateral gain these properties?
+It needs to be connected to the economy financially.
+So that participating in a part of the economy involves destroying the coins.
+Based on the rate that coins are destroyed, and the global interest rate, there is an equalibrium market cap that the currency will tend towards.
+
+The part of the economy that seems like it will work best for this is real estate.
+A land registry can fit into the consensus state of a blockchain.
+It can cost Harberger taxes to own land.
+The global market cap for land is in the hundreds of trillions, so this part of the economy is big enough to support the market cap of a global currency.
 
 
 ## Motivation
@@ -68,12 +83,6 @@ The Amoveo oracle does not usually have much collateral at stake, so the cost of
 [Read more about oracles here](design/oracle.md)
 
 
-## Governance
-
-Using the oracle mechanism we can trustlessly report to the amoveo blockchain about the results from futarchy markets. This way we can adjust the parameters that define the Amoveo blockchain. The mechanism is built with the goal that the oracle will choose parameters that improve Amoveo.
-[Read more about governance here](design/governance.md)
-
-
 ## Smart Contracts
 
 Amoveo is a blockchain for financial derivatives. The smart contract system is Turing complete, so any kind of contract is technically possible. Amoveo is highly optimized for financial derivatives. It is not recommended to use Amoveo to make other kinds of contracts.
@@ -87,7 +96,7 @@ You can learn more about amoveo contracts and the history of how we ended up usi
 Amoveo uses the chalang VM for our smart contracts. [learn more about chalang in the chalang github page](https://github.com/zack-bitcoin/chalang) Chalang is a forth-like VM, heavily influenced by Bitcoin script and the Ethereum VM.
 
 
-## Derivatives and synthetic assets
+Financially, the smart contracts in Amoveo are all derivatives.
 
 Veo is the native currency of Amoveo. All other assets in Amoveo are derivatives collateralized by Veo.
 So, Amoveo does not work well for ICOs, but Amoveo does support other better forms of fundraising.
@@ -121,18 +130,18 @@ Full nodes are only needed for mining, everything else can be done with light no
 
 Amoveo uses the stateless full node model. That means a full node doesn't have to store any consensus state to stay in sync and verify blocks. You only have to store headers. Every block has all the merkel proofs that you need to verify that block.
 So, an Amoveo full node can process blocks in any order. In particular, it can process blocks in reverse order. Which means that a mining pool can launch a new Amoveo node and start mining immediately, without waiting to re-process the history of blocks.
+Amoveo uses verkle trees for the consensus state, because this database pairs well with the stateless full node design.
 
 
 ## Example Use Cases
 
-* [Maintaining the climate so our planet can support future generations of humans](use-cases-and-ideas/climate_maintenance.md) This is an example of futarchy, which means using financial derivative markets to help communities of people make better decisions.
-* [Fund-raising for creation of public goods](use-cases-and-ideas/insured_crowdfund.md) This is how we will fund further development of Amoveo.
-* [Prediction markets and futarchy](use-cases-and-ideas/prediction_market.md) This is how we will plan further development of Amoveo.
+* storing wealth.
+* investing in real estate.
+* trading in real estate.
+* hedging risks
+* communicating your future needs in a financially backed way.
 * [Insurance](use-cases-and-ideas/insurance.md)
 * Gambling
-* [Stablecoin, also called "synthetic assets"](use-cases-and-ideas/stablecoin.md) This way you can own US dollars on Amoveo.
-* [Preventing nuclear disaster](use-cases-and-ideas/north_korea.md) 
-* [Preventing sexual abuse in the workplace](use-cases-and-ideas/Harvey_Weinstein.md)
 * [Options](use-cases-and-ideas/options.md)
 
 
@@ -150,3 +159,8 @@ The Nash equilibrium will be for miners to put some effort into watching the ora
 Therefore, the Nash equilibrium will be an honest oracle.
 [Read more about oracles here](design/oracle.md)
 
+
+## Land Registry
+
+Plans for the land registry are here:
+https://github.com/zack-bitcoin/harberger_global

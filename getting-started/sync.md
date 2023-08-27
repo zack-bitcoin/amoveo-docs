@@ -1,36 +1,14 @@
-Syncing before the verkle update
-========================
-
-Before hard update 52, by default the full node synced blocks chronologically. Starting at the genesis, and working towards the most recent block.
-in the config file `config/sys.config.tmpl`, `reverse_syncing` should be set to `false`, or the line shouldn't exist.
-
-If it isn't already turned on, then [turn the node on.](../turn_it_on.md)
-
-It should download the headers and blocks automatically. wait for it to finish. If it freezes, you can start getting headers from a new peer with `sync:start().`. You can check the current number of headers with `api:height().`
-You can turn off syncing with `sync:stop().` and it saves your progress so you can start again later where you left off.
-
-Once almost all the blocks are synced, change it to normal mode like this: `sync_mode:normal().`. This optimizes the node for staying in sync instead of for getting in sync.
-Finally, unlock the keys if you plan on generating transactions `keys:unlock("").`
-
-you can use Control + D to detach from the node and let it run in the background
-
-If you want it to stop syncing, you can use:
-```sync:stop().```
-it can be restarted with
-```sync:start().```
-
-
-Syncing after the verkle update
+Syncing
 =======================
 
 As of hard update 52, the verkle update, syncing in reverse is mandatory.
 in the config file `config/sys.config.tmpl`, `reverse_syncing` should be set to `true`.
 
-1) it should download the headers automatically. wait for it to finish. If it freezes, you can start getting headers from a new peer with `sync:start().`. You can check the current number of headers with `api:height().`
+1) it should download the headers automatically. wait for it to finish. If it freezes, you can start getting headers from a new peer with `sync:get_headers().`. You can check the current number of headers with `api:height().`
 
 2) use `checkpoint:sync().` to sync with a random peer. or, you can use `checkpoint:sync(IP, Port).` to sync with a choosen peer, or if necessary, you can use `checkpoint:sync_hardcoded().` to sync with the node that the developer maintains. This will download the checkpoint, and start syncing from that point forwards.
 
-3) Once almost all the blocks in the forward direction are synced, change it to normal mode like this: `sync_mode:normal().`. This optimizes the node for staying in sync instead of for getting in sync.
+3) You need to get the blocks in the forward direction from the checkpoint. They should sync automatically, but if they don't you can use `sync:start().` to restart the process. Once almost all the blocks in the forward direction are synced, change it to normal mode like this: `sync_mode:normal().`. This optimizes the node for staying in sync instead of for getting in sync.
 
 4) Once you have all the blocks to the top, start syncing backwards from the checkpoint towards the origin with `checkpoint:reverse_sync().`
 
