@@ -25,7 +25,7 @@ Fungible subcurrencies are easier to program in the blockchain setting than reve
 The fact that people can sell their private keys makes it seem like it would be impossible to enforce a reversible swap. In order to be reversible, there needs to be a period of time where you cannot sell your stake in the swap that you had made. Because if you did sell 
 That hackers would find a way to sell their coins, even when it is in a supposedly untradeable state.
 
-Paul Sztorc fully empraced the fungible subcurrency model, you can see Paul Sztorc's recommended design here https://bitcoinhivemind.com/papers/3_PM_Applications.pdf
+Paul Sztorc fully embraced the fungible subcurrency model, you can see Paul Sztorc's recommended design here https://bitcoinhivemind.com/papers/3_PM_Applications.pdf
 A 2x2 prediction market, with 4 fungible assets. I will call them "combinatorial markets".
 
 This same design mistake was carried over into Augur and Amoveo.
@@ -101,7 +101,7 @@ in the reversible swap market context, here is the price of a share betting that
 
 ```
 veo *
-((odds that we will make the false decision as recorded at the moment this trade executes) +
+((odds that we make the false decision)*(odds that we will make the false decision as recorded at the moment this trade executes) +
  ((odds that we make the true decision) /
   (odds that it achieves our goal conditional on making the true decision)))
 ```
@@ -112,7 +112,16 @@ If the odds of making the true decision are very low, then this becomes ```veo *
 Which may be very low for some traders, but if you had purchased this when the odds of a true decision are very low, then it would be worth almost 1 veo. So You can't buy this to move the price in a liquidity efficient way.
 
 Can the attacker use something like a nothing-at-stake attack to get his victims to hold something worth `veo * (odds that we make the false decision)`, and is this a cost effective way to attack futarchy?
-* the attacker would need to lock up X money in Amoveo, and X money in the nothing-at-stake contract, and the attacker needs to pay the victim interest to leave their money in the contract, so it costs at least as much as the interest on 3X. And X is comparable to the amount of money that the defense is locking up.
 
-All together, this attack leaves the attacker with an even large liquidity disaster, because they need to lock up more money in contracts. It doesn't save on costs either, because they need to pay interest to the victims of the nothing-at-stake contracts.
+No, because these kinds of attacks can only increase the amount of money you need locked in contracts, not reduce. They are used to move risk to someone else, not for recovering locked liquidity.
+
+So you can't get anyone else to put up the liquidity for you. That means there is no liquidity efficient way to manipulate the price of this kind of futarchy.
+
+
+What if the attacker ignores our futarchy market entirely, but makes a combinatorial market on another blockchain, and arbitragers are making the prices match between our markets
+=====================
+
+Arbiteragers can only profit from doing arbitrage if the extra money they earn from a contract is worth more than the loss they experience due to having money trapped in this contract for a period of time.
+
+The combinatorial market is insecure because there isn't a profit motive to fix an incorrect price in some situations. So, arbiteragers wouldn't have a profit motive to fix a discrepancy between the 2 markets.
 
