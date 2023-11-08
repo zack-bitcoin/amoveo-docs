@@ -1,6 +1,20 @@
 Futarchy's Failure
 ==============
 
+
+Edit November 8, 2023
+=============
+
+This failure mode only applies to certain prediction markets designs:
+* the ones made by 4-way market scoring rules, like logrithmic market scoring rule, or constant product market scoring rule.
+* the ones made by using the subcurrency from one market as the collateral for another market.
+
+This failure mode notably does not apply to reversible trades market, like Vitalik describes [here](https://blog.ethereum.org/2014/08/21/introduction-futarchy)
+
+[I wrote more about working futarchy tooks here](./futarchys_back.md)
+
+
+
 What is Futarchy?
 ============
 
