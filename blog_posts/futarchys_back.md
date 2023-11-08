@@ -91,8 +91,10 @@ What aspect of the combinatorial market is bad?
 if the defender needs to buy high-valued shares, and the attacker only needs to buy lower-valued shares, then it can cost the defender 10x or 100x more capital to move the price the same distance that the attacker does.
 
 in the combinatorial market context, here is the price of a share betting that we made the true decision, and it achieves our goal.
-```veo * (odds that we made the true decision) /
-(odds that it achieves our goal conditional on making the true decision)``
+```
+veo * (odds that we made the true decision) /
+(odds that it achieves our goal conditional on making the true decision)
+```
 If the odds of making the true decision are very low, then this share type is going to be much cheaper than other share types.
 
 in the reversible swap market context, here is the price of a share betting that we made the true decision, and it achieves our goal.
