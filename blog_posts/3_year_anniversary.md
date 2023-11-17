@@ -7,7 +7,7 @@ Another major change is that Amoveo now has native constant-product markets, lik
 This year we also created the Amoveo limit order tool, which allows you to make offers to swap any of your currencies for any other currency in Amoveo. The orders themselves stay off-chain until matched, so unmatched orders are free to make.
 This year we added flash minting to Amoveo. So you can atomically combine any of the amoveo tx types (besides contract_evidence_tx), and your balances in any currency can temporarily go negative, as long as they are all non-negative by the end of the flash-mint.
 Using the flash minting tool, we created an AI that combines multiple uniswap txs with depositing/withdrawing veo into smart contracts, to get the best possible price for the trade you want. A feature Vitalik wants to add to Ethereum https://twitter.com/zack_bitcoin/status/1362489877791715329?s=20
-This year we created a new simplified user interface in the light node, to give easy access to Amoveo's most popular tools http://64.227.21.70:8080/wallet.html
+This year we created a new simplified user interface in the light node, to give easy access to Amoveo's most popular tools http://46.101.81.5:8080/wallet.html
 The UX for the swapping AI is in the swap tab. 
 The futarchy tab is also a new innovation this year.
 Our futarchy tool allows us to find out the impact any decision will have on the price of anything. For example, we can know if an update will be beneficial for the price of Amoveo. We made changes to the old futarchy design based on advice Robin Hanson gave.

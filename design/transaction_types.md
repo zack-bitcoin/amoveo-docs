@@ -1,7 +1,7 @@
 Governance decides a different minimum fee size for each transaction type.
 The miner profits by including transactions that pay above the minimum fee for that transaction type.
 
-These are the 21 types of transaction that can be in blocks.
+These are the 26 types of transaction that can be in blocks.
 
 3 transactions for accounts:
 * create_account_tx
@@ -32,6 +32,13 @@ These are the 21 types of transaction that can be in blocks.
 2 transaction types for managing markets:
 * market_new_tx
 * market_liquidity_tx
+
+5 employment contract transactions:
+* job_create_tx
+* job_receive_salary_tx
+* job_buy_tx
+* job_adjust_tx
+* job_team_adjust_tx
 
 1 bonus transactions:
 * coinbase_tx
@@ -144,6 +151,26 @@ If one of the 2 currencies loses significant value, then you can lose a lot of m
 # trade_cancel_tx
 
 canceling a swap offer.
+
+# job_create_tx
+
+for creating a new employment contract. You start out as both boss and worker.
+
+# job_receive_salary_tx
+
+If you are the worker for a job, you get paid with every block. This transaction type is used to move you salary from the employment contract to your account.
+
+# job_buy_tx
+
+The employment contracts are all available for sale, using the harberger continuous auction. This tx type is how you purchase them and become the boss of that contract.
+
+# job_adjust_tx
+
+This is how the boss of a contract can adjust the settings of that contract. Like, how much it costs to purchase.
+
+# job_team_adjust_tx
+
+This is how the boss and worker from a contract can cooperate to adjust even more setting for the contract. They can change the worker's salary.
 
 # coinbase_tx
 
