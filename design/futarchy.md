@@ -8,39 +8,64 @@ When the decision oracle resolves, the order book that doesn't get reverted, it'
 LMSR
 =======
 
+q1 is how many shares of `true` have been sold. q2 is how many shares of `false` have been sold.
+
 how much money is in an lmsr market.
-C = B * ln(e^(q1/B) + e^(q2/B))
+`C = B * ln(e^(q1/B) + e^(q2/B))`
 
 instantaneous price 
-price = e^(q1/B) / (e^(q1/B) + e^(q2/B))
+`P = e^(q1/B) / (e^(q1/B) + e^(q2/B))`
+
+Price to make a trade buying/selling d1 of q1 and d2 of q2
+```
+C2 - C1
+= B*(ln(e^((q1+d1)/B) +
+        e^((q2 + d2)/B)) -
+     ln(e^(q1/B) + e^(q2/B)))
+= B*(ln(e^((q1-q2+d1)/B) +
+        e^(d2/B)) -
+     ln(e^((q1-q2)/B) + 1))
+```
 
 on-chain data types
 =======
 
 * futarchy market- contains ids of both the result oracle and the decision oracle. has links pointing to both order books. 4 links in total, 2 for each book, because each book is 2 linked lists of unmatched orders. the current state of each of the 2 LMSR markets (how many shares of each type have been sold)
 
+```
 -record(futarchy,
         {futarchy_id, %deterministically generated from other values.
-         decision_oid, %determines which market gets reverted.
-         goal_oid, %determines who wins the bet in the non-reverted market.
+         decision_oid, %determines which market gets reverted. true/false
+         goal_oid, %determines who wins the bet in the non-reverted market. yes/no
          true_orders, %linked list of orders in the order book, by price.
          false_orders,
+         batch_period,
+         last_batch_height,
          liquidity_true, %liquidity in the optional lmsr market.
-         net_shares_true, %shares of yes - shares of no.
+         shares_true_yes,%total shares purchased for the case where the decision is true, and the goal is yes.
+         shares_true_no,
          liquidity_false,
-         net_shares_false})
+         shares_false_yes,
+         shares_false_no})
+```
 
-* unmatched or unmatched order in the order book- the price you are trading at, the direction, the amount that you want to bet.
+* orders in one of the two futarchy order books.
 
+```
 -record(futarchy_order,
         {owner,%who made this bet
          futarchy_id,
          decision,%the bet doesn't get reverted in which outcome of the decision oracle?
          revert_amount,
          limit_price,
-         next %they are in a linked list sorted by price. This is the order book.
+         next, %they are in a linked list sorted by price. This is the order book.
+         previous %by making it a double linked list, our proofs can be smaller. We don't need to prove the chain back to the futarchy market.
          }).
+```
 
+* bets that have been matched
+
+```
 -record(futarchy_bet,
         {owner,%who made this bet
          futarchy_id,
@@ -48,33 +73,89 @@ on-chain data types
          revert_amount,
          win_amount% > or == the limit_price
          }).
+```
 
 
 transaction types
 =================
 
 1) new futarchy market.
-* id of the decision oracle
-* id of the result oracle
-* some initial liquidity for each of the 2 order book
+```
+-record(futarchy_new_tx,
+        {pubkey, nonce, fee,
+        decision_oid, %id of the decision oracle
+        goal_oid, %id of the goal oracle
+        period, %how long until the next fixed price batch can execute.
+        true_liquidity, %how much money to put into liquidity for a lmsr market for the case where the decision is True.
+        false_liquidity 
+        }).
+```
 
 2) futarchy limit order.
+* makes a new unmatched trade in the on-chain order book, ready to be matched in a batch.
+```
+-record(futarchy_trade_tx,
+        {pubkey, nonce, fee,
+        fid, %the id of the futarchy market
+        limit_price, %the highest price you are willing to pay.
+        amount, %the amount of veo you are risking.
+        decision, %your bet is not reverted if this decision is selected. true/false
+        goal, %you win if the goal oracle finalizes in this state. true/false
+        tid %id of the trade that is ahead of you in the order book. This value does _not_ get hashed when signing this transaction, but do hash it when calculating the txid and hashing the block.
+        }).
+```
+
+3) futarchy batch match.
+* besides matching trades against each other, there is an LMSR market.
+```
+-record(futarchy_batch_tx,
+        {pubkey, nonce, fee,
+        fid, %futarchy id
+        decision, %looking at the market that does not get reverted in this case.
+        price, %the price that this batch will match at.
+        true_matched, %ids of unmatched bets on true that will be matched or partially matched in this batch.
+        false_matched});
+```
+
+4) futarchy resolve.
+```
+-record(futarchy_resolve_tx,
+        {pubkey, nonce, fee,
+        fid, %id of the futarchy
+        decision_oid %id of the decision oracle, which is now finalized
+        });
+```
+
+5) withdraw unmatched
+- if you had an unmatched trade when the futarchy resolve tx happened, this is how you get your money out.
 * id of the futarchy market
-* which of the 2 order books to participate in.
-* what price to bet at.
-* how much to bet.
-* bet on true/false.
-* makes a new unmatched trade in the on-chain order book, or matches against an existing unmatched trade, or is partially matched.
-* there is an optional lmsr market to give infinite liquidity.
+* amount of money that you will receive.
+* bet_id
+```
+-record(futarchy_withdraw_unmatched_tx,
+        {pubkey, nonce, fee,
+        fid, bet_id, prev_id, next_id, amount});
 
-3) futarchy resolve.
-* id of the decision oracle, which is now resolved.
+6) withdraw reverted
+- if you had made a matched trade in the order book that got reverted, this is how you get your money out.
+* id of the futarchy market
+* amount of money that you will receive.
+```
+-record(futarchy_withdraw_reverted_tx,
+        {pubkey, nonce, fee,
+        fid, bet_id, amount});
+```
 
-4) withdraw unmatched
-* if you had an unmatched trade when the futarchy resolve tx happened, this is how you get your money out.
+7) convert to binary
+* if you had made a matched trade in the order book that did not get reverted, this is how you convert your money into a subcurrency in a binary market who's result is determined by the goal oracle.
+* id of the futarchy market
+* id of the smart contract where you will be paid.
+* how the futarchy market resolved.
+- potentially needs to create the binary smart contract.
+```
+-record(futarchy_to_binary_tx,
+        {pubkey, nonce, fee,
+        amount, futarchy_id, bet_id,
+        contract_id});
+```
 
-5) withdraw reverted
-* if you had made a matched trade in the order book that got reverted, this is how you get your money out.
-
-6) convert to binary
-* if you had made a matched trade in the order book that did not get reverted, this is how you convert your money into a subcurrency in a binary market who's result is determined by the result oracle.
