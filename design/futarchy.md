@@ -12,6 +12,7 @@ q1 is how many shares of `true` have been sold. q2 is how many shares of `false`
 
 how much money is in an lmsr market.
 `C = B * ln(e^(q1/B) + e^(q2/B))`
+`C = q1 + (B * ln(1 + e^((q2-q1)/B)))`
 
 instantaneous price 
 `P = e^(q1/B) / (e^(q1/B) + e^(q2/B))`
@@ -35,24 +36,24 @@ on-chain data types
 ```
 -record(futarchy,
         {futarchy_id, %deterministically generated from other values.
+        creator, %provides liquidity for the lmsr, and needs to receive extra money from the lmsr later.
          decision_oid, %determines which market gets reverted. true/false
          goal_oid, %determines who wins the bet in the non-reverted market. yes/no
          true_orders, %linked list of orders in the order book, by price.
          false_orders,
-         batch_period,
-         last_batch_height,
          liquidity_true, %liquidity in the optional lmsr market.
          shares_true_yes,%total shares purchased for the case where the decision is true, and the goal is yes.
          shares_true_no,
          liquidity_false,
          shares_false_yes,
-         shares_false_no})
+         shares_false_no,
+         many_trades}).
 ```
 
 * orders in one of the two futarchy order books.
 
 ```
--record(futarchy_order,
+-record(futarchy_unmatched,
         {owner,%who made this bet
          futarchy_id,
          decision,%the bet doesn't get reverted in which outcome of the decision oracle?
@@ -66,7 +67,7 @@ on-chain data types
 * bets that have been matched
 
 ```
--record(futarchy_bet,
+-record(futarchy_matched,
         {owner,%who made this bet
          futarchy_id,
          decision,%the bet doesn't get reverted in which outcome of the decision oracle?
@@ -92,16 +93,17 @@ transaction types
 ```
 
 2) futarchy limit order.
-* makes a new unmatched trade in the on-chain order book, ready to be matched in a batch.
+* makes a new trade in the on-chain order book. If possible it is matched with other trades trades from the order book. The unmatched part is left in the order book.
 ```
--record(futarchy_trade_tx,
+-record(futarchy_bet_tx,
         {pubkey, nonce, fee,
         fid, %the id of the futarchy market
         limit_price, %the highest price you are willing to pay.
         amount, %the amount of veo you are risking.
         decision, %your bet is not reverted if this decision is selected. true/false
         goal, %you win if the goal oracle finalizes in this state. true/false
-        tid %id of the trade that is ahead of you in the order book. This value does _not_ get hashed when signing this transaction, but do hash it when calculating the txid and hashing the block.
+        tid, %id of the trade that is ahead of you in the order book. This value does _not_ get hashed when signing this transaction, but do hash it when calculating the txid and hashing the block.
+        trade_number      
         }).
 ```
 
