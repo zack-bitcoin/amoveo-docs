@@ -92,10 +92,12 @@ If they use Q portion to defend with, then either they are left with
 2) Q/(P * 2)
 
 So, we set them equal to minimize loss and solve for Q.
-(1-Q) = Q/(P*2) ->
-1/Q - 1 = 1/(2*P) ->
-1/Q = (1 + 2*P)/(2*P)
-Q = (2*P)/(1+2*P)
+```
+(1-Q) = Q/(P * 2) ->
+1/Q - 1 = 1/(2 * P) ->
+1/Q = (1 + 2 * P)/(2 * P)
+Q = (2 * P)/(1 + (2 * P))
+```
 
 For our example, P = 0.05
 Q = 0.1 / (1 + 0.1) = 1/11
