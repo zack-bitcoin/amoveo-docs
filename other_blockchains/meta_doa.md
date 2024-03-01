@@ -99,8 +99,12 @@ So, we set them equal to minimize loss and solve for Q.
 Q = (2 * P)/(1 + (2 * P))
 ```
 
-For our example, P = 0.05
+For our example,
+
+```
+P = 0.05
 Q = 0.1 / (1 + 0.1) = 1/11
+```
 
 So, this means even if a defender is perfectly hedged, they are expected to lose 1/11th of their money.
 
