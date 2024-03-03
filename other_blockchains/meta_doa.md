@@ -23,7 +23,7 @@ If an attacker wanted to manipulate the result of this futarchy to make the prop
 How this is different from Amoveo's Futarchy
 ============
 
-The key difference is that in Amoveo's design, we are using reversible bets for the futarchy. This was the recommendation of Robin Hanson, who invented the idea of futarchy.
+The key difference is that in (Amoveo's design)[../blog_posts/futarchys_back.md], we are using reversible bets for the futarchy. This was the recommendation of Robin Hanson, who invented the idea of futarchy.
 
 Reversible swaps are limited in comparison to other alternatives. Especially in the blockchain setting, we would really like our assets to be fungible, so we can use normal subcurrencies to represent them.
 This has caused generations of futarchy mechanisms to use alternatives to reversible swaps.
