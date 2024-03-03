@@ -112,3 +112,34 @@ assuming the defense succeeds, a free-loader wouldn't lose any money, even thoug
 
 This means defenders are better off exiting the meta-dao before the futarchy resolves, instead of trying to participate.
 
+
+Can we prevent the attack if the users avoid certain markets?
+===================
+
+A key step for this attack to work is that the attacker needs to be able to buy True-Meta, without holding False-Meta or False-USDC.
+
+As long as everyone else refuses to do trades that enable the attacker to hold True-Meta without any False assets, then the attacker cannot do the attack.
+
+This does not work, in game theory it is called a tragedy of the commons.
+Just because the UI you build doesn't have a tool for swapping certain assets, doesn't mean people wont do it anyway. If the attacker is paying above market rate, you can't expect users to forgo the opportunity to earn money.
+
+This is similar to the parasite oracles problem in Augur.
+Individual trades are incentivized to use the parasite oracles, even though if too many of them use it, the whole thing becomes insecure.
+It is a situation where the benefit is individual, but the cost is collectivized. A kind of tragedy of the commons.
+
+So, MetaDAO cannot be made secure by advising the users to avoid certain trades.
+
+
+Can we prevent the attack by doing the DAO proposal mechanism twice?
+====================
+
+The new version of MetaDAO will work by doing the proposal mechanism twice. In order for a proposal to pass, the first round of futarchy must result in True, and the second round muss result in False.
+The second round is a chance to cancel the proposal.
+
+The idea is that if an attacker successfully got a bad proposal through the first round, everyone will see what he is doing, and it will be more difficult for the attacker in the second round now that he has more attention.
+
+Since the users know that the attack is happening, the attacker has lost the element of surprise. So, it wont be quite so cheap for them to buy upr the True-USD. It costs as much for defenders and attackers to move the price.
+
+But, it still is not profitable to participate in defense. It would be more profitable to sell your Meta and buy back in after the attack is over instead of participating in defense.
+
+So, doing two rounds of the MetaDAO protocol still is not secure.
