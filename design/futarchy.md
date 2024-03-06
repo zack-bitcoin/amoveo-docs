@@ -129,6 +129,7 @@ transaction types
 -record(futarchy_withdraw_unmatched_tx,
         {pubkey, nonce, fee,
         fid, bet_id, prev_id, next_id, amount});
+```
 
 5) withdraw reverted
 - if you had made a matched trade in the order book that got reverted, this is how you get your money out.
