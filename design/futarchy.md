@@ -39,14 +39,17 @@ on-chain data types
         creator, %provides liquidity for the lmsr, and needs to receive extra money from the lmsr later.
          decision_oid, %determines which market gets reverted. true/false
          goal_oid, %determines who wins the bet in the non-reverted market. yes/no
-         true_orders, %linked list of orders in the order book, by price.
-         false_orders,
+         true_yes_orders, %linked list of orders in the order book, by price. For the case where the decision is true, and the goal is yes.
+         true_no_orders,
+         false_yes_orders,
+         false_no_orders,
          liquidity_true, %liquidity in the optional lmsr market.
          shares_true_yes,%total shares purchased for the case where the decision is true, and the goal is yes.
          shares_true_no,
          liquidity_false,
          shares_false_yes,
          shares_false_no,
+         active,
          many_trades}).
 ```
 
@@ -57,6 +60,7 @@ on-chain data types
         {owner,%who made this bet
          futarchy_id,
          decision,%the bet doesn't get reverted in which outcome of the decision oracle?
+         goal,
          revert_amount,
          limit_price,
          next, %they are in a linked list sorted by price. This is the order book.
@@ -80,6 +84,7 @@ on-chain data types
 transaction types
 =================
 
+
 1) new futarchy market.
 ```
 -record(futarchy_new_tx,
@@ -102,24 +107,11 @@ transaction types
         amount, %the amount of veo you are risking.
         decision, %your bet is not reverted if this decision is selected. true/false
         goal, %you win if the goal oracle finalizes in this state. true/false
-        tid, %id of the trade that is ahead of you in the order book. This value does _not_ get hashed when signing this transaction, but do hash it when calculating the txid and hashing the block.
-        trade_number      
+        tid %id of the trade that is ahead of you in the order book. This value does _not_ get hashed when signing this transaction, but do hash it when calculating the txid and hashing the block.
         }).
 ```
 
-3) futarchy batch match.
-* besides matching trades against each other, there is an LMSR market.
-```
--record(futarchy_batch_tx,
-        {pubkey, nonce, fee,
-        fid, %futarchy id
-        decision, %looking at the market that does not get reverted in this case.
-        price, %the price that this batch will match at.
-        true_matched, %ids of unmatched bets on true that will be matched or partially matched in this batch.
-        false_matched});
-```
-
-4) futarchy resolve.
+3) futarchy resolve.
 ```
 -record(futarchy_resolve_tx,
         {pubkey, nonce, fee,
@@ -128,7 +120,7 @@ transaction types
         });
 ```
 
-5) withdraw unmatched
+4) withdraw unmatched
 - if you had an unmatched trade when the futarchy resolve tx happened, this is how you get your money out.
 * id of the futarchy market
 * amount of money that you will receive.
@@ -138,7 +130,7 @@ transaction types
         {pubkey, nonce, fee,
         fid, bet_id, prev_id, next_id, amount});
 
-6) withdraw reverted
+5) withdraw reverted
 - if you had made a matched trade in the order book that got reverted, this is how you get your money out.
 * id of the futarchy market
 * amount of money that you will receive.
@@ -148,7 +140,7 @@ transaction types
         fid, bet_id, amount});
 ```
 
-7) convert to binary
+6) convert to binary
 * if you had made a matched trade in the order book that did not get reverted, this is how you convert your money into a subcurrency in a binary market who's result is determined by the goal oracle.
 * id of the futarchy market
 * id of the smart contract where you will be paid.
@@ -161,3 +153,22 @@ transaction types
         contract_id});
 ```
 
+
+futarchy_bet_tx process
+=============
+
+Amoveo uses verkle trees for the consensus state. This is how we do memoryless full nodes.
+For this to work, it needs to be possible for a full node that isn't storing the consensus state to look at a block, and know if it is valid.
+
+What can make this tricky is that the proofs we need for a given tx can be different depending on what other txs were already included in the block before. Because, those other txs could potentially be changing the order book in ways that would change which orders your tx will get matched with.
+
+To build this proof efficiently, we divide the process into three steps.
+
+1) tx_pool_feeder.erl looks at txs, and potentially puts them into the tx pool. The tx pool feeder knows the current consensus state after processing the txs that are in the tx pool. The tx pool writes one of three potential notes on the tx. Either (0) the tx is being added to the order book. (1) the tx is going to be completely matched. or (2), the tx is going to be partially matched, and the rest added to the order book.
+
+2) proofs.erl  looks at the tx along with it's note to decide which parts of the verkle tree should be included with that tx.
+
+3) futarchy_bet_tx.erl executes the update as explained in the note from step (1).
+
+Steps (1) and (2) happen in the mining pool. Step (3) happens during verification.
+Since there are few instances of computers mining a block, but many instances of computers verifying that block, we prefer computation to happen in steps (1) or (2) instead of in step (3).
