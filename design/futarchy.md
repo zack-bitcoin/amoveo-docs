@@ -131,24 +131,10 @@ transaction types
         fid, bet_id, prev_id, next_id, amount});
 ```
 
-5) withdraw reverted
-- if you had made a matched trade in the order book that got reverted, this is how you get your money out.
-* id of the futarchy market
-* amount of money that you will receive.
+5) withdraw matched
+- if you had a matched trade when the futarchy resolved, then either your trade was reverted or not. In either case, this is the tx that you use to get your money out. If it was reverted, you get veo. If it was not reverted, then you get the subcurrency you had purchased.
 ```
--record(futarchy_withdraw_reverted_tx,
-        {pubkey, nonce, fee,
-        fid, bet_id, amount});
-```
-
-6) convert to binary
-* if you had made a matched trade in the order book that did not get reverted, this is how you convert your money into a subcurrency in a binary market who's result is determined by the goal oracle.
-* id of the futarchy market
-* id of the smart contract where you will be paid.
-* how the futarchy market resolved.
-- potentially needs to create the binary smart contract.
-```
--record(futarchy_to_binary_tx,
+-record(futarchy_matched_tx,
         {pubkey, nonce, fee,
         amount, futarchy_id, bet_id,
         contract_id});
