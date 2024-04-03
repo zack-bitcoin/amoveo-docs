@@ -20,3 +20,6 @@ This PoS mechanism has all the same shortcomings as any of PoS mechanism, with o
 
 Naming a PoS protocol "Bitcoin PoW" is very misleading.
 For the majority of potential investors, this name is something that is going to prevent them from understanding what this protocol is doing. Or even worse, it could pollute our language to the point that it prevents people from understanding what "PoS" and "PoW" even mean.
+
+
+You can read my explanation [here](https://github.com/zack-bitcoin/amoveo-docs/blob/master/other_blockchains/proof_of_stake.md) for why PoS is not cryptoeconomically secure.
