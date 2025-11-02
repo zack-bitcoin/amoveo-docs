@@ -90,11 +90,13 @@ Imagine we doubled the size of bitcoin blocks, and the number of transactions, w
 So, both the big mining pool and the small mining pool end up being paid 2x as much.
 And, they both need to pay a little less than 2x a much for their hardware and bandwidth to run the pool. (because fixed costs like the OS don't change.)
 
+```
 big pool     ($5)/($10000) -> ($9)/($20000) : 0.005 -> 0.0045
 small pool   ($5)/($1000)  -> ($9)/($2000) : 0.05 -> 0.045
 
 So, the relative advantage before was 0.05 - 0.005 = 0.045
 and the relative advantage after is   0.045 - 0.0045 = 0.0405
+```
 
 Since 0.0405 is less than 0.045, that means the network is more decentralized after doubling in size.
 
