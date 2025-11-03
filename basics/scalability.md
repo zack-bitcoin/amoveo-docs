@@ -120,3 +120,10 @@ A scalable blockchain achieves these goals:
 If 2 different blockchains acheve all these goals, we can use goal (1) to say that one blockchain is more scalable than the other if it has lower fees per tx.
 
 
+What are the costs of processing a transaction?
+===============
+
+To be decentralized, a blockchain needs about 10 mining pools, and 4 archival nodes. So, if you create a transaction, you are paying for about 14 computers to update 2 rows each in their databases.
+
+Any blockchain that does more computation than this is necessarily going to charge higher transaction fees, to cover the bigger costs of doing more work.
+Any zk-crypto, or cryptographic commitments to sidechains, or committees of voters, they are just unnecessary extra steps that cost more for the same service. 
