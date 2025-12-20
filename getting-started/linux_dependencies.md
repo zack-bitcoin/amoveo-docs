@@ -14,7 +14,7 @@ Finally proceed to [instructions after dependencies](#after-dependencies)
 
 ## For Ubuntu
 
-1. Make sure that that you are running Ubuntu 20 or Ubuntu 22:
+1. Make sure that that you are running Ubuntu 24
 
     Use this command to check your version number
     ```
@@ -30,13 +30,9 @@ Finally proceed to [instructions after dependencies](#after-dependencies)
    sudo apt-get upgrade
    ```
 
-3. For Ubuntu 20 install following dependencies:
+3. Install these dependencies:
    ```
-   sudo apt install erlang-base make erlang-asn1 erlang-public-key erlang-ssl erlang-inets erlang-dev g++ erlang-xmerl python erlang-lager
-   ```
-   For Ubuntu 22, use these dependencies:
-   ```
-   sudo apt install erlang-base make erlang-asn1 erlang-public-key erlang-ssl erlang-inets erlang-dev g++ erlang-xmerl python2 erlang-lager erlang-parsetools erlang-tools
+   sudo apt install git erlang-base make erlang-asn1 erlang-public-key erlang-ssl erlang-inets erlang-dev g++ erlang-xmerl erlang-lager erlang-parsetools erlang-tools
    ```
 <!----
 sudo apt install erlang-asn1 erlang-public-key erlang-ssl erlang-inets erlang-jiffy erlang-dev erlang-base-hipe libncurses5-dev libssl-dev unixodbc-dev g++ git make 
