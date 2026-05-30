@@ -1,7 +1,7 @@
 ## Amoveo White Paper 2
 
 The point of this white paper is to show what all the other blockchains are getting wrong, to give a plausible explanation for why we think Amoveo might be able to beat them all.
-The core mistake that the blockchain community is making today is that they think cool features will make the money good. They think that fungible, or has better smart contracts, or better markets, or more scalability, will cause the money to be good. The blockchain community is mistaken in their understanding of what money even is.
+The core mistake that the blockchain community is making today is that they think cool features will make the money good. They think that being more fungible, or having better smart contracts, or better markets, or more scalability, will cause the money to be good. The blockchain community is mistaken in their understanding of what money even is.
 
 What is money?
 ===============
@@ -30,11 +30,11 @@ According to Henry George, the most efficient way to structure this leverage is 
 However you choose to give the land owners the leverage that they want, you end up creating a money-sink in the economy. Using the land requires paying some money as a tax.
 The tax takes the money out of circulation. As long as there is a constant stream of money leaving the economy, then there are necessarily going to be people who don't have enough money to make ends meet.
 That means there is a constant stream of people who need to do labor for money to survive.
-So, the people in the high class have a constant endless stream of people willing to labor for them.
+So, the people in the upper class have a constant endless stream of people willing to labor for them.
 
 This leverage contract, what it is doing is splitting up the financial beneficiary of the land from the person who has physical control of the land.
 If you can physically control the land, without needing to financially own 100% of the land, then that makes it cheaper to get access to the land you need to start your business.
-But, this can only work if there is some third party who is willing to own the land, without having any physical control over it. In money systems, this third party is either the upper class, the government, or the central bank. In Amoveo, holders of VEO are in this position. When the people who have physical possession of the land pay their tax, that tax is paid to holders of VEO. Holding VEO is the same as being a partial owner in all the land that is registered in the Amoveo land registry.
+This can only work if there is some third party who is willing to own the land, without having any physical control over it. In money systems, this third party is usually either the upper class, the government, or the central bank. In Amoveo, holders of VEO are in this position. When the people who have physical possession of the land pay their tax, that tax is paid to holders of VEO. Holding VEO is the same as being a partial owner in all the land that is registered in the Amoveo land registry.
 
 What does cryptocurrency lack? 
 ================
