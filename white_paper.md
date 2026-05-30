@@ -1,166 +1,66 @@
-## Amoveo White Paper
+## Amoveo White Paper 2
 
-## Table of Contents
-* Abstract
-* Motivation
-* Blockchain Consensus Protocol
-* Accounts
-* Oracles
-* Smart Contracts 
-* Markets
-* Light Nodes
-* stateless full nodes
-* Example Use Cases
-* Oracle Game Theory
-* Land Registry
+The point of this white paper is to show what all the other blockchains are getting wrong, to give a plausible explanation for why we think Amoveo might be able to beat them all.
+The core mistake that the blockchain community is making today is that they think cool features will make the money good. They think that fungible, or has better smart contracts, or better markets, or more scalability, will cause the money to be good. The blockchain community is mistaken in their understanding of what money even is.
 
+What is money?
+===============
 
-## Abstract
+One way to see money, is as an extention of a historical process. Many people mistakenly think that money is about storing wealth efficiently, or making barter more efficient by solving the coincidence of wants.
+The hard reality is that money is more akin to slavery and serfdom.
 
-Blockchain is a form of cryptographic database technology. Each blockchain hosts a cryptocurrency. Cryptocurrencies are a form of wealth that is made secure by blockchain technology.
-Amoveo is a blockchain which secures a cryptocurrency called Veo.
+The reason that slavery became such a successful institution historically is that societies with slavery were able to organize their population on a large scale. Societies that can organize outcompeted the societies that could not organize.
+Slavery allowed the upper class to control everyone else. The upper class could organize the people's labor, to coordinate on big projects. Like conquoring neighbors.
 
-Humans need futures markets so that we can communicate our future needs, and cooperate.
-We need good money so that the contracts in the contracts have good collateral.
-Contracts with good collateral can be used to communicate needs further in the future, so we need good collateral.
+Eventually, serfdom was found to be a more efficient alternative to slavery. Serfdom comes with the benefit that laborers have a little more individual rights and individual property, which incentivized them to work a little harder. Societies with serfdom were able to produce better soldiers with better equipment. This allowed the serfdom societies to outcompete the slavery societies. The transition from slavery to serfdom in Europe relates to the collapse of Roman society, and its gradual replacement with feudal society. 
 
-Good collateral needs to be very liquid, so the price doesn't move when you buy or sell it.
-Good collateral needs to have low volatility from the perspective of a human living in earth's economy.
-We want the collateral's value to be linked to the size of earth's economy.
+Then, modern money replaced serfdom as the mechanism by which the upper class can exercise its power to coordinate people's labor. Money made laborers feel like they had more control over their own lives, since they choose who to work for. Laborers end up working even harder under a money system, than they would have as serfs. People in the upper class had access to a wider range of laborers under the money system. Money based societies could produce better soldiers with better equipment in comparison to serfdom based societies. The transition from serfdom to money in Europe relates to the Emancipation reform of 1861 in Russia, and the August Decrees of 1789 during the French revolution. 
 
-How can a collateral gain these properties?
-It needs to be connected to the economy financially.
-So that participating in a part of the economy involves destroying the coins.
-Based on the rate that coins are destroyed, and the global interest rate, there is an equalibrium market cap that the currency will tend towards.
+Money's primary purpose, the reason that societies with money outcompete those that lack money, is because money allows coordination on a large scale. With money, the upper class can coordinate society to do large scale violence and conquor neighbors. Money is currently more effective at this than slavery or serfdom.
 
-The part of the economy that seems like it will work best for this is real estate.
-A land registry can fit into the consensus state of a blockchain.
-It can cost Harberger taxes to own land.
-The global market cap for land is in the hundreds of trillions, so this part of the economy is big enough to support the market cap of a global currency.
+How does money help the upper class coordinate the lower class?
+================
 
+Land owners usually want to have at least some leverage on their properties. That means, instead of needing to pay the entire price of their property up front when they purchase it, they can instead pay it little by little over time. People who want to purchase property appreciate this because the money they earn from the property can help pay for the cost of owning the property.
 
-## Motivation
+There are many ways to give the land owners the leverage that they want. There can be a tax on the land. There can be a tax on some activities done on the land. There can be a tax on the products or service that the land enables.
+A very flexible option is to have banks that make mortgage contracts with land owners, and then the banks pay a tax on money they earned from the mortgage, or the bank pays interest on a loan from the central bank.
+According to Henry George, the most efficient way to structure this leverage is with something he calls a Land Value Tax.
 
-Separating church and state is good. It makes both the church and the state less dangerous.
-Combining religious convictions with a monopoly on violence was deadly. It meant that people could be easily convinced to kill you at any time, and there was no consequence to the religious leader who called for your death. 
+However you choose to give the land owners the leverage that they want, you end up creating a money-sink in the economy. Using the land requires paying some money as a tax.
+The tax takes the money out of circulation. As long as there is a constant stream of money leaving the economy, then there are necessarily going to be people who don't have enough money to make ends meet.
+That means there is a constant stream of people who need to do labor for money to survive.
+So, the people in the high class have a constant endless stream of people willing to labor for them.
 
-Separating finance and state will also be good. It will make both the state and finance less dangerous.
-Combining finance with a monopoly on violence means that we can't truly trust the finance system. The people who are holding our money are able to steal our money without consequence. This is a terrible combination.
-[Amoveo mission statement](mission_statement.md)
+This leverage contract, what it is doing is splitting up the financial beneficiary of the land from the person who has physical control of the land.
+If you can physically control the land, without needing to financially own 100% of the land, then that makes it cheaper to get access to the land you need to start your business.
+But, this can only work if there is some third party who is willing to own the land, without having any physical control over it. In money systems, this third party is either the upper class, the government, or the central bank. In Amoveo, holders of VEO are in this position. When the people who have physical possession of the land pay their tax, that tax is paid to holders of VEO. Holding VEO is the same as being a partial owner in all the land that is registered in the Amoveo land registry.
 
+What does cryptocurrency lack? 
+================
 
-## Blockchain Consensus Protocol
+In order to be a good money, cryptocurrency needs to be able to produce a stream of labor for the upper class.
+The size of this stream of labor is proportional to the size of the money-sinks built into the economy.
+The money-sink needs to be enforceable by blockchain, and the participants in the money-sink need to do so voluntarily.
+In order to outcompete fiat money and gold, we need our money-sink to be even bigger than the one that could have been produced under the fiat or gold systems.
 
-Amoveo is secured by Nakamoto consensus, like Bitcoin. In this system some people act as miners. They receive a reward for producing blocks. Producing a block involves doing an expensive calculation called proof-of-work. The difficulty of this proof-of-work changes so that the rate of block production stays about 10 minutes.
-To interact with Amoveo, you create transactions that get included in blocks. Miners will include your transaction in their blocks because you pay them a fee.
-[Read more about the Amoveo transaction types here](design/transaction_types.md).
+The only kind of mechanism that we know of that works this way is a land ownership mechanism. Land owners voluntarily want to participate in the money-sink, because it gives them more leverage. A land registry can be contained in a blockchain's consensus space.
 
+What about land owners who don't want leverage?
+================
 
-## Accounts
-
-Amoveo accounts work similarly to accounts in other blockchains, like Ethereum.
-
-Accounts are data structures recorded in the blockchain consensus state. Each account has a positive balance of Veo that it can spend to other accounts by making transactions. Anyone with sufficient Veo to pay the fee can create new accounts. Spending from an account requires a signature from the private key that the owner of the account knows. To give someone Veo, you need to know their public key.
-
-Accounts are stored in one of the consensus state merkle trees. [Read more about the trees used in Amoveo here](design/trees.md).
+The leverage is voluntary.
+When you purchase your land, you can decide to not have leverage by simultaniously purchasing enough VEO such that the tax you pay on your land is equal to the tax you get paid as a VEO owner.
+By choosing how much VEO they hold, every land owner can choose exactly the amount of leverage they have.
+This is similar to how in fiat money systems, banks can make mortgage contracts with property owners to optimize the leverage on an individual basis.
 
 
-## Oracles
-For a small fee, anyone can ask the oracle any question about publicly available data.
-The result provided by the oracle is honest.
-We use the oracle to settle bets.
-The oracle can settle in 3 states: True, False, Bad Question.
+More about Amoveo
+=============
 
-Amoveo oracles do not depend on any trading fees in order to provide accurate data to the blockchain.
-Instead, the oracle is based on an escalation-betting game with a nash equilibrium of honesty.
+[read more about Amoveo in our old white paper](white_paper_1.md)
 
-The lack of trading fees not only makes the Amoveo oracle more affordable, it is also a necessary feature to prevent the oracle-parasite problem. The oracle-parasite problem is when an attacker blockchain oracle is set up to automatically provide the same outcome as an existing victim blockchain oracle, and undercuts on fees, as a way to steal customers and fees from the victim. If enough fees are stolen, then the victim doesn't have enough funds to maintain security, and both the attacker oracle and the victim oracle will fail to provide accurate data.
+Amoveo has lots of good tech. If a different blockchain had better tech, we could just copy their code.
 
-Amoveo's oracle is the only existing blockchain oracle design that is immune to the oracle-parasite problem
+But, tech and features are not the key battlegrounds. Rather, becoming the first blockchain land registry is the most important goal right now. 
 
-The Amoveo oracle does not usually have much collateral at stake, so the cost of launching an oracle is small. To launch an oracle, you pay just enough to provide a small prize for whoever reports the result on-chain.
-
-[Read more about oracles here](design/oracle.md)
-
-
-## Smart Contracts
-
-Amoveo is a blockchain for financial derivatives. The smart contract system is Turing complete, so any kind of contract is technically possible. Amoveo is highly optimized for financial derivatives. It is not recommended to use Amoveo to make other kinds of contracts.
-
-Amoveo smart contracts are optimized to be scalable and affordable. [How to make smart contracts scalable](design/smart_contracts_as_derivatives.md) 
-
-You can learn more about amoveo contracts and the history of how we ended up using this design [here](design/smart_contracts.md)
-
-[Amoveo smart contracts in the context of truthcoin](design/truthcoin_contracts.md)
-
-Amoveo uses the chalang VM for our smart contracts. [learn more about chalang in the chalang github page](https://github.com/zack-bitcoin/chalang) Chalang is a forth-like VM, heavily influenced by Bitcoin script and the Ethereum VM.
-
-
-Financially, the smart contracts in Amoveo are all derivatives.
-
-Veo is the native currency of Amoveo. All other assets in Amoveo are derivatives collateralized by Veo.
-So, Amoveo does not work well for ICOs, but Amoveo does support other better forms of fundraising.
-
-Derivatives are very versatile. 
-With derivatives, as an example, you can build an asset that stays the same value as a Euro. It is a synthetic asset. 
-You can send these synthetic-Euros to your friends, and treat them like Euros.
-You could participate in a market that is priced in synthetic-Euros.
-You could use the synthetic Euros as collateral for other contracts.
-
-
-## Markets
-
-The killer app of blockchain is a scalable market to trade assets whose price is determined by a trust-free and affordable oracle.
-
-Amoveo uses 2 tools to enable markets.
-Amoveo has on-chain constant product market makers, similar to the Uniswap protocol on Ethereum.
-Amoveo supports off-chain order books with limit orders.
-
-[Markets and synthetic assets are a critical component to enable secure cross-chain atomic swapping](design/state_channel_without_off_chain_market.md).
-
-
-## light nodes
-
-The amoveo light node in javascript [here](https://github.com/zack-bitcoin/light-node-amoveo) makes it easy for anyone to participate in Amoveo from the convenience of their browser.
-The light node downloads block headers, verifies proof of work in them. It uses merkel proofs so you can have cryptographic evidence that the consensus state reported in the light node is correct.
-The light node is the standard way to interact with the Amoveo blockchain. You use the light node to create contracts, and markets. To trade in markets. To create off-chain limit orders. To report on the outcome of contracts. 
-Full nodes are only needed for mining, everything else can be done with light nodes.
-
-## Stateless Full Nodes
-
-Amoveo uses the stateless full node model. That means a full node doesn't have to store any consensus state to stay in sync and verify blocks. You only have to store headers. Every block has all the merkel proofs that you need to verify that block.
-So, an Amoveo full node can process blocks in any order. In particular, it can process blocks in reverse order. Which means that a mining pool can launch a new Amoveo node and start mining immediately, without waiting to re-process the history of blocks.
-Amoveo uses verkle trees for the consensus state, because this database pairs well with the stateless full node design.
-
-
-## Example Use Cases
-
-* storing wealth.
-* investing in real estate.
-* trading in real estate.
-* hedging risks
-* communicating your future needs in a financially backed way.
-* [Insurance](use-cases-and-ideas/insurance.md)
-* Gambling
-* [Options](use-cases-and-ideas/options.md)
-
-
-## Oracle Game Theory
-Users can bet at 50-50 odds on which of the 3 outcomes they think will win.
-Whichever outcome gets the most bets, and maintains it's lead for a long enough amount of time, wins.
-If you are uncomfortable with the outcome of an oracle, simply move to a fork of the blockchain that you think is honest.
-By default, nodes will go with the fork that has the most difficulty, but it is easy to manually tell your node to follow a different fork.
-The developers promise to maintain the honest fork.
-Letting users bet helps the situation escalate to the point where it gets the miner's attention.
-Any honest individual who notices an attack on the oracle can double their money by participating in defense.
-The Nash equilibrium will be for honest individuals to participate in the defense. Once enough honest individuals participate in the defense, then the oracle will catch the attention of the miners.
-Yes there is a cost for the miners to keep an eye on the oracle this way, but every time an attack happens, the miners can participate in the defense, and double all their money. This should more than make up for the cost of watching the oracle for attacks.
-The Nash equilibrium will be for miners to put some effort into watching the oracle for potential cheaters.
-Therefore, the Nash equilibrium will be an honest oracle.
-[Read more about oracles here](design/oracle.md)
-
-
-## Land Registry
-
-Plans for the land registry are here:
-https://github.com/zack-bitcoin/harberger_global

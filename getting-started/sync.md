@@ -1,8 +1,7 @@
 Syncing
 =======================
 
-As of hard update 52, the verkle update, syncing in reverse is mandatory.
-in the config file `config/sys.config.tmpl`, `reverse_syncing` should be set to `true`.
+Syncing in reverse is mandatory.
 
 1) it should download the headers automatically. wait for it to finish. If it freezes, you can start getting headers from a new peer with `sync:get_headers().`. You can check the current number of headers with `api:height().`
 
@@ -34,7 +33,7 @@ to start syncing in reverse again after it has been paused:
 This also allows it to sync forwards again.
 
 
-
+If you have any trouble getting a node in sync, then ask for help in the [community links](links.md)
 
 <<---- working below this line
 

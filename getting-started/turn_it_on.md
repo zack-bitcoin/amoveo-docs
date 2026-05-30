@@ -1,4 +1,7 @@
 This is how to launch a node and connect to the network.
+=================
+
+If you have any trouble turning on a node, then ask for help in the [community links](links.md)
 
 To run a full node, you need at least 200 mb of ram available.
 You need at least 2 gb of disk space,
@@ -11,16 +14,16 @@ It is helpful to have port 8080 exposed to the internet, this will let you find 
 
 [Install dependencies](dependencies.md)
 
-compile it, start the node, and attach:
+compile it, start the node in the background
 ```
-make prod-restart
+./prod
 ```
 
 to detach from  a running node, and leave it running in the background, hold the Control key, and press the D key.
 
 You re-attach to the running node from a terminal like this:
 ```
-  make prod-attach
+  ./attach_prod
 ```
 
 When you are attached to a node, you can tell it [commands](../api/commands.md)

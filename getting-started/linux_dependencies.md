@@ -5,8 +5,8 @@ The verkle branch of Amoveo uses Ubuntu 22.4
 
 Then install dependencies using the instructions for your distribution:
 - [Ubuntu](#for-ubuntu)
-<!--
 - [ArchLinux](#for-archlinux)
+<!--
 - [openSUSE](#for-opensuse)
 -->
 
@@ -34,8 +34,6 @@ Finally proceed to [instructions after dependencies](#after-dependencies)
    ```
    sudo apt install git erlang-base make erlang-asn1 erlang-public-key erlang-ssl erlang-inets erlang-dev g++ erlang-xmerl erlang-lager erlang-parsetools erlang-tools
    ```
-<!----
-sudo apt install erlang-asn1 erlang-public-key erlang-ssl erlang-inets erlang-jiffy erlang-dev erlang-base-hipe libncurses5-dev libssl-dev unixodbc-dev g++ git make 
 
 ## For ArchLinux
 
@@ -46,10 +44,10 @@ sudo apt install erlang-asn1 erlang-public-key erlang-ssl erlang-inets erlang-ji
 
 2. Install the dependencies:
     ```
-    pacman -S --needed community/erlang extra/git extra/unixodbc core/gcc core/ncurses extra/wget
+    pacman -S erlang git curl gawk
     ```
-    you also need `awk` and `make`
 
+<!----
 ## For openSUSE
 
 Tested on openSUSE Leap 42.3.
