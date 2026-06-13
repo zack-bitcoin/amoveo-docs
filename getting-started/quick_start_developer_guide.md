@@ -8,12 +8,8 @@ It is made to help you be able to start contributing to the software as quickly 
 
 ## Testing
 
-We maintain two kinds of tests: unit tests and integration tests. Final test is syncing fresh node with public testnet node.
-
-For integration tests that simulate multiple full nodes and test how they interact, first make sure your full node is turned off, then do `make tests`.
-
 To run the single-node tests of all the modules in Amoveo, first, turn on a test full-node.
-`make local_quick`
+`./local`
 
 When the full node is loaded, it says something like
 `(amoveo_core_local@YOUR_COMPUTER)1> attempting to sync`
@@ -54,7 +50,7 @@ Trees are the data structures that hold the consensus state of the blockchain.
 
 [stuff that needs to be done](/todo.md)
 
-Other concepts that could be useful.
+Other concepts that could be useful to know:
 
 * hash functions
 * merkel trees

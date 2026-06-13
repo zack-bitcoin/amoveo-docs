@@ -10,13 +10,13 @@ One way to see money, is as an extention of a historical process. Many people mi
 The hard reality is that money is more akin to slavery and serfdom.
 
 The reason that slavery became such a successful institution historically is that societies with slavery were able to organize their population on a large scale. Societies that can organize outcompeted the societies that could not organize.
-Slavery allowed the upper class to control everyone else. The upper class could organize the people's labor, to coordinate on big projects. Like conquoring neighbors.
+Slavery allowed the upper class to control everyone else. The upper class could organize the people's labor to coordinate on big projects. Like conquoring neighbors to enslave even more people.
 
-Eventually, serfdom was found to be a more efficient alternative to slavery. Serfdom comes with the benefit that laborers have a little more individual rights and individual property, which incentivized them to work a little harder. Societies with serfdom were able to produce better soldiers with better equipment. This allowed the serfdom societies to outcompete the slavery societies. The transition from slavery to serfdom in Europe relates to the collapse of Roman society, and its gradual replacement with feudal society. 
+Eventually, serfdom was found to be a more efficient alternative to slavery. Serfdom comes with the benefit that laborers have a little more individual rights and individual property, which incentivized them to work a little harder. Societies with serfdom were able to produce better soldiers with better equipment. This allowed the serfdom societies to outcompete the slavery societies. The transition from slavery to serfdom in Europe relates to the collapse of the Roman empire, and its gradual replacement with feudalism. 
 
 Then, modern money replaced serfdom as the mechanism by which the upper class can exercise its power to coordinate people's labor. Money made laborers feel like they had more control over their own lives, since they choose who to work for. Laborers end up working even harder under a money system, than they would have as serfs. People in the upper class had access to a wider range of laborers under the money system. Money based societies could produce better soldiers with better equipment in comparison to serfdom based societies. The transition from serfdom to money in Europe relates to the Emancipation reform of 1861 in Russia, and the August Decrees of 1789 during the French revolution. 
 
-Money's primary purpose, the reason that societies with money outcompete those that lack money, is because money allows coordination on a large scale. With money, the upper class can coordinate society to do large scale violence and conquor neighbors. Money is currently more effective at this than slavery or serfdom.
+Money's primary purpose, the reason that societies with money outcompete those that lack money, is because money allows coordination on a large scale. With money, the upper class can coordinate society to threaten large scale violence on their neighbors. Money is currently more effective at this than slavery or serfdom.
 
 How does money help the upper class coordinate the lower class?
 ================
@@ -24,7 +24,7 @@ How does money help the upper class coordinate the lower class?
 Land owners usually want to have at least some leverage on their properties. That means, instead of needing to pay the entire price of their property up front when they purchase it, they can instead pay it little by little over time. People who want to purchase property appreciate this because the money they earn from the property can help pay for the cost of owning the property.
 
 There are many ways to give the land owners the leverage that they want. There can be a tax on the land. There can be a tax on some activities done on the land. There can be a tax on the products or service that the land enables.
-A very flexible option is to have banks that make mortgage contracts with land owners, and then the banks pay a tax on money they earned from the mortgage, or the bank pays interest on a loan from the central bank.
+A very flexible option is to have banks that make mortgage contracts with land owners, and the bank pays interest on a loan from the central bank.
 According to Henry George, the most efficient way to structure this leverage is with something he calls a Land Value Tax.
 
 However you choose to give the land owners the leverage that they want, you end up creating a money-sink in the economy. Using the land requires paying some money as a tax.
@@ -32,8 +32,8 @@ The tax takes the money out of circulation. As long as there is a constant strea
 That means there is a constant stream of people who need to do labor for money to survive.
 So, the people in the upper class have a constant endless stream of people willing to labor for them.
 
-This leverage contract, what it is doing is splitting up the financial beneficiary of the land from the person who has physical control of the land.
-If you can physically control the land, without needing to financially own 100% of the land, then that makes it cheaper to get access to the land you need to start your business.
+Putting leverage onto land makes it possible for the physical owner of the land to be different from the ultimate financial beneficiary of that land.
+Physical owners like this because if you can physically control the land, without needing to financially own 100% of the land, then that makes it cheaper to get access to the land you need to start your business.
 This can only work if there is some third party who is willing to own the land, without having any physical control over it. In money systems, this third party is usually either the upper class, the government, or the central bank. In Amoveo, holders of VEO are in this position. When the people who have physical possession of the land pay their tax, that tax is paid to holders of VEO. Holding VEO is the same as being a partial owner in all the land that is registered in the Amoveo land registry.
 
 What does cryptocurrency lack? 

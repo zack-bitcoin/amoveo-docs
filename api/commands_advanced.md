@@ -1,7 +1,6 @@
 
 Sync-mode should handle itself automatically, so you will probably never need these commands:
 
-WARNING syncing will go very slowly unless you use this:
 ```
 sync_mode:quick().
 ```
