@@ -78,9 +78,9 @@ Transaction Types
 
 * land_split_tx
   -as a land owner, you can split your land into parts, and put different prices on the different parts.
-  -great circle used to divide the land
-  -prices for the 2 new plots.
+  - great circle used to divide the land
+  - prices for the 2 new plots.
 
 * land_join_tx
   -if you own land plots that are side by side in the binary tree, you can combine them into a single land plot. This is the reverse of land_split_tx
-  -price of the new land plot
+  - price of the new land plot
