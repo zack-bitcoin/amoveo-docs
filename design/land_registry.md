@@ -51,10 +51,11 @@ Consensus state
 ================
 
 The land plot consensus state data.
--address of who owns this land.
--the total price of the land.
--balance in veo. used to pay the continuous tax.
--height. the last block height when the tax was subtracted from the blance.
+
+* address of who owns this land.
+* the total price of the land.
+* balance in veo. used to pay the continuous tax.
+* height. the last block height when the tax was subtracted from the blance.
 
 Transaction Types
 ===================
