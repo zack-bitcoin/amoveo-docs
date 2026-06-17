@@ -40,6 +40,13 @@ These are the 26 types of transaction that can be in blocks.
 * job_adjust_tx
 * job_team_adjust_tx
 
+land transactions:
+* land_buy_tx
+* land_tax_tx
+* land_price_tx
+* land_split_tx
+* land_join_tx
+
 1 bonus transactions:
 * coinbase_tx
 

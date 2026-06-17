@@ -67,6 +67,7 @@ Land plots
 * the total price of the land.
 * balance in veo. used to pay the continuous tax.
 * height. the last block height when the tax was subtracted from the blance.
+* list of points that are in plots that border this plot. If the same address also owns those other plots, then these plots need to be purchased as a set.
 
 Stem in binary tree
 
@@ -74,46 +75,74 @@ Stem in binary tree
 * 48-bit value of land in this part of the tree
 * 32-bit counter of number of land plots in this part of the tree
 
+Transaction type
+==========
 
-Transaction Types
+Land transactions need these parts:
+
+* account of creator
+* nonce
+* list of land operations
+* signature
+
+kinds of land operations
 ===================
 
-* land_price_tx
+* price
   -if you own land, this is how you change the price of your land. Anyone can buy the land from you for its price. You pay a tax based on the price of the land, and how deep you are in the binary tree.
-  - address of owner
   - a location on the globe inside of your land encoded as 3 16-bit signed integers.
   - new_price
 
-* land_tax_tx
+* tax
   -this is how you deposit money into your land plot. The money stored with the land plot is used to pay the continuous tax. If the land gets sold, this money is returned to you. There is a minimum amount of money required, based on the tax rate that the owner selected. 
-  - address of owner
   - amount to deposit/withdraw
   - a location inside your land.
 
-* land_buy_tx
-  -used to buy land. This tx can be included in a multi-tx, it needs to be individually signed by the purchaser. This way flash loans can be used to make land trading more capital efficient.
-  - address of owner
-  - the max price you are willing pay per square meter.
-  - great circles surrounding the area that you want to purchase in.
-  - max and min number of square meters you will buy.
-  - block height when this tx becomes invalid. expiration date.
+* transfer
+  -if you want to change which account owns your land. Money in the land is also transfered.
+  - address of new owner.
+  - a location inside the land.
 
-* land_split_tx
-  -as a land owner, you can split your land into parts, and put different prices on the different parts. 
-  - address of owner
+* buy
+  -used to buy land for the creator of this tx. 
+  - a point inside of the region you are buying.
+  - a new price after the purchase
+
+* signed_buy
+  -used to buy land. This tx can be included in a multi-tx, it needs to be signed by the purchaser. This way flash loans can be used to make land trading more capital efficient.
+  - the max price the purchaser is willing pay per square meter.
+  - great circles surrounding the area that they want to purchase in.
+  - max and min number of square meters they will buy.
+  - block height when this offer becomes invalid. expiration date.
+  - new price after the purchase.
+  - signature 
+  - a point inside of the region you are buying. (unsigned)
+
+* split
+  -as a land owner, you can split your land into parts, and put different prices on the different parts. The cost of a land-split is higher if your land is deeper in the land tree, so that we can incentivize keeping the tree balanced.
   - location inside of your land 
   - great circle used to divide the land
   - prices for the 2 new plots.
 
-* land_join_tx
+* join
   -if you own land plots that are side by side in the binary tree, you can combine them into a single land plot. This is the reverse of land_split_tx
-  - address of owner
   - a location inside one of the land plots.
   - price of the new land plot
 
-* land_organize_tx
-  - Each land plot can be identified by the lines that surround it. So, the blockchain can verify that a reorganized binary tree results in everyone owning the same land.
-  - address of who should get rewarded for organizing the tree better.
+* link
+  -if you own land plots that are physically adjacent, and you don't want to sell one without selling both, then they can be linked.
+  - a point in the first land plot.
+  - a point in the second land plot.
+
+* unlink
+  -the reverse of link.
+  - a point in the first land plot.
+  - a point in the second land plot.
+
+* organize
+  -Each land plot can be identified by the lines that surround it. So, the blockchain can verify that a reorganized binary tree results in everyone owning the same land. The resulting binary tree needs to be more balanced and less deep.
+  -Linked land plots can be combined. The new price is the sum of the old prices.
+  -individual land plots can be split in two, as long as the two new land plots are linked. They are each worth 1/2 the old price.
   - the part of the tree that needs to be reorganized.
   - binary data encoding the new structure for this part of the binary tree.
 
@@ -127,4 +156,30 @@ Your on-chain land might be worth a flat 10k. But, one corner of the land is wor
 You could make an offer to buy the valuable corner for 8k from yourself, and then a prospective buyer could do a flash loan to buy the land for 10k and sell your corner of it back to you for 8k, and it only cost them 2k.
 
 So, the complicated stuff about one corner of the land being worth more than the rest stays off-chain, but you still get all the benefits as if the data was inside the consensus state.
+
+
+Attacks considered
+=======================
+
+What if an attacker divides their land up into such small parts, that the transaction for buying up the land is so big that it can't fit into a block?
+
++ that is why when two properties are adjacent in the binary tree, they cannot be owned by the same account. Except as an in-between step during a flash loan.
+
+What if an attacker divides their land up so small, that the transaction for buying the land is too expensive?
+
++ there is a cost to creating a new land plot. The cost is high enough, that the attacker ends up spending far more than their victim.
+
+
+Land Tax
+====================
+
+The ideal land tax is the land value tax, popularized by Henry George. Design decisions should always be made to try and better approximate the land value tax.
+
+There is a minimum tax per land plot, to reflect the cost of having an entry in the database.
+
+The binary land tree holds some info at every node. Each node knows how many land plots are below it, and the total value of the land plots below it.
+We can use this array of numbers to help approximate the land value tax.
+
+The price of a piece of land can tell us a lot about what the land tax should be.
+
 
