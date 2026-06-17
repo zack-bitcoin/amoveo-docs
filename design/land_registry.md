@@ -64,15 +64,17 @@ Consensus state
 Land plots 
 
 * address of who owns this land.
-* the total price of the land.
+* the price of the land.
 * balance in veo. used to pay the continuous tax.
 * height. the last block height when the tax was subtracted from the blance.
 * list of points that are in plots that border this plot. If the same address also owns those other plots, then these plots need to be purchased as a set.
 
+Every time a land plot is accessed, the tax is paid.
+
 Stem in binary tree
 
-* 3 16-bit numbers encoding a great circle
-* 48-bit value of land in this part of the tree
+* 48-bit great circle, used to divide the land between sides of the tree.
+* 48-bit value of land in this part of the tree, measure din VEO
 * 32-bit counter of number of land plots in this part of the tree
 
 Transaction type
@@ -82,8 +84,10 @@ Land transactions need these parts:
 
 * account of creator
 * nonce
-* list of land operations
+* list of land operations 
 * signature
+
+After doing all of the operations, the transactions cannot leave the tree in a state where there are a pair of land plots that are adjacent in the binary tree, and also owned by the same account. 
 
 kinds of land operations
 ===================
@@ -109,14 +113,14 @@ kinds of land operations
   - a new price after the purchase
 
 * signed_buy
-  -used to buy land. This tx can be included in a multi-tx, it needs to be signed by the purchaser. This way flash loans can be used to make land trading more capital efficient.
+  -used to buy land for someone else. 
   - the max price the purchaser is willing pay per square meter.
   - great circles surrounding the area that they want to purchase in.
   - max and min number of square meters they will buy.
   - block height when this offer becomes invalid. expiration date.
   - new price after the purchase.
-  - signature 
-  - a point inside of the region you are buying. (unsigned)
+  - purchaser's signature 
+  - a point inside of the region being purchased. (unsigned)
 
 * split
   -as a land owner, you can split your land into parts, and put different prices on the different parts. The cost of a land-split is higher if your land is deeper in the land tree, so that we can incentivize keeping the tree balanced.
@@ -125,7 +129,7 @@ kinds of land operations
   - prices for the 2 new plots.
 
 * join
-  -if you own land plots that are side by side in the binary tree, you can combine them into a single land plot. This is the reverse of land_split_tx
+  -if you own land plots that are side by side in the binary tree, you can combine them into a single land plot. This is the reverse of 'split'
   - a location inside one of the land plots.
   - price of the new land plot
 
