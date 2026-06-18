@@ -63,19 +63,29 @@ Consensus state
 
 Land plots 
 
-* address of who owns this land.
-* the price of the land.
-* balance in veo. used to pay the continuous tax.
-* height. the last block height when the tax was subtracted from the blance.
-* list of points that are in plots that border this plot. If the same address also owns those other plots, then these plots need to be purchased as a set.
+* address of who owns this land. 256-bits
+* the price of the land. 48-bits
+* balance in veo. used to pay the continuous tax. 48-bits
+* height. the last block height when the tax was subtracted from the blance. 32-bits
+* a list of points in it's children. The children are plots that border this plot and have the same owner, and are configured to be purchased as a set.
+
+384+(48*N) bits.
 
 Every time a land plot is accessed, the tax is paid.
+
+Child land plot
+
+* point in the parent it is linked to.
+
+48 bits.
 
 Stem in binary tree
 
 * 48-bit great circle, used to divide the land between sides of the tree.
 * 48-bit value of land in this part of the tree, measure din VEO
 * 32-bit counter of number of land plots in this part of the tree
+
+128 bits total
 
 Transaction type
 ==========
@@ -87,7 +97,7 @@ Land transactions need these parts:
 * list of land operations 
 * signature
 
-After doing all of the operations, the transactions cannot leave the tree in a state where there are a pair of land plots that are adjacent in the binary tree, and also owned by the same account. 
+After doing all of the operations, all account balances need to be non-negative, and the land balances need to be above the minimums.
 
 kinds of land operations
 ===================
@@ -134,21 +144,30 @@ kinds of land operations
   - price of the new land plot
 
 * link
-  -if you own land plots that are physically adjacent, and you don't want to sell one without selling both, then they can be linked.
-  - a point in the first land plot.
-  - a point in the second land plot.
+  -if you own land plots that are physically adjacent, and you don't want to sell one without selling both, then they can be linked. The new price is the sum of the old prices. The new balance is the sum of the old balances.
+  - a point in the master land plot.
+  - a list of points in child land plots that you want to link.
 
 * unlink
   -the reverse of link.
-  - a point in the first land plot.
-  - a point in the second land plot.
+  - a point in the master land plot.
+  - a point in each child that is getting unlinked.
+  - price of the first land plot
+  - balance of the first land plot
 
 * organize
   -Each land plot can be identified by the lines that surround it. So, the blockchain can verify that a reorganized binary tree results in everyone owning the same land. The resulting binary tree needs to be more balanced and less deep.
   -Linked land plots can be combined. The new price is the sum of the old prices.
-  -individual land plots can be split in two, as long as the two new land plots are linked. They are each worth 1/2 the old price.
-  - the part of the tree that needs to be reorganized.
-  - binary data encoding the new structure for this part of the binary tree.
+  -individual land plots can be split in two, as long as the two new land plots are linked. 
+  - binary data encoding the new structure for part of the tree.
+
+
+If an account has a plot with children before a reorganization, and after the reorganization the plot and children all had different borders, how can the blockchain be sure that the new plot and children are identical?
+Convert the plots into cycles of points, if you walk around them clockwise.
+If two cycles share a pair of points in reverse order, then they can be combine into one long cycle. this is the same as putting two bordering land plots together into one big one.
+If the new plot and children are identical, then the cycle of points will end up being identical.
+
+If every owner's cycles are the same before and afer the update, then the update didn't change anyone's properties.
 
 Off-chain data and flash loans.
 ================
@@ -167,11 +186,7 @@ Attacks considered
 
 What if an attacker divides their land up into such small parts, that the transaction for buying up the land is so big that it can't fit into a block?
 
-+ that is why when two properties are adjacent in the binary tree, they cannot be owned by the same account. Except as an in-between step during a flash loan.
-
-What if an attacker divides their land up so small, that the transaction for buying the land is too expensive?
-
-+ there is a cost to creating a new land plot. The cost is high enough, that the attacker ends up spending far more than their victim.
+The attacker needs to pay a fee for every time they split the land up. Defenders who buy the land and recombine it get paid this fee as a reward.
 
 
 Land Tax
@@ -179,11 +194,26 @@ Land Tax
 
 The ideal land tax is the land value tax, popularized by Henry George. Design decisions should always be made to try and better approximate the land value tax.
 
-There is a minimum tax per land plot, to reflect the cost of having an entry in the database.
+There is a minimum tax per land plot, to reflect the cost of having an entry in the database. 
 
 The binary land tree holds some info at every node. Each node knows how many land plots are below it, and the total value of the land plots below it.
 We can use this array of numbers to help approximate the land value tax.
 
 The price of a piece of land can tell us a lot about what the land tax should be.
+
+Other Fees
+============
+
+Creating a land plot has a fee, and the fee is higher as a parent land plot has a higher number of children. This fee is used to pay a reward for reorganizing the tree to use a fewer number of internal lots to represent a single real lot.
+This is a flat fee for the plot, no matter how big it is.
+
+
+Data Flow
+=================
+
+The blockchain includes a verkle proof. The results of verifyihng the verkle proof is a binary tree of land, that isn't completely filled in.
+
+This binary tree gets edited while we verify the transactions.
+Then, the final version of the binary tree gets batch-written to the verkle tree.
 
 
