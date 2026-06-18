@@ -82,7 +82,7 @@ Child land plot
 Stem in binary tree
 
 * 48-bit great circle, used to divide the land between sides of the tree.
-* 48-bit value of land in this part of the tree, measure din VEO
+* 48-bit value of land in this part of the tree, measured in VEO
 * 32-bit counter of number of land plots in this part of the tree
 
 128 bits total
@@ -144,7 +144,7 @@ kinds of land operations
   - price of the new land plot
 
 * link
-  -if you own land plots that are physically adjacent, and you don't want to sell one without selling both, then they can be linked. The new price is the sum of the old prices. The new balance is the sum of the old balances.
+  -if you own land plots that are physically adjacent, and you don't want to sell one without selling both, then they can be linked. The new price is the sum of the old prices. The new balance is the sum of the old balances. This is also used to change which of your linked plots is the parent.
   - a point in the master land plot.
   - a list of points in child land plots that you want to link.
 
@@ -152,8 +152,8 @@ kinds of land operations
   -the reverse of link.
   - a point in the master land plot.
   - a point in each child that is getting unlinked.
-  - price of the first land plot
-  - balance of the first land plot
+  - price of the child land plot
+  - balance of the child land plot
 
 * organize
   -Each land plot can be identified by the lines that surround it. So, the blockchain can verify that a reorganized binary tree results in everyone owning the same land. The resulting binary tree needs to be more balanced and less deep.
@@ -167,7 +167,7 @@ Convert the plots into cycles of points, if you walk around them clockwise.
 If two cycles share a pair of points in reverse order, then they can be combine into one long cycle. this is the same as putting two bordering land plots together into one big one.
 If the new plot and children are identical, then the cycle of points will end up being identical.
 
-If every owner's cycles are the same before and afer the update, then the update didn't change anyone's properties.
+If every owner's cycles are the same before and afer the update, then the update preserved everyone's properties.
 
 Off-chain data and flash loans.
 ================
@@ -200,6 +200,16 @@ The binary land tree holds some info at every node. Each node knows how many lan
 We can use this array of numbers to help approximate the land value tax.
 
 The price of a piece of land can tell us a lot about what the land tax should be.
+
+P = predicted price of land plot according to a model of land value.
+Q = price of land plot choosen by owner.
+A = area.
+D = distance of furthest 2 corners.
+C = constant choosen to set the tax rate.
+H = what portion of tax to pay on improvements, so the harberger mechanism works. (probably about 5 to 10)
+
+Tax paid per block = C*min(Q, (P + (Q - P)/H)) * D^2/A
+
 
 Other Fees
 ============
