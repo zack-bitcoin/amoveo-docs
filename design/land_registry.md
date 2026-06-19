@@ -54,7 +54,7 @@ Since this is using the same verkle tech as Amoveo's existing tree, it is import
 Size of a verkle proof of land.
 If there are 2^30 (about 1 billion) land plots, then we would require at least 30 steps in the binary tree, and 5 steps in the verkle tree.
 Each step in the binary tree costs 128 bits. Each step in the verkle tree costs 512 bits.
-(128*30) + (512*5) = 6400 bits, or 800 bytes.
+(128 * 30) + (512 * 5) = 6400 bits, or 800 bytes.
 
 If different transactions in the same block are using similar parts of the globe, then the overlapping parts of the verkle tree are only proved once.
 
@@ -85,7 +85,7 @@ Stem in binary tree
 
 * 48-bit great circle, used to divide the land between sides of the tree.
 * 48-bit value of land in this part of the tree, measured in VEO
-* 32-bit counter of number of land plots in this part of the tree
+* 32-bit counter of number of land plots in this part of the tree (maybe we shouldn't include this.)
 
 128 bits total
 
@@ -175,6 +175,9 @@ If the new plot and children are identical, then the cycle of points will end up
 
 If every owner's cycles are the same before and afer the update, then the update preserved everyone's properties.
 
+One way this could fail is if after doing an organization, land owners are all incentivized to make transactions to optimize their tax strategy.
+To prevent this kind of failure, we need to put rules on how the organizer chooses the parent lot in a group of linked lots. The organizer should be obligated to choose the parent such that the tax rate of the group is minimized. 
+
 Off-chain data and flash loans.
 ================
 
@@ -192,22 +195,25 @@ Attacks considered
 
 What if an attacker divides their land up into such small parts, that the transaction for buying up the land is so big that it can't fit into a block?
 
-The attacker needs to pay a fee for every time they split the land up. Defenders who buy the land and recombine it get paid this fee as a reward.
+The attacker needs to pay a fee for every time they split the land up. Defenders who buy the land and recombine it get paid this fee as a reward, because they are making the tree more organized.
 
 
 Land Tax
 ====================
 
 The ideal land tax is the land value tax, popularized by Henry George. Design decisions should always be made to try and better approximate the land value tax. This means we try to tax only the value of the land, and not the improvements on top.
+To approximate the land value tax, we make a model to predict the land value, and we charge a higher tax on the portion of a plot's value that is below the prediction, and a lower tax on the portion of the value that is above the prediction.
 
-But, we need to use a Harberger mechanism to set the prices. So that means the tax always needs to be increasing as the price increases.
+But, we need to use a Harberger mechanism to set the prices. So that means the tax always needs to be increasing as the price increases. This is why we have a non-zero tax on the portion of the value that is above the prediction.
 
-There is a minimum tax per land plot, to reflect the cost of having an entry in the database. This prevents the creation of excessively tiny plots.
+There is a minimum tax per land plot, to reflect the cost of having an entry in the database. This makes it costly to create plots that are excessively tiny.
+
+We don't want it to be cheap to have long thin threads of land.
+So, we need to charge a higher tax for plots that are long and thin.
 
 The binary land tree holds some info at every node. Each node knows how many land plots are below it, and the total value of the land plots below it.
 We can use this array of numbers to help approximate the land value tax.
 
-We don't want it to be cheap to have long thin threads of land.
 
 P = predicted price of land plot according to a model of land value.
 Q = price of land plot choosen by owner. (must be above a minimum price)
@@ -224,7 +230,9 @@ The verkle proof of the binary land tree tells us the total value, number of plo
 If the verkle proof has n steps.
 V[i], N[i], A[i].
 
-A * (sum from i=1 -> n of V[i]/A[i]) / n
+P = A * (sum from i=1 -> n of V[i]/A[i]) / n
+
+For linked lots, the tax is based on whichever property is the master.
 
 
 Data Flow
