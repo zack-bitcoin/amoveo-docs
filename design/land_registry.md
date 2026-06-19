@@ -69,9 +69,9 @@ Land plots
 * height. the last block height when the tax was subtracted from the blance. 32-bits
 * distance between furthest two corners, including children. (used for calculating taxes)
 * area, including all children. (used for calculating taxes)
-* a list of points in it's children. The children are plots that border this plot and have the same owner, and are configured to be purchased as a set. 54 bits each
+* a list of points in it's children. The children are plots that border this plot and have the same owner, and are configured to be purchased as a set. 
 
-384+(54*N) bits.
+384+(48*N) bits.
 
 Every time a land plot is accessed, the tax is paid.
 
@@ -79,7 +79,7 @@ Child land plot
 
 * point in the parent it is linked to.
 
-54 bits.
+48 bits.
 
 Stem in binary tree
 
@@ -135,7 +135,7 @@ kinds of land operations
   - a point inside of the region being purchased. (unsigned)
 
 * split
-  -as a land owner, you can split your land into parts, and put different prices on the different parts. The cost of a land-split is higher if your land is deeper in the land tree, so that we can incentivize keeping the tree balanced.
+  -as a land owner, you can split your land into parts, and put different prices on the different parts. The cost of a land-split is higher if your land is deeper in the land tree, so that we can incentivize keeping the tree balanced. Is not permitted to make very small land plots that have no internal points.
   - location inside of your land 
   - great circle used to divide the land
   - prices for the 2 new plots.
@@ -158,7 +158,7 @@ kinds of land operations
   - balance of the child land plot
 
 * organize
-  -Each land plot can be identified by the lines that surround it. So, the blockchain can verify that a reorganized binary tree results in everyone owning the same land. The resulting binary tree needs to be more balanced and less deep.
+  -Each land plot can be identified by the lines that surround it. So, the blockchain can verify that a reorganized binary tree results in everyone owning the same land. The resulting binary tree needs to be more balanced and less deep. It is not permitted to make very small plots that don't have any internal points.
   -Linked land plots can be combined. The new price is the sum of the old prices.
   -individual land plots can be split in two, as long as the two new land plots are linked. 
   - binary data encoding the new structure for part of the tree.
