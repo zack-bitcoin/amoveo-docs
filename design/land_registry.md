@@ -223,16 +223,16 @@ C1, C2 = constants choosen to set the tax rate.
 H = How many fold less tax to pay on improvements, so the harberger mechanism works. (probably about 10)
 B = How deep is it in the binary land tree?
 
-Tax paid per block = (C2/(2^B)) + (C1 * min(Q, (P + (Q - P)/H)) * (D^2 + A)/(2 * A))
+Tax paid by a single plot, per block = `(C2/(2^B)) + (C1 * min(Q, (P + (Q - P)/H)) * (D^2 + A)/(2 * A))`
 
-Global tax paid is at least C2 + C1*(price of world) per block.
+Global tax paid is at least `C2 + (C1 * (price of world))` per block.
 
 How to find the predicted price of land.
 The verkle proof of the binary land tree tells us the total value, number of plots, and total area at each node of the tree.
 If the verkle proof has n steps.
 V[i], A[i].
 
-P = A * (sum from i=1 -> n of V[i]/A[i]) / log2(total number of land plots in the system)
+`P = A * (sum from i=1 -> n of V[i]/A[i]) / log2(total number of land plots in the system)`
 
 For linked lots, the tax is based on whichever property is the master.
 
