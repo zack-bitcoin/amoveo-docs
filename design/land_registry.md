@@ -67,6 +67,8 @@ Land plots
 * the price of the land. 48-bits
 * balance in veo. used to pay the continuous tax. 48-bits
 * height. the last block height when the tax was subtracted from the blance. 32-bits
+* distance between furthest two corners, including children.
+* area, including all children.
 * a list of points in it's children. The children are plots that border this plot and have the same owner, and are configured to be purchased as a set.
 
 384+(48*N) bits.
@@ -139,7 +141,7 @@ kinds of land operations
   - prices for the 2 new plots.
 
 * join
-  -if you own land plots that are side by side in the binary tree, you can combine them into a single land plot. This is the reverse of 'split'
+  -if you own land plots that are side by side in the binary tree, you can combine them into a single land plot. This is the reverse of 'split'. you receive a reward that is proportional to the cost of a split at this depth.
   - a location inside one of the land plots.
   - price of the new land plot
 
@@ -160,6 +162,10 @@ kinds of land operations
   -Linked land plots can be combined. The new price is the sum of the old prices.
   -individual land plots can be split in two, as long as the two new land plots are linked. 
   - binary data encoding the new structure for part of the tree.
+
+((1, 2), (3, 4)), 4 leafs. adding the depths of each leaf makes 8.
+(1, (2, (3, 4))), 4 leafs. adding the depths of each leaf makes 9.
+The sum of depths is lower in the first example, so the first example is more organized.
 
 
 If an account has a plot with children before a reorganization, and after the reorganization the plot and children all had different borders, how can the blockchain be sure that the new plot and children are identical?
@@ -192,36 +198,39 @@ The attacker needs to pay a fee for every time they split the land up. Defenders
 Land Tax
 ====================
 
-The ideal land tax is the land value tax, popularized by Henry George. Design decisions should always be made to try and better approximate the land value tax.
+The ideal land tax is the land value tax, popularized by Henry George. Design decisions should always be made to try and better approximate the land value tax. This means we try to tax only the value of the land, and not the improvements on top.
 
-There is a minimum tax per land plot, to reflect the cost of having an entry in the database. 
+But, we need to use a Harberger mechanism to set the prices. So that means the tax always needs to be increasing as the price increases.
+
+There is a minimum tax per land plot, to reflect the cost of having an entry in the database. This prevents the creation of excessively tiny plots.
 
 The binary land tree holds some info at every node. Each node knows how many land plots are below it, and the total value of the land plots below it.
 We can use this array of numbers to help approximate the land value tax.
 
-The price of a piece of land can tell us a lot about what the land tax should be.
+We don't want it to be cheap to have long thin threads of land.
 
 P = predicted price of land plot according to a model of land value.
-Q = price of land plot choosen by owner.
+Q = price of land plot choosen by owner. (must be above a minimum price)
 A = area.
 D = distance of furthest 2 corners.
 C = constant choosen to set the tax rate.
-H = what portion of tax to pay on improvements, so the harberger mechanism works. (probably about 5 to 10)
+H = How many fold less tax to pay on improvements, so the harberger mechanism works. (probably about 10)
 
-Tax paid per block = C*min(Q, (P + (Q - P)/H)) * D^2/A
+Tax paid per block = C*min(Q, (P + (Q - P)/H)) * (D^2 + A)/(2A)
 
 
-Other Fees
-============
+How to find the predicted price of land.
+The verkle proof of the binary land tree tells us the total value, number of plots, and total area at each node of the tree.
+If the verkle proof has n steps.
+V[i], N[i], A[i].
 
-Creating a land plot has a fee, and the fee is higher as a parent land plot has a higher number of children. This fee is used to pay a reward for reorganizing the tree to use a fewer number of internal lots to represent a single real lot.
-This is a flat fee for the plot, no matter how big it is.
+A * (sum from i=1 -> n of V[i]/A[i]) / n
 
 
 Data Flow
 =================
 
-The blockchain includes a verkle proof. The results of verifyihng the verkle proof is a binary tree of land, that isn't completely filled in.
+The blockchain includes a verkle proof. The results of verifying the verkle proof is a binary tree of land, that isn't completely filled in.
 
 This binary tree gets edited while we verify the transactions.
 Then, the final version of the binary tree gets batch-written to the verkle tree.
