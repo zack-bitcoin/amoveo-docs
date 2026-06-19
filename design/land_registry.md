@@ -67,8 +67,8 @@ Land plots
 * the price of the land. 48-bits
 * balance in veo. used to pay the continuous tax. 48-bits
 * height. the last block height when the tax was subtracted from the blance. 32-bits
-* distance between furthest two corners, including children.
-* area, including all children.
+* distance between furthest two corners, including children. (used for calculating taxes)
+* area, including all children. (used for calculating taxes)
 * a list of points in it's children. The children are plots that border this plot and have the same owner, and are configured to be purchased as a set.
 
 384+(48*N) bits.
@@ -219,18 +219,20 @@ P = predicted price of land plot according to a model of land value.
 Q = price of land plot choosen by owner. (must be above a minimum price)
 A = area.
 D = distance of furthest 2 corners.
-C = constant choosen to set the tax rate.
+C1, C2 = constants choosen to set the tax rate.
 H = How many fold less tax to pay on improvements, so the harberger mechanism works. (probably about 10)
+B = How deep is it in the binary land tree?
 
-Tax paid per block = C*min(Q, (P + (Q - P)/H)) * (D^2 + A)/(2A)
+Tax paid per block = (C2/(2^B)) + C1*min(Q, (P + (Q - P)/H)) * (D^2 + A)/(2A)
 
+Global tax paid is at least C2 + C1*(price of world)
 
 How to find the predicted price of land.
 The verkle proof of the binary land tree tells us the total value, number of plots, and total area at each node of the tree.
 If the verkle proof has n steps.
-V[i], N[i], A[i].
+V[i], A[i].
 
-P = A * (sum from i=1 -> n of V[i]/A[i]) / n
+P = A * (sum from i=1 -> n of V[i]/A[i]) / log2(total number of land plots in the system)
 
 For linked lots, the tax is based on whichever property is the master.
 
