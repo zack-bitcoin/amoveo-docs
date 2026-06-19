@@ -69,9 +69,9 @@ Land plots
 * height. the last block height when the tax was subtracted from the blance. 32-bits
 * distance between furthest two corners, including children. (used for calculating taxes)
 * area, including all children. (used for calculating taxes)
-* a list of points in it's children. The children are plots that border this plot and have the same owner, and are configured to be purchased as a set.
+* a list of points in it's children. The children are plots that border this plot and have the same owner, and are configured to be purchased as a set. 54 bits each
 
-384+(48*N) bits.
+384+(54*N) bits.
 
 Every time a land plot is accessed, the tax is paid.
 
@@ -79,7 +79,7 @@ Child land plot
 
 * point in the parent it is linked to.
 
-48 bits.
+54 bits.
 
 Stem in binary tree
 
@@ -106,7 +106,7 @@ kinds of land operations
 
 * price
   -if you own land, this is how you change the price of your land. Anyone can buy the land from you for its price. You pay a tax based on the price of the land, and how deep you are in the binary tree.
-  - a location on the globe inside of your land encoded as 3 16-bit signed integers.
+  - a location on the globe inside of your land encoded as 3 18-bit signed integers.
   - new_price
 
 * tax
@@ -216,27 +216,24 @@ We can use this array of numbers to help approximate the land value tax.
 
 
 P = predicted price of land plot according to a model of land value.
-Q = price of land plot choosen by owner. (must be above a minimum price)
+Q = price of land plot choosen by owner. (must start at more than a certain limit per plot)
 A = area.
 D = distance of furthest 2 corners.
-C1, C2 = constants choosen to set the tax rate.
-H = How many fold less tax to pay on improvements, so the harberger mechanism works. (probably about 10)
-B = How deep is it in the binary land tree?
+C1 = constant choosen to set the tax rate.
+H = How many fold less tax to pay on improvements, (we need to pay at least some tax on improvements, so that the harberger mechanism works. This value should probably be about 10.)
 
-Tax paid by a single plot, per block = `(C2/(2^B)) + (C1 * min(Q, (P + (Q - P)/H)) * (D^2 + A)/(2 * A))`
+Tax paid by a single plot, per block = `(C1 * min(Q, (P + (Q - P)/H)) * (D^2 + A)/(2 * A))`
 
-Global tax paid is at least `C2 + (C1 * (price of world))` per block.
+Global tax paid is at least `(C1 * (price of world))` per block.
 
 How to find the predicted price of land.
-The verkle proof of the binary land tree tells us the total value, number of plots, and total area at each node of the tree.
+The verkle proof of the binary land tree tells us the total value, and total area at each node of the tree.
 If the verkle proof has n steps.
 V[i], A[i].
 
 `P = A * (sum from i=1 -> n of V[i]/A[i]) / log2(total number of land plots in the system)`
 
 For linked lots, the tax is based on whichever property is the master.
-
-C2 is related to the value of namespace in the binary land tree. Needing fewer great-circles to define your land plot means your proofs and transactions are smaller. This namespace is a finite resource, and we need to charge for access to it.
 
 C1 is for tuning the taxes. If C1 is too high, then there will be too many abandoned properties. If C1 is too low, then there will be absentee landlords aka speculators.
 
