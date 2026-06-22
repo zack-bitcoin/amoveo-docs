@@ -1,6 +1,5 @@
 
-
-The purpose of this document is to make a rough design of what the harberger verkle tree will look like.
+The purpose of this document is to make a rough design of what the cryptographic land registry will look like.
 
 Global coordinates.
 =============
@@ -33,8 +32,6 @@ Ethereum's merkle tree is organized based on the address of the account. If a bi
 
 The land verkle tree is instead organized based on physical location of land with respect to the great circles we have drawn on the planet. This means it is impossible to store 2 different land plots that overlap on the globe.
 
-Since the only way to make a new land plot is by dividing old land plots, this tree doesn't have empty slots the way Ethereum's merkle tree does.
-
 Vectorizing the binary tree
 =====================
 
@@ -44,8 +41,6 @@ The first 127 values are great circles on earth, the next 128 are verkle roots o
 
 So, each stem of the verkle tree is a small chunk of the binary tree, holding up to 128 nodes.
 
-Even though the binary tree is full, the verkle tree is not. Sometimes a verkle stem holds less than 128 elements, because it hasn't been filled up yet.
-
 Verkle efficiency
 ==================
 
@@ -53,13 +48,15 @@ Since this is using the same verkle tech as Amoveo's existing tree, it is import
 
 Size of a verkle proof of land.
 If there are 2^30 (about 1 billion) land plots, then we would require at least 30 steps in the binary tree, and 5 steps in the verkle tree.
-Each step in the binary tree costs 128 bits. Each step in the verkle tree costs 512 bits.
-(128 * 30) + (512 * 5) = 6400 bits, or 800 bytes.
+Each step in the binary tree costs 128 bits. Each step in the verkle tree costs 256 bits.
+(128 * 30) + (256 * 5) = 5120 bits, or 640 bytes.
 
 If different transactions in the same block are using similar parts of the globe, then the overlapping parts of the verkle tree are only proved once.
 
 Consensus state
 ================
+
+Thinking of the binary land tree as our level of abstraction, there are 3 kinds of things we need to add to the consensus state: land plots, child land plots, and stems
 
 Land plots 
 
@@ -67,8 +64,8 @@ Land plots
 * the price of the land. 48-bits
 * balance in veo. used to pay the continuous tax. 48-bits
 * height. the last block height when the tax was subtracted from the blance. 32-bits
-* distance between furthest two corners, including children. (used for calculating taxes)
-* area, including all children. (used for calculating taxes)
+* area 64-bits
+* tax checkpoint. ((distance betweeen 2 furthest corners)^2 + (area))/(2*area) 32-bits
 * a list of points in it's children. The children are plots that border this plot and have the same owner, and are configured to be purchased as a set. 
 
 384+(48*N) bits.
@@ -135,23 +132,23 @@ kinds of land operations
   - a point inside of the region being purchased. (unsigned)
 
 * split
-  -as a land owner, you can split your land into parts, and put different prices on the different parts. The cost of a land-split is higher if your land is deeper in the land tree, so that we can incentivize keeping the tree balanced. Is not permitted to make very small land plots that have no internal points.
+  -as a land owner, you can split your land into parts, and put different prices on the different parts. The cost of a land-split is higher if your land is deeper in the land tree, so that we can incentivize keeping the tree balanced. Is not permitted to make very small land plots that have no internal points. Both the new land plots need to have fewer than 8 corners.
   - location inside of your land 
   - great circle used to divide the land
   - prices for the 2 new plots.
 
 * join
-  -if you own land plots that are side by side in the binary tree, you can combine them into a single land plot. This is the reverse of 'split'. you receive a reward that is proportional to the cost of a split at this depth.
+  -if you own land plots that are side by side in the binary tree, you can combine them into a single land plot. This is the reverse of 'split'. you receive a reward that is proportional to the cost of a split at this depth. 
   - a location inside one of the land plots.
   - price of the new land plot
 
 * link
-  -if you own land plots that are physically adjacent, and you don't want to sell one without selling both, then they can be linked. The new price is the sum of the old prices. The new balance is the sum of the old balances. This is also used to change which of your linked plots is the parent.
+  -if you own land plots that are physically adjacent, and you don't want to sell one without selling both, then they can be linked. The new price is the sum of the old prices. The new balance is the sum of the old balances. This is also used to change which of your linked plots is the parent. The region made by connecting linked plots, it can have at most 8 corners.
   - a point in the master land plot.
   - a list of points in child land plots that you want to link.
 
 * unlink
-  -the reverse of link.
+  -the reverse of link. the resulting shapes need to be self-connected. The resulting shapes need to have fewer than 8 corners each.
   - a point in the master land plot.
   - a point in each child that is getting unlinked.
   - price of the child land plot
