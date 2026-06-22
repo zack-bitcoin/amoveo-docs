@@ -89,10 +89,9 @@ Each title has one field that acts as the "parent". It stores most of the inform
 * balance in veo. used to pay the continuous tax. 48-bits
 * height. the last block height when the tax was subtracted from the blance. 32-bits
 * area 64-bits
-* tax checkpoint. ((((distance betweeen 2 furthest corners)^2)/2) + (area))/(2*area) 32-bits
 * a list of points in it's children. The children are fields that are connected to the parent and have the same owner, and are configured to be purchased as a set. 
 
-384+(48*N) bits.
+448+(48*N) bits.
 
 
 Child field
