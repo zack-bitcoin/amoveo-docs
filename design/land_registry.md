@@ -1,6 +1,7 @@
 
 The purpose of this document is to make a rough design of what the cryptographic land registry will look like.
 
+
 Global coordinates.
 =============
 
@@ -21,16 +22,16 @@ Given a point on the surface of the globe, you can draw a line from the center o
 
 For example: [1,0,0] is the point at the north pole, and it encodes the line that is on the equator.
 
-Each great circle can be written in two ways. For example [1,2,-5] is the same circle as [-1,-2,5]. These are encoding for the clockwise and counterclockwise versions of the circle. In the land registry, this would cut a land plot on the same line, but, it makes a difference as for which side of the plot ends up on the left branch vs right branch of the binary tree in the consensus state.
+Each great circle can be written in two ways. For example [1,2,-5] is the same circle as [-1,-2,5]. These are encoding for the clockwise and counterclockwise versions of the circle. In the land registry, this would cut a land field on the same line, but, it makes a difference as for which side of the field ends up on the left branch vs right branch of the binary tree in the consensus state.
 
 Binary tree based on great circles
 ====================
 
-The land plots are organized into a binary tree. Each time the tree branches on a great circle. The great circle is dividing the land. One side of the land is managed by the right branch of the tree, and the other side of the land is managed by the left branch.
+The fields are organized into a binary tree. Each time the tree branches on a great circle. The great circle is dividing the land. One side of the land is managed by the right branch of the tree, and the other side of the land is managed by the left branch.
 
 Ethereum's merkle tree is organized based on the address of the account. If a bit of that address is a 1 or a 0, that determines whether that data ends up stored in the right or left branch of the tree. This means that it is impossible to store 2 different accounts under the same address.
 
-The land verkle tree is instead organized based on physical location of land with respect to the great circles we have drawn on the planet. This means it is impossible to store 2 different land plots that overlap on the globe.
+The land verkle tree is instead organized based on physical location of land with respect to the great circles we have drawn on the planet. This means it is impossible to store 2 different fields that overlap on the globe.
 
 Vectorizing the binary tree
 =====================
@@ -47,32 +48,54 @@ Verkle efficiency
 Since this is using the same verkle tech as Amoveo's existing tree, it is important that the two verkle trees can share a bullet proof. That way, this second tree will not make Amoveo any slower.
 
 Size of a verkle proof of land.
-If there are 2^30 (about 1 billion) land plots, then we would require at least 30 steps in the binary tree, and 5 steps in the verkle tree.
+If there are 2^30 (about 1 billion) fields, then we would require at least 30 steps in the binary tree, and 5 steps in the verkle tree.
 Each step in the binary tree costs 128 bits. Each step in the verkle tree costs 256 bits.
 (128 * 30) + (256 * 5) = 5120 bits, or 640 bytes.
 
 If different transactions in the same block are using similar parts of the globe, then the overlapping parts of the verkle tree are only proved once.
 
+Fields
+============
+
+Great circles cut the world up into fields.
+Each field needs to have at least representable point inside of it, otherwise it is too small, and that makes it invalid.
+
+Land title
+=============
+
+A valid land field is made by drawing lines on the world to cut it up into fields. The act of cutting with lines always results in concave fields.
+Fields can be linked together into titles.
+Land titles, when sold, need to be purchased in their entirety. 
+This way you can be sure that someone wont buy just 1/2 of your house, even if your house is split between two fields.
+
+A valid land title can have at most 8 corners.
+if D is the distance between the furthest 2 corners of a land title, then D^2/20 < area
+
+For example, if the title is a rectangle that is 100 meters long diagonally, then it's area must be bigger than 500 meters^2, so it must be at least 5 meters wide.
+Every time a title is accessed, the tax is paid.
+
+
 Consensus state
 ================
 
-Thinking of the binary land tree as our level of abstraction, there are 3 kinds of things we need to add to the consensus state: land plots, child land plots, and stems
+Thinking of the binary land tree as our level of abstraction, there are 3 kinds of things we need to add to the consensus state: parent fields, child fields, and stems
 
-Land plots 
+parent fields
+
+Each title has one field that acts as the "parent". It stores most of the information related to the title, and pointers to the other fields that make up the title. Every time a title is accessed, the tax is paid.
 
 * address of who owns this land. 256-bits
 * the price of the land. 48-bits
 * balance in veo. used to pay the continuous tax. 48-bits
 * height. the last block height when the tax was subtracted from the blance. 32-bits
 * area 64-bits
-* tax checkpoint. ((distance betweeen 2 furthest corners)^2 + (area))/(2*area) 32-bits
-* a list of points in it's children. The children are plots that border this plot and have the same owner, and are configured to be purchased as a set. 
+* tax checkpoint. ((((distance betweeen 2 furthest corners)^2)/2) + (area))/(2*area) 32-bits
+* a list of points in it's children. The children are fields that are connected to the parent and have the same owner, and are configured to be purchased as a set. 
 
 384+(48*N) bits.
 
-Every time a land plot is accessed, the tax is paid.
 
-Child land plot
+Child field
 
 * point in the parent it is linked to.
 
@@ -82,7 +105,7 @@ Stem in binary tree
 
 * 48-bit great circle, used to divide the land between sides of the tree.
 * 48-bit value of land in this part of the tree, measured in VEO
-* 32-bit counter of number of land plots in this part of the tree (maybe we shouldn't include this.)
+* 32-bit counter of number of fields in this part of the tree (maybe we shouldn't include this.)
 
 128 bits total
 
@@ -101,13 +124,15 @@ After doing all of the operations, all account balances need to be non-negative,
 kinds of land operations
 ===================
 
+An operation is only valid if it leaves all land titles valid. If an operation would leave a land title with 9 corners, then that operation is invalid.
+
 * price
   -if you own land, this is how you change the price of your land. Anyone can buy the land from you for its price. You pay a tax based on the price of the land, and how deep you are in the binary tree.
   - a location on the globe inside of your land encoded as 3 18-bit signed integers.
   - new_price
 
 * tax
-  -this is how you deposit money into your land plot. The money stored with the land plot is used to pay the continuous tax. If the land gets sold, this money is returned to you. There is a minimum amount of money required, based on the tax rate that the owner selected. 
+  -this is how you deposit money into your title. The money stored with the title is used to pay the continuous tax. If the land gets sold, this money is returned to you. There is a minimum amount of money required, based on the tax rate that the owner selected. 
   - amount to deposit/withdraw
   - a location inside your land.
 
@@ -132,32 +157,32 @@ kinds of land operations
   - a point inside of the region being purchased. (unsigned)
 
 * split
-  -as a land owner, you can split your land into parts, and put different prices on the different parts. The cost of a land-split is higher if your land is deeper in the land tree, so that we can incentivize keeping the tree balanced. Is not permitted to make very small land plots that have no internal points. Both the new land plots need to have fewer than 8 corners.
+  -as a land owner, you can split a field into 2 new fields, and put different prices on the different parts. The cost of a land-split is higher if your land is deeper in the land tree, so that we can incentivize keeping the tree balanced. 
   - location inside of your land 
   - great circle used to divide the land
-  - prices for the 2 new plots.
+  - prices for the 2 new titles.
 
 * join
-  -if you own land plots that are side by side in the binary tree, you can combine them into a single land plot. This is the reverse of 'split'. you receive a reward that is proportional to the cost of a split at this depth. 
-  - a location inside one of the land plots.
-  - price of the new land plot
+  -if you own fields that are side by side in the binary tree, you can combine them into a single field. This is the reverse of 'split'. you receive a reward that is proportional to the cost of a split at this depth. 
+  - a location inside one of the fields.
+  - price of the new title.
 
 * link
-  -if you own land plots that are physically adjacent, and you don't want to sell one without selling both, then they can be linked. The new price is the sum of the old prices. The new balance is the sum of the old balances. This is also used to change which of your linked plots is the parent. The region made by connecting linked plots, it can have at most 8 corners.
-  - a point in the master land plot.
-  - a list of points in child land plots that you want to link.
+  -if you own fields that are physically adjacent, and you don't want to sell one without selling both, then they can be linked. The new price is the sum of the old prices. The new balance is the sum of the old balances. This is also used to change which of your linked fields is the parent. 
+  - a point in the parent field.
+  - a list of points in child fields that you want to link.
 
 * unlink
-  -the reverse of link. the resulting shapes need to be self-connected. The resulting shapes need to have fewer than 8 corners each.
-  - a point in the master land plot.
+  -the reverse of link. the resulting shapes need to be self-connected. 
+  - a point in the parent field.
   - a point in each child that is getting unlinked.
-  - price of the child land plot
-  - balance of the child land plot
+  - price of the new title.
+  - balance of the new title.
 
 * organize
-  -Each land plot can be identified by the lines that surround it. So, the blockchain can verify that a reorganized binary tree results in everyone owning the same land. The resulting binary tree needs to be more balanced and less deep. It is not permitted to make very small plots that don't have any internal points.
-  -Linked land plots can be combined. The new price is the sum of the old prices.
-  -individual land plots can be split in two, as long as the two new land plots are linked. 
+  -Each field can be identified by the lines that surround it. So, the blockchain can verify that a reorganized binary tree results in everyone owning the same land. The resulting binary tree needs to be more balanced and less deep. It is not permitted to make very fields that don't have any internal points.
+  -Linked fields can be combined.
+  -individual fields can be split in two, the two new fields are linked. 
   - binary data encoding the new structure for part of the tree.
 
 ((1, 2), (3, 4)), 4 leafs. adding the depths of each leaf makes 8.
@@ -165,15 +190,16 @@ kinds of land operations
 The sum of depths is lower in the first example, so the first example is more organized.
 
 
-If an account has a plot with children before a reorganization, and after the reorganization the plot and children all had different borders, how can the blockchain be sure that the new plot and children are identical?
-Convert the plots into cycles of points, if you walk around them clockwise.
-If two cycles share a pair of points in reverse order, then they can be combine into one long cycle. this is the same as putting two bordering land plots together into one big one.
-If the new plot and children are identical, then the cycle of points will end up being identical.
+If an account has a title before a reorganization, and after the reorganization the fields in the title all had different borders, how can the blockchain be sure that the new title is identical?
+Convert the fields into cycles of points, if you walk around them clockwise.
+If two cycles share a pair of points in reverse order, then they can be combine into one long cycle. this is the same as putting two bordering fields together into one big one.
+If the title is identical, then the cycle of points will end up being identical.
 
-If every owner's cycles are the same before and afer the update, then the update preserved everyone's properties.
+If every owner's cycles are the same before and afer the update, then the update preserved everyone's titles.
 
-One way this could fail is if after doing an organization, land owners are all incentivized to make transactions to optimize their tax strategy.
-To prevent this kind of failure, we need to put rules on how the organizer chooses the parent lot in a group of linked lots. The organizer should be obligated to choose the parent such that the tax rate of the group is minimized. 
+One way this could fail is if after doing an organization, land owners are all incentivized to make transactions to optimize their tax strategy. That is why we need to compute the tax individually for each field. So that owners can't change their tax rate by switching which field is the parent.
+
+The organizer should choose which field to be the parent based on which field in the title is biggest.
 
 Off-chain data and flash loans.
 ================
@@ -199,27 +225,24 @@ Land Tax
 ====================
 
 The ideal land tax is the land value tax, popularized by Henry George. Design decisions should always be made to try and better approximate the land value tax. This means we try to tax only the value of the land, and not the improvements on top.
-To approximate the land value tax, we make a model to predict the land value, and we charge a higher tax on the portion of a plot's value that is below the prediction, and a lower tax on the portion of the value that is above the prediction.
+To approximate the land value tax, we make a model to predict the land value, and we charge a higher tax on the portion of a title's value that is below the prediction, and a lower tax on the portion of the value that is above the prediction.
 
 But, we need to use a Harberger mechanism to set the prices. So that means the tax always needs to be increasing as the price increases. This is why we have a non-zero tax on the portion of the value that is above the prediction.
 
-There is a minimum tax per land plot, to reflect the cost of having an entry in the database. This makes it costly to create plots that are excessively tiny.
+There is a minimum tax per title, to reflect the cost of having an entry in the database. This makes it costly to create titles that are excessively tiny.
 
-We don't want it to be cheap to have long thin threads of land.
-So, we need to charge a higher tax for plots that are long and thin.
-
-The binary land tree holds some info at every node. Each node knows how many land plots are below it, and the total value of the land plots below it.
+The binary land tree holds some info at every node. Each node knows how many land fields are below it, and the total value of the titles below it.
 We can use this array of numbers to help approximate the land value tax.
 
 
-P = predicted price of land plot according to a model of land value.
-Q = price of land plot choosen by owner. (must start at more than a certain limit per plot)
+P = predicted price of title according to a model of land value.
+Q = price of title choosen by owner. (must start at more than a certain limit per title)
 A = area.
-D = distance of furthest 2 corners.
+D = distance of furthest 2 corners in a title.
 C1 = constant choosen to set the tax rate.
 H = How many fold less tax to pay on improvements, (we need to pay at least some tax on improvements, so that the harberger mechanism works. This value should probably be about 10.)
 
-Tax paid by a single plot, per block = `(C1 * min(Q, (P + (Q - P)/H)) * (D^2 + A)/(2 * A))`
+Tax paid by a single title, per block = `(C1 * min(Q, (P + (Q - P)/H))`
 
 Global tax paid is at least `(C1 * (price of world))` per block.
 
@@ -228,9 +251,10 @@ The verkle proof of the binary land tree tells us the total value, and total are
 If the verkle proof has n steps.
 V[i], A[i].
 
-`P = A * (sum from i=1 -> n of V[i]/A[i]) / log2(total number of land plots in the system)`
+`P = A * (sum from i=1 -> n of V[i]/A[i]) / log2(total number of fields in the system)`
 
-For linked lots, the tax is based on whichever property is the master.
+This sum is re-computed for every field in the title, to find the total tax of that title.
+
 
 C1 is for tuning the taxes. If C1 is too high, then there will be too many abandoned properties. If C1 is too low, then there will be absentee landlords aka speculators.
 
