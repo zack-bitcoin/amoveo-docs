@@ -22,25 +22,25 @@ Given a point on the surface of the globe, you can draw a line from the center o
 
 For example: [1,0,0] is the point at the north pole, and it encodes the line that is on the equator.
 
-Each great circle can be written in two ways. For example [1,2,-5] is the same circle as [-1,-2,5]. These are encoding for the clockwise and counterclockwise versions of the circle. In the land registry, this would cut a land field on the same line, but, it makes a difference as for which side of the field ends up on the left branch vs right branch of the binary tree in the consensus state.
+Each great circle can be written in two ways. For example [1,2,-5] is the same circle as [-1,-2,5]. These are encoding for the clockwise and counterclockwise versions of the circle. In the land registry, this would cut a land parcel on the same line, but, it makes a difference as for which side of the parcel ends up on the left branch vs right branch of the binary tree in the consensus state.
 
-Binary tree based on great circles
+Binary land tree based on great circles
 ====================
 
-The fields are organized into a binary tree. Each time the tree branches on a great circle. The great circle is dividing the land. One side of the land is managed by the right branch of the tree, and the other side of the land is managed by the left branch.
+The parcels are organized into a binary tree. Each time the tree branches on a great circle. The great circle is dividing the land. One side of the land is managed by the right branch of the tree, and the other side of the land is managed by the left branch.
 
 Ethereum's merkle tree is organized based on the address of the account. If a bit of that address is a 1 or a 0, that determines whether that data ends up stored in the right or left branch of the tree. This means that it is impossible to store 2 different accounts under the same address.
 
-The land verkle tree is instead organized based on physical location of land with respect to the great circles we have drawn on the planet. This means it is impossible to store 2 different fields that overlap on the globe.
+The land verkle tree is instead organized based on physical location of land with respect to the great circles we have drawn on the planet. This means it is impossible to store 2 different parcels that overlap on the globe.
 
-Vectorizing the binary tree
+Vectorizing the binary land tree
 =====================
 
 Each vector commitment is to 256 values.
 
 The first 127 values are great circles on earth, the next 128 are verkle roots of branchs of the verkle tree, and the 256th commitment is unused.
 
-So, each stem of the verkle tree is a small chunk of the binary tree, holding up to 128 nodes.
+So, each stem of the verkle tree is a small chunk of the binary land tree, holding up to 128 nodes.
 
 Verkle efficiency
 ==================
@@ -48,53 +48,56 @@ Verkle efficiency
 Since this is using the same verkle tech as Amoveo's existing tree, it is important that the two verkle trees can share a bullet proof. That way, this second tree will not make Amoveo any slower.
 
 Size of a verkle proof of land.
-If there are 2^30 (about 1 billion) fields, then we would require at least 30 steps in the binary tree, and 5 steps in the verkle tree.
+If there are 2^30 (about 1 billion) parcels, then we would require at least 30 steps in the binary tree, and 5 steps in the verkle tree.
 Each step in the binary tree costs 128 bits. Each step in the verkle tree costs 256 bits.
-(128 * 30) + (256 * 5) = 5120 bits, or 640 bytes.
+(96 * 30) + (256 * 5) = 4160 bits, or 520 bytes.
 
 If different transactions in the same block are using similar parts of the globe, then the overlapping parts of the verkle tree are only proved once.
 
-Fields
+If we had instead used a binary merkle tree with a 256-bit hash for the same info, the proof would need (30*512) bits, or 1920 bytes.
+
+The verkle tree is as small as a binary merkle tree with 69-bit hash would be.
+
+Parcels
 ============
 
-Great circles cut the world up into fields.
-Each field needs to have at least representable point inside of it, otherwise it is too small, and that makes it invalid.
+A valid parcel is made by drawing great circles on the world to cut it up. The act of cutting with lines always results in convex parcels.
+Each parcel needs to have at least one representable point inside of it, otherwise it is too small, and that makes it invalid.
 
-Land title
+Titles
 =============
 
-A valid land field is made by drawing lines on the world to cut it up into fields. The act of cutting with lines always results in concave fields.
-Fields can be linked together into titles.
+Parcels can be linked together into titles.
 Land titles, when sold, need to be purchased in their entirety. 
-This way you can be sure that someone wont buy just 1/2 of your house, even if your house is split between two fields.
+This way you can be sure that someone wont buy just 1/2 of your house, even if your house is split between two parcels.
 
 A valid land title can have at most 8 corners.
-if D is the distance between the furthest 2 corners of a land title, then D^2/20 < area
+If D is the distance between the furthest 2 corners of a land title, then it must be the case that `(D^2)/20 < Area`
 
 For example, if the title is a rectangle that is 100 meters long diagonally, then it's area must be bigger than 500 meters^2, so it must be at least 5 meters wide.
-Every time a title is accessed, the tax is paid.
 
+Every time a title is accessed, the tax is paid.
 
 Consensus state
 ================
 
-Thinking of the binary land tree as our level of abstraction, there are 3 kinds of things we need to add to the consensus state: parent fields, child fields, and stems
+Thinking of the binary land tree as our level of abstraction, there are 3 kinds of things we need to add to the consensus state: parent parcels, child parcels, and stems
 
-parent fields
+parent parcels
 
-Each title has one field that acts as the "parent". It stores most of the information related to the title, and pointers to the other fields that make up the title. Every time a title is accessed, the tax is paid.
+Each title has one parcel that acts as the "parent". It stores most of the information related to the title, and pointers to the other parcels that make up the title. Every time a title is accessed, the tax is paid.
 
 * address of who owns this land. 256-bits
 * the price of the land. 48-bits
 * balance in veo. used to pay the continuous tax. 48-bits
 * height. the last block height when the tax was subtracted from the blance. 32-bits
 * area 64-bits
-* a list of points in it's children. The children are fields that are connected to the parent and have the same owner, and are configured to be purchased as a set. 
+* a list of points in it's children. The children are parcels that are connected to the parent and have the same owner, and are configured to be purchased as a set. 
 
 448+(48*N) bits.
 
 
-Child field
+Child parcel
 
 * point in the parent it is linked to.
 
@@ -104,9 +107,8 @@ Stem in binary tree
 
 * 48-bit great circle, used to divide the land between sides of the tree.
 * 48-bit value of land in this part of the tree, measured in VEO
-* 32-bit counter of number of fields in this part of the tree (maybe we shouldn't include this.)
 
-128 bits total
+96 bits total
 
 Transaction type
 ==========
@@ -156,49 +158,50 @@ An operation is only valid if it leaves all land titles valid. If an operation w
   - a point inside of the region being purchased. (unsigned)
 
 * split
-  -as a land owner, you can split a field into 2 new fields, and put different prices on the different parts. The cost of a land-split is higher if your land is deeper in the land tree, so that we can incentivize keeping the tree balanced. 
+  -as a land owner, you can split a parcel into 2 new parcels, and put different prices on the different parts. The cost of a land-split is higher if your land is deeper in the land tree, so that we can incentivize keeping the tree balanced. 
   - location inside of your land 
   - great circle used to divide the land
   - prices for the 2 new titles.
 
 * join
-  -if you own fields that are side by side in the binary tree, you can combine them into a single field. This is the reverse of 'split'. you receive a reward that is proportional to the cost of a split at this depth. 
-  - a location inside one of the fields.
+  -if you own parcels that are side by side in the binary tree, you can combine them into a single parcel. This is the reverse of 'split'. you receive a reward that is proportional to the cost of a split at this depth. 
+  - a location inside one of the parcels.
   - price of the new title.
 
 * link
-  -if you own fields that are physically adjacent, and you don't want to sell one without selling both, then they can be linked. The new price is the sum of the old prices. The new balance is the sum of the old balances. This is also used to change which of your linked fields is the parent. 
-  - a point in the parent field.
-  - a list of points in child fields that you want to link.
+  -if you own parcels that are physically adjacent, and you don't want to sell one without selling both, then they can be linked. The new price is the sum of the old prices. The new balance is the sum of the old balances. This is also used to change which of your linked parcels is the parent. 
+  - a point in the parent parcel.
+  - a list of points in child parcels that you want to link.
 
 * unlink
   -the reverse of link. the resulting shapes need to be self-connected. 
-  - a point in the parent field.
+  - a point in the parent parcel.
   - a point in each child that is getting unlinked.
   - price of the new title.
   - balance of the new title.
 
 * organize
-  -Each field can be identified by the lines that surround it. So, the blockchain can verify that a reorganized binary tree results in everyone owning the same land. The resulting binary tree needs to be more balanced and less deep. It is not permitted to make very fields that don't have any internal points.
-  -Linked fields can be combined.
-  -individual fields can be split in two, the two new fields are linked. 
+  -Each parcel can be identified by the lines that surround it. So, the blockchain can verify that a reorganized binary tree results in everyone owning the same land. The resulting binary tree needs to be more balanced and less deep. It is not permitted to make very parcels that don't have any internal points.
+  -Linked parcels can be combined.
+  -individual parcels can be split in two, the two new parcels are linked. 
   - binary data encoding the new structure for part of the tree.
+  - how much money the creator of the tx gets paid as a reward for organizing.
 
 ((1, 2), (3, 4)), 4 leafs. adding the depths of each leaf makes 8.
 (1, (2, (3, 4))), 4 leafs. adding the depths of each leaf makes 9.
 The sum of depths is lower in the first example, so the first example is more organized.
 
 
-If an account has a title before a reorganization, and after the reorganization the fields in the title all had different borders, how can the blockchain be sure that the new title is identical?
-Convert the fields into cycles of points, if you walk around them clockwise.
-If two cycles share a pair of points in reverse order, then they can be combine into one long cycle. this is the same as putting two bordering fields together into one big one.
+If an account has a title before a reorganization, and after the reorganization the parcels in the title all had different borders, how can the blockchain be sure that the new title is identical?
+Convert the parcels into cycles of points, if you walk around them clockwise.
+If two cycles share a pair of points in reverse order, then they can be combine into one long cycle. this is the same as putting two bordering parcels together into one big one.
 If the title is identical, then the cycle of points will end up being identical.
 
 If every owner's cycles are the same before and afer the update, then the update preserved everyone's titles.
 
-One way this could fail is if after doing an organization, land owners are all incentivized to make transactions to optimize their tax strategy. That is why we need to compute the tax individually for each field. So that owners can't change their tax rate by switching which field is the parent.
+One way this could fail is if after doing an organization, land owners are all incentivized to make transactions to optimize their tax strategy. That is why we need to compute the tax individually for each parcel. So that owners can't change their tax rate by switching which parcel is the parent.
 
-The organizer should choose which field to be the parent based on which field in the title is biggest.
+The organizer should choose which parcel to be the parent based on which parcel in the title is biggest.
 
 Off-chain data and flash loans.
 ================
@@ -230,7 +233,7 @@ But, we need to use a Harberger mechanism to set the prices. So that means the t
 
 There is a minimum tax per title, to reflect the cost of having an entry in the database. This makes it costly to create titles that are excessively tiny.
 
-The binary land tree holds some info at every node. Each node knows how many land fields are below it, and the total value of the titles below it.
+The binary land tree holds some info at every node. Each node knows how many land parcels are below it, and the total value of the titles below it.
 We can use this array of numbers to help approximate the land value tax.
 
 
@@ -250,9 +253,9 @@ The verkle proof of the binary land tree tells us the total value, and total are
 If the verkle proof has n steps.
 V[i], A[i].
 
-`P = A * (sum from i=1 -> n of V[i]/A[i]) / log2(total number of fields in the system)`
+`P = A * (sum from i=1 -> n of V[i]/A[i]) / log2(total number of parcels in the system)`
 
-This sum is re-computed for every field in the title, to find the total tax of that title.
+This sum is re-computed for every parcel in the title, to find the total tax of that title.
 
 
 C1 is for tuning the taxes. If C1 is too high, then there will be too many abandoned properties. If C1 is too low, then there will be absentee landlords aka speculators.

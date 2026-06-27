@@ -1,4 +1,4 @@
-## Amoveo Black Pill
+## Amoveo White Paper 2
 
 The point of this white paper is to show what all the other blockchains are getting wrong, to give a plausible explanation for why we think Amoveo might be able to beat them all.
 The core mistake that the blockchain community is making today is that they think cool features will make the money good. They think that being more fungible, or having better smart contracts, or better markets, or more scalability, will cause the money to be good. The blockchain community is mistaken in their understanding of what money even is.

@@ -1,3 +1,9 @@
+
+
+
+
+
+
 maybe we should use Nostr to pass messages between nodes that want to have contracts together. like the DEX.
 
 
