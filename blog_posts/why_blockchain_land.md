@@ -7,7 +7,7 @@ Land Buyers
 ============
 
 The blockchain can make it must simpler to buy land. You can see the exact dimensions and price of every land title, and there is a button that says "buy", which will immediately buy the land for you.
-With legacy land registries, you need a lawyer, a real estate agent, title insurance, your bank's approval to send the money, the recipient's banks approval to receive the money, etc.
+With legacy land registries, you need a lawyer, a real estate agent, title insurance, your bank's approval to send the money, the recipient's banks approval to receive the money. You need to pay travel costs for all the grandchildren of the previous owner to gather, so they can all sign papers.
 With legacy land registries, you need to double-verify everything. To be sure that the title actually gives you the land that they claim it does, that the title doesn't overlap with any neighbor's titles. On the blockchain it is cryptographically impossible to have titles that overlap.
 
 
