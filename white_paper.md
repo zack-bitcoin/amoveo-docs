@@ -10,9 +10,12 @@ How much would a blockchain land registry be worth?
 ================
 
 A blockchain land registry gives land owners the ability to own land with some leverage. The leverage means that instead of paying the full cost of the land up front when you buy it, you can pay some of the cost as an ongoing fee, in the form of the Harberger tax. When taxes are paid, the tax gets distributed to all holders of VEO. The expectation of receiving taxes is what gives VEO its value.
+
 This leverage works like a mortgage contract, but instead of a bank owning a fraction of your property, it is like the holders of VEO own a fraction of your property.
-The market cap of VEO ends up being (rate of tax payments)/(market interest rate). But, we know that the rate of tax payments is ~(value of land)*(market interest rate)/2, Here we are assuming that the average owner has about 2x leverage.
-So then, by simplifying the expression, the market cap of VEO will be (value of land in the registry)/2.
+The market cap of VEO ends up being `(rate of tax payments)/(market interest rate)`. But, we know that the rate of tax payments is `~(value of land)*(market interest rate)/2`, Here we are assuming that the average owner has about 2x leverage.
+
+So then, by simplifying the expression, the market cap of VEO will be `(value of land in the registry)/2`.
+
 VEO grows when either the amount of land it controls increases, or when the land that it controls increases in value.
 
 The total value of all real estate on earth is on the order of $200 trillion. So, a blockchain registry that managed X% of the real estate would be worth approximately $X trillion.
