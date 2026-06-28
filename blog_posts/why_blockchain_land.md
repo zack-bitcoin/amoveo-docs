@@ -16,7 +16,9 @@ Land Owners
 
 Legacy land registries cause a lot of stress and costs for the land owner. It can be prohibitively expensive to transfer the land or receive an inheritance, so the land ends up being in the name of a dead person. No one wants to invest in land if they aren't certain that it is their own property. It can be hard to get approved for a mortgage to be able to purchase you land. Traditional land registries do not protect your privacy very well. You name is in the public. If you decide that you want to sell, it is a struggle to show potential purchasers what you have. Everyone else is lying about their land titles, if you don't lie, then your price looks bad and no potential buyers will visit. It is a market for lemons.
 
-Blockchain land registries solve all these problems. Transfering the land is as cheap and fast as a payment on the blockchain. Inheritance is as easy as giving your private keys away. Everyone is approved for a mortgage on the blockchain, because we don't a bank loan to enable the mortgage. With a blockchain land registry you can own the land anonymously, because it is just an account address that is listed as the owner. You can use your private key to sign messages as the owner, without needing to reveal your identity. If you want to sell, you can give cryptographic evidence to potential buyers of exactly which land is being sold and it's price. 
+Blockchain land registries solve all these problems. Transfering the land is as cheap and fast as a payment on the blockchain. Inheritance is as easy as giving your private keys away. Everyone is approved for a mortgage on the blockchain, because we don't a bank loan to enable the mortgage. With a blockchain land registry you can own the land anonymously, because it is just an account address that is listed as the owner. You can use your private key to sign messages as the owner, without needing to reveal your identity. If you want to sell, you can give cryptographic evidence to potential buyers of exactly which land is being sold and it's price.
+
+Land owners are not forced to use a mortgage if they dont want one. Each land owner can choose how much leverage they want, from none, up to a hard-coded limit.
 
 Renters
 ============
@@ -38,7 +40,7 @@ So, the government can cut costs by giving a blockchain control over the regions
 Minorities
 ==========
 
-With legacy land registries, your ability to get land depends on things like, whether the bank approves you for a mortgage.
+With legacy land registries, your ability to get land depends on things like whether the bank approves you for a mortgage.
 Depending on how you look or speak, a banker might deny you a loan.
-The blockchain is actually neutral. It doesn't matter what language you speak, or what color your skin is. The blockchain gives the same opportunities to everyone.
+The blockchain is neutral. It doesn't matter what language you speak, or what color your skin is. The blockchain gives the same opportunities to everyone.
 

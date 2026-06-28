@@ -1,50 +1,61 @@
-## Amoveo Black Pill
+Amoveo White Paper
+=============
 
-The point of this white paper is to show what all the other blockchains are getting wrong, to give a plausible explanation for why we think Amoveo might be able to beat them all.
-The core mistake that the blockchain community is making today is that they think cool features will make the money good. They think that being more fungible, or having better smart contracts, or better markets, or more scalability, will cause the money to be good. The blockchain community is mistaken in their understanding of what money even is.
+Amoveo's plan on how to provide services and turn a profit for holders of VEO.
 
-What is money?
+Traditional land registries have lots of shortcomings that [blockchains can solve.](./blog_posts/why_blockchain_land.md)
+It is clear that a blockchain land registry will soon come into existence to serve the many parts of the world that are currently unserved by traditional land registries. It is the goal of Amoveo to be the best land registry available, so that many regions decide to use Amoveo as their land registry.
+
+How much would a blockchain land registry be worth?
+================
+
+A blockchain land registry gives land owners the ability to own land with some leverage. The leverage means that instead of paying the full cost of the land up front when you buy it, you can pay some of the cost as an ongoing fee, in the form of the Harberger tax. When taxes are paid, the tax gets distributed to all holders of VEO. The expectation of receiving taxes is what gives VEO its value.
+This leverage works like a mortgage contract, but instead of a bank owning a fraction of your property, it is like the holders of VEO own a fraction of your property.
+The market cap of VEO ends up being (rate of tax payments)/(market interest rate). But, we know that the rate of tax payments is ~(value of land)*(market interest rate)/2, Here we are assuming that the average owner has about 2x leverage.
+So then, by simplifying the expression, the market cap of VEO will be (value of land in the registry)/2.
+VEO grows when either the amount of land it controls increases, or when the land that it controls increases in value.
+
+The total value of all real estate on earth is on the order of $200 trillion. So, a blockchain registry that managed X% of the real estate would be worth approximately $X trillion.
+
+Cryptographic database of land
 ===============
 
-One way to see money, is as an extention of a historical process. Many people mistakenly think that money is about storing wealth efficiently, or making barter more efficient by solving the coincidence of wants.
-The hard reality is that money is more akin to slavery and serfdom.
+A cryptographic database made such that it is impossible for 2 different land parcels to overlap. 
 
-The reason that slavery became such a successful institution historically is that societies with slavery were able to organize their population on a large scale. Societies that can organize outcompeted the societies that could not organize.
-Slavery allowed the upper class to control everyone else. The upper class could organize the people's labor to coordinate on big projects. Like conquoring neighbors to enslave even more people.
+Amoveo's database uses verkle proofs instead of merkle proofs. This is a kind of zk tech that allows the proofs to be approximately 4x shorter. The verkle proofs make it possible to concisely prove what land you own.
 
-Eventually, serfdom was found to be a more efficient alternative to slavery. Serfdom comes with the benefit that laborers have a little more individual rights and individual property, which incentivized them to work a little harder. Societies with serfdom were able to produce better soldiers with better equipment. This allowed the serfdom societies to outcompete the slavery societies. The transition from slavery to serfdom in Europe relates to the collapse of the Roman empire, and its gradual replacement with feudalism. 
+Amoveo was the first blockchain to use a verkle tree, starting in 2023.
 
-Then, modern money replaced serfdom as the mechanism by which the upper class can exercise its power to coordinate people's labor. Money made laborers feel like they had more control over their own lives, since they choose who to work for. Laborers end up working even harder under a money system, than they would have as serfs. People in the upper class had access to a wider range of laborers under the money system. Money based societies could produce better soldiers with better equipment in comparison to serfdom based societies. The transition from serfdom to money in Europe relates to the Emancipation reform of 1861 in Russia, and the August Decrees of 1789 during the French revolution. 
+Harberger Auction
+===============
 
-Money's primary purpose, the reason that societies with money outcompete those that lack money, is because money allows coordination on a large scale. With money, the upper class can coordinate society to threaten large scale violence on their neighbors. Money is currently more effective at this than slavery or serfdom.
+Harberger taxes are a kind of continuous auction for allocating resources efficiently.
 
-How does money help the upper class coordinate the lower class?
-================
+It has nice properties:
+* whoever can produce the most value from controlling a resource, they are the ones who should have control.
+* If the owner of a resource changes, the previous owner is compensated according to how much that resource is worth to them.
+* Everyone who currently controls a resource, they are incentivized to honestly report the value of that resource to them.
 
-Land owners usually want to have at least some leverage on their properties. That means, instead of needing to pay the entire price of their property up front when they purchase it, they can instead pay it little by little over time. People who want to purchase property appreciate this because the money they earn from the property can help pay for the cost of owning the property.
+Harberger taxes are a kind of game we play to incentivize land owners to honestly reveal the price of their land. Each land owner declares the price of their land. They pay taxes proportional to the price. Anyone can buy the land from them for that price.
 
-There are many ways to give the land owners the leverage that they want. There can be a tax on the land. There can be a tax on some activities done on the land. There can be a tax on the products or service that the land enables.
-A very flexible option is to have banks that make mortgage contracts with land owners, and the bank pays interest on a loan from the central bank.
-According to Henry George, the most efficient way to structure this leverage is with something he calls a Land Value Tax.
+If the land owner chooses too high of a price, then the taxes are higher than necessary. If the land owner chooses too low of a price, then the land can be purchased from them for too low of a price. So, the land owner is incentivized to declare the price honestly.
 
-However you choose to give the land owners the leverage that they want, you end up creating a money-sink in the economy. Using the land requires paying some money as a tax.
-The tax takes the money out of circulation. As long as there is a constant stream of money leaving the economy, then there are necessarily going to be people who don't have enough money to make ends meet.
-That means there is a constant stream of people who need to do labor for money to survive.
-So, the people in the upper class have a constant endless stream of people willing to labor for them.
+This means a land owner cannot refuse to sell their land.
+All land ownership systems need to have some kind of eminent domain rule, to confiscate land from people when it is inefficient for them to own it. 
 
-Putting leverage onto land makes it possible for the physical owner of the land to be different from the ultimate financial beneficiary of that land.
-Physical owners like this because if you can physically control the land, without needing to financially own 100% of the land, then that makes it cheaper to get access to the land you need to start your business.
-This can only work if there is some third party who is willing to own the land, without having any physical control over it. In money systems, this third party is usually either the upper class, the government, or the central bank. In Amoveo, holders of VEO are in this position. When the people who have physical possession of the land pay their tax, that tax is paid to holders of VEO. Holding VEO is the same as being a partial owner in all the land that is registered in the Amoveo land registry.
+Land Value Tax
+===============
 
-What does cryptocurrency lack? 
-================
+According to the Georgist theory of economics, land needs to be taxed the correct amount to be useful for humanity.
+If the tax on land is too high, then the land ends up abandoned. The tax is more than how much you can earn by using the land.
+If the tax on land is too low, then that causes land crisis. Speculators buy land, not to use it, but rather in the hopes that the price will rise and they can sell it for more in the future.
 
-In order to be a good money, cryptocurrency needs to be able to produce a stream of labor for the upper class.
-The size of this stream of labor is proportional to the size of the money-sinks built into the economy.
-The money-sink needs to be enforceable by blockchain, and the participants in the money-sink need to do so voluntarily.
-In order to outcompete fiat money and gold, we need our money-sink to be even bigger than the one that could have been produced under the fiat or gold systems.
+In most parts of the economy, speculators are good. Onion speculators buy the extra onions during a glut, and sell them back to the market when there is a shortage.
+For land, speculators are only bad. We can't create new land, so speculators are only able to reduce the supply of land, they can never increase it.
+The land value tax is defined to prevent speculative investment.
+If the land were to increase in value without any new improvements built on top, then the land value tax would increase just enough so that the price of the land does not change.
 
-The only kind of mechanism that we know of that works this way is a land ownership mechanism. Land owners voluntarily want to participate in the money-sink, because it gives them more leverage. A land registry can be contained in a blockchain's consensus space.
+If Georgist theory of land is correct, and the blockchain does a better job of approximating the land value tax in comparison to legacy land registries, then the land that is inside of the blockchain registry will produce value more quickly than land that is outside of the land registry.
 
 What about land owners who don't want leverage?
 ================
@@ -54,13 +65,34 @@ When you purchase your land, you can decide to not have leverage by simultanious
 By choosing how much VEO they hold, every land owner can choose exactly the amount of leverage they have.
 This is similar to how in fiat money systems, banks can make mortgage contracts with property owners to optimize the leverage on an individual basis.
 
+Flash loans
+===============
 
-More about Amoveo
+A flash loan is a kind of loan of a cryptographic asset, and the loan is paid back in the same transaction that created it. So, it is a zero-second loan that has zero risk.
+Amoveo gives infinite flash loans to anyone who wants them. No matter what asset you need, you can borrow it in any amount. As long as you pay it back in the same transaction.
+
+So for example, if 10 people all made offers to buy 1 hectare each, for $10 each. And there is someone with a 10 hectare plot who wants to sell it for $90. Then, anyone can make a transaction to buy the 10 hectares for $90, and sell them for $100, to make $10 in profit. Even if your starting balance was 0.
+
+A flash loan is a kind of transaction that connects multiple operations into a single atomic unit. For example, if you and 2 friends want to buy land side-by-side, and you want to be certain that you don't end up in a situation where only 1 or 2 of you buys the land, and the 3rd person's purchase fails, and they end up living further away.  You can put all 3 purchase operations into a single flash-loan transaction, so either all 3 purchases succeed, or none of them do.
+
+Learn more
+==============
+
+The [technical specification of the land database](./design/land_registry.md).
+The [Amoveo full node software.](https://github.com/zack-bitcoin/amoveo)
+The [Amoveo wallet.](https://github.com/zack-bitcoin/light-node-amoveo)
+
+Other Amoveo Features
 =============
 
-[read more about Amoveo in our old white paper](white_paper_1.md)
+As cryptocurrency technology advances, there are certain features that become industry standards. Amoveo has many features that are not directly important for land registry purposes, but are still necessary so that Amoveo is up to date with the modern technology.
 
-Amoveo has lots of good tech. If a different blockchain had better tech, we could just copy their code.
-
-But, tech and features are not the key battlegrounds. Rather, becoming the first blockchain land registry is the most important goal right now. 
-
+* [Stateless full nodes.](https://hackmd.io/@Luckify/HJvbhv_mWe) 
+* Turing complete smart contracts.
+* Turing complete state channels.
+* Decentralized exchange for swapping between VEO and any other cryptocurrency.
+* Harberger auction enforced employment contracts. To employ humans.
+* [Decentralized trustless oracles.](./design/oracle.md)
+* Uniswap style constant product markets.
+* Prediction markets.
+* [Futarchy.](./design/futarchy.md)
