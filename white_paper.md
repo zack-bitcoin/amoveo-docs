@@ -18,7 +18,7 @@ So then, by simplifying the expression, the market cap of VEO will be `(value of
 
 VEO grows when either the amount of land it controls increases, or when the land that it controls increases in value.
 
-The total value of all real estate on earth is on the order of $200 trillion. So, a blockchain registry that managed X% of the real estate would be worth approximately $X trillion.
+The total value of all real estate on earth is about $200 trillion. So, a blockchain registry that managed X% of the real estate would be worth approximately $X trillion.
 
 Cryptographic database of land
 ===============

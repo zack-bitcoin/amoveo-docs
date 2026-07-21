@@ -89,19 +89,21 @@ Each title has one parcel that acts as the "parent". It stores most of the infor
 
 * address of who owns this land. 256-bits
 * the price of the land. 48-bits
+* the price of the parent. 48-bits
 * balance in veo. used to pay the continuous tax. 48-bits
 * height. the last block height when the tax was subtracted from the blance. 32-bits
 * area 64-bits
 * a list of points in it's children. The children are parcels that are connected to the parent and have the same owner, and are configured to be purchased as a set. 
 
-448+(48*N) bits.
+496+(48*N) bits.
 
 
 Child parcel
 
 * point in the parent it is linked to.
+* price of the parcel
 
-48 bits.
+98 bits.
 
 Stem in binary tree
 
