@@ -49,7 +49,7 @@ Burning
 ===============
 
 Burning some coins is equivalent to distributing those coins to all other holders of that kind of coin.
-If you destroy 1/nth of the coins, then each coin becomes (n+1)/n times more valuable. 
+If you destroy 1/nth of the coins, then each coin becomes n/n-1 times more valuable. 
 
 Mining
 ==============
