@@ -35,14 +35,14 @@ next_target = anchor_target * 2^(exponent)
 
 where:
 
-    * anchor block is the block where Bcash split from Bitcoin.
-    * anchor_target is the unsigned 256 bit integer equivalent of the nBits value in the header of the anchor block.
-    * time_delta is the difference, in signed integer seconds, between the timestamp in the header of the current block and the timestamp in the parent of the anchor block.
-    * ideal_block_time is a constant: 600 seconds, the targeted average time between blocks.
-    * height_delta is the difference in block height between the current block and the anchor block.
-    * halflife is a constant parameter sometimes referred to as
-    * ‘tau’, with a value of 172800 (seconds) on mainnet.
-    * next_target is the integer value of the target computed for the block after the current block.
+* anchor block is the block where Bcash split from Bitcoin.
+* anchor_target is the unsigned 256 bit integer equivalent of the nBits value in the header of the anchor block.
+* time_delta is the difference, in signed integer seconds, between the timestamp in the header of the current block and the timestamp in the parent of the anchor block.
+* ideal_block_time is a constant: 600 seconds, the targeted average time between blocks.
+* height_delta is the difference in block height between the current block and the anchor block.
+* halflife is a constant parameter sometimes referred to as
+* ‘tau’, with a value of 172800 (seconds) on mainnet.
+* next_target is the integer value of the target computed for the block after the current block.
 
 Amoveo DAA
 =================
@@ -51,9 +51,6 @@ Amoveo's DAA started as a copy of Bitcoins, but it had to be changed several tim
 
 Every block has a header. Full nodes and light nodes both need to download and verify all of the block headers.
 
-Amoveo is targetting a block time of 600 seconds.
-Target = 600 
-
 For every header N, has a difficulty. This is the expected number of hashes you need to compute to mine this header. Diff[N]
 
 For every header N, we calculate and store a value EWAH[N].
@@ -61,11 +58,13 @@ The EWAH is the Estimated Weighted Average Hashrate. It is an approximation of h
 We can calculate the EWAH of a header like this:
 
 T = how much time passed between header N-1 and header N according to the timestamps on those headers.
+```
 Hashrate0 = Diff[N] / T
 EWAH[N] = 20/((1/Hashrate0) + (19/EWAH[N-1]))
+```
 
 We use these EWAH values to calculate what the difficulty should be at each block height.
-
+```
 Estimate = Diff[N-1] / EWAH[N-1]
 
 if (Estimate > (Diff[N-1] * 3 / 2)) {
@@ -75,6 +74,7 @@ if (Estimate > (Diff[N-1] * 3 / 2)) {
 } else {
    Diff[N] = Diff[N-1]
 }
+```
 
 Theory behind Amoveo DAA
 =================
