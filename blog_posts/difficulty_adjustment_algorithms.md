@@ -30,8 +30,10 @@ Bitcoin Cash switched their DAA several times after forking off from bitcoin. Th
 
 They use deterministic tools to approximate this formula:
 
+```
 exponent = (time_delta - ideal_block_time * (height_delta + 1)) / halflife
 next_target = anchor_target * 2^(exponent)
+```
 
 where:
 
