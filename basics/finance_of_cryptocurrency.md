@@ -34,7 +34,7 @@ How many golden eggs would someone need to pay you to convince you to sell them 
 For this example, the risk free interest rate is 4% and the goose lays one egg per year.
 
 The goose is worth as much as all of the eggs it will produce, but, this year's egg is worth 4% more to us than next year's egg. Because you can invest this year's egg and earn 4% interest.
-Similarly, next year's egg is worth 4% more than the egg that will be layed 2 years in the future.
+Similarly, next year's egg is worth 4% more than the egg that will be laid 2 years in the future.
 
 It is a geometric series!
 
@@ -49,17 +49,18 @@ Burning
 ===============
 
 Burning some coins is equivalent to distributing those coins to all other holders of that kind of coin.
-If you destroy 1/nth of the coins, then each coin becomes n/n-1 times more valuable. 
+If you destroy 1/nth of the coins, then each coin becomes n/n-1 times more valuable.
+This is kind of like how a share buy-back is used to reward shareholders.
 
 Mining
 ==============
 
-Mining for block rewards is a process of converting value from electricity format into cryptocurrency format. It has the effect of increasing the total number of coins, without changing the price of an individual coin.
+Mining for block rewards is a process of converting value from electricity format into cryptocurrency format. It has the effect of increasing the total number of coins, without changing the price of an individual coin. 
 
 Transaction Fees
 =============
 
-A transaction fee for an amount of currency X is the same thing as burning X and having the miners receive a block reward of X.
+A transaction fee for an amount of currency X is the same thing as the combination of burning X and having the miners receive a block reward of X.
 
 Calculating the intrinsic value of a cryptocurrency
 ================
