@@ -84,16 +84,20 @@ Theory behind Amoveo DAA
 http://hyperphysics.phy-astr.gsu.edu/hbase/oscda.html
 
 If we model the difficulty of a blockchain as a harmonic oscillator, it becomes easier to see some of the kinds of problems that DAA can have.
+
 If the DAA doesn't cause a friction type effect in the oscillator, then energy in the system is conserved. Oscillations can grow wildly.
 
 Most DAA have certain frequencies that they are most vulnerable to. As the oscillations get worse, the vulnerable frequency gets slower. Because it takes longer for the blockchain to escape from the high-difficulty side of the oscillations.
+
 If 2 blockchains are oscillating at the same frequency, then the miners start hopping back and forth between them. This usually causes mutually destructive interactions, and can result in the weaker of the two blockchains halting it's block production, once the cost of finding a block becomes much bigger than the reward for finding a block.
 These oscillations can be beneficial for the larger or more stable blockchain. They can subsidize the security budget by buying cheap hashpower from the minority chain when its price is lower.
 
-In physical oscillators, they keep moving because energy is conserved. The energy keeps transforming from kinetic to potential
-In blockchain difficulty oscillators, something is conserved as well. When we are at the correct difficulty, the miners are changing strategy quickly. And when we are at the incorrect difficulty, there are incentives to bring us back to balance.
+In physical oscillators, they keep moving because energy is conserved. The energy keeps transforming from kinetic to potential.
+
+In blockchain difficulty oscillators, something is conserved as well. When we are at the correct difficulty, the miners are changing strategy quickly. And when the number of miners is stable, we are at the incorrect difficulty.
 
 How do engineers deal with oscillations? They damp them, with friction. They apply a force in the opposite direction of motion. To calculate this force, it isn't enough to know where the harmonic oscillator is currently located. You need to know it's velocity as well.
+
 With a normal harmonic oscillator, the position tells you the forces.
 The damped harmonic oscillator, you need to know the position and the velocity (the derivative of position) to calculate the force.
 For a blockchain difficulty damped harmonic oscillator, it isn't enough to know the current hashrate. You need to know hashrate and how hashrate is changing (the derivative of hashrate).
