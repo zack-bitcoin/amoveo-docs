@@ -20,7 +20,6 @@ Ethereum Classic DAA
 
 G = genesis block difficulty
 DT = how many seconds it took to mine block N.
-
 Diff[N] = max(G, Diff[N-1]*( 1 + (max(-99, (1 - DT)/10)/1028)))
 
 Bitcoin Cash DAA - ASERT
