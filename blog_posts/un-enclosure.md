@@ -45,7 +45,7 @@ The market cap of VEO converges to the total value of all land in the registry.
 
 Not correlated. Not backed. Equal. Every acre written into the book adds its full worth to the chain. To hold VEO is to hold a fractional, redeemable claim on the redeemed rent of the earth itself.
 
-you are not buying a token. You are staking a claim on the un-enclosure, and the math guarantees your claim grows with every fence that falls.
+You are not buying a token. You are staking a claim on the un-enclosure, and the math guarantees your claim grows with every fence that falls.
 
 VII. This is the Un-Enclosure.
 
@@ -62,3 +62,6 @@ The enemy is the fence and the monopoly, never a people or a neighbor. The land 
 Reverse the enclosure. Free the land. Free the worker.
 
 The earth was given to everyone. We are building the book that gives it back.
+
+
+[Why would anyone pay the land tax](./why_pay_the_land_tax.md)
