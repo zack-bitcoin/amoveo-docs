@@ -149,18 +149,18 @@ BEGIN {
         Retarget[i] = 2016
 	Reward[i] = 100
 	#Diff[i, 0] = 1000000
-	Diff[i, 0] = 20000
+	Diff[i, 0] = 60000
 	Height[i] = 0
 	LoyalHashrate[i] = 100
 	Target[i] = 600
 	Time[i, 0] = 0
     }
     Reward[1] = 5000
-    Diff[2, 0] = 1000
+    Diff[2, 0] = 600
     LoyalHashrate[2] = 1
     
     Retarget[2] = 28
-    SelfishHashrate = 10
+    SelfishHashrate = 0
     #SelfishHashrate = 0
     
     #TotalHashrate = total_hashrate(0)
@@ -219,16 +219,16 @@ function diff_increment(diff, N){
 }
 
 function print_results(N) {
-    print(Slots[N, 1]/Height[N] "blocks below 10 seconds")
-    print(Slots[N, 2]/Height[N] "blocks between 10 and 60 seconds")
-    print(Slots[N, 3]/Height[N] "blocks between 1 and 5 minutes")
-    print(Slots[N, 4]/Height[N] "blocks between 5 and 10 minutes")
-    print(Slots[N, 5]/Height[N] "blocks between 10 and 20 minutes")
-    print(Slots[N, 6]/Height[N] "blocks between 20 and 40 minutes")
-    print(Slots[N, 7]/Height[N] "blocks between 40 and 80 minutes")
-    print(Slots[N, 8]/Height[N] "blocks between 80 and 160  minutes")
-    print(Slots[N, 9]/Height[N] "blocks between 160 and 320  minutes")
-    print(Slots[N, 10]/Height[N] "blocks took longer than 320 minutes")
+    print(Slots[N, 1]/Height[N] " blocks below 10 seconds")
+    print(Slots[N, 2]/Height[N] " blocks between 10 and 60 seconds")
+    print(Slots[N, 3]/Height[N] " blocks between 1 and 5 minutes")
+    print(Slots[N, 4]/Height[N] " blocks between 5 and 10 minutes")
+    print(Slots[N, 5]/Height[N] " blocks between 10 and 20 minutes")
+    print(Slots[N, 6]/Height[N] " blocks between 20 and 40 minutes")
+    print(Slots[N, 7]/Height[N] " blocks between 40 and 80 minutes")
+    print(Slots[N, 8]/Height[N] " blocks between 80 and 160  minutes")
+    print(Slots[N, 9]/Height[N] " blocks between 160 and 320  minutes")
+    print(Slots[N, 10]/Height[N] " blocks took longer than 320 minutes")
 
 }
     
