@@ -110,7 +110,9 @@ function min(a, b){
 }
 function next_diff(Chain, PrevDiff, H, N){
     if(Chain == "satoshi"){
-	if((H % 2016) == 0){
+        retarget = Retarget[N]
+	#if((H % 2016) == 0){
+	if((H % retarget) == 0){
 	    DT = Time[N, Height[N]] - Time[N, Height[N]-2016]
 	    #NextDiff = Target[N] * 100000000 / DT #
 	    NextDiff = PrevDiff * Target[N] * 2016 / DT # 
@@ -140,26 +142,31 @@ BEGIN {
     Chain[1] = "satoshi" #100-coin reward 2016 blocks per period, targetting 600 seconds per block
     #Chain[2] = "etc" #
     Chain[2] = "satoshi" #
-    Chain[3] = "bcash" #block-time of 600,
-    Chain[4] = "amoveo" #block-time of 600, exponential weighting factor of 20
+    #Chain[3] = "bcash" #block-time of 600,
+    #Chain[4] = "amoveo" #block-time of 600, exponential weighting factor of 20
 
     for(i=1; i<=Chains; i++){
+        Retarget[i] = 2016
 	Reward[i] = 100
 	#Diff[i, 0] = 1000000
 	Diff[i, 0] = 20000
 	Height[i] = 0
-	LoyalHashrate[i] = 10
+	LoyalHashrate[i] = 100
 	Target[i] = 600
 	Time[i, 0] = 0
     }
-    Reward[1] = 1000
+    Reward[1] = 5000
+    Diff[2, 0] = 1000
+    LoyalHashrate[2] = 1
     
-    SelfishHashrate = 100
+    Retarget[2] = 28
+    SelfishHashrate = 10
     #SelfishHashrate = 0
     
-    TotalHashrate = total_hashrate(0)
+    #TotalHashrate = total_hashrate(0)
 
-    Cycles = 600*2016*5
+    #Cycles = 600*2016*5
+    Cycles = 600*2016*2
     
     simulate(Cycles)
     for(i=1; i<=Chains; i++){
@@ -169,8 +176,59 @@ BEGIN {
     #X = i*2016
 	#print(X " " Diff[1, X] " " Time[1, X])
     #}
-    print((Time[1, Height[1]] - Time[1, Height[1]-2016])/ 2016 " cycles per block  on chain 1")
-    print((Time[2, Height[2]] - Time[2, Height[2]-2016])/ 2016 " cycles per block  on chain 2")
+    print((Time[1, Height[1]] - Time[1, 1])/ Height[1] " seconds per block  on chain 1")
+    print((Time[2, Height[2]] - Time[2, 1])/ Height[2] " seconds per block  on chain 2")
     #print(Time[2, Height[2]] / Height[2] " cycles per block  on chain 2")
+    for(i=1; i<=Height[1]; i++){
+        diff1 = (Time[1, i] - Time[1, i-1])
+        diff_increment(diff1, 1)
+    }
+    for(i=1; i<=Height[2]; i++){
+        diff2 = (Time[2, i] - Time[2, i-1])
+        diff_increment(diff2, 2)
+    }
+    print("for bitcoin")
+    print_results(1)
+    print("for a 288 retargeting period version")
+    print_results(2)
 }
 
+function diff_increment(diff, N){
+    if(diff < 10){
+        Slots[N, 1]+=1
+    } else if(diff < 60) {
+        Slots[N, 2]+=1
+    } else if(diff < 300) {
+        Slots[N, 3]+=1
+    } else if(diff < 600) {
+        Slots[N, 4]+=1
+    } else if(diff < 1200) {
+        Slots[N, 5]+=1
+    } else if(diff < 2400) {
+        Slots[N, 6]+=1
+    } else if(diff < 4800){
+        Slots[N, 7]+=1
+    } else if(diff < 9600){
+        Slots[N, 8]+=1
+    } else if(diff < 19200){
+        Slots[N, 9]+=1
+    } else{
+        Slots[N, 10] += 1
+        print("chain " N " height " i " " int(diff / 60) " minutes ")
+    }
+}
+
+function print_results(N) {
+    print(Slots[N, 1]/Height[N] "blocks below 10 seconds")
+    print(Slots[N, 2]/Height[N] "blocks between 10 and 60 seconds")
+    print(Slots[N, 3]/Height[N] "blocks between 1 and 5 minutes")
+    print(Slots[N, 4]/Height[N] "blocks between 5 and 10 minutes")
+    print(Slots[N, 5]/Height[N] "blocks between 10 and 20 minutes")
+    print(Slots[N, 6]/Height[N] "blocks between 20 and 40 minutes")
+    print(Slots[N, 7]/Height[N] "blocks between 40 and 80 minutes")
+    print(Slots[N, 8]/Height[N] "blocks between 80 and 160  minutes")
+    print(Slots[N, 9]/Height[N] "blocks between 160 and 320  minutes")
+    print(Slots[N, 10]/Height[N] "blocks took longer than 320 minutes")
+
+}
+    
