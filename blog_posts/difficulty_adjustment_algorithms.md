@@ -50,6 +50,14 @@ Amoveo DAA
 
 Amoveo's DAA started as a copy of Bitcoins, but it had to be changed several times. The current algorithm has been working well for years, under a variety of conditions. Amoveo uses deterministic tools to approximate this.
 
+Many blockchains use something akin to an exponentially weighted mean, over the estimate of hashrate of the recent blocks. 
+
+```Estimate(N) = ((Estimate(N-1)*99) + (hashrate(N)))/100```
+
+Amoveo instead uses a harmonic mean, which looks like this:
+
+```Estimate(N) = 20/((19/Estimate(N-1) )+ (1/(hashrate(N))))```
+
 Every block has a header. Full nodes and light nodes both need to download and verify all of the block headers.
 
 For every header N, has a difficulty. This is the expected number of hashes you need to compute to mine this header. Diff[N]
