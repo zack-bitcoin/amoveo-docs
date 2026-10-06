@@ -113,9 +113,9 @@ function next_diff(Chain, PrevDiff, H, N){
         retarget = Retarget[N]
 	#if((H % 2016) == 0){
 	if((H % retarget) == 0){
-	    DT = Time[N, Height[N]] - Time[N, Height[N]-2016]
+	    DT = Time[N, Height[N]] - Time[N, Height[N]-retarget]
 	    #NextDiff = Target[N] * 100000000 / DT #
-	    NextDiff = PrevDiff * Target[N] * 2016 / DT # 
+	    NextDiff = PrevDiff * Target[N] * retarget / DT # 
 	    NextDiff = max(NextDiff, Diff[N, H-1]/4)
 	    NextDiff = min(NextDiff, Diff[N, H-1]*4)
 	    #print("next diff satoshi Now: " Now " H: " H " N: " N " diff1: " Diff[N, H-1] " diff2: " NextDiff " target: " Target[N] " dt: " DT)
@@ -142,6 +142,7 @@ BEGIN {
     Chain[1] = "satoshi" #100-coin reward 2016 blocks per period, targetting 600 seconds per block
     #Chain[2] = "etc" #
     Chain[2] = "satoshi" #
+    #Chain[2] = "amoveo" #
     #Chain[3] = "bcash" #block-time of 600,
     #Chain[4] = "amoveo" #block-time of 600, exponential weighting factor of 20
 
@@ -160,7 +161,7 @@ BEGIN {
     LoyalHashrate[2] = 1
     
     Retarget[2] = 28
-    SelfishHashrate = 0
+    SelfishHashrate = 10
     #SelfishHashrate = 0
     
     #TotalHashrate = total_hashrate(0)
