@@ -108,7 +108,7 @@ function min(a, b){
     if(a < b){return(a)}
     else{return(b)}
 }
-function next_diff(Chain, PrevDiff, H, N){
+function next_diff(Chain, PrevDiff, H, N,       retarget, DT, NextDiff){
     if(Chain == "satoshi"){
         retarget = Retarget[N]
 	#if((H % 2016) == 0){
@@ -129,6 +129,32 @@ function next_diff(Chain, PrevDiff, H, N){
 
     } else if(Chain == "amoveo"){
 
+        #hashrate = hashes / DT
+        # ewah[N] = 20/((1/hashrate) + (19/ewah[N-1]))
+
+
+        DT = Time[N, Height[N]] - Time[N, Height[N]-1]
+        Hashrate0 = PrevDiff / DT
+        EWAH[H] = 20/((1/Hashrate0) + (19/EWAH[H-1])) #harmonic with exponential weigting
+        #EWAH[H] = ((Hashrate0) + (19*EWAH[H-1]))/20 #simple exponential weighting
+
+        NextDiff = EWAH[H] * Target[N]
+
+        return(NextDiff)
+
+        #Estimate = Diff[N, H-1] / EWAH[H-1]
+        #if (Estimate > (Diff[N, H-1] * 3 / 2)) {
+        #    Diff[N, H] = Diff[N, H-1] * 3 / 2 / Estimate
+        #} else if (Estimate < (Diff[N-1] * 3 / 4)){
+        #    Diff[N, H] = Diff[N, H-1] * 3 / 4 / Estimate
+        #} else {
+        #    Diff[N, H] = Diff[N, H-1] / Estimate
+        #}
+        #if(Diff[N, H] < 1){
+        #    print("amoveo diff error")
+        #    exit
+        #}
+        #return(Diff[N, H])
     }
 }
 
@@ -141,8 +167,8 @@ BEGIN {
 
     Chain[1] = "satoshi" #100-coin reward 2016 blocks per period, targetting 600 seconds per block
     #Chain[2] = "etc" #
-    Chain[2] = "satoshi" #
-    #Chain[2] = "amoveo" #
+    #Chain[2] = "satoshi" #
+    Chain[2] = "amoveo" #
     #Chain[3] = "bcash" #block-time of 600,
     #Chain[4] = "amoveo" #block-time of 600, exponential weighting factor of 20
 
@@ -150,12 +176,15 @@ BEGIN {
         Retarget[i] = 2016
 	Reward[i] = 100
 	#Diff[i, 0] = 1000000
-	Diff[i, 0] = 60000
+	Diff[i, 0] = 67000
 	Height[i] = 0
 	LoyalHashrate[i] = 100
 	Target[i] = 600
 	Time[i, 0] = 0
     }
+
+    EWAH[0] = 1
+
     Reward[1] = 5000
     Diff[2, 0] = 600
     LoyalHashrate[2] = 1
