@@ -94,7 +94,7 @@ function total_hashrate(Height,      t, i){
 function simulate(N,       SHWinner, i) {
     #each cycle of the simulator is 1 second, because it takes about 1 second for blocks to propagate, so smaller resolution isn't useful. When things happen in the same second, different participants find out about the two events in different orders, so it is effectively simultanious. 
     if((N % 100000) == 0){
-	print("simulate round " N)
+	#print("simulate round " N)
     }
     if(N < 1){
 	print("simulate ended")
@@ -163,7 +163,7 @@ function next_diff(Chain, PrevDiff, H, N,       retarget, DT, NextDiff, D, NextC
         retarget = Retarget[N]
 	#if((H % 2016) == 0){
 	if((H % retarget) == 0){
-	    DT = Time[N, Height[N]] - Time[N, Height[N]-retarget]
+	    DT = Time[N, H] - Time[N, H-retarget]
 	    NextDiff = PrevDiff * Target[N] * retarget / DT # 
 	    NextDiff = max(NextDiff, PrevDiff/4)
 	    NextDiff = min(NextDiff, PrevDiff*4)
@@ -174,7 +174,7 @@ function next_diff(Chain, PrevDiff, H, N,       retarget, DT, NextDiff, D, NextC
     } else if(Chain == "sztorc"){
         retarget = Retarget[N]
 	if((H % retarget) == 0){#checking that it is a block height we retarget at.
-	    DT = Time[N, Height[N]] - Time[N, Height[N]-retarget]
+	    DT = Time[N, H] - Time[N, H-retarget]
 	    NextDiff = PrevDiff * Target[N] * retarget / DT # 
 	    NextDiff = max(NextDiff, PrevDiff/4)
 	    NextDiff = min(NextDiff, PrevDiff*4)
@@ -182,12 +182,19 @@ function next_diff(Chain, PrevDiff, H, N,       retarget, DT, NextDiff, D, NextC
 
             if((Cap > 0)&&(NextDiff < PrevDiff)&&(D > Cap)){
                     #hit both rails
-                NextDiff = (NextDiff + PrevDiff)/2#surely this should be sqrt(NextDiff * PrevDiff)
+                #print("both rails prev: " PrevDiff " next according to satoshi: " NextDiff ", harmonic mean: " 2/((1/NextDiff) + (1/PrevDiff)))
+                NextDiff = 2/((1/NextDiff) + (1/PrevDiff))
+                #NextDiff = (NextDiff + PrevDiff)/2
+                #NextDiff = sqrt(NextDiff * PrevDiff)
+                print("diff " NextDiff "both rails, top then bottom")
                 NextCap = 0
                 return(NextDiff)
             } else if ((Cap < 0)&&(NextDiff > PrevDiff)&&(D > (-Cap))){
                     #hit both rails
-                NextDiff = (NextDiff + PrevDiff)/2
+                NextDiff = 2/((1/NextDiff) + (1/PrevDiff))
+                #NextDiff = (NextDiff + PrevDiff)/2
+                #NextDiff = sqrt(NextDiff*PrevDiff)
+                print("diff " NextDiff "both rails, bottom then top")
                 Cap = 0
                 return(NextDiff)
             } else if(NextDiff > (PrevDiff * 1.5)){
@@ -200,6 +207,7 @@ function next_diff(Chain, PrevDiff, H, N,       retarget, DT, NextDiff, D, NextC
                 NextCap = -0.9 * D
             }
             Cap = NextCap
+            print("diff " NextDiff)
             return(NextDiff)
 	} else {
 	    return(Diff[N, H-1])
@@ -207,9 +215,9 @@ function next_diff(Chain, PrevDiff, H, N,       retarget, DT, NextDiff, D, NextC
 
     } else if(Chain == "ASERT"){
         AnchorTarget = 1/Diff[N, 0]
-        TimeDelta = Time[N, Height[N]]
+        TimeDelta = Time[N, H]
         IdealBlockTime = 600
-        HeightDelta = Height[N]
+        HeightDelta = H
         Halflife = 172800
         Exponent = (TimeDelta - (IdealBlockTime * (HeightDelta + 1))) / Halflife
         #print("ASERT diff " TimeDelta, HeightDelta, Exponent, (AnchorTarget * (2^Exponent)))
@@ -217,7 +225,7 @@ function next_diff(Chain, PrevDiff, H, N,       retarget, DT, NextDiff, D, NextC
         #print("ASERT new diff: " 1/ThisTarget, Exponent, TimeDelta, (IdealBlockTime * (HeightDelta+1)))
         return(1/ThisTarget)
     } else if(Chain == "harmonic"){
-        DT = Time[N, Height[N]] - Time[N, Height[N]-1]
+        DT = Time[N, H] - Time[N, H-1]
         Hashrate0 = PrevDiff / DT
         #EWAH[H] = 144/((1/Hashrate0) + (143/EWAH[H-1])) #harmonic with exponential weigting
         EWAH[H] = 20/((1/Hashrate0) + (19/EWAH[H-1])) #harmonic with exponential weigting
