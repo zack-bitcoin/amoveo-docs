@@ -9,7 +9,7 @@
 #Diff[N] = Diff[N-1] + int(Diff[N-1]/2048) * max((1 - DT)/10, -99)
 
 #bitcoin cash ASERT
-#exponent = (time_delta - ideal_block_time * (height_delta + 1)) / halflife
+#exponent = (time_delta - (ideal_block_time * (height_delta + 1))) / halflife
 #next_target = anchor_target * 2^(exponent)
 #* anchor block is the block where Bcash split from Bitcoin.
 #* anchor_target is the unsigned 256 bit integer equivalent of the nBits value in the header of the anchor block.
@@ -32,6 +32,36 @@
 #} else {
 #   Diff[N] = Diff[N-1]
 #}
+
+#Sztorc's anti-oscillation DAA
+#H1 = Very High threshold = +50%
+#H2 = High threshold= +25%
+
+#L1 = -5%
+#L2 = -10%
+
+#P = { 80% , 90% }
+#U = { 3, 1 }
+
+#Whenever the DA exceeds...
+
+#.. H1, then cap future difficulty retracement by P1*D
+#.. L2, then cap future difficulty retracement by P2*D.
+
+
+#Where D is always the distance traveled by the DA.
+
+#So:
+
+#1G --> 4G , + 300 % , D= 3G
+#10.6G --> 4.2 G , - 60% , D = 6.4
+
+
+#Rule 1: When difficulty ROSE last adjustment, but now FELL by a LARGE amount (by >5%), then cap it TEMPORARILY (only for the FOLLOWING adjustment) at 90% of the distance back to the "too high" value.
+#Rule 2: When difficulty ROSE last adjustment, but now FELL by a LARGE amount (by >10%), then cap it TEMPORARILY (only for the FOLLOWING adjustment) at 80% of the distance back to the "too high" value.
+#Rule 3: When difficulty FELL last adjustment, but now ROSE by a LARGE amount (by >25%), then cap it TEMPORARILY (only for the FOLLOWING adjustment) at 90% of the distance to the "too low" value.
+#Rule 4: When difficulty FELL last adjustment, but now ROSE by a LARGE amount (by >50%), then cap it TEMPORARILY (only for the FOLLOWING adjustment) at 80% of the distance to the "too low" value.
+#Rule 5: If you ever hit //both// guardrails in a row (the upper one and then the lower one), then override the usual difficulty calculation, and instead set the difficulty //directly// to the Arithmetic Average of the two guardrails that you hit.
 
 function reward_per_hash(Node, Height) {
     if(!(Diff[Node, Height])){
@@ -71,6 +101,21 @@ function simulate(N,       SHWinner, i) {
 	return(0)}
     SHWinner = selfish_hashrate_winner(Now)
     #print(SHWinner " has the best returns.")
+    if((N % (SECONDS_PER_DAY*1))== 0){
+        SelfishHashrate = int(SelfishHashrate * 4)
+    } else if((N % (SECONDS_PER_DAY*1) == int(SECONDS_PER_DAY/2))){
+        SelfishHashrate = int(SelfishHashrate / 4)
+    }
+
+#    if(N == int(Cycles / 4)){
+#        SelfishHashrate = int(SelfishHashrate / 4)
+#    }
+#    if(N == int(2 * Cycles / 4)){
+#        SelfishHashrate = int(SelfishHashrate * 16)
+#    }
+#    if(N == int(3 * Cycles / 4)){
+#        SelfishHashrate = int(SelfishHashrate / 4)
+#    }
     for(i=1; i<=Chains; i++){
 	if(i == SHWinner){
 	    search_block(i, LoyalHashrate[i] + SelfishHashrate, Diff[i, Height[i]])
@@ -96,9 +141,14 @@ function search_block(N, Hashrate, D,      R) {
 	Height[N] += 1
 	Time[N, Height[N]] = Now
 	Diff[N, Height[N]] = next_diff(Chain[N], Diff[N, Height[N]-1], Height[N], N)
+        #print(Chain[N], Height[N], Diff[N, Height[N]])
     } else {
 	#print("no block found")
     }
+}
+function abs(x) {
+    if(x > 0){return(x)}
+    else{return(-x)}
 }
 function max(a, b){
     if(a > b){return(a)}
@@ -108,40 +158,74 @@ function min(a, b){
     if(a < b){return(a)}
     else{return(b)}
 }
-function next_diff(Chain, PrevDiff, H, N,       retarget, DT, NextDiff){
+function next_diff(Chain, PrevDiff, H, N,       retarget, DT, NextDiff, D, NextCap){
     if(Chain == "satoshi"){
         retarget = Retarget[N]
 	#if((H % 2016) == 0){
 	if((H % retarget) == 0){
 	    DT = Time[N, Height[N]] - Time[N, Height[N]-retarget]
-	    #NextDiff = Target[N] * 100000000 / DT #
 	    NextDiff = PrevDiff * Target[N] * retarget / DT # 
-	    NextDiff = max(NextDiff, Diff[N, H-1]/4)
-	    NextDiff = min(NextDiff, Diff[N, H-1]*4)
-	    #print("next diff satoshi Now: " Now " H: " H " N: " N " diff1: " Diff[N, H-1] " diff2: " NextDiff " target: " Target[N] " dt: " DT)
+	    NextDiff = max(NextDiff, PrevDiff/4)
+	    NextDiff = min(NextDiff, PrevDiff*4)
 	    return(NextDiff)
 	} else {
 	    return(Diff[N, H-1])
 	}
-    } else if(Chain == "etc"){
+    } else if(Chain == "sztorc"){
+        retarget = Retarget[N]
+	if((H % retarget) == 0){#checking that it is a block height we retarget at.
+	    DT = Time[N, Height[N]] - Time[N, Height[N]-retarget]
+	    NextDiff = PrevDiff * Target[N] * retarget / DT # 
+	    NextDiff = max(NextDiff, PrevDiff/4)
+	    NextDiff = min(NextDiff, PrevDiff*4)
+            D = abs(NextDiff - PrevDiff)
 
-    } else if(Chain == "bcash"){
+            if((Cap > 0)&&(NextDiff < PrevDiff)&&(D > Cap)){
+                    #hit both rails
+                NextDiff = (NextDiff + PrevDiff)/2#surely this should be sqrt(NextDiff * PrevDiff)
+                NextCap = 0
+                return(NextDiff)
+            } else if ((Cap < 0)&&(NextDiff > PrevDiff)&&(D > (-Cap))){
+                    #hit both rails
+                NextDiff = (NextDiff + PrevDiff)/2
+                Cap = 0
+                return(NextDiff)
+            } else if(NextDiff > (PrevDiff * 1.5)){
+                NextCap = 0.8 * D
+            } else if (NextDiff > (PrevDiff * 1.25)){
+                NextCap = 0.9 * D
+            } else if (NextDiff < (PrevDiff * 0.5)){
+                NextCap = -0.8 * D
+            } else if (NextDiff < (PrevDiff * 0.75)){
+                NextCap = -0.9 * D
+            }
+            Cap = NextCap
+            return(NextDiff)
+	} else {
+	    return(Diff[N, H-1])
+	}
 
-    } else if(Chain == "amoveo"){
-
-        #hashrate = hashes / DT
-        # ewah[N] = 20/((1/hashrate) + (19/ewah[N-1]))
-
-
+    } else if(Chain == "ASERT"){
+        AnchorTarget = 1/Diff[N, 0]
+        TimeDelta = Time[N, Height[N]]
+        IdealBlockTime = 600
+        HeightDelta = Height[N]
+        Halflife = 172800
+        Exponent = (TimeDelta - (IdealBlockTime * (HeightDelta + 1))) / Halflife
+        #print("ASERT diff " TimeDelta, HeightDelta, Exponent, (AnchorTarget * (2^Exponent)))
+        ThisTarget = AnchorTarget * (2^Exponent)
+        #print("ASERT new diff: " 1/ThisTarget, Exponent, TimeDelta, (IdealBlockTime * (HeightDelta+1)))
+        return(1/ThisTarget)
+    } else if(Chain == "harmonic"){
         DT = Time[N, Height[N]] - Time[N, Height[N]-1]
         Hashrate0 = PrevDiff / DT
+        #EWAH[H] = 144/((1/Hashrate0) + (143/EWAH[H-1])) #harmonic with exponential weigting
         EWAH[H] = 20/((1/Hashrate0) + (19/EWAH[H-1])) #harmonic with exponential weigting
-        #EWAH[H] = ((Hashrate0) + (19*EWAH[H-1]))/20 #simple exponential weighting
-
+        #EWAH[H] = ((Hashrate0) + (99*EWAH[H-1]))/100 #simple exponential weighting
         NextDiff = EWAH[H] * Target[N]
-
         return(NextDiff)
 
+        #this is for the anti-oscillation mechanism. skipping for now.
         #Estimate = Diff[N, H-1] / EWAH[H-1]
         #if (Estimate > (Diff[N, H-1] * 3 / 2)) {
         #    Diff[N, H] = Diff[N, H-1] * 3 / 2 / Estimate
@@ -160,6 +244,7 @@ function next_diff(Chain, PrevDiff, H, N,       retarget, DT, NextDiff){
 
 
 BEGIN {
+    SECONDS_PER_DAY = 60*60*24
     srand()
     Now = 0
 
@@ -168,29 +253,42 @@ BEGIN {
     Chain[1] = "satoshi" #100-coin reward 2016 blocks per period, targetting 600 seconds per block
     #Chain[2] = "etc" #
     #Chain[2] = "satoshi" #
-    Chain[2] = "amoveo" #
-    #Chain[3] = "bcash" #block-time of 600,
-    #Chain[4] = "amoveo" #block-time of 600, exponential weighting factor of 20
+    Chain[2] = "sztorc" #
+    #Chain[2] = "ASERT" #
+    #Chain[3] = "ASERT" #block-time of 600,
+    #Chain[4] = "harmonic" #block-time of 600, exponential weighting factor of 20
+
+    Cap = 0 #used for sztorc
+    HitRail = 0
 
     for(i=1; i<=Chains; i++){
-        Retarget[i] = 2016
+        #Retarget[i] = 2016
+        Retarget[i] = 256
 	Reward[i] = 100
 	#Diff[i, 0] = 1000000
-	Diff[i, 0] = 67000
+	#Diff[i, 0] = 67000
 	Height[i] = 0
-	LoyalHashrate[i] = 100
+	LoyalHashrate[i] = 5
 	Target[i] = 600
 	Time[i, 0] = 0
     }
+    LoyalHashrate[1] = 50
+    Reward[1] = 1000
+    #Reward[1] = 100
+    for(i=1; i<=Chains; i++){
+        Diff[i, 0] = Reward[i]*80
+    }
 
-    EWAH[0] = 1
+    EWAH[0] = 25
 
-    Reward[1] = 5000
-    Diff[2, 0] = 600
-    LoyalHashrate[2] = 1
+    #Diff[2, 0] = 600  #for harmonic
+    #Diff[3, 0] = 1300  #for ASERT
+#    LoyalHashrate[2] = 5
+#    LoyalHashrate[3] = 5
     
     Retarget[2] = 28
-    SelfishHashrate = 10
+    #SelfishHashrate = 100
+    SelfishHashrate = 50
     #SelfishHashrate = 0
     
     #TotalHashrate = total_hashrate(0)
@@ -206,21 +304,20 @@ BEGIN {
     #X = i*2016
 	#print(X " " Diff[1, X] " " Time[1, X])
     #}
-    print((Time[1, Height[1]] - Time[1, 1])/ Height[1] " seconds per block  on chain 1")
-    print((Time[2, Height[2]] - Time[2, 1])/ Height[2] " seconds per block  on chain 2")
+    for(j=1; j<=Chains; j++){
+    print((Time[j, Height[j]] - Time[j, 1])/ Height[j] " seconds per block  on chain " Chain[j])
+    }
     #print(Time[2, Height[2]] / Height[2] " cycles per block  on chain 2")
-    for(i=1; i<=Height[1]; i++){
-        diff1 = (Time[1, i] - Time[1, i-1])
-        diff_increment(diff1, 1)
+    for(j=1; j<=Chains; j++){
+        for(i=1; i<=Height[j]; i++){
+            diff1 = (Time[j, i] - Time[j, i-1])
+            diff_increment(diff1, j)
+        }
     }
-    for(i=1; i<=Height[2]; i++){
-        diff2 = (Time[2, i] - Time[2, i-1])
-        diff_increment(diff2, 2)
+    for(j=1; j<=Chains; j++){
+    print("for " Chain[j])
+    print_results(j)
     }
-    print("for bitcoin")
-    print_results(1)
-    print("for a 288 retargeting period version")
-    print_results(2)
 }
 
 function diff_increment(diff, N){
