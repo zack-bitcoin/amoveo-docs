@@ -59,7 +59,7 @@
 
 #Rule 1: When difficulty ROSE last adjustment, but now FELL by a LARGE amount (by >5%), then cap it TEMPORARILY (only for the FOLLOWING adjustment) at 90% of the distance back to the "too high" value.
 #Rule 2: When difficulty ROSE last adjustment, but now FELL by a LARGE amount (by >10%), then cap it TEMPORARILY (only for the FOLLOWING adjustment) at 80% of the distance back to the "too high" value.
-#Rule 3: When difficulty FELL last adjustment, but now ROSE by a LARGE amount (by >25%), then cap it TEMPORARILY (only for the FOLLOWING adjustment) at 90% of the distance to the "too low" value.
+#Rule 3: When difficulty FEL last adjustment, but now ROSE by a LARGE amount (by >25%), then cap it TEMPORARILY (only for the FOLLOWING adjustment) at 90% of the distance to the "too low" value.
 #Rule 4: When difficulty FELL last adjustment, but now ROSE by a LARGE amount (by >50%), then cap it TEMPORARILY (only for the FOLLOWING adjustment) at 80% of the distance to the "too low" value.
 #Rule 5: If you ever hit //both// guardrails in a row (the upper one and then the lower one), then override the usual difficulty calculation, and instead set the difficulty //directly// to the Arithmetic Average of the two guardrails that you hit.
 
@@ -72,11 +72,11 @@ function reward_per_hash(Node, Height) {
     return(Reward[Node] / Diff[Node, Height])
 }
 function selfish_hashrate_winner(Time,      max, max_counter, i, X) {
+    #this tells us which blockchain gets the selfish hashrate right now.
     max = 0
     max_counter = 0
     for(i=1; i<= Chains; i++){
 	X = reward_per_hash(i, Height[i])
-	#print("chain " i " has rewards of " X)
 	if(X > max){
 	    max = X
 	    max_counter = i
@@ -84,38 +84,15 @@ function selfish_hashrate_winner(Time,      max, max_counter, i, X) {
     }
     return(max_counter)
 }
-function total_hashrate(Height,      t, i){
-    t = 0
-    for(i=1; i<=Chains; i++){
-	t += Diff[i, Height]
-    }
-    return(t + Selfish_Hashrate)
-}
 function simulate(N,       SHWinner, i) {
     #each cycle of the simulator is 1 second, because it takes about 1 second for blocks to propagate, so smaller resolution isn't useful. When things happen in the same second, different participants find out about the two events in different orders, so it is effectively simultanious. 
     if((N % 100000) == 0){
 	#print("simulate round " N)
     }
     if(N < 1){
-	print("simulate ended")
+	print("simulation ended")
 	return(0)}
     SHWinner = selfish_hashrate_winner(Now)
-    #print(SHWinner " has the best returns.")
-    if((N % (SECONDS_PER_DAY*1))== 0){
-        SelfishHashrate = int(SelfishHashrate * 4)
-    } else if((N % (SECONDS_PER_DAY*1) == int(SECONDS_PER_DAY/2))){
-        SelfishHashrate = int(SelfishHashrate / 4)
-    }
-
-#    if(N == int(Cycles / 4)){
-#        SelfishHashrate = int(SelfishHashrate / 4)
-#    }
-#    if(N == int(2 * Cycles / 4)){
-#        SelfishHashrate = int(SelfishHashrate * 16)
-#    }
-#    if(N == int(3 * Cycles / 4)){
-#        SelfishHashrate = int(SelfishHashrate / 4)
-#    }
     for(i=1; i<=Chains; i++){
 	if(i == SHWinner){
 	    search_block(i, LoyalHashrate[i] + SelfishHashrate, Diff[i, Height[i]])
@@ -128,20 +105,16 @@ function simulate(N,       SHWinner, i) {
 }
 
 function found_block(Hashrate, Diff){
-    #If the blockchain would have found more than 1 block in a cycle, this simulation counts that as only 1 block. this makes the simulation simpler and faster, without significant sacrificing accuracy, as long the rate of block production is slower than the cycle length.
+    #If the blockchain would have found more than 1 block in a second, this simulation counts that as only 1 block. this makes the simulation simpler and faster, without significant sacrificing accuracy, as long the rate of block production is slower than the cycle length.
     R = rand()
-    #print("looking for block " R " " Diff " " Hashrate " " (1 - (1/Diff)) " " ((1 - (1/Diff)) ^ Hashrate) " " (R > ((1 - (1/Diff)) ^ Hashrate)))
     return(R > ((1 - (1/Diff)) ^ Hashrate))
-    #return(R < math:pow(1 - (1/Diff), Hashrate))
 }
 
 function search_block(N, Hashrate, D,      R) {
     if(found_block(Hashrate, D)){
-	#print("found block " N)
 	Height[N] += 1
 	Time[N, Height[N]] = Now
 	Diff[N, Height[N]] = next_diff(Chain[N], Diff[N, Height[N]-1], Height[N], N)
-        #print(Chain[N], Height[N], Diff[N, Height[N]])
     } else {
 	#print("no block found")
     }
@@ -174,26 +147,27 @@ function next_diff(Chain, PrevDiff, H, N,       retarget, DT, NextDiff, D, NextC
     } else if(Chain == "sztorc"){
         retarget = Retarget[N]
 	if((H % retarget) == 0){#checking that it is a block height we retarget at.
-	    DT = Time[N, H] - Time[N, H-retarget]
+	    DT = Time[N, H] - Time[N, H-retarget] #time that passed since we last retargetted.
 	    NextDiff = PrevDiff * Target[N] * retarget / DT # 
 	    NextDiff = max(NextDiff, PrevDiff/4)
 	    NextDiff = min(NextDiff, PrevDiff*4)
+            #now NextDiff is what it would be for Satoshi DAA
             D = abs(NextDiff - PrevDiff)
 
             if((Cap > 0)&&(NextDiff < PrevDiff)&&(D > Cap)){
                     #hit both rails
                 #print("both rails prev: " PrevDiff " next according to satoshi: " NextDiff ", harmonic mean: " 2/((1/NextDiff) + (1/PrevDiff)))
-                NextDiff = 2/((1/NextDiff) + (1/PrevDiff))
-                #NextDiff = (NextDiff + PrevDiff)/2
-                #NextDiff = sqrt(NextDiff * PrevDiff)
+                NextDiff = 2/((1/NextDiff) + (1/PrevDiff))#harmonic
+                #NextDiff = (NextDiff + PrevDiff)/2#arithmetic
+                #NextDiff = sqrt(NextDiff * PrevDiff)#geometric
                 print("diff " NextDiff "both rails, top then bottom")
                 NextCap = 0
                 return(NextDiff)
             } else if ((Cap < 0)&&(NextDiff > PrevDiff)&&(D > (-Cap))){
                     #hit both rails
-                NextDiff = 2/((1/NextDiff) + (1/PrevDiff))
-                #NextDiff = (NextDiff + PrevDiff)/2
-                #NextDiff = sqrt(NextDiff*PrevDiff)
+                NextDiff = 2/((1/NextDiff) + (1/PrevDiff))#harmonic
+                #NextDiff = (NextDiff + PrevDiff)/2#arithmetic
+                #NextDiff = sqrt(NextDiff*PrevDiff)#geometric
                 print("diff " NextDiff "both rails, bottom then top")
                 Cap = 0
                 return(NextDiff)
@@ -220,9 +194,7 @@ function next_diff(Chain, PrevDiff, H, N,       retarget, DT, NextDiff, D, NextC
         HeightDelta = H
         Halflife = 172800
         Exponent = (TimeDelta - (IdealBlockTime * (HeightDelta + 1))) / Halflife
-        #print("ASERT diff " TimeDelta, HeightDelta, Exponent, (AnchorTarget * (2^Exponent)))
         ThisTarget = AnchorTarget * (2^Exponent)
-        #print("ASERT new diff: " 1/ThisTarget, Exponent, TimeDelta, (IdealBlockTime * (HeightDelta+1)))
         return(1/ThisTarget)
     } else if(Chain == "harmonic"){
         DT = Time[N, H] - Time[N, H-1]
@@ -294,28 +266,20 @@ BEGIN {
 #    LoyalHashrate[2] = 5
 #    LoyalHashrate[3] = 5
     
-    Retarget[2] = 28
-    #SelfishHashrate = 100
+    #Retarget[2] = 28
     SelfishHashrate = 50
     #SelfishHashrate = 0
     
-    #TotalHashrate = total_hashrate(0)
 
-    #Cycles = 600*2016*5
     Cycles = 600*2016*2
     
     simulate(Cycles)
     for(i=1; i<=Chains; i++){
 	print("chain number " i " with rule " Chain[i] " finished at height " Height[i] " and difficulty: " Diff[i, Height[i]])
     }
-    #for(i=1; i<=(max(Height[1],  Height[2])/2016); i++){
-    #X = i*2016
-	#print(X " " Diff[1, X] " " Time[1, X])
-    #}
     for(j=1; j<=Chains; j++){
     print((Time[j, Height[j]] - Time[j, 1])/ Height[j] " seconds per block  on chain " Chain[j])
     }
-    #print(Time[2, Height[2]] / Height[2] " cycles per block  on chain 2")
     for(j=1; j<=Chains; j++){
         for(i=1; i<=Height[j]; i++){
             diff1 = (Time[j, i] - Time[j, i-1])
