@@ -87,7 +87,8 @@ function selfish_hashrate_winner(Time,      max, max_counter, i, X) {
 function simulate(N,       SHWinner, i) {
     #each cycle of the simulator is 1 second, because it takes about 1 second for blocks to propagate, so smaller resolution isn't useful. When things happen in the same second, different participants find out about the two events in different orders, so it is effectively simultanious. 
     if((N % 100000) == 0){
-	#print("simulate round " N)
+        #print("diff " Diff[1, Height[1]], Diff[2, Height[2]])
+	print("simulate round " N)
     }
     if(N < 1){
 	print("simulation ended")
@@ -196,11 +197,55 @@ function next_diff(Chain, PrevDiff, H, N,       retarget, DT, NextDiff, D, NextC
         Exponent = (TimeDelta - (IdealBlockTime * (HeightDelta + 1))) / Halflife
         ThisTarget = AnchorTarget * (2^Exponent)
         return(1/ThisTarget)
+    } else if(Chain == "smooth2"){
+        retarget = Retarget[N]
+	if((H % retarget) == 0){
+            DT = Time[N, H] - Time[N, H-retarget]
+            Hashrate0 = PrevDiff / DT
+            EWAH[H] = 2/((1/Hashrate0) + (1/EWAH[H-retarget])) 
+            NextDiff = EWAH[H] * Target[N] * retarget
+	    NextDiff = max(NextDiff, PrevDiff/4)
+	    NextDiff = min(NextDiff, PrevDiff*4)
+            print("smooth2 " H, DT, Hashrate0, EWAH[H], NextDiff)
+	    return(NextDiff)
+	} else {
+	    return(Diff[N, H-1])
+	}
+    } else if(Chain == "daily"){
+        #retarget = Retarget[N]
+        retarget = int(Retarget[1] / 14)
+	if((H % retarget) == 0){
+            DT = Time[N, H] - Time[N, H-retarget]
+            Hashrate0 = PrevDiff / DT
+            EWAH[H] = 14/((1/Hashrate0) + (13/EWAH[H-retarget])) 
+            NextDiff = EWAH[H] * Target[N] * retarget
+	    NextDiff = max(NextDiff, PrevDiff/4)
+	    NextDiff = min(NextDiff, PrevDiff*4)
+	    return(NextDiff)
+	} else {
+	    return(Diff[N, H-1])
+	}
+    } else if(Chain == "bi-daily"){
+        #retarget = Retarget[N]
+        retarget = int(Retarget[1] / 7)
+	if((H % retarget) == 0){
+            DT = Time[N, H] - Time[N, H-retarget]
+            Hashrate0 = PrevDiff / DT
+            #print("bi daily " Time[N, H], Time[N, H-retarget], DT, Hashrate0)
+            EWAH[H] = 7/((1/Hashrate0) + (6/EWAH[H-retarget])) 
+            NextDiff = EWAH[H] * Target[N] * retarget
+	    NextDiff = max(NextDiff, PrevDiff/4)
+	    NextDiff = min(NextDiff, PrevDiff*4)
+	    return(NextDiff)
+	} else {
+	    return(Diff[N, H-1])
+	}
     } else if(Chain == "harmonic"){
         DT = Time[N, H] - Time[N, H-1]
         Hashrate0 = PrevDiff / DT
         #EWAH[H] = 144/((1/Hashrate0) + (143/EWAH[H-1])) #harmonic with exponential weigting
-        EWAH[H] = 20/((1/Hashrate0) + (19/EWAH[H-1])) #harmonic with exponential weigting
+        #EWAH[H] = 20/((1/Hashrate0) + (19/EWAH[H-1])) #harmonic with exponential weigting
+        EWAH[H] = 300/((1/Hashrate0) + (299/EWAH[H-1])) #harmonic with exponential weigting
         #EWAH[H] = ((Hashrate0) + (99*EWAH[H-1]))/100 #simple exponential weighting
         NextDiff = EWAH[H] * Target[N]
         return(NextDiff)
@@ -233,8 +278,10 @@ BEGIN {
     Chain[1] = "satoshi" #100-coin reward 2016 blocks per period, targetting 600 seconds per block
     #Chain[2] = "etc" #
     #Chain[2] = "satoshi" #
-    Chain[2] = "sztorc" #
-    #Chain[2] = "ASERT" #
+    #Chain[2] = "sztorc" #
+    #Chain[2] = "satoshi" #
+    #Chain[2] = "smooth" #
+    Chain[2] = "harmonic" #
     #Chain[3] = "ASERT" #block-time of 600,
     #Chain[4] = "harmonic" #block-time of 600, exponential weighting factor of 20
 
@@ -252,14 +299,16 @@ BEGIN {
 	Target[i] = 600
 	Time[i, 0] = 0
     }
+    #Retarget[2] = int(256 / 7)#for bi-daily
     LoyalHashrate[1] = 50
-    Reward[1] = 1000
+    Reward[1] = 1100
     #Reward[1] = 100
     for(i=1; i<=Chains; i++){
         Diff[i, 0] = Reward[i]*80
     }
 
     EWAH[0] = 25
+    EWAH[1] = 25
 
     #Diff[2, 0] = 600  #for harmonic
     #Diff[3, 0] = 1300  #for ASERT
